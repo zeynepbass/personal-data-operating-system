@@ -1,0 +1,72 @@
+[
+  {
+    "id": "todo-1",
+    "title": "To Do",
+    "color": "purple",
+    "tasks": [
+      {
+        "id": "task-1",
+        "title": "Next.js öğren",
+        "label": "Frontend",
+        "date": "2026-06-29"
+      },
+      {
+        "id": "task-2",
+        "title": "UI Tasarımı",
+        "label": "Design",
+        "date": "2026-06-30"
+      }
+    ]
+  },
+  {
+    "id": "todo-2",
+    "title": "To Do - Backlog",
+    "color": "orange",
+    "tasks": [
+      {
+        "id": "task-3",
+        "title": "React Hook'ları öğren",
+        "label": "Frontend",
+        "date": "2026-09-29"
+      },
+      {
+        "id": "task-4",
+        "title": "Design system oluştur",
+        "label": "Design",
+        "date": "2026-06-30"
+      }
+    ]
+  },
+  {
+    "id": "doing-1",
+    "title": "Doing",
+    "color": "green",
+    "tasks": [
+      {
+        "id": "task-5",
+        "title": "API entegrasyonu",
+        "label": "Backend",
+        "date": "2026-07-01"
+      },
+      {
+        "id": "task-6",
+        "title": "UI fixler",
+        "label": "Frontend",
+        "date": "2026-07-01"
+      }
+    ]
+  },
+  {
+    "id": "done-1",
+    "title": "Done",
+    "color": "gray",
+    "tasks": [
+      {
+        "id": "task-7",
+        "title": "Proje kurulumu",
+        "label": "Setup",
+        "date": "2026-07-28"
+      }
+    ]
+  }
+]
