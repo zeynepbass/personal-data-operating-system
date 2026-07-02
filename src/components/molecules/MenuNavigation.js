@@ -6,7 +6,7 @@ export const MenuNavigation = ({ setView, view }) => {
 
   const getClass = (key) =>
     view === key
-      ? "bg-indigo-50 border-indigo-500 text-indigo-700"
+      ? "bg-indigo-50 border-[#555A8A]text-[#555A8A]"
       : "border-transparent text-gray-500 hover:text-indigo-700 hover:border-indigo-300";
 
   return (

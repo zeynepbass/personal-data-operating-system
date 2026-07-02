@@ -39,7 +39,7 @@ export const Board = ({
         <Button
           text="+ Yeni Görev"
           onClick={() => setOpen(true)}
-          className="w-full md:w-auto"
+          className="w-full md:w-auto    hover:text-white"
         />
       </header>
 
@@ -74,7 +74,7 @@ export const Board = ({
 
         {view === "kanban" && (
           <DragDropContext onDragEnd={onDragEnd}>
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
               {data.map((column) => (
                 <Column
                   key={column.id}

@@ -74,7 +74,7 @@ export const TableView = ({ rows ,openMenuId,onMenuClick}) => {
 
                 {openMenuId === task.id && (
                   <div className="absolute right-0 top-10 bg-white  shadow rounded-lg text-sm z-50">
-                    <Button text="Düzenle"/>
+                    <Button text="Düzenle" className="hover:text-white"/>
 
                   </div>
                 )}

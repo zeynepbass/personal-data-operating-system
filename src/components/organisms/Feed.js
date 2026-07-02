@@ -53,7 +53,7 @@ export const Feed = ({ data, onToggle }) => {
 
           <div className="mt-5 space-y-3">
             <div className="flex overflow-hidden rounded-xl border border-slate-200">
-              <div className="flex min-w-[70px] items-center justify-center bg-[#555A8A] px-4 text-sm font-semibold text-white">
+              <div className="flex min-w-17.5 items-center justify-center bg-[#555A8A] px-4 text-sm font-semibold text-white">
                 10:00
               </div>
 
@@ -106,7 +106,7 @@ export const Feed = ({ data, onToggle }) => {
           </div>
 
           <div className="mt-8 overflow-x-auto">
-            <div className="flex min-w-[420px] items-end justify-between gap-6 px-2">
+            <div className="flex min-w-105 items-end justify-between gap-6 px-2">
               {[
                 ["Pzt", "h-12"],
                 ["Sal", "h-20"],

@@ -39,7 +39,7 @@ export const ListView = ({ tasks = [], onToggle, onMenuClick, openMenuId }) => {
 
     {openMenuId === task.id && (
       <div className="absolute right-0 top-8 z-50">
-        <Button text="Düzenle" />
+        <Button text="Düzenle" className="hover:text-white"/>
       </div>
     )}
   </div>

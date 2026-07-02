@@ -54,7 +54,7 @@ export const TaskCard=({
                         mt-4
                         rounded-lg
                         bg-indigo-100
-                        text-indigo-700
+                       text-[#555A8A]
                         px-3
                         py-1
                         text-xs

@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import { useMemo, useState } from "react";
-import columns from "@/mocks/data.json"
+import columns from "@/mocks/data.json";
 export const useBoard = () => {
   const [view, setView] = useState("list");
   const [data, setData] = useState(columns);
@@ -10,12 +10,21 @@ export const useBoard = () => {
     title: "",
     description: "",
     label: "",
+    assignee: "",
+
     priority: "Medium",
     status: "Todo",
-    assignee: "",
     startDate: "",
     dueDate: "",
     estimatedHours: "",
+
+    type: "pdf",
+    size: "",
+    date: "",
+    icon: "pdf",
+    color: "red",
+    favorite: false,
+    shared: false,
   });
 
   const handleChange = (e) => {
@@ -26,9 +35,9 @@ export const useBoard = () => {
       [name]: value,
     }));
   };
-const onClose=()=>{
-  setOpen(false)
-}
+  const onClose = () => {
+    setOpen(false);
+  };
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -64,9 +73,7 @@ const onClose=()=>{
       prev.map((column) => ({
         ...column,
         tasks: column.tasks.map((task) =>
-          task.id === taskId
-            ? { ...task, completed: !task.completed }
-            : task
+          task.id === taskId ? { ...task, completed: !task.completed } : task
         ),
       }))
     );
@@ -75,7 +82,6 @@ const onClose=()=>{
   const handleMenuClick = (taskId) => {
     setOpenMenuId((prev) => (prev === taskId ? null : taskId));
   };
-
 
   const onDragEnd = ({ source, destination }) => {
     if (!destination) return;
@@ -118,7 +124,6 @@ const onClose=()=>{
         return column;
       })
     );
-
   };
   return {
     view,
@@ -131,7 +136,8 @@ const onClose=()=>{
     setData,
     rows,
     handleChange,
-    open, setOpen,
+    open,
+    setOpen,
     openMenuId,
     handleToggle,
     handleMenuClick,

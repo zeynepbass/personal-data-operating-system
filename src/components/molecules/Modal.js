@@ -38,129 +38,108 @@ export const Modal = ({
         <div className="max-h-[75vh] overflow-y-auto p-6">
           <form onSubmit={onSubmit} className="space-y-8">
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-6">
-              <Heading title="Görev Bilgileri" />
-              <div className="space-y-5">
+              <Heading title="Belge Bilgileri" />
+
+              <div className="mt-5 space-y-5">
                 <Input
-                  text="   Görev Başlığı"
+                  text="Belge Adı"
                   name="title"
                   value={form.title}
                   onChange={handleChange}
                   type="text"
-                  placeholder="Örn. Dashboard tasarımını tamamla"
-                  className="w-full h-[5vh] rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-purple-500 focus:ring-2 focus:ring-purple-100"
+                  placeholder="Örn. System Design.pdf"
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-[#555A8A] focus:ring-2 focus:ring-purple-100"
                 />
+
                 <Textarea
                   label="Açıklama"
                   name="description"
                   value={form.description}
                   onChange={handleChange}
-                  placeholder="Görev hakkında detaylı bilgi giriniz..."
+                  placeholder="Belge hakkında kısa bir açıklama..."
                 />
               </div>
             </div>
+
             <div className="rounded-xl border border-gray-200 bg-white p-6">
-  <Heading title="Atama Bilgileri" />
+              <Heading title="Dosya Bilgileri" />
 
-  <div className="mt-5 grid grid-cols-1 items-center gap-5 md:grid-cols-2">
-    <Input
-      text="Etiket"
-      type="text"
-      name="label"
-      value={form.label}
-      onChange={handleChange}
-      placeholder="Frontend"
-     className=" w-full rounded-xl border text-gray-500 border-gray-300 p-2 outline-none transition focus:border-purple-500 focus:ring-2 focus:ring-purple-100"
-    />
+              <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
+                <Input
+                  text="Etiket"
+                  type="text"
+                  name="label"
+                  value={form.label}
+                  onChange={handleChange}
+                  placeholder="Frontend"
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-[#555A8A] focus:ring-2 focus:ring-purple-100"
+                />
 
-    <Select
-      text="Atanan Kişi"
-      name="assignee"
-      value={form.assignee}
-      onChange={handleChange}
-      placeholder="Kullanıcı Seç"
-      className="w-full"
-      options={[
-        { value: "Zeynep", label: "Zeynep" },
-        { value: "Ahmet", label: "Ahmet" },
-        { value: "Mehmet", label: "Mehmet" },
-      ]}
-    />
-  </div>
-</div>
+                <Select
+                  text="Belge Türü"
+                  name="type"
+                  value={form.type}
+                  onChange={handleChange}
+                  placeholder="Belge Türü"
+                  options={[
+                    { value: "pdf", label: "📄 PDF" },
+                    { value: "doc", label: "📝 Word" },
+                    { value: "ppt", label: "📊 PowerPoint" },
+                    { value: "image", label: "🖼️ Resim" },
+                    { value: "json", label: "💻 JSON" },
+                    { value: "zip", label: "🗂️ ZIP" },
+                  ]}
+                />
+              </div>
+            </div>
 
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-6">
-              <Heading title="Görev Durumu" />
-              <div className="grid grid-cols-2 gap-5">
+              <Heading title="Belge Ayarları" />
+
+              <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
                 <Select
-                  text="Öncelik"
-                  name="priority"
-                  value={form.priority}
+                  text="Renk"
+                  name="color"
+                  value={form.color}
                   onChange={handleChange}
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-purple-500 focus:ring-2 focus:ring-purple-100"
-                  placeholder="Kullanıcı Seç"
+                  placeholder="Renk"
                   options={[
-                    { value: "Low", label: "🟢 Low" },
-                    { value: "Medium", label: "🟡 Medium" },
-                    { value: "High", label: "🟠 High" },
-                    { value: "Critical", label: "🔴 Critical" },
+                    { value: "red", label: "🔴 Kırmızı" },
+                    { value: "blue", label: "🔵 Mavi" },
+                    { value: "green", label: "🟢 Yeşil" },
+                    { value: "orange", label: "🟠 Turuncu" },
+                    { value: "purple", label: "🟣 Mor" },
+                    { value: "gray", label: "⚪ Gri" },
                   ]}
                 />
 
                 <Select
-                  name="status"
-                  text="Durum"
-                  value={form.status}
+                  text="Paylaşım"
+                  name="shared"
+                  value={String(form.shared)}
                   onChange={handleChange}
-                  className="w-full rounded-xl border text-gray-200 border-gray-300 px-4 py-3 outline-none transition focus:border-purple-500 focus:ring-2 focus:ring-purple-100"
-                  placeholder="Durum"
+                  placeholder="Paylaşım"
                   options={[
-                    { value: "Todo", label: "🟣 Todo" },
-                    { value: "In Progress", label: "🟠 In Progress" },
-                    { value: "Review", label: "⚪ Review" },
-                    { value: "Done", label: "🟢 Done" },
+                    { value: "false", label: "🔒 Özel" },
+                    { value: "true", label: "🌍 Paylaşıldı" },
                   ]}
                 />
               </div>
             </div>
 
             <div className="rounded-xl border border-gray-200 bg-white p-6">
-              <Heading title="Planlama" />
+              <Heading title="Dosya Yükleme" />
 
-              <div className="grid gap-2">
-  
-                  <Input
-                    type="date"
-                    text="Başlangıç Tarihi"
-                    name="startDate"
-                    value={form.startDate}
-                    onChange={handleChange}
-                    placeholder="Tarih"
-                    className="w-full  text-gray-500 rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-purple-500 focus:ring-2 focus:ring-purple-100"
-                  />
-           
-
+              <div className="mt-5">
                 <Input
-                  type="date"
-                  text="Bitiş Tarihi"
-                  name="dueDate"
-                  value={form.dueDate}
+                  text="PDF / Belge Seç"
+                  type="file"
+                  name="file"
+                  accept=".pdf,.doc,.docx,.ppt,.pptx,.png,.jpg,.jpeg,.json,.zip"
                   onChange={handleChange}
-                  placeholder="Tarih"
-                  className="w-full rounded-xl border text-gray-500 border-gray-300 px-4 py-3 outline-none transition focus:border-purple-500 focus:ring-2 focus:ring-purple-100"
+                  className="w-full rounded-xl border border-dashed border-gray-300 p-4"
                 />
-         <Input
-                  type="number"
-                  text="Tahmini Süre (Saat)"
-                  name="estimatedHours"
-                  value={form.estimatedHours}
-                  onChange={handleChange}
-                  placeholder="8"
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-purple-500 focus:ring-2 focus:ring-purple-100"
-                />
-</div>
-  
-       
-   
+              </div>
             </div>
 
             <div className="flex justify-end gap-4 border-t border-gray-200 pt-6">
@@ -168,14 +147,16 @@ export const Modal = ({
                 type="button"
                 text="İptal"
                 onClick={onClose}
-                className="rounded-xl border border-gray-300 bg-white px-6 py-3 text-gray-700 hover:bg-gray-100"
+                className="rounded-xl border border-gray-200
+                 bg-white px-6 py-3 font-medium
+                      text-gray-800
+                   transition-all duration-200
+                    hover:border-[#555A8A]
+                     hover:bg-gray-50
+                hover:text-gray-400
+               "
               />
-
-              <Button
-                type="submit"
-                text="Görevi Oluştur"
-                className="rounded-xl bg-purple-600 px-6 py-3 text-white hover:bg-purple-700"
-              />
+              <Button type="submit" text="Belgeyi Yükle" className=" hover:text-white" />
             </div>
           </form>
         </div>
