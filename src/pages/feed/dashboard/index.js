@@ -1,21 +1,8 @@
-import { FeedHeader, AiFooter } from "@/components/molecules";
+"use client";
 import { Feed } from "@/components/organisms";
+import { useFeed } from "@/features/hooks/feed/useFeed";
 export default function Dashboard() {
-  return (
-    <>
-      <div className="mx-auto ">
-        <FeedHeader
-          title="Günaydın, Zeynep! 👋"
-          description="Bugün harika işler seni bekliyor."
-        />
+  const { data } = useFeed();
+  return <Feed data={data} />
 
-        <Feed />
-        <AiFooter
-          title="AI Önerileri"
-          description="Bugün 3 görevin kaldı."
-          info="React çalışmaya devam etmeni öneriyorum."
-        />
-      </div>
-    </>
-  );
 }

@@ -1,9 +1,10 @@
 export {FeedHeader} from "./FeedHeader"
 export {AiFooter} from "./AiFooter"
-export {SearchBar} from "./SearchBar"
+
 export {List} from "./List"
 export {Column} from "./Column"
 export {TaskCard} from "./TaskCard"
 export {MenuNavigation} from "./MenuNavigation"
 export {ListView} from "./ListView"
 export {TableView} from "./TableView"
+export {Modal} from "./Modal"

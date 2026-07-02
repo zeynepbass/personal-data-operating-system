@@ -1,108 +1,153 @@
 import { Select, Input, Heading } from "@/components/atoms";
-import { List } from "@/components/molecules";
-export const Feed = () => {
+import { FeedHeader, List, AiFooter } from "@/components/molecules";
+
+export const Feed = ({ data, onToggle }) => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <div className="bg-white rounded-2xl shadow p-5">
-        <Heading title="Bugünkü Görevler" />
+    <div className="space-y-6">
+      <FeedHeader
+        title="Günaydın, Zeynep! 👋"
+        description="Bugün harika işler seni bekliyor."
+      />
 
-        <div className="space-y-3 ">
-          <Input />
-        </div>
-      </div>
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
 
-      <div className="bg-white rounded-2xl shadow p-5  ">
-        <Heading title="Takvim" />
+        <section className="rounded-2xl bg-white p-5 shadow transition hover:shadow-lg">
+          <Heading title="Bugünkü Görevler" />
 
-        <p className=" text-gray-600 mt-3">29 Haziran 2024 Cumartesi</p>
+          <div className="mt-5 flex flex-col gap-3">
+            {data
+              .flatMap((column) => column.tasks)
+              .slice(0, 3)
+              .map((task) => (
+                <div
+                  key={task.id}
+                  className="flex items-center gap-3 rounded-xl border border-gray-100 p-3 transition hover:bg-gray-50"
+                >
+                  <Input
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={() => onToggle(task.id)}
+                    className="h-4 w-4 accent-purple-600"
+                  />
 
-        <div className="mt-2 space-y-2 ">
-          <div className="flex rounded-xl overflow-hidden border border-slate-200  ">
-            <div className="bg-[#555A8A] text-white px-4 flex items-center font-semibold">
-              10:00
+                  <span
+                    className={`text-sm ${
+                      task.completed
+                        ? "line-through text-gray-400"
+                        : "text-gray-700"
+                    }`}
+                  >
+                    {task.title}
+                  </span>
+                </div>
+              ))}
+          </div>
+        </section>
+
+
+        <section className="rounded-2xl bg-white p-5 shadow transition hover:shadow-lg">
+          <FeedHeader
+            title="Takvim"
+            description="29 Haziran 2024 Cumartesi"
+          />
+
+          <div className="mt-5 space-y-3">
+            <div className="flex overflow-hidden rounded-xl border border-slate-200">
+              <div className="flex min-w-[70px] items-center justify-center bg-[#555A8A] px-4 text-sm font-semibold text-white">
+                10:00
+              </div>
+
+              <div className="flex flex-1 flex-col justify-between gap-2 p-4 sm:flex-row sm:items-center">
+                <span className="font-medium text-gray-700">Meeting</span>
+
+                <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
+                  Tamamlandı
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <section className="rounded-2xl bg-white p-5 shadow transition hover:shadow-lg">
+          <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <Heading title="İstatistikler" />
+
+            <div className="w-full md:w-52">
+              <Select
+                name="durationType"
+                value=""
+                onChange={() => {}}
+                placeholder="Zaman Birimi"
+                options={[
+                  { value: "day", label: "Gün" },
+                  { value: "month", label: "Ay" },
+                  { value: "year", label: "Yıl" },
+                ]}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-4">
+            <div className="rounded-xl bg-indigo-50 p-4 text-center">
+              <p className="text-3xl font-bold text-[#555A8A]">25</p>
+              <p className="mt-1 text-sm text-gray-600">Görev</p>
             </div>
 
-            <div className="flex justify-between items-center w-full px-4 py-3">
-              <span>Meeting</span>
+            <div className="rounded-xl bg-green-50 p-4 text-center">
+              <p className="text-3xl font-bold text-green-600">4</p>
+              <p className="mt-1 text-sm text-gray-600">Hedef</p>
+            </div>
 
-              <span className=" bg-green-100 text-green-700 px-2 py-1 rounded-full ">
-                Tamamlandı
-              </span>
+            <div className="rounded-xl bg-orange-50 p-4 text-center">
+              <p className="text-3xl font-bold text-orange-500">12</p>
+              <p className="mt-1 text-sm text-gray-600">Saat</p>
             </div>
           </div>
-        </div>
+
+          <div className="mt-8 overflow-x-auto">
+            <div className="flex min-w-[420px] items-end justify-between gap-6 px-2">
+              {[
+                ["Pzt", "h-12"],
+                ["Sal", "h-20"],
+                ["Çar", "h-10"],
+                ["Per", "h-16"],
+                ["Cum", "h-8"],
+                ["Cmt", "h-14"],
+                ["Paz", "h-24"],
+              ].map(([day, height]) => (
+                <div
+                  key={day}
+                  className="flex flex-col items-center gap-2"
+                >
+                  <div
+                    className={`w-6 rounded-full bg-[#555A8A] ${height}`}
+                  />
+
+                  <span className="text-sm text-gray-600">
+                    {day}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+
+        <section className="rounded-2xl bg-white p-5 shadow transition hover:shadow-lg">
+          <Heading title="Son Notlar" />
+
+          <div className="mt-4">
+            <List />
+          </div>
+        </section>
       </div>
 
-      <div className="bg-white rounded-2xl shadow p-5 ">
-      <div className="flex items-center justify-between mb-6 ">
-        <Heading
-          title="İstatistikler
-"
-        />
-          
-        <Select />
-        </div>
-
-        <div className="grid grid-cols-3 gap-3 mb-6">
-          <div className="bg-indigo-50 rounded-xl p-3 text-center">
-            <p className="text-2xl font-bold text-[#555A8A]">25</p>
-            <p className=" text-gray-600 mt-1">Görev</p>
-          </div>
-
-          <div className="bg-green-50 rounded-xl p-3 text-center">
-            <p className="text-2xl font-bold text-green-600">4</p>
-            <p className=" text-gray-600 mt-1">Hedef</p>
-          </div>
-
-          <div className="bg-orange-50 rounded-xl p-3 text-center">
-            <p className="text-2xl font-bold text-orange-500">12</p>
-            <p className=" text-gray-600 mt-1">Saat</p>
-          </div>
-        </div>
-
-        <div className="flex items-end justify-between h-32 px-2">
-          <div className="flex flex-col items-center gap-2">
-            <div className="w-6 h-12 rounded-full bg-[#555A8A]"></div>
-            <span className=" text-gray-600">Pzt</span>
-          </div>
-
-          <div className="flex flex-col items-center gap-2">
-            <div className="w-6 h-20 rounded-full bg-[#555A8A]"></div>
-            <span className=" text-gray-600">Sal</span>
-          </div>
-
-          <div className="flex flex-col items-center gap-2">
-            <div className="w-6 h-10 rounded-full bg-[#555A8A]"></div>
-            <span className=" text-gray-600">Çar</span>
-          </div>
-
-          <div className="flex flex-col items-center gap-2">
-            <div className="w-6 h-16 rounded-full bg-[#555A8A]"></div>
-            <span className=" text-gray-600">Per</span>
-          </div>
-
-          <div className="flex flex-col items-center gap-2">
-            <div className="w-6 h-8 rounded-full bg-[#555A8A]"></div>
-            <span className=" text-gray-600">Cum</span>
-          </div>
-
-          <div className="flex flex-col items-center gap-2">
-            <div className="w-6 h-14 rounded-full bg-[#555A8A]"></div>
-            <span className=" text-gray-600">Cmt</span>
-          </div>
-
-          <div className="flex flex-col items-center gap-2">
-            <div className="w-6 h-24 rounded-full bg-[#555A8A]"></div>
-            <span className=" text-gray-600">Paz</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-white rounded-2xl shadow p-5  ">
-        <Heading title="Son Notlar" />
-
-        <List />
-      </div>
+      <AiFooter
+        title="AI Önerileri"
+        description="Bugün 3 görevin kaldı."
+        info="React çalışmaya devam etmeni öneriyorum."
+      />
     </div>
   );
 };

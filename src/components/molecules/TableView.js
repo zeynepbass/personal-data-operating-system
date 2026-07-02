@@ -1,9 +1,10 @@
+import {Button} from "@/components/atoms"
 export const TableView = ({ rows ,openMenuId,onMenuClick}) => {
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+    <div className="overflow-hidden rounded-2xl p-2 border border-gray-200 bg-white shadow-sm">
       <table className="w-full border-separate border-spacing-0">
         <thead>
-          <tr className="bg-gray-50">
+          <tr className="">
             <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
               Task
             </th>
@@ -73,9 +74,8 @@ export const TableView = ({ rows ,openMenuId,onMenuClick}) => {
 
                 {openMenuId === task.id && (
                   <div className="absolute right-0 top-10 bg-white  shadow rounded-lg text-sm z-50">
-                    <button className="px-3 py-2 hover:bg-gray-100 w-full text-left">
-                      Düzenle
-                    </button>
+                    <Button text="Düzenle"/>
+
                   </div>
                 )}
               </div>

@@ -41,7 +41,7 @@ export const TaskCard=({
 
                     <GripVertical
                         size={18}
-                        className="text-gray-400 mb-3"
+                        className="text-gray-500 mb-3"
                     />
 
                     <h4 className="font-bold">
