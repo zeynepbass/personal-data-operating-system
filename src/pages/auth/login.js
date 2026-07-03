@@ -1,5 +1,145 @@
-export default function LoginForm(){
-    return(<p>sdfsdf</p>)
+"use client";
 
-    
+import Link from "next/link";
+import Image from "next/image";
+import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import { Button, Input } from "@/components/atoms";
+import { FeedHeader } from "@/components/molecules";
+
+export default function LoginForm() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  return (
+<div className="grid min-h-screen lg:grid-cols-12">
+
+  <div className="relative hidden lg:col-span-6 lg:block">
+    <img
+      src="/images/login.jpeg"
+      alt="Login"
+
+      className="object-contain"
+    />
+
+
+   
+  </div>
+
+
+  <div className="flex items-center justify-center bg-[#FAFAFA]   lg:col-span-6">
+    <div className="w-full max-w-md">
+
+    <img
+        src="/images/logo.png"
+        alt="Logo"
+        width={50}
+        height={100}
+        className="mb-10"
+      />
+
+<FeedHeader title="Hoş Geldiniz 👋" description="Hesabınıza giriş yaparak hedeflerinizi takip etmeye devam edin."/>
+
+
+      <form className="mt-8 space-y-6">
+
+
+        <div className="relative">
+          <Mail
+            size={20}
+            className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"
+          />
+
+          <Input
+            placeholder="E-posta adresiniz"
+            className="h-14 rounded-2xl pl-14 pr-14 w-full border border-gray-200"
+          />
+        </div>
+
+
+        <div className="relative">
+          <Lock
+            size={20}
+            className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"
+          />
+
+          <Input
+            type={showPassword ? "text" : "password"}
+            placeholder="Şifreniz"
+            className="h-14 rounded-2xl pl-14 pr-14 w-full border border-gray-200"
+          />
+
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#555A8A]"
+          >
+            {showPassword ? <EyeOff size={20}/> : <Eye size={20}/>}
+          </button>
+        </div>
+
+        <div className="flex items-center justify-between text-sm">
+          <label className="flex items-center gap-2 text-gray-500">
+          <Input
+                    type="checkbox"
+     
+           
+                    className="h-4 w-4 accent-purple-600"
+                  />
+      
+            Beni Hatırla
+          </label>
+
+          <Link
+            href="/forgot-password"
+            className="font-medium text-[#555A8A]"
+          >
+            Şifremi Unuttum?
+          </Link>
+        </div>
+
+        <Button
+          text="Giriş Yap"
+className="w-full hover:text-white"
+        />
+
+        <div className="relative py-2">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t" />
+          </div>
+
+          <div className="relative flex justify-center">
+            <span className="bg-white px-4 text-sm text-gray-400">
+              veya
+            </span>
+          </div>
+        </div>
+
+        <button
+          className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl border border-gray-200 hover:border-[#555A8A]"
+        >
+          <Image
+            src="/images/google.svg"
+            alt="Google"
+            width={20}
+            height={20}
+          />
+
+          Google ile giriş yap
+        </button>
+
+        <p className="text-center text-gray-500">
+          Hesabın yok mu?{" "}
+          <Link
+            href="/register"
+            className="font-semibold text-[#555A8A] hover:text-gray-400"
+          >
+            Kayıt Ol
+          </Link>
+        </p>
+
+      </form>
+    </div>
+  </div>
+</div>
+  );
 }

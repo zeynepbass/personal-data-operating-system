@@ -1,0 +1,76 @@
+[
+  {
+    "id": 1,
+    "status": "active",
+    "category": "2026 Hedefi",
+    "title": "Senior Frontend Engineer olmak",
+    "progress": 65,
+    "color": "text-[#555A8A]",
+    "items": [
+      {
+        "title": "React",
+        "value": 80
+      },
+      {
+        "title": "Next.js",
+        "value": 60
+      },
+      {
+        "title": "System Design",
+        "value": 40
+      },
+      {
+        "title": "AI",
+        "value": 20
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "status": "completed",
+    "category": "Kişisel Hedefler",
+    "title": "Sağlıklı yaşamak",
+    "progress": 100,
+    "color": "text-green-600",
+    "items": [
+      {
+        "title": "Spor yapmak",
+        "value": 100
+      },
+      {
+        "title": "Kitap okumak",
+        "value": 100
+      },
+      {
+        "title": "Meditasyon",
+        "value": 100
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "status": "active",
+    "category": "2027 Hedefi",
+    "title": "İngilizce C1 olmak",
+    "progress": 45,
+    "color": "text-orange-500",
+    "items": [
+      {
+        "title": "Speaking",
+        "value": 60
+      },
+      {
+        "title": "Reading",
+        "value": 55
+      },
+      {
+        "title": "Listening",
+        "value": 35
+      },
+      {
+        "title": "Writing",
+        "value": 30
+      }
+    ]
+  }
+]

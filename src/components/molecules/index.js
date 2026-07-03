@@ -1,6 +1,6 @@
 export {FeedHeader} from "./FeedHeader"
 export {AiFooter} from "./AiFooter"
-
+export {GoalCard} from "./GoalCard"
 export {List} from "./List"
 export {Column} from "./Column"
 export {TaskCard} from "./TaskCard"

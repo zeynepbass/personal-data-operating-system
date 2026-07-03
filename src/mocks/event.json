@@ -1,0 +1,110 @@
+[
+    {
+      "id": 1,
+      "title": "Board Call",
+      "start": "2026-07-03",
+      "allDay": true,
+      "backgroundColor": "#555A8A",
+      "borderColor": "#555A8A",
+      "textColor": "#ffffff"
+    },
+    {
+      "id": 2,
+      "title": "React Eğitimi",
+      "start": "2026-07-05",
+      "allDay": true,
+      "backgroundColor": "#16A34A",
+      "borderColor": "#16A34A",
+      "textColor": "#ffffff"
+    },
+    {
+      "id": 3,
+      "title": "UI Tasarım",
+      "start": "2026-07-08",
+      "allDay": true,
+      "backgroundColor": "#F97316",
+      "borderColor": "#F97316",
+      "textColor": "#ffffff"
+    },
+    {
+      "id": 4,
+      "title": "Sprint Planlama",
+      "start": "2026-07-10",
+      "allDay": true,
+      "backgroundColor": "#555A8A",
+      "borderColor": "#555A8A",
+      "textColor": "#ffffff"
+    },
+    {
+      "id": 5,
+      "title": "Backend API",
+      "start": "2026-07-13",
+      "allDay": true,
+      "backgroundColor": "#16A34A",
+      "borderColor": "#16A34A",
+      "textColor": "#ffffff"
+    },
+    {
+      "id": 6,
+      "title": "Kod İnceleme",
+      "start": "2026-07-16",
+      "allDay": true,
+      "backgroundColor": "#F97316",
+      "borderColor": "#F97316",
+      "textColor": "#ffffff"
+    },
+    {
+      "id": 7,
+      "title": "Müşteri Toplantısı",
+      "start": "2026-07-18",
+      "allDay": true,
+      "backgroundColor": "#555A8A",
+      "borderColor": "#555A8A",
+      "textColor": "#ffffff"
+    },
+    {
+      "id": 8,
+      "title": "Deploy",
+      "start": "2026-07-21",
+      "allDay": true,
+      "backgroundColor": "#16A34A",
+      "borderColor": "#16A34A",
+      "textColor": "#ffffff"
+    },
+    {
+      "id": 9,
+      "title": "Test Süreci",
+      "start": "2026-07-24",
+      "allDay": true,
+      "backgroundColor": "#F97316",
+      "borderColor": "#F97316",
+      "textColor": "#ffffff"
+    },
+    {
+      "id": 10,
+      "title": "Haftalık Rapor",
+      "start": "2026-07-27",
+      "allDay": true,
+      "backgroundColor": "#555A8A",
+      "borderColor": "#555A8A",
+      "textColor": "#ffffff"
+    },
+    {
+      "id": 11,
+      "title": "React Workshop",
+      "start": "2026-07-29",
+      "allDay": true,
+      "backgroundColor": "#16A34A",
+      "borderColor": "#16A34A",
+      "textColor": "#ffffff"
+    },
+    {
+      "id": 12,
+      "title": "Proje Teslimi",
+      "start": "2026-07-31",
+      "allDay": true,
+      "backgroundColor": "#F97316",
+      "borderColor": "#F97316",
+      "textColor": "#ffffff"
+    }
+  ]

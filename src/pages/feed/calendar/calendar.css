@@ -1,0 +1,103 @@
+
+.fc {
+    font-family: inherit;
+    color: #555A8A;
+  }
+  
+
+  .fc .fc-toolbar-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #555A8A;
+  }
+  
+
+  .fc .fc-toolbar {
+    margin-bottom: 24px;
+  }
+  
+  .fc .fc-button-group {
+    gap: 8px;
+
+  }
+
+  .fc .fc-button {
+    background: #fff !important;
+    border: 1px solid #E5E7EB !important;
+    color: #555A8A !important;
+    border-radius: 12px !important;
+ 
+    padding: 8px 16px !important;
+    font-weight: 600 !important;
+    box-shadow: none !important;
+    transition: .2s;
+  }
+  
+  .fc .fc-button:hover {
+    background: #F8F8FC !important;
+    border-color: #555A8A !important;
+  }
+  
+
+  .fc .fc-button-active {
+    background: #555A8A !important;
+    color: #fff !important;
+    border-color: #555A8A !important;
+  }
+  
+
+  .fc .fc-today-button {
+    background: #16A34A !important;
+    border-color: #16A34A !important;
+    color: white !important;
+  }
+  
+  .fc .fc-today-button:hover {
+    opacity: .9;
+  }
+  
+
+  .fc .fc-col-header-cell {
+    background: #FAFAFC;
+    color: #555A8A;
+    font-weight: 700;
+  }
+  
+
+  .fc-theme-standard td,
+  .fc-theme-standard th {
+    border-color: #EEF2F7;
+  }
+  
+  .fc .fc-daygrid-day {
+    min-height: 110px;
+  }
+  
+  .fc .fc-daygrid-day-number {
+    color: #555A8A;
+    font-weight: 600;
+  }
+  
+  /* Bugünün tarihi */
+  .fc .fc-day-today {
+    background: rgba(85, 90, 138, 0.06) !important;
+  }
+  
+  /* Event */
+  .fc .fc-daygrid-event {
+    border-radius: 8px;
+    border: none !important;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  /* More link */
+  .fc .fc-daygrid-more-link {
+    color: #555A8A;
+  }
+  
+
+  .fc-scroller {
+    overflow: hidden !important;
+  }

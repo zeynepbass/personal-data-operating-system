@@ -4,3 +4,4 @@ export { SearchBar } from "./SearchBar";
 export { Feed } from "./Feed";
 export { Board } from "./Board/Board";
 export { Field } from "./Field";
+export { Analytics } from "./Analytics";
