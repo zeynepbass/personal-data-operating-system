@@ -15,14 +15,14 @@ import { MenuList } from "@/components/molecules";
 import { usePathname } from "next/navigation";
 
 const menu = [
-  { name: "Dashboard", icon: Home, href: "/dashboard" },
-  { name: "Tasks", icon: CheckSquare, href: "/tasks" },
-  { name: "Notes", icon: FileText, href: "/notes" },
-  { name: "Documents", icon: File, href: "/documents" },
-  { name: "Calendar", icon: Calendar, href: "/calendar" },
-  { name: "Goals", icon: Target, href: "/goals" },
-  { name: "Analytics", icon: BarChart3, href: "/analytics" },
-  { name: "Settings", icon: Settings, href: "/settings" },
+  { id:1,name: "Dashboard", icon: Home, href: "/dashboard" },
+  { id:2,name: "Tasks", icon: CheckSquare, href: "/tasks" },
+  { id:3,name: "Notes", icon: FileText, href: "/notes" },
+  { id:4,name: "Documents", icon: File, href: "/documents" },
+  { id:5,name: "Calendar", icon: Calendar, href: "/calendar" },
+  { id:6, name: "Goals", icon: Target, href: "/goals" },
+  {  id:7,name: "Analytics", icon: BarChart3, href: "/analytics" },
+  {  id:8,name: "Settings", icon: Settings, href: "/settings" },
 ];
 
 export function Sidebar() {
@@ -40,7 +40,7 @@ export function Sidebar() {
 
           return (
             <MenuList
-              key={item.name}
+            key={item.id}
               href={item.href}
               className={`flex w-full items-center gap-4 rounded-xl px-5 py-4 text-left transition-all duration-200
                                     ${

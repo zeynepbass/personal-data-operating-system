@@ -1,5 +1,4 @@
-export default function Appearance(){
-    return(
-        <p>yuıjklmşö</p>
-    )
+import SettingsAppearance from "@/pages/feed/settings/appearance";
+export default function Appearance() {
+  return <SettingsAppearance />;
 }

@@ -5,16 +5,16 @@ import { User, Bell, Globe, Shield, Keyboard, Database } from "lucide-react";
 import {MenuList,FeedHeader} from "@/components/molecules"
 import { usePathname } from "next/navigation";
 const menu = [
-  { name: "Profil", icon: User, href: "/settings/profile" },
-  { name: "Görünüm", icon: Globe, href: "/settings/appearance" },
-  { name: "Bildirimler", icon: Bell, href: "/settings/notifications" },
-  { name: "Dil", icon: Globe, href: "/settings/language" },
-  { name: "Güvenlik", icon: Shield, href: "/settings/security" },
-  { name: "Klavye Kısayolları", icon: Keyboard, href: "/settings/shortcuts" },
-  { name: "Veri Yönetimi", icon: Database, href: "/settings/analytics" },
+  {id:1, name: "Profil", icon: User, link: "/settings" },
+  { id:2,name: "Görünüm", icon: Globe, link: "/settings/appearance" },
+  {id:3, name: "Bildirimler", icon: Bell, link: "/settings/notifications" },
+  { id:4,name: "Dil", icon: Globe, link: "/settings/language" },
+  { id:5,name: "Güvenlik", icon: Shield, link: "/settings/security" },
+
 ];
 export function SettingsMenuBar() {
   const pathname = usePathname();
+
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="mx-auto max-w-7xl">
@@ -22,15 +22,17 @@ export function SettingsMenuBar() {
 
         <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
        
-        <aside className="space-y-2">
+        <aside className="p-3">
                {menu.map((item) => {
-                 const isActive = pathname === item.href;
+                 const isActive = pathname === item.link;
+
                  return (
                    <MenuList
-                     key={item.name}
-                     href={item.href}
+                     key={item.id}
+                     href={item.link}
+   
                      className={`flex w-full items-left gap-4 rounded-xl
-                       py-4 text-left transition-all duration-200
+                       p-4 text-left transition-all duration-200
                                            ${
                                              isActive
                                                ? "bg-violet-50 text-[#555A8A] shadow-sm"
