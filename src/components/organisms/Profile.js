@@ -1,4 +1,5 @@
-import { Button, Input,Heading, Textarea } from "@/components/atoms";
+import { Button, Input, Textarea } from "@/components/atoms";
+import {Heading} from "@/components/molecules"
 export const Profile = () => {
   return (
     <section className="rounded-3xl border border-gray-100 bg-white p-10 shadow-sm">

@@ -1,7 +1,6 @@
 import Link from "next/link";
 
-export function MenuList({ href, key,className, icon: Icon, item }) {
-  console.log("MenuList render:", href);
+export function MenuList({ href, key, className, icon: Icon, item }) {
   return (
     <Link key={key} href={href} className={className}>
       <div className="flex items-center gap-4">

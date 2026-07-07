@@ -14,7 +14,7 @@ export const Button = ({
         font-semibold
        text-[#555A8A]
         transition
-       hover:bg-[#555A8A]
+       hover:opacity-70
      
         ${className}
       `}

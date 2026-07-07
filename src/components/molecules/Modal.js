@@ -1,7 +1,7 @@
 "use client";
 
-import { Button, Heading, Select, Input, Textarea } from "@/components/atoms";
-import { FeedHeader } from "@/components/molecules";
+import { Button, Select, Input, Textarea } from "@/components/atoms";
+import {  Heading} from "@/components/molecules";
 export const Modal = ({
   open,
   setOpen,
@@ -22,7 +22,7 @@ export const Modal = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between border-b border-gray-200 px-6 py-5">
-          <FeedHeader
+          <Heading
             title="Yeni Görev"
             description="Projeye yeni bir görev oluşturun."
           />

@@ -6,7 +6,6 @@ import {MenuList,FeedHeader} from "@/components/molecules"
 import { usePathname } from "next/navigation";
 const menu = [
   {id:1, name: "Profil", icon: User, link: "/settings" },
-  { id:2,name: "Görünüm", icon: Globe, link: "/settings/appearance" },
   {id:3, name: "Bildirimler", icon: Bell, link: "/settings/notifications" },
   { id:4,name: "Dil", icon: Globe, link: "/settings/language" },
   { id:5,name: "Güvenlik", icon: Shield, link: "/settings/security" },

@@ -1,4 +1,5 @@
 export {FeedHeader} from "./FeedHeader"
+export {Heading} from "./Heading"
 export {AiFooter} from "./AiFooter"
 export {GoalCard} from "./GoalCard"
 export {List} from "./List"

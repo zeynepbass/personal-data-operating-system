@@ -1,11 +1,14 @@
 "use client";
 
-import { Button, Input, Heading, Textarea } from "@/components/atoms";
-
+import { Button, Input, Textarea } from "@/components/atoms";
+import {Heading} from "@/components/molecules"
 export default function SettingsPage() {
   return (
-    <section className="rounded-3xl border border-gray-100 bg-white p-10 shadow-sm">
-      <Heading title=" Profil Bilgileri" />
+    <section className="space-y-8">
+
+<Heading title=" Profil Bilgileri" />
+   
+<div className=" p-6 overflow-hidden rounded-2xl border bg-white border-gray-200 shadow-sm">
 
       <div className="mb-10 flex flex-wrap items-center gap-5">
         <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-violet-600 to-indigo-600 text-2xl font-bold text-white">
@@ -31,9 +34,9 @@ export default function SettingsPage() {
         </div>
 
         <div className="pt-2 text-center">
-          <Button type="submit" text="      Kaydet" />
+          <Button type="submit" text="Kaydet" />
         </div>
       </form>
-    </section>
+    </div>    </section>
   );
 }

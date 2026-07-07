@@ -1,5 +1,5 @@
-import { Select, Input, Heading } from "@/components/atoms";
-import { FeedHeader, List, AiFooter } from "@/components/molecules";
+import { Select, Input } from "@/components/atoms";
+import {List, AiFooter, FeedHeader,Heading } from "@/components/molecules";
 
 export const Feed = ({ data, onToggle }) => {
   return (
@@ -46,7 +46,7 @@ export const Feed = ({ data, onToggle }) => {
 
 
         <section className="rounded-2xl bg-white p-5 shadow transition hover:shadow-lg">
-          <FeedHeader
+          <Heading
             title="Takvim"
             description="29 Haziran 2024 Cumartesi"
           />

@@ -6,15 +6,17 @@ export const Input = ({
   name,
   value,
   label,
+  disabled,
   onChange,
   placeholder,
+  defaultChecked,
   checked,
   className,
   ...props
 }) => {
   return (
 <>
-   {label &&  <label className="mb-2 block text-sm text-gray-300">
+   {label &&  <label className="mb-2 block text-sm text-gray-500">
    {label}
   </label>}
     <input
@@ -25,6 +27,8 @@ export const Input = ({
       onChange={onChange}
       placeholder={placeholder}
       className={className}
+      disabled={disabled}
+      defaultChecked={!disabled} 
       {...props}
   
     />    </>

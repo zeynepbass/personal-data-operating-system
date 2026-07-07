@@ -11,7 +11,7 @@ export const Select = ({
   return (
     <>
 
-{label &&  <label className="mb-2 block text-sm font-medium text-gray-200">
+{label &&  <label className="mb-2 block text-sm font-medium text-gray-500">
     {label}
    </label>}
    
