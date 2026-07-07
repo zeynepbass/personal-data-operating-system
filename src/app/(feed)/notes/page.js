@@ -1,3 +1,4 @@
-export default function Notes(){
-    
+import Notes from "@/pages/feed/notes/frontend";
+export default function Note() {
+  return <Notes />;
 }

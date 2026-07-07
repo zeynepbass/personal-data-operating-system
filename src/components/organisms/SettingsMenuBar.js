@@ -15,13 +15,16 @@ export function SettingsMenuBar() {
   const pathname = usePathname();
 
   return (
+    
+   
     <div className="min-h-screen bg-gray-50 p-8">
-      <div className="mx-auto max-w-7xl">
-        <FeedHeader title="Ayarlar" />
-
-        <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
        
-        <aside className="p-3">
+      <div className="mx-auto max-w-7xl">
+   
+
+        <div className="grid gap-8 lg:grid-cols-[240px_1fr]">
+       
+        <aside className="p-2 bg-white border border-gray-200 rounded-2xl ">
                {menu.map((item) => {
                  const isActive = pathname === item.link;
 
