@@ -2,7 +2,7 @@
 import { Button, Input } from "@/components/atoms";
 import {Heading} from "@/components/molecules"
 
-export const SettingsNotification=()=> {
+export const SettingNotification=()=> {
   const Item = ({
     title,
     description,

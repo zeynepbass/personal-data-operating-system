@@ -2,7 +2,7 @@
 
 import { Button, Input, Textarea } from "@/components/atoms";
 import {Heading} from "@/components/molecules"
-export  const SettingsPage=() =>{
+export  const SettingProfile=() =>{
   return (
     <section className="space-y-8">
 

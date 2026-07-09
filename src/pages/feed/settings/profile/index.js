@@ -1,4 +1,4 @@
-import {SettingsPage} from "@/components/organisms"
+import {SettingProfile} from "@/components/organisms"
 export default function Profile(){
-  return <SettingsPage/>
+  return <SettingProfile/>
 }

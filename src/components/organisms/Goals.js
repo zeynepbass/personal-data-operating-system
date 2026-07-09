@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 
 import { GoalCard, FeedHeader } from "@/components/molecules";
 import { Button } from "@/components/atoms";
-import Goal from "@/mocks/goals.json"
+
 
 const tabs = [
   {
@@ -20,13 +20,13 @@ const tabs = [
     value: "completed",
   },
 ];
-export const Goals=()=>{
+export const Goals=({item})=>{
     const [selectedTab, setSelectedTab] = useState("all");
 
     const filteredGoals = useMemo(() => {
-      if (selectedTab === "all") return Goal;
+      if (selectedTab === "all") return item;
   
-      return Goal.filter((item) => item.status === selectedTab);
+      return item.filter((item) => item.status === selectedTab);
     }, [selectedTab]);
   
     return(

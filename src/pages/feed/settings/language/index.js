@@ -1,5 +1,5 @@
-import { Language } from "@/components/organisms"
+import { SettingLanguage } from "@/components/organisms"
 export default function Languages() {
-return <Language/>
+return <SettingLanguage/>
 }
 

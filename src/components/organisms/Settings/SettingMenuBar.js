@@ -11,7 +11,7 @@ const menu = [
   { id:5,name: "Güvenlik", icon: Shield, link: "/settings/security" },
 
 ];
-export function SettingsMenuBar() {
+export function SettingMenuBar() {
   const pathname = usePathname();
 
   return (

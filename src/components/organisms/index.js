@@ -5,15 +5,16 @@ export { Feed } from "./Feed";
 export { Board } from "./Board/Board";
 export { Field } from "./Field";
 export { Analytics } from "./Analytics";
-export {SettingsMenuBar} from "./SettingsMenuBar"
+export {SettingMenuBar} from "./Settings/SettingMenuBar"
 export {NotesMenuBar} from "./NotesMenuBar"
-export {Profile} from "./Profile"
 export {Goals} from "./Goals"
 export {Notes} from "./Notes"
-export {Language} from "./Language"
-export {SettingsNotification} from "./Notification"
+export {SettingLanguage} from "./Settings/SettingLanguage"
+export {SettingNotification} from "./Settings/SettingNotification"
 export {Calendar} from "./Calendar"
-export {SettingsPage} from "./SettingsPage"
-export {SettingSecurity} from "./SettingSecurity"
+export {SettingProfile} from "./Settings/SettingProfile"
+export {SettingSecurity} from "./Settings/SettingSecurity"
 export {Task} from "./Tasks"
+export {LoginForm} from "./Auth/Login"
+export {RegisterForm} from "./Auth/Register"
 

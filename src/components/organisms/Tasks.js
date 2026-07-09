@@ -1,24 +1,22 @@
 "use client";
 import { Board } from "@/components/organisms";
-import { useBoard } from "@/features/hooks/feed/useBoard";
 
-export const Task=()=> {
-  const {
-    view,
-    setView,
-    data,
-    rows,
-    open,
-    setOpen,
-    onDragEnd,
-    openMenuId,
-    handleToggle,
-    handleMenuClick,
-    handleChange,
-    form,
-    onSubmit,
-    onClose,
-  } = useBoard();
+
+export const Task=({  view,
+  setView,
+  data,
+  rows,
+  open,
+  setOpen,
+  onDragEnd,
+  openMenuId,
+  handleToggle,
+  handleMenuClick,
+  handleChange,
+  form,
+  onSubmit,
+  onClose})=> {
+
 
   return (
     <Board

@@ -1,6 +1,4 @@
-import Notes from "@/pages/feed/notes"
+import Notes from "@/pages/feed/notes";
 export default async function Page() {
-
-
-  return <Notes/>
+  return <Notes />;
 }

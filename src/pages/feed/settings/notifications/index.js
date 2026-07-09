@@ -1,4 +1,4 @@
-import { SettingsNotification } from "@/components/organisms"
+import { SettingNotification } from "@/components/organisms"
 export default function Notifications(){
-  return <SettingsNotification/>
+  return <SettingNotification/>
 }

@@ -2,7 +2,7 @@
 import { Button, Select } from "@/components/atoms";
 import { Heading } from "@/components/molecules";
 
-export const Language=()=> {
+export const SettingLanguage=()=> {
   const SelectRow = ({
     title,
     description,
