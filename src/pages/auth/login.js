@@ -15,7 +15,7 @@ export default function LoginForm() {
 
   <div className="relative hidden lg:col-span-6 lg:block">
     <img
-      src="/images/login.jpeg"
+      src="/images/login.jpg"
       alt="Login"
 
       className="object-contain"
@@ -29,13 +29,6 @@ export default function LoginForm() {
   <div className="flex items-center justify-center bg-[#FAFAFA]   lg:col-span-6">
     <div className="w-full max-w-md">
 
-    <img
-        src="/images/logo.png"
-        alt="Logo"
-        width={50}
-        height={100}
-        className="mb-10"
-      />
 
 <FeedHeader title="Hoş Geldiniz 👋" description="Hesabınıza giriş yaparak hedeflerinizi takip etmeye devam edin."/>
 
@@ -83,7 +76,7 @@ export default function LoginForm() {
                     type="checkbox"
      
            
-                    className="h-4 w-4 accent-purple-600"
+                    className="h-4 w-4  accent-purple-600"
                   />
       
             Beni Hatırla
