@@ -1,3 +1,4 @@
+import Notes from "@/pages/feed/notes"
 export default function NotesPage() {
-    return <h1>Notes Home</h1>;
+    return <Notes/>
   }
