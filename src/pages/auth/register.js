@@ -18,7 +18,6 @@ export default function RegisterForm() {
 
       <div className="flex items-center justify-center bg-[#FAFAFA]   lg:col-span-6">
         <div className="w-full max-w-md">
-   
           <FeedHeader
             title="Aramıza Katılın 🚀"
             description="Hesabınızı oluşturarak notlarınızı düzenlemeye, öğrenme yolculuğunuzu takip etmeye ve tüm içeriklere erişmeye başlayın."

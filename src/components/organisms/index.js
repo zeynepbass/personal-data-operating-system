@@ -8,3 +8,12 @@ export { Analytics } from "./Analytics";
 export {SettingsMenuBar} from "./SettingsMenuBar"
 export {NotesMenuBar} from "./NotesMenuBar"
 export {Profile} from "./Profile"
+export {Goals} from "./Goals"
+export {Notes} from "./Notes"
+export {Language} from "./Language"
+export {SettingsNotification} from "./Notification"
+export {Calendar} from "./Calendar"
+export {SettingsPage} from "./SettingsPage"
+export {SettingSecurity} from "./SettingSecurity"
+export {Task} from "./Tasks"
+
