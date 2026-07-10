@@ -1,11 +1,10 @@
 import Document from "../models/Document.js";
 
 export const getDocuments = async (userId) => {
-  return await Document.find({ user: userId }).sort({
-    createdAt: -1,
-  });
-};
-
+    return await Document.find({
+      user: userId,
+    });
+  };
 export const createDocument = async (data) => {
   return await Document.create(data);
 };

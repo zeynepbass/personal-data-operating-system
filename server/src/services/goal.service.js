@@ -1,8 +1,10 @@
 import Goal from "../models/Goal.js";
 
 export const getGoals = async (userId) => {
-  return await Goal.find({ user: userId }).sort({ createdAt: -1 });
-};
+    return await Goal.find({
+      user: userId,
+    });
+  };
 
 export const createGoal = async (data) => {
   return await Goal.create(data);
