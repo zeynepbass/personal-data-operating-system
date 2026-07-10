@@ -8,7 +8,7 @@ const documentSchema = new mongoose.Schema(
       required: true,
     },
 
-    username: {
+    fileName: {
       type: String,
       required: true,
     },

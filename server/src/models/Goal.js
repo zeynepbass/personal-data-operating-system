@@ -8,11 +8,6 @@ const goalSchema = new mongoose.Schema(
       required: true,
     },
 
-    username: {
-      type: String,
-      required: true,
-    },
-
     goal: {
       type: String,
       required: true,
@@ -20,6 +15,7 @@ const goalSchema = new mongoose.Schema(
 
     personalGoal: {
       type: String,
+      default: "",
     },
   },
   {

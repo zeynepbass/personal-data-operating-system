@@ -8,29 +8,40 @@ const taskSchema = new mongoose.Schema(
       required: true,
     },
 
-    username: {
-      type: String,
-      required: true,
-    },
-
     title: {
       type: String,
       required: true,
     },
 
-    description: String,
+    description: {
+      type: String,
+      default: "",
+    },
 
-    calendarDate: Date,
+    calendarDate: {
+      type: Date,
+      required: true,
+    },
 
-    time: String,
+    time: {
+      type: String,
+      required: true,
+    },
 
-    lastNotes: String,
+    lastNotes: {
+      type: String,
+      default: "",
+    },
 
-    calendarDescription: String,
+    calendarDescription: {
+      type: String,
+      default: "",
+    },
 
     label: {
       type: String,
       enum: ["Frontend", "Backend", "Meeting", "Personal"],
+      default: "Personal",
     },
 
     status: {
