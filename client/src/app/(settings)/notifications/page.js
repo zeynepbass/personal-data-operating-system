@@ -1,4 +1,4 @@
-import SettingNotification from "@/features/dashboard/pages/settings/notifications";
+import SettingNotification from "@/features/settings/pages/notificationPage";
 export default function Notifications() {
   return <SettingNotification />;
 }

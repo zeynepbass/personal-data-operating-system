@@ -1,1 +1,1 @@
-export {default} from "./FeedLayout"
+export {default} from "./AppLayout"

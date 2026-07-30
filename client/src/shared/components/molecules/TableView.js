@@ -1,4 +1,4 @@
-import {Button} from "@/components/atoms"
+import Button from "@/shared/components/atoms/Button"
 export const TableView = ({ rows ,openMenuId,onMenuClick}) => {
   return (
     <div className="overflow-hidden rounded-2xl p-2 border border-gray-200 bg-white shadow-sm">

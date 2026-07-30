@@ -1,7 +1,7 @@
 
 "use client";
 
-export const Input = ({
+export default function Input  ({
   type,
   name,
   value,
@@ -13,7 +13,7 @@ export const Input = ({
   checked,
   className,
   ...props
-}) => {
+})  {
   return (
 <>
    {label &&  <label className="mb-2 block text-sm text-gray-500">

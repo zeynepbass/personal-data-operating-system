@@ -1,4 +1,4 @@
-import SettingsSecurity from "@/features/dashboard/pages/settings/security";
+import SettingsSecurity from "@/features/settings/pages/securityPage";
 export default function Security() {
   return <SettingsSecurity />;
 }

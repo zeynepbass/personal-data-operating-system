@@ -8,8 +8,8 @@ import {
     YAxis,
     Tooltip,
   } from "recharts";
-  import {Select} from "@/components/atoms"
-  import { FeedHeader, AiFooter } from "@/components/molecules";
+  import  Select  from "@/shared/components/atoms/Select";
+  import { FeedHeader, AiFooter } from "@/shared/components/molecules";
   import { getRemainingMonthDates } from "@/shared/utils/date";
 const options = getRemainingMonthDates();
 export const Analytics = () => {

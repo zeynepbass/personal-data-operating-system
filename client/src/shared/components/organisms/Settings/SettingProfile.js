@@ -1,7 +1,9 @@
 "use client";
 
-import { Button, Input, Textarea } from "@/components/atoms";
-import {Heading} from "@/components/molecules"
+import Button  from "@/shared/components/atoms/Button";
+import Input from "@/shared/components/atoms/Input";
+import Textarea from "@/shared/components/atoms/Textarea";
+import {Heading} from "@/shared/components/molecules";
 export  const SettingProfile=() =>{
   return (
     <section className="space-y-8">

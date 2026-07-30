@@ -8,8 +8,8 @@ import {
   Column,
   Modal,
 } from "./board.dynamic";
-import { Button } from "@/components/atoms";
-import { FeedHeader, MenuNavigation } from "@/components/molecules";
+import Button from "@/shared/components/atoms/Button"
+import { FeedHeader, MenuNavigation } from "@/shared/components/molecules";
 
 export const Board = ({
   view,

@@ -1,5 +1,5 @@
-import { Button } from "@/components/atoms";
-import { Heading } from "@/components/molecules";
+import Button from "@/shared/components/atoms/Button"
+import { Heading } from "@/shared/components/molecules";
 
 export const SettingSecurity=()=> {
   const SecurityItem = ({

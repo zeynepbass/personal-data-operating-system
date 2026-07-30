@@ -1,7 +1,8 @@
 "use client";
 
 import { Bell, Settings, Search } from "lucide-react";
-import { Input, Button } from "@/components/atoms";
+ import Input from "@/shared/components/atoms/Input";
+ import  Button  from "@/shared/components/atoms/Button";
 export function SearchBar() {
   return (
     <div className="flex items-center justify-between w-full px-4 py-3 border-b border-gray-200 bg-[#FAFAFA]">
