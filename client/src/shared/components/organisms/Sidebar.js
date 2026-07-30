@@ -11,7 +11,7 @@ import {
   Settings,
 } from "lucide-react";
 
-import { MenuList } from "@/components/molecules";
+import { MenuList } from "@/shared/components/molecules";
 import { usePathname } from "next/navigation";
 
 const menu = [

@@ -1,5 +1,6 @@
-import { Select, Input } from "@/components/atoms";
-import {List, AiFooter, FeedHeader,Heading } from "@/components/molecules";
+import Input from "@/shared/components/atoms/Input";
+import  Select  from "@/shared/components/atoms/Select";
+import {List, AiFooter, FeedHeader,Heading } from "@/shared/components/molecules";
 
 export const Feed = ({ data, onToggle }) => {
   return (
@@ -16,7 +17,7 @@ export const Feed = ({ data, onToggle }) => {
 
           <div className="mt-5 flex flex-col gap-3">
             {data
-              .flatMap((column) => column.tasks)
+              ?.flatMap((column) => column.tasks)
               .slice(0, 3)
               .map((task) => (
                 <div

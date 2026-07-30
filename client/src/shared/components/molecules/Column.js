@@ -1,7 +1,7 @@
 "use client";
 
 import { Droppable } from "@hello-pangea/dnd";
-import { TaskCard } from "@/components/molecules";
+import { TaskCard } from "@/shared/components/molecules";
 
 const colorClasses = {
   purple: {
@@ -50,12 +50,12 @@ export const Column = ({ column }) => {
             </h3>
 
             <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-sm font-semibold">
-              {column.tasks.length}
+              {column.tasks?.length}
             </span>
           </div>
 
           <div className="space-y-4">
-            {column.tasks.map((task, index) => (
+            {column.tasks?.map((task, index) => (
               <TaskCard key={task.id} task={task} index={index} />
             ))}
 

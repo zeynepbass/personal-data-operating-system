@@ -1,4 +1,4 @@
-import SettingsLanguage from "@/features/dashboard/pages/settings/language";
+import SettingsLanguage from "@/features/settings/pages/languagePage";
 export default function Language() {
   return <SettingsLanguage />;
 }

@@ -1,13 +1,13 @@
 "use client";
 
-export const Select = ({
+export default function Select  ({
   name,
   value,
   onChange,
   options,
   placeholder,
   label,
-}) => {
+})  {
   return (
     <>
 

@@ -1,7 +1,10 @@
 "use client";
 
-import { Button, Select, Input, Textarea } from "@/components/atoms";
-import {  Heading} from "@/components/molecules";
+ import Button from "@/shared/components/atoms/Button";
+ import Input from "@/shared/components/atoms/Input";
+ import  Select  from "@/shared/components/atoms/Select";;
+ import Textarea from "@/shared/components/atoms/Textarea";
+import {  Heading} from "@/shared/components/molecules";
 export const Modal = ({
   open,
   setOpen,

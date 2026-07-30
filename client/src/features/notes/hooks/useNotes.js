@@ -59,7 +59,7 @@ export const useBoard = () => {
   };
   const rows = useMemo(() => {
     return data.flatMap((column) =>
-      column.tasks.map((task) => ({
+      column.tasks?.map((task) => ({
         ...task,
         status: column.title,
         statusColor: column.color,
@@ -72,7 +72,7 @@ export const useBoard = () => {
     setData((prev) =>
       prev.map((column) => ({
         ...column,
-        tasks: column.tasks.map((task) =>
+        tasks: column.tasks?.map((task) =>
           task.id === taskId ? { ...task, completed: !task.completed } : task
         ),
       }))

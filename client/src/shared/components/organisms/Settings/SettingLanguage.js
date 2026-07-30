@@ -1,6 +1,7 @@
 
-import { Button, Select } from "@/components/atoms";
-import { Heading } from "@/components/molecules";
+import Button  from "@/shared/components/atoms/Button";
+import  Select  from "@/shared/components/atoms/Select";
+import { Heading } from "@/shared/components/molecules";
 
 export const SettingLanguage=()=> {
   const SelectRow = ({

@@ -4,8 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import { Button, Input } from "@/components/atoms";
-import { FeedHeader } from "@/components/molecules";
+import Input from "@/shared/components/atoms/Input";
+import  Button  from "@/shared/components/atoms/Input";
+import { FeedHeader } from "@/shared/components/molecules";
 
 export const LoginForm=()=> {
   const [showPassword, setShowPassword] = useState(false);

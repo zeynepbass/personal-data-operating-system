@@ -8,7 +8,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import trLocale from "@fullcalendar/core/locales/tr";
 import "./calendar.css";
 import events from "@/shared/mocks/event.json";
-import { FeedHeader } from "@/components/molecules";
+import { FeedHeader } from "@/shared/components/molecules";
 export const Calendar=()=>{
     return(
         <div className="space-y-6">

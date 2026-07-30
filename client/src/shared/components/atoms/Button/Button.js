@@ -1,8 +1,8 @@
-export const Button = ({
+export default function Button({
   text,
   className = "",
   ...props
-}) => {
+})  {
   return (
     <button
       className={`

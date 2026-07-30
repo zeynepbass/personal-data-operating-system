@@ -1,4 +1,4 @@
-import { SectionNavbar, Card } from "@/components/molecules";
+import { SectionNavbar, Card } from "@/shared/components/molecules";
 export const Notes=()=>{
     return(
 

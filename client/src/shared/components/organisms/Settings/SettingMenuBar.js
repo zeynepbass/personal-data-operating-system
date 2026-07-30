@@ -2,7 +2,7 @@
 
 
 import { User, Bell, Globe, Shield, Keyboard, Database } from "lucide-react";
-import {MenuList,FeedHeader} from "@/components/molecules"
+import {MenuList,FeedHeader} from "@/shared/components/molecules";
 import { usePathname } from "next/navigation";
 const menu = [
   {id:1, name: "Profil", icon: User, link: "/settings" },

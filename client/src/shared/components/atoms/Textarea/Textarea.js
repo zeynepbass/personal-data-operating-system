@@ -1,6 +1,6 @@
 "use client";
 
-export const Textarea = ({
+export default function Textarea({
   label,
   name,
   value,
@@ -9,7 +9,7 @@ export const Textarea = ({
   rows = 5,
   className = "",
   ...props
-}) => {
+})  {
   return (
     <div>
       {label && (

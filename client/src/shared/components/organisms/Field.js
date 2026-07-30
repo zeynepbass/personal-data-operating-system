@@ -9,9 +9,10 @@ import {
   Search,
 } from "lucide-react";
 
-import { FeedHeader, Modal } from "@/components/molecules";
-import { Input, Button, Select } from "@/components/atoms";
-
+import { FeedHeader, Modal } from "@/shared/components/molecules";
+import Button  from "@/shared/components/atoms/Button";
+import Input from "@/shared/components/atoms/Input";
+import  Select  from "@/shared/components/atoms/Select";
 const iconMap = {
   pdf: <FileText size={46} className="text-red-500" />,
   doc: <FileText size={46} className="text-blue-600" />,

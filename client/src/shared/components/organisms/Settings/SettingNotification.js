@@ -1,6 +1,7 @@
 
-import { Button, Input } from "@/components/atoms";
-import {Heading} from "@/components/molecules"
+import Input from "@/shared/components/atoms/Input";
+import  Button  from "@/shared/components/atoms/Input";
+import {Heading} from "@/shared/components/molecules";
 
 export const SettingNotification=()=> {
   const Item = ({

@@ -2,8 +2,8 @@
 
 import { useMemo, useState } from "react";
 
-import { GoalCard, FeedHeader } from "@/components/molecules";
-import { Button } from "@/components/atoms";
+import { GoalCard, FeedHeader } from "@/shared/components/molecules";
+import Button from "@/shared/components/atoms/Button"
 
 
 const tabs = [
