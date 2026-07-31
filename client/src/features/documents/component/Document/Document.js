@@ -9,7 +9,7 @@ import {
   Search,
 } from "lucide-react";
 
-import { FeedHeader, Modal } from "@/shared/components/molecules";
+import { PageHeader, Modal } from "@/shared/components/molecules";
 import Button  from "@/shared/components/atoms/Button";
 import Input from "@/shared/components/atoms/Input";
 import  Select  from "@/shared/components/atoms/Select";
@@ -35,7 +35,7 @@ export const Field = ({
     <section className="flex flex-col gap-6">
 
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <FeedHeader
+        <PageHeader
           title="Belgelerim"
           description="Belgelerinizi görüntüleyin ve yönetin."
         />

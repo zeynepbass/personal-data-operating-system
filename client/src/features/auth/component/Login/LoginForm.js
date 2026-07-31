@@ -6,7 +6,7 @@ import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import Input from "@/shared/components/atoms/Input";
 import  Button  from "@/shared/components/atoms/Input";
-import { FeedHeader } from "@/shared/components/molecules";
+import { PageHeader } from "@/shared/components/molecules";
 
 export const LoginForm=()=> {
   const [showPassword, setShowPassword] = useState(false);
@@ -19,7 +19,7 @@ export const LoginForm=()=> {
 
       <div className="flex items-center justify-center bg-[#FAFAFA]   lg:col-span-6">
         <div className="w-full max-w-md">
-          <FeedHeader
+          <PageHeader
             title="Hoş Geldiniz 👋"
             description="Hesabınıza giriş yaparak hedeflerinizi takip etmeye devam edin."
           />

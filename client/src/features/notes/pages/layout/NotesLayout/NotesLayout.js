@@ -1,4 +1,4 @@
-import { FeedHeader } from "@/shared/components/molecules";
+import { PageHeader } from "@/shared/components/molecules";
 import { NotesMenuBar } from "@/shared/components/organisms";
 
 export default function NotesLayout({
@@ -6,7 +6,7 @@ export default function NotesLayout({
 }) {
   return (
     <>
-      <FeedHeader title="Notlar" />
+      <PageHeader title="Notlar" />
 
       <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
         <aside>

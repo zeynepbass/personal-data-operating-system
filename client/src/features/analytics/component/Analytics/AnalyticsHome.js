@@ -9,8 +9,9 @@ import {
     Tooltip,
   } from "recharts";
   import  Select  from "@/shared/components/atoms/Select";
-  import { FeedHeader, AiFooter } from "@/shared/components/molecules";
+  import { PageHeader } from "@/shared/components/molecules";
   import { getRemainingMonthDates } from "@/shared/utils/date";
+  import {AnalyticsFooter} from "../AnalyticsFooter"
 const options = getRemainingMonthDates();
 export const Analytics = () => {
 
@@ -29,7 +30,7 @@ export const Analytics = () => {
         <div className="flex justify-between">
 
     
-      <FeedHeader title="Analitik" description="" />
+      <PageHeader title="Analitik" description="" />
 <div className="m-w-md">
 
 
@@ -142,7 +143,7 @@ export const Analytics = () => {
         </div>
       </div>
 
-      <AiFooter
+      <AnalyticsFooter
         title="AI Önerileri"
         description="Bugün 3 görevin kaldı."
         info="React çalışmaya devam etmeni öneriyorum."
