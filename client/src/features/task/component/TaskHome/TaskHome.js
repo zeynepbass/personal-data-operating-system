@@ -1,5 +1,5 @@
 "use client";
-import { Board } from "@/shared/components/organisms";
+import { Board } from "@/shared/components/molecules";
 
 
 export const Task=({  view,

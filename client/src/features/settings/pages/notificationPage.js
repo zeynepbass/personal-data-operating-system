@@ -1,4 +1,4 @@
-import { SettingNotification } from "@/shared/components/organisms"
+import { SettingNotification } from "../component/Settings/SettingNotification"
 export default function Notifications(){
   return <SettingNotification/>
 }

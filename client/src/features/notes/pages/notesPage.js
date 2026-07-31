@@ -1,4 +1,4 @@
-import {Notes} from "@/shared/components/organisms"
+import {Notes} from "../component/Notes"
 export default function Note() {
   return <Notes/>
 }

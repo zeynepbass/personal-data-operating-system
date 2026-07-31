@@ -1,5 +1,5 @@
 "use client";
-import { Analytics } from "@/shared/components/organisms";
+import { Analytics } from "../component/Analytics";
 import { useFeed } from "@/features/dashboard/hooks/useFeed";
 export default function Analytic() {
   const { data } = useFeed();
