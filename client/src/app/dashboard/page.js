@@ -1,4 +1,4 @@
-import Home from "@/features/dashboard/pages/dashboardPage";
+import LandingPage from "@/features/dashboard/pages/DashboardPage";
 export default function Dashboard() {
-  return <Home />;
+  return <LandingPage />;
 }

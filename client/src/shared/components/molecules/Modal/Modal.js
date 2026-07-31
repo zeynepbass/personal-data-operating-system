@@ -2,17 +2,18 @@
 
  import Button from "@/shared/components/atoms/Button";
  import Input from "@/shared/components/atoms/Input";
+ import Heading from "@/shared/components/atoms/Heading"
  import  Select  from "@/shared/components/atoms/Select";;
  import Textarea from "@/shared/components/atoms/Textarea";
 
-export const Modal = ({
+export default function Modal  ({
   open,
   setOpen,
   onSubmit,
   handleChange,
   form,
   onClose,
-}) => {
+}) {
   if (!open) return null;
 
   return (

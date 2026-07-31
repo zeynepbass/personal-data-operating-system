@@ -1,5 +1,5 @@
 "use client"
-import { Task } from "../component/TaskHome";
+import TaskHome from "../components/TaskHome";
 import { useBoard } from "@/features/notes/hooks/useNotes";
 
 export default function Tasks() {
@@ -21,7 +21,7 @@ export default function Tasks() {
   } = useBoard();
 
   return (
-    <Task
+    <TaskHome
       view={view}
       setView={setView}
       data={data}

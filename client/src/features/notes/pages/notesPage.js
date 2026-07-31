@@ -1,4 +1,4 @@
-import {Notes} from "../component/Notes"
+import Notes from "../components/Notes"
 export default function Note() {
   return <Notes/>
 }

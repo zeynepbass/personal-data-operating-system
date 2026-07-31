@@ -1,32 +1,17 @@
-"use client"
-import {
-    Draggable
-} from "@hello-pangea/dnd";
+"use client";
+import { Draggable } from "@hello-pangea/dnd";
 
-import {
-    Calendar,
-    GripVertical
-} from "lucide-react";
+import { Calendar, GripVertical } from "lucide-react";
 
-export const Card=({
-    task,
-    index,
-}) =>{
-
-    return (
-
-        <Draggable
-        draggableId={String(task.id)}
-        index={index}
-
-        >
-
-            {(provided)=>(
-                <article
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    className="
+export default function Card({ task, index }) {
+  return (
+    <Draggable draggableId={String(task.id)} index={index}>
+      {(provided) => (
+        <article
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          className="
                     bg-white
                     rounded-xl
                     p-4
@@ -37,19 +22,13 @@ export const Card=({
                     hover:shadow-md
                     transition
                 "
-                >
+        >
+          <GripVertical size={18} className="text-gray-500 mb-3" />
 
-                    <GripVertical
-                        size={18}
-                        className="text-gray-500 mb-3"
-                    />
+          <h4 className="font-bold">{task.title}</h4>
 
-                    <h4 className="font-bold">
-                        {task.title}
-                    </h4>
-
-                    <span
-                        className="
+          <span
+            className="
                         inline-flex
                         mt-4
                         rounded-lg
@@ -59,23 +38,17 @@ export const Card=({
                         py-1
                         text-xs
                     "
-                    >
-                        {task.label}
-                    </span>
+          >
+            {task.label}
+          </span>
 
-                    <div className="flex items-center justify-end gap-2 mt-5 text-gray-500 text-sm">
+          <div className="flex items-center justify-end gap-2 mt-5 text-gray-500 text-sm">
+            <Calendar size={15} />
 
-            
-         <Calendar size={15}/>
-
-                        {task.date}              
-                    </div>
-
-                </article>
-            )}
-
-        </Draggable>
-
-    );
-
-}
+            {task.date}
+          </div>
+        </article>
+      )}
+    </Draggable>
+  );
+};
