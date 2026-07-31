@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 
-import { GoalCard, FeedHeader } from "@/shared/components/molecules";
+import { GoalCard, PageHeader } from "@/shared/components/molecules";
 import Button from "@/shared/components/atoms/Button"
 
 
@@ -32,7 +32,7 @@ export const Goals=({item})=>{
     return(
         <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <FeedHeader title="Hedeflerim" />
+        <PageHeader title="Hedeflerim" />
 
         <Button
           text="+ Yeni hedef"

@@ -8,7 +8,7 @@ import {
     GripVertical
 } from "lucide-react";
 
-export const TaskCard=({
+export const Card=({
     task,
     index,
 }) =>{

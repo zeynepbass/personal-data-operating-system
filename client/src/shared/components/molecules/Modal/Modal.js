@@ -4,7 +4,7 @@
  import Input from "@/shared/components/atoms/Input";
  import  Select  from "@/shared/components/atoms/Select";;
  import Textarea from "@/shared/components/atoms/Textarea";
-import {  Heading} from "@/shared/components/molecules";
+
 export const Modal = ({
   open,
   setOpen,
@@ -25,10 +25,11 @@ export const Modal = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between border-b border-gray-200 px-6 py-5">
-          <Heading
-            title="Yeni Görev"
-            description="Projeye yeni bir görev oluşturun."
-          />
+        <div className="mb-4">
+      <h3 className="text-lg font-bold">Yeni Görev</h3>
+      <p className="text-gray-600 mt-1">Projeye yeni bir görev oluşturun.</p>
+    </div>
+ 
 
           <button
             onClick={() => setOpen(false)}

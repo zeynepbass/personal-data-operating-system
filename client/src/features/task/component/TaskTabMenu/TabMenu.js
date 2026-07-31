@@ -9,7 +9,7 @@ import {
   Modal,
 } from "./board.dynamic";
 import Button from "@/shared/components/atoms/Button"
-import { FeedHeader, MenuNavigation } from "@/shared/components/molecules";
+import { PageHeader, MenuNavigation } from "@/shared/components/molecules";
 
 export const Board = ({
   view,
@@ -31,7 +31,7 @@ export const Board = ({
     <section className="flex flex-col gap-6">
 
       <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <FeedHeader
+        <PageHeader
           title="Görevler"
           description="Bugün seni neler bekliyor."
         />

@@ -1,14 +1,8 @@
-export {FeedHeader} from "./FeedHeader"
-export {Heading} from "./Heading"
-export {AiFooter} from "./AiFooter/AiFooter"
-export {GoalCard} from "./GoalCard"
-export {List} from "./List"
-export {Column} from "./Column"
-export {TaskCard} from "./TaskCard"
-export {MenuNavigation} from "./MenuNavigation"
-export {ListView} from "./ListView"
+
+
+
+export {Card} from "./Card"
+
 export {TableView} from "./TableView"
 export {Modal} from "./Modal/Modal"
-export {MenuList} from "./MenuList"
-export {SectionNavbar} from "./SectionNavbar"
-export {Card} from "./Card"
+

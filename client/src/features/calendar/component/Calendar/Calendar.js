@@ -8,11 +8,11 @@ import interactionPlugin from "@fullcalendar/interaction";
 import trLocale from "@fullcalendar/core/locales/tr";
 import "./calendar.css";
 import events from "@/shared/mocks/event.json";
-import { FeedHeader } from "@/shared/components/molecules";
+import { PageHeader } from "@/shared/components/molecules";
 export const Calendar=()=>{
     return(
         <div className="space-y-6">
-        <FeedHeader title="Takvim" />
+        <PageHeader title="Takvim" />
   
         <div className="rounded-3xl bg-white p-6 shadow-sm">
           <FullCalendar

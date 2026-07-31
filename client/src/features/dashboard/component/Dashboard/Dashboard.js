@@ -1,11 +1,12 @@
 import Input from "@/shared/components/atoms/Input";
 import  Select  from "@/shared/components/atoms/Select";
-import {List, AiFooter, FeedHeader,Heading } from "@/shared/components/molecules";
+import {List, PageHeader,Heading } from "@/shared/components/molecules";
+import {DashboardFooter} from "../DashboardFooter"
 
 export const Feed = ({ data, onToggle }) => {
   return (
     <div className="space-y-6">
-      <FeedHeader
+      <PageHeader
         title="Günaydın, Zeynep! 👋"
         description="Bugün harika işler seni bekliyor."
       />
@@ -144,7 +145,7 @@ export const Feed = ({ data, onToggle }) => {
         </section>
       </div>
 
-      <AiFooter
+      <DashboardFooter
         title="AI Önerileri"
         description="Bugün 3 görevin kaldı."
         info="React çalışmaya devam etmeni öneriyorum."
