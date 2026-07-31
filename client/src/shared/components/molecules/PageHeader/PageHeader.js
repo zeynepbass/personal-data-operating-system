@@ -1,4 +1,4 @@
-export const PageHeader = ({ title, description,className }) => {
+export default function PageHeader  ({ title, description,className })  {
     return (
       <div className="mb-4">
   <h1 className={`text-3xl font-bold ${className}`}>{title}</h1>

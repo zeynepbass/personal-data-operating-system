@@ -1,5 +1,5 @@
 "use client";
-import { Analytics } from "../component/Analytics";
+import  Analytics  from "../components/Analytics";
 import { useFeed } from "@/features/dashboard/hooks/useFeed";
 export default function Analytic() {
   const { data } = useFeed();

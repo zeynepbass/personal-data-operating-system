@@ -1,8 +1,8 @@
 "use client";
-import { Feed } from "../component/Dashboard";
+import  Dashboard  from "../components/Dashboard";
 import { useFeed } from "@/features/dashboard/hooks/useFeed";
-export default function Dashboard() {
+export default function DashboardPage() {
   const { data } = useFeed();
-  return <Feed data={data} />
+  return <Dashboard data={data} />
 
 }
