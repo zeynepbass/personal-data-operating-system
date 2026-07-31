@@ -1,6 +1,6 @@
 
-import Goals from "../components/Goals"
+import GoalsHome from "../components/GoalsHome"
 import Data from "@/shared/mocks/goals.json"
-export default function Goal() {
-  return <Goals item={Data}/>
+export default function GoalsPage() {
+  return <GoalsHome item={Data}/>
 }

@@ -1,39 +1,95 @@
 "use client";
-import TaskTabMenu from "../TaskTabMenu";
 
 
-export default function TaskHome({  view,
+import { DragDropContext } from "@hello-pangea/dnd";
+import {
+  TaskList,
+  TaskView,
+  TaskColumn,
+  TaskModal,
+} from "../TaskHome/routes/task.dynamic";
+import TaskHeading from "../TaskHeading";
+import TaskNavigation from "../TaskNavigation"
+export default function TaskHome  ({
+  view,
   setView,
   data,
   rows,
+  form,
   open,
   setOpen,
+  handleChange,
+  onSubmit,
+  onClose,
   onDragEnd,
   openMenuId,
   handleToggle,
   handleMenuClick,
-  handleChange,
-  form,
-  onSubmit,
-  onClose}) {
-
-
+})  {
   return (
-    <TaskTabMenu
-      view={view}
-      form={form}
-      handleChange={handleChange}
-      onSubmit={onSubmit}
-      setView={setView}
-      data={data}
-      open={open}
-      onClose={onClose}
-      setOpen={setOpen}
-      rows={rows}
-      openMenuId={openMenuId}
-      handleToggle={handleToggle}
-      handleMenuClick={handleMenuClick}
-      onDragEnd={onDragEnd}
-    />
+    <section className="flex flex-col gap-6">
+
+
+        <TaskHeading
+          title="Görevler"
+          description="Bugün seni neler bekliyor."
+        />
+
+ 
+
+
+  
+      <TaskModal
+        open={open}
+        setOpen={setOpen}
+        form={form}
+        handleChange={handleChange}
+        onSubmit={onSubmit}
+        onClose={onClose}
+      />
+
+
+      <TaskNavigation
+        view={view}
+        setView={setView}
+        data={data}
+        openMenuId={openMenuId}
+      />
+
+
+      <section className="min-h-[60vh]">
+        {view === "list" && (
+          <TaskList
+            tasks={rows}
+            onToggle={handleToggle}
+            onMenuClick={handleMenuClick}
+            openMenuId={openMenuId}
+          />
+        )}
+
+        {view === "kanban" && (
+          <DragDropContext onDragEnd={onDragEnd}>
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {data.map((column) => (
+                <TaskColumn
+                  key={column.id}
+                  column={column}
+                />
+              ))}
+            </div>
+          </DragDropContext>
+        )}
+
+        {view === "table" && (
+          <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
+            <TaskView
+              rows={rows}
+              onMenuClick={handleMenuClick}
+              openMenuId={openMenuId}
+            />
+          </div>
+        )}
+      </section>
+    </section>
   );
-}
+};

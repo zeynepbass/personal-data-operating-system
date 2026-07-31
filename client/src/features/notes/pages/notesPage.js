@@ -1,4 +1,4 @@
-import Notes from "../components/Notes"
-export default function Note() {
-  return <Notes/>
+import NotesHome from "../components/NotesHome"
+export default function NotesPage() {
+  return <NotesHome/>
 }

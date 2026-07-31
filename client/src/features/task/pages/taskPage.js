@@ -2,7 +2,7 @@
 import TaskHome from "../components/TaskHome";
 import { useBoard } from "@/features/notes/hooks/useNotes";
 
-export default function Tasks() {
+export default function TaskPage() {
   const {
     view,
     setView,

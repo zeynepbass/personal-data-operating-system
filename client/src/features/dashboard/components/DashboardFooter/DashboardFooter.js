@@ -1,5 +1,5 @@
 import { Circle, Info } from "lucide-react";
-export default function DashboardFooter({title,description,info
+export default function DashboardFooter({description,info
 }){
     return(
         <div className="mt-6 rounded-3xl flex justify-between shadow-xl">

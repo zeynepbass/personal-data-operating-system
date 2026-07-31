@@ -1,11 +1,11 @@
 "use client";
-import Document from "../components/Document";
+import DocumentsHome from "../components/DocumentsHome";
 import { useFeed } from "@/features/dashboard/hooks/useFeed";
-export default function Documents() {
+export default function DocumentsPage() {
   const { documents, open, setOpen, form, handleChange, onSubmit, onClose } =
     useFeed();
   return (
-    <Document
+    <DocumentsHome
       data={documents}
       open={open}
       setOpen={setOpen}

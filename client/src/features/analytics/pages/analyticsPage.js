@@ -1,8 +1,8 @@
 "use client";
-import  Analytics  from "../components/Analytics";
+import  AnalyticsHome  from "../components/AnalyticsHome";
 import { useFeed } from "@/features/dashboard/hooks/useFeed";
-export default function Analytic() {
+export default function AnalyticsPage() {
   const { data } = useFeed();
-  return <Analytics data={data} />
+  return <AnalyticsHome data={data} />
 
 }

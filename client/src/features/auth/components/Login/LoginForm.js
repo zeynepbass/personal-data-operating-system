@@ -8,7 +8,7 @@ import Input from "@/shared/components/atoms/Input";
 import  Button  from "@/shared/components/atoms/Input";
 import { PageHeader } from "@/shared/components/molecules";
 
-export const LoginForm=()=> {
+export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
