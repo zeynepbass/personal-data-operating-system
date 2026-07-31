@@ -1,4 +1,4 @@
-import { RegisterForm } from "@/shared/components/organisms";
+import { RegisterForm } from "../component/Register";
 
 export default function Register() {
   return <RegisterForm />;

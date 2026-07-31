@@ -1,5 +1,5 @@
 "use client"
-import { Task } from "@/shared/components/organisms";
+import { Task } from "../component/TaskHome";
 import { useBoard } from "@/features/notes/hooks/useNotes";
 
 export default function Tasks() {

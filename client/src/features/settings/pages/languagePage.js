@@ -1,4 +1,4 @@
-import { SettingLanguage } from "@/shared/components/organisms"
+import { SettingLanguage } from "../component/Settings/SettingLanguage"
 export default function Languages() {
 return <SettingLanguage/>
 }
