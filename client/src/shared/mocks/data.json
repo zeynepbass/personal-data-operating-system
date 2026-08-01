@@ -3,6 +3,9 @@
     "id": "todo",
     "title": "Todo",
     "color": "blue",
+    "meeting": "10:00 ",
+    "meetingCalendar":"2026-08-01",
+    "meetingDetails":"Team Lead daily",
     "tasks": [
       {
         "id": "task-1",
@@ -53,6 +56,9 @@
   {
     "id": "progress",
     "title": "In Progress",
+    "meeting": "12:00",
+    "meetingCalendar":"2026-08-03",
+    "meetingDetails":"Team Lead daily",
     "color": "purple",
     "tasks": [
       {
@@ -105,6 +111,9 @@
     "id": "done",
     "title": "Done",
     "color": "orange",
+    "meeting": "12:00 ",
+    "meetingDetails":"Team Lead daily",
+    "meetingCalendar":"2026-08-02",
     "tasks": [
       {
         "id": "task-5",
