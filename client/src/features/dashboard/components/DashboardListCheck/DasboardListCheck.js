@@ -3,7 +3,6 @@ export default function DashboardListCheck({ data, onToggle }){
     return(
          <div className="mt-5 flex flex-col gap-3">
                     {data
-                      ?.flatMap((column) => column.tasks)
                       .slice(0, 3)
                       .map((task,index) => (
                         <div

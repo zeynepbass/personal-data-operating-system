@@ -2,7 +2,7 @@
     {
       "id": 1,
       "title": "Board Call",
-      "start": "2026-07-03",
+      "start": "2026-08-01",
       "allDay": true,
       "backgroundColor": "#555A8A",
       "borderColor": "#555A8A",
@@ -11,7 +11,7 @@
     {
       "id": 2,
       "title": "React Eğitimi",
-      "start": "2026-07-05",
+      "start": "2026-08-01",
       "allDay": true,
       "backgroundColor": "#16A34A",
       "borderColor": "#16A34A",
@@ -20,7 +20,7 @@
     {
       "id": 3,
       "title": "UI Tasarım",
-      "start": "2026-07-08",
+      "start": "2026-08-01",
       "allDay": true,
       "backgroundColor": "#F97316",
       "borderColor": "#F97316",
@@ -29,7 +29,7 @@
     {
       "id": 4,
       "title": "Sprint Planlama",
-      "start": "2026-07-10",
+      "start": "2026-08-01",
       "allDay": true,
       "backgroundColor": "#555A8A",
       "borderColor": "#555A8A",
