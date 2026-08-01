@@ -3,14 +3,14 @@
 import { MoreVertical } from "lucide-react";
 import Button from "@/shared/components/atoms/Button";
 import Input from "@/shared/components/atoms/Input";
-export const ListView = ({ tasks = [], onToggle, onMenuClick, openMenuId }) => {
+export default function TaskList  ({ tasks = [], onToggle, onMenuClick, openMenuId })  {
   return (
     <div className="space-y-2">
       {tasks &&
-        tasks.map((task) => {
+        tasks.map((task,index) => {
           return (
             <div
-              key={task?.id}
+              key={index}
               className="flex items-center justify-between rounded-xl border border-gray-100 bg-white px-4 py-3 shadow-sm"
             >
               <div className="flex items-center gap-3">

@@ -1,4 +1,4 @@
-"use client";
+
 
  import Button from "@/shared/components/atoms/Button";
  import Input from "@/shared/components/atoms/Input";
@@ -6,7 +6,7 @@
  import  Select  from "@/shared/components/atoms/Select";;
  import Textarea from "@/shared/components/atoms/Textarea";
 
-export default function Modal  ({
+export default function TaskModal({
   open,
   setOpen,
   onSubmit,

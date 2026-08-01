@@ -1,5 +1,5 @@
 import Button from "@/shared/components/atoms/Button"
-export default function TaskHeading ({ title, description, className })  {
+export default function TaskHeading ({ title, description, className,setOpen })  {
     return (
       <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
 

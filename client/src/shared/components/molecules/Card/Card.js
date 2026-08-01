@@ -25,7 +25,7 @@ export default function Card({ task, index }) {
         >
           <GripVertical size={18} className="text-gray-500 mb-3" />
 
-          <h4 className="font-bold">{task.title}</h4>
+          <h4 className="font-bold">{task?.title}</h4>
 
           <span
             className="

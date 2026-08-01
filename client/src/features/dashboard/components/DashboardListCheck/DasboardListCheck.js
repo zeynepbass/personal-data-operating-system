@@ -7,7 +7,7 @@ export default function DashboardListCheck({ data, onToggle }){
                       .slice(0, 3)
                       .map((task) => (
                         <div
-                          key={task?.id}
+                          key={task._id}
                           className="flex items-center gap-3 rounded-xl border border-gray-100 p-3 transition hover:bg-gray-50"
                         >
                           <Input

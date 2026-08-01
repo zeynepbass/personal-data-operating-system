@@ -6,7 +6,7 @@ import DashboardList from "../DashboardList";
 import DashboardDuration from "../DashboardDuration"
 import DashboardHeading from "../DashboardHeading";
 import DashboardListCheck from "../DashboardListCheck";
-export default function DashboardHome  ()  {
+export default function DashboardHome  ({data,onToggle})  {
   return (
     <div className="space-y-6">
       <DashboardHeading

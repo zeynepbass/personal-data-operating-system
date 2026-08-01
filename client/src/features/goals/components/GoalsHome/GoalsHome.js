@@ -3,8 +3,7 @@
 import { useMemo, useState } from "react";
 import GoalsCard from "../GoalsCard"
 import GoalsHeading from "../GoalsHeading"
-
-
+import Button from "@/shared/components/atoms/Button";
 const tabs = [
   {
     text: "Tümü",
