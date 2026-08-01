@@ -5,9 +5,9 @@ export default function DashboardListCheck({ data, onToggle }){
                     {data
                       ?.flatMap((column) => column.tasks)
                       .slice(0, 3)
-                      .map((task) => (
+                      .map((task,index) => (
                         <div
-                          key={task._id}
+                          key={index}
                           className="flex items-center gap-3 rounded-xl border border-gray-100 p-3 transition hover:bg-gray-50"
                         >
                           <Input

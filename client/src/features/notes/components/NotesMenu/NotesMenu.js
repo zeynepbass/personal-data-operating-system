@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { MenuList } from "@/shared/components/molecules";
+import  NotesMenuList  from "../NotesMenuList";
 
 
 
@@ -183,7 +183,7 @@ export const menu = [
     ],
   },
 ];
-export function NotesMenuBar() {
+export default function NotesMenu() {
   const pathname = usePathname();
 
   const [openMenu, setOpenMenu] = useState(1); 
@@ -222,7 +222,7 @@ export function NotesMenuBar() {
             {isOpen && (
               <div className="ml-6 mt-2 space-y-1 border-l border-gray-200 pl-4">
                 {item.children.map((child) => (
-                  <MenuList
+                  <NotesMenuList
                     key={child.id}
                     href={child.link}
                     icon={child.icon}

@@ -1,4 +1,5 @@
 import NotesHome from "../components/NotesHome"
+import NotesLayout from "./layout/NotesLayout"
 export default function NotesPage() {
-  return <NotesHome/>
+  return <NotesLayout><NotesHome/></NotesLayout> 
 }

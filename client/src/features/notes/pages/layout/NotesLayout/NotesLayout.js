@@ -1,5 +1,5 @@
 import { PageHeader } from "@/shared/components/molecules";
-import { NotesMenuBar } from "@/shared/components/organisms";
+import NotesMenu  from "../../../components/NotesMenu";
 
 export default function NotesLayout({
   children,
@@ -10,7 +10,7 @@ export default function NotesLayout({
 
       <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
         <aside>
-          <NotesMenuBar />
+          <NotesMenu />
         </aside>
 
         <main>{children}</main>

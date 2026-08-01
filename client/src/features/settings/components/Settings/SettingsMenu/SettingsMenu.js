@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-export default function SettingsMenu({href,item,className}){
+export default function SettingsMenu({href,item,className, icon:Icon}){
     return(
         <Link  href={href} className={className}>
         <div className="flex items-center gap-4" >
