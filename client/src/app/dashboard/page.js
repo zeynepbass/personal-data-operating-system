@@ -1,4 +1,4 @@
-import LandingPage from "@/features/dashboard/pages/DashboardPage";
+import DashboardPage from "@/features/dashboard/pages/DashboardPage";
 export default function Dashboard() {
-  return <LandingPage />;
+  return <DashboardPage />;
 }

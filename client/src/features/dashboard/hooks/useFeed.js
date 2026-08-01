@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-import columns from "@/shared/mocks/event.json";
-import fields from "@/shared/mocks/fields.json";
+import columns from "../../../shared/mocks/event.json";
+import fields from "../../../shared/mocks/fields.json";
 
 export const useFeed = () => {
   const [open, setOpen] = useState(false);
