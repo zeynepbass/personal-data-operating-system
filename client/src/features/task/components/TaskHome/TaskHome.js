@@ -8,6 +8,7 @@ import {
    TaskColumn,
   TaskModal,
 } from "./routes/task.dynamic";
+import { useMemo } from "react";
 import TaskHeading from "../TaskHeading";
 import TaskNavigation from "../TaskNavigation"
 export default function TaskHome ({
@@ -26,7 +27,12 @@ export default function TaskHome ({
   handleToggle,
   handleMenuClick,
 })  {
+  const todayTasks = useMemo(() => {
+    return rows.filter((task) => task.columnId === "todo");
+  }, [rows]);
+  console.log(rows)
   return (
+    
     <section className="flex flex-col gap-6">
 
 
@@ -61,7 +67,7 @@ export default function TaskHome ({
       <section className="min-h-[60vh]">
         {view === "list" && (
           <TaskList
-            tasks={rows}
+            tasks={todayTasks}
             onToggle={handleToggle}
             onMenuClick={handleMenuClick}
             openMenuId={openMenuId}

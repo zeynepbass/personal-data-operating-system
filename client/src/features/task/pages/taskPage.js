@@ -1,6 +1,6 @@
 "use client"
 import TaskHome from "../components/TaskHome";
-import { useBoard } from "@/features/notes/hooks/useNotes";
+import  useBoard  from "@/features/notes/hooks/useNotes";
 
 export default function TaskPage() {
   const {
@@ -25,7 +25,8 @@ export default function TaskPage() {
       view={view}
       setView={setView}
       data={data}
-      rows={rows}
+
+      rows={rows} 
       open={open}
       setOpen={setOpen}
       onDragEnd={onDragEnd}
