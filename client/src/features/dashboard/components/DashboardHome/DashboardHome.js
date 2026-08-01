@@ -1,12 +1,9 @@
-
-
-
 import DashboardFooter from "../DashboardFooter";
 import DashboardList from "../DashboardList";
-import DashboardDuration from "../DashboardDuration"
+import DashboardDuration from "../DashboardDuration";
 import DashboardHeading from "../DashboardHeading";
 import DashboardListCheck from "../DashboardListCheck";
-export default function DashboardHome  ({data,onToggle})  {
+export default function DashboardHome({ data, notes, onToggle,filteredMeeting }) {
   return (
     <div className="space-y-6">
       <DashboardHeading
@@ -15,13 +12,11 @@ export default function DashboardHome  ({data,onToggle})  {
       />
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-
         <section className="rounded-2xl bg-white p-5 shadow transition hover:shadow-lg">
           <DashboardHeading title="Bugünkü Görevler" />
 
-         <DashboardListCheck  data={data}  onToggle={onToggle}/>
+          <DashboardListCheck data={data} onToggle={onToggle} />
         </section>
-
 
         <section className="rounded-2xl bg-white p-5 shadow transition hover:shadow-lg">
           <DashboardHeading
@@ -31,28 +26,34 @@ export default function DashboardHome  ({data,onToggle})  {
 
           <div className="mt-5 space-y-3">
             <div className="flex overflow-hidden rounded-xl border border-slate-200">
-              <div className="flex min-w-17.5 items-center justify-center bg-[#555A8A] px-4 text-sm font-semibold text-white">
-                10:00
-              </div>
+              {filteredMeeting.map((item) => {
+                return (
+                  <>
+                    <div className="flex min-w-17.5 items-center justify-center bg-[#555A8A] px-4 text-sm font-semibold text-white">
+                      {item.meeting}
+                    </div>
+                    <div className="flex flex-1 flex-col justify-between gap-2 p-4 sm:flex-row sm:items-center">
+                      <span className="font-medium text-gray-700">
+                        {" "}
+                        {item.meetingDetails}
+                      </span>
 
-              <div className="flex flex-1 flex-col justify-between gap-2 p-4 sm:flex-row sm:items-center">
-                <span className="font-medium text-gray-700">Meeting</span>
-
-                <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
-                  Tamamlandı
-                </span>
-              </div>
+                      <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
+                        Tamamlandı
+                      </span>
+                    </div>{" "}
+                  </>
+                );
+              })}
             </div>
           </div>
         </section>
-
 
         <section className="rounded-2xl bg-white p-5 shadow transition hover:shadow-lg">
           <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <DashboardHeading title="İstatistikler" />
 
-        <DashboardDuration/>
- 
+            <DashboardDuration />
           </div>
 
           <div className="grid grid-cols-3 gap-4">
@@ -83,29 +84,21 @@ export default function DashboardHome  ({data,onToggle})  {
                 ["Cmt", "h-14"],
                 ["Paz", "h-24"],
               ].map(([day, height]) => (
-                <div
-                  key={day}
-                  className="flex flex-col items-center gap-2"
-                >
-                  <div
-                    className={`w-6 rounded-full bg-[#555A8A] ${height}`}
-                  />
+                <div key={day} className="flex flex-col items-center gap-2">
+                  <div className={`w-6 rounded-full bg-[#555A8A] ${height}`} />
 
-                  <span className="text-sm text-gray-600">
-                    {day}
-                  </span>
+                  <span className="text-sm text-gray-600">{day}</span>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-
         <section className="rounded-2xl bg-white p-5 shadow transition hover:shadow-lg">
           <DashboardHeading title="Son Notlar" />
 
           <div className="mt-4">
-            <DashboardList />
+            <DashboardList data={notes.slice(-3).reverse()} />
           </div>
         </section>
       </div>
@@ -117,4 +110,4 @@ export default function DashboardHome  ({data,onToggle})  {
       />
     </div>
   );
-};
+}

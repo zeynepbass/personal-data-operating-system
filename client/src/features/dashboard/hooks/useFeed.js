@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
+import meetings from "../../../shared/mocks/data.json";
 import columns from "../../../shared/mocks/event.json";
 import fields from "../../../shared/mocks/fields.json";
 
@@ -68,14 +68,18 @@ export const useFeed = () => {
 
     onClose();
   };
-
+  const today = new Date().toISOString().split("T")[0];
+  const filteredData=data.filter((item)=>item.start===today)
+  const filteredMeeting=meetings.filter((item)=>item.meetingCalendar===today)
+  console.log(today)
+  console.log(filteredMeeting)
   return {
     data,
     setData,
-
+    filteredData,
     documents,
     setDocuments,
-
+    filteredMeeting,
     open,
     setOpen,
 
