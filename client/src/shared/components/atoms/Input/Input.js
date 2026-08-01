@@ -28,7 +28,7 @@ export default function Input  ({
       placeholder={placeholder}
       className={className}
       disabled={disabled}
-      defaultChecked={!disabled} 
+
       {...props}
   
     />    </>

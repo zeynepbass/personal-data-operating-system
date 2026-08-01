@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import columns from "@/shared/mocks/event.json";
+import columns from "../../../shared/mocks/event.json";
 export const useBoard = () => {
   const [view, setView] = useState("list");
   const [data, setData] = useState(columns);

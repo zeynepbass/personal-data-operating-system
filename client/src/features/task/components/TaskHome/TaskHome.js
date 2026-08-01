@@ -5,12 +5,12 @@ import { DragDropContext } from "@hello-pangea/dnd";
 import {
   TaskList,
   TaskView,
-  TaskColumn,
+   TaskColumn,
   TaskModal,
-} from "../TaskHome/routes/task.dynamic";
+} from "./routes/task.dynamic";
 import TaskHeading from "../TaskHeading";
 import TaskNavigation from "../TaskNavigation"
-export default function TaskHome  ({
+export default function TaskHome ({
   view,
   setView,
   data,
@@ -32,6 +32,7 @@ export default function TaskHome  ({
 
         <TaskHeading
           title="Görevler"
+          setOpen={setOpen}
           description="Bugün seni neler bekliyor."
         />
 
@@ -66,8 +67,7 @@ export default function TaskHome  ({
             openMenuId={openMenuId}
           />
         )}
-
-        {view === "kanban" && (
+{view === "kanban" && (
           <DragDropContext onDragEnd={onDragEnd}>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
               {data.map((column) => (
@@ -78,7 +78,7 @@ export default function TaskHome  ({
               ))}
             </div>
           </DragDropContext>
-        )}
+        )} 
 
         {view === "table" && (
           <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">

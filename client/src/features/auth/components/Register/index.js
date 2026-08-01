@@ -1,1 +1,1 @@
-export {default} from "../../components/RegisterForm"
+export {default} from "./RegisterForm"

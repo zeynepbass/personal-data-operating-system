@@ -88,7 +88,7 @@ export default function DocumentsHome ({
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
 
-        {data.map((doc) => (
+        {data .map((doc) => (
           <div
             key={doc.id}
             className="group cursor-pointer  border border-gray-200 duration-300
