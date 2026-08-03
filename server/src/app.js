@@ -1,29 +1,17 @@
 import express from "express";
-import cors from "cors";
-import morgan from "morgan";
 
-import taskRoutes from "./routes/task.routes.js";
-import goalRoutes from "./routes/goal.routes.js";
+import eventRoutes from "./routes/event.routes.js";
+import meetingRoutes from "./routes/meeting.routes.js";
 import documentRoutes from "./routes/document.routes.js";
-import profileRoutes from "./routes/profile.routes.js";
-import authRoutes from "./routes/auth.routes.js";
-
-
+import goalRoutes from "./routes/goal.routes.js";
 
 const app = express();
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
-
-app.use(morgan("dev"));
-app.use("/api/auth", authRoutes);
-app.use("/uploads", express.static("src/uploads"));
-app.use("/api/profile", profileRoutes);
-app.use("/api/tasks", taskRoutes);
-
-app.use("/api/goals", goalRoutes);
-
+app.use("/api/events", eventRoutes);
+app.use("/api/meetings", meetingRoutes);
 app.use("/api/documents", documentRoutes);
+app.use("/api/goals", goalRoutes);
 
 export default app;

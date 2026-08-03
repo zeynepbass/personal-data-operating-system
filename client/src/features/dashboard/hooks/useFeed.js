@@ -69,7 +69,9 @@ export const useFeed = () => {
     onClose();
   };
   const today = new Date().toISOString().split("T")[0];
-  const filteredData=data.filter((item)=>item.start===today)
+  const filteredData = data?.filter(
+    (item) => item.start === today
+  ) ?? [];
   const filteredMeeting=meetings.filter((item)=>item.meetingCalendar===today)
   console.log(today)
   console.log(filteredMeeting)

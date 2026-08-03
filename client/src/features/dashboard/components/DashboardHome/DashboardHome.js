@@ -26,8 +26,15 @@ export default function DashboardHome({ data, notes, onToggle,filteredMeeting })
 
           <div className="mt-5 space-y-3">
             <div className="flex overflow-hidden rounded-xl border border-slate-200">
-              {filteredMeeting.map((item) => {
-                return (
+            {filteredMeeting.length=== 0 ? (
+              <div className="py-6 text-center">
+              <p className="text-sm text-gray-500">
+                Bugün için bir toplantı oluşturulmadı.
+              </p>
+            </div>
+          ) : (
+              filteredMeeting.map((item,index) => (
+
                   <>
                     <div className="flex min-w-17.5 items-center justify-center bg-[#555A8A] px-4 text-sm font-semibold text-white">
                       {item.meeting}
@@ -43,8 +50,9 @@ export default function DashboardHome({ data, notes, onToggle,filteredMeeting })
                       </span>
                     </div>{" "}
                   </>
-                );
-              })}
+                    )
+                    ))}
+                  
             </div>
           </div>
         </section>

@@ -1,6 +1,9 @@
 {
   "name": "pdos-backend",
   "version": "1.0.0",
+
+    "type": "module",
+
   "description": "PDOS Backend API",
   "type": "module",
   "main": "src/server.js",

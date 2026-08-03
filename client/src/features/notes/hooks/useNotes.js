@@ -168,8 +168,6 @@ export default function useNotes  () {
       if (!sourceColumn || !destinationColumn) {
         return prev;
       }
-
-      // Aynı kolon
       if (
         source.droppableId ===
         destination.droppableId
