@@ -1,6 +1,9 @@
 import Meeting from "../models/meeting.model.js";
 
 export const getMeeting = async () => {
-  return await Meeting.find();
-};
+  const meetings = await Meeting.find();
 
+  console.log("DB RESULT:", meetings);
+
+  return meetings;
+};

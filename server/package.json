@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "description": "PDOS Backend API",
-  "main": "src/server.js",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "Zeynep Baş",
