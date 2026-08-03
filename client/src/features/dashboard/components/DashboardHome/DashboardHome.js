@@ -3,16 +3,22 @@ import DashboardList from "../DashboardList";
 import DashboardDuration from "../DashboardDuration";
 import DashboardHeading from "../DashboardHeading";
 import DashboardListCheck from "../DashboardListCheck";
+
 export default function DashboardHome({
-  data,
+  filteredData = [],
+  filteredMeeting = [],
   notes,
   onToggle,
   loading,
   error,
-
-  filteredMeeting,
 }) {
-  console.log(filteredMeeting)
+  const today = new Date().toLocaleDateString("tr-TR", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
   return (
     <div className="space-y-6">
       <DashboardHeading
@@ -20,104 +26,200 @@ export default function DashboardHome({
         description="Bugün harika işler seni bekliyor."
       />
 
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-        <section className="rounded-2xl bg-white p-5 shadow transition hover:shadow-lg">
-          <DashboardHeading title="Bugünkü Görevler" />
+<div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
 
-          <DashboardListCheck data={data} onToggle={onToggle}   loading={loading}
-  error={error}/>
-        </section>
+  <section className="relative h-[30vh] rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:shadow-md">
 
-        <section className="rounded-2xl bg-white p-5 shadow transition hover:shadow-lg">
-          <DashboardHeading
-            title="Takvim"
-            description="29 Haziran 2024 Cumartesi"
-          />
+    <div className="mb-5 flex items-center justify-between">
+      <DashboardHeading title="Bugünkü Görevler" />
 
-          <div className="mt-5 space-y-3">
-            <div className="flex overflow-hidden rounded-xl border border-slate-200">
-              {filteredMeeting.length === 0 ? (
-                <div className="py-6 px-6 flex ">
-                  <p className="text-sm text-gray-500">
-                    Bugün için bir toplantı oluşturulmadı.
+      <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-[#555A8A]">
+        Bugün
+      </span>
+    </div>
+
+
+    <div className="h-[calc(30vh-110px)] overflow-y-auto pr-2">
+      <DashboardListCheck
+        filteredData={filteredData}
+        onToggle={onToggle}
+        loading={loading}
+        error={error}
+      />
+    </div>
+  </section>
+
+
+  <section className="relative h-[30vh] rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:shadow-md">
+
+    <div className="mb-5 flex items-start justify-between">
+      <div>
+        <DashboardHeading title="Takvim" />
+
+        <p className="mt-1 text-sm text-slate-400">
+          {today}
+        </p>
+      </div>
+    </div>
+
+
+    <div className="h-[calc(30vh-110px)] overflow-y-auto pr-2">
+      {filteredMeeting.length === 0 ? (
+        <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50 px-6 py-10 text-center">
+          <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm">
+            📭
+          </div>
+
+          <p className="font-medium text-slate-700">
+            Bugün için toplantı yok
+          </p>
+
+          <p className="mt-1 text-sm text-slate-400">
+            Takviminde planlanmış bir toplantı bulunmuyor.
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {filteredMeeting.map((item, index) => (
+            <div
+              key={item._id || index}
+              className="group flex overflow-hidden rounded-xl border border-slate-100 bg-slate-50 transition hover:border-indigo-100 hover:bg-white hover:shadow-sm"
+            >
+              <div className="flex min-w-20 items-center justify-center bg-[#555A8A] px-3 text-sm font-bold text-white">
+                {item.meeting}
+              </div>
+
+              <div className="flex flex-1 items-center justify-between gap-4 px-4 py-3">
+                <div className="min-w-0">
+                  <p className="truncate font-semibold text-slate-700">
+                    {item.meetingDetails}
+                  </p>
+
+                  <p className="mt-1 text-xs text-slate-400">
+                    Bugünkü toplantı
                   </p>
                 </div>
-              ) : (
-                filteredMeeting.map((item, index) => (
-                  <>
-                    <div className="flex min-w-17.5 items-center justify-center bg-[#555A8A] px-4 text-sm font-semibold text-white">
-                      {item.meeting}
-                    </div>
-                    <div className="flex flex-1 flex-col justify-between gap-2 p-4 sm:flex-row sm:items-center">
-                      <span className="font-medium text-gray-700">
-                        {" "}
-                        {item.meetingDetails}
-                      </span>
 
-                      <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
-                        Tamamlandı
-                      </span>
-                    </div>{" "}
-                  </>
-                ))
-              )}
+                <span className="shrink-0 rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+                  Tamamlandı
+                </span>
+              </div>
             </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+
+  <section className="relative h-[40vh] rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:shadow-md">
+  <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <DashboardHeading title="İstatistikler" />
+
+    <DashboardDuration />
+  </div>
+
+  <div className="grid grid-cols-3 gap-3">
+    <div className="rounded-xl border border-indigo-100 bg-indigo-50 p-4 text-center">
+      <p className="text-2xl font-bold text-[#555A8A]">
+        25
+      </p>
+
+      <p className="mt-1 text-xs font-medium text-slate-500">
+        Görev
+      </p>
+    </div>
+
+    <div className="rounded-xl border border-green-100 bg-green-50 p-4 text-center">
+      <p className="text-2xl font-bold text-green-600">
+        4
+      </p>
+
+      <p className="mt-1 text-xs font-medium text-slate-500">
+        Hedef
+      </p>
+    </div>
+
+    <div className="rounded-xl border border-orange-100 bg-orange-50 p-4 text-center">
+      <p className="text-2xl font-bold text-orange-500">
+        12
+      </p>
+
+      <p className="mt-1 text-xs font-medium text-slate-500">
+        Saat
+      </p>
+    </div>
+  </div>
+
+  <div className="mt-8">
+    <div className="mb-3 flex items-center justify-between">
+      <p className="text-sm font-semibold text-slate-700">
+        Haftalık Aktivite
+      </p>
+
+      <span className="text-xs text-slate-400">
+        Son 7 gün
+      </span>
+    </div>
+
+    <div className="overflow-x-auto">
+      <div className="flex min-w-105 items-end justify-between gap-5 px-2 pt-4">
+        {[
+          ["Pzt", "h-12"],
+          ["Sal", "h-20"],
+          ["Çar", "h-10"],
+          ["Per", "h-16"],
+          ["Cum", "h-8"],
+          ["Cmt", "h-14"],
+          ["Paz", "h-24"],
+        ].map(([day, height]) => (
+          <div
+            key={day}
+            className="flex flex-col items-center gap-2"
+          >
+            <div
+              className={`w-7 rounded-t-lg bg-[#555A8A] transition-all hover:opacity-80 ${height}`}
+            />
+
+            <span className="text-xs font-medium text-slate-400">
+              {day}
+            </span>
           </div>
-        </section>
-
-        <section className="rounded-2xl bg-white p-5 shadow transition hover:shadow-lg">
-          <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <DashboardHeading title="İstatistikler" />
-
-            <DashboardDuration />
-          </div>
-
-          <div className="grid grid-cols-3 gap-4">
-            <div className="rounded-xl bg-indigo-50 p-4 text-center">
-              <p className="text-3xl font-bold text-[#555A8A]">25</p>
-              <p className="mt-1 text-sm text-gray-600">Görev</p>
-            </div>
-
-            <div className="rounded-xl bg-green-50 p-4 text-center">
-              <p className="text-3xl font-bold text-green-600">4</p>
-              <p className="mt-1 text-sm text-gray-600">Hedef</p>
-            </div>
-
-            <div className="rounded-xl bg-orange-50 p-4 text-center">
-              <p className="text-3xl font-bold text-orange-500">12</p>
-              <p className="mt-1 text-sm text-gray-600">Saat</p>
-            </div>
-          </div>
-
-          <div className="mt-8 overflow-x-auto">
-            <div className="flex min-w-105 items-end justify-between gap-6 px-2">
-              {[
-                ["Pzt", "h-12"],
-                ["Sal", "h-20"],
-                ["Çar", "h-10"],
-                ["Per", "h-16"],
-                ["Cum", "h-8"],
-                ["Cmt", "h-14"],
-                ["Paz", "h-24"],
-              ].map(([day, height]) => (
-                <div key={day} className="flex flex-col items-center gap-2">
-                  <div className={`w-6 rounded-full bg-[#555A8A] ${height}`} />
-
-                  <span className="text-sm text-gray-600">{day}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="rounded-2xl bg-white p-5 shadow transition hover:shadow-lg">
-          <DashboardHeading title="Son Notlar" />
-
-          <div className="mt-4">
-            <DashboardList data={notes.slice(-3).reverse()} />
-          </div>
-        </section>
+        ))}
       </div>
+    </div>
+  </div>
+</section>
+
+
+  <section className="relative h-[40vh] rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:shadow-md">
+
+    <div className="mb-5 flex items-center justify-between">
+      <DashboardHeading title="Son Notlar" />
+
+      <span className="text-xs font-medium text-slate-400">
+        Son 3 not
+      </span>
+    </div>
+
+
+    <div className="h-[calc(30vh-110px)] overflow-y-auto pr-2">
+      {notes?.length > 0 ? (
+        <DashboardList data={notes.slice(-3).reverse()} />
+      ) : (
+        <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 px-4 py-8 text-center">
+          <p className="text-sm font-medium text-slate-600">
+            Henüz not bulunmuyor.
+          </p>
+
+          <p className="mt-1 text-xs text-slate-400">
+            İlk notunu oluşturarak başlayabilirsin.
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+</div>
 
       <DashboardFooter
         title="AI Önerileri"

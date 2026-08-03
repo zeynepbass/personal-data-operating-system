@@ -1,10 +1,9 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
 
-import meetingsRepository from "../meeting.container";
-import columns from "../../../shared/mocks/event.json";
+import { meetingsRepository } from "../dashboard.container";
+
 import fields from "../../../shared/mocks/fields.json";
 
 export const useFeed = () => {
@@ -12,17 +11,12 @@ export const useFeed = () => {
 
   const [meetings, setMeetings] = useState([]);
 
-
-  const [data, setData] = useState(columns);
-
   const [documents, setDocuments] = useState(fields);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-
   const today = new Date().toISOString().split("T")[0];
-
 
   const fetchMeetings = async () => {
     try {
@@ -57,10 +51,6 @@ export const useFeed = () => {
     return meetingDate === today;
   });
 
-  const filteredData =
-    data?.filter((item) => item.start === today) ?? [];
-
-
   const [form, setForm] = useState({
     name: "",
     type: "pdf",
@@ -71,7 +61,6 @@ export const useFeed = () => {
     favorite: false,
     shared: false,
   });
-
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -95,12 +84,10 @@ export const useFeed = () => {
     });
   };
 
-
   const onClose = () => {
     setOpen(false);
     resetForm();
   };
-
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -115,33 +102,35 @@ export const useFeed = () => {
     onClose();
   };
 
+  const filteredData =
+    meetings
+      ?.flatMap((item) => item.tasks ?? [])
+      .filter((task) => {
+        const taskDate = new Date(task.date)
+          .toISOString()
+          .split("T")[0];
+  
+        return taskDate === today;
+      }) ?? [];
+  
+  console.log("filteredData:", filteredData);
+  console.log("today:", today);
+
   return {
-
-    data,
-    setData,
-    filteredData,
-
-
     meetings,
     filteredMeeting,
-
-
     documents,
     setDocuments,
-
     loading,
     error,
-
-
     open,
     setOpen,
 
-
+    filteredData,
     form,
     handleChange,
     onSubmit,
     onClose,
-
 
     today,
   };
