@@ -1,5 +1,6 @@
 import Input from "@/shared/components/atoms/Input";
-export default function DashboardListCheck({ data, onToggle }){
+export default function DashboardListCheck({ data, onToggle,  loading,
+  error }){
     return(
          <div className="mt-5 flex flex-col gap-3">
           {data.length=== 0 ? (
