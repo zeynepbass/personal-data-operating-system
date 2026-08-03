@@ -1,16 +1,11 @@
-import { meetingAdapter } from "../adapters/meeting.adapter";
+import { meetingAdapter } from "../adapters/dashboard.adapter";
 
 export function createmeetingRepository(provider) {
   return {
-
     async getAllMeetings() {
-
       const response = await provider.getMeetingApi();
-
-      return response.meetings.map(meetingAdapter);
-
+      console.log(response);
+      return response.map(meetingAdapter);
     },
-
-
   };
 }

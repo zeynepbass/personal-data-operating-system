@@ -1,4 +1,4 @@
-import * as meetingApi from "../features/dashboard/api/meeting.api"
+import * as meetingApi from "../features/dashboard/api/dashboard.api"
 
 const meetingProvider={
     getMeetingApi:meetingApi.getMeeting,
