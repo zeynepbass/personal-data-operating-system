@@ -3,7 +3,16 @@ import DashboardList from "../DashboardList";
 import DashboardDuration from "../DashboardDuration";
 import DashboardHeading from "../DashboardHeading";
 import DashboardListCheck from "../DashboardListCheck";
-export default function DashboardHome({ data, notes, onToggle,filteredMeeting }) {
+export default function DashboardHome({
+  data,
+  notes,
+  onToggle,
+  loading,
+  error,
+
+  filteredMeeting,
+}) {
+  console.log(filteredMeeting)
   return (
     <div className="space-y-6">
       <DashboardHeading
@@ -15,7 +24,8 @@ export default function DashboardHome({ data, notes, onToggle,filteredMeeting })
         <section className="rounded-2xl bg-white p-5 shadow transition hover:shadow-lg">
           <DashboardHeading title="Bugünkü Görevler" />
 
-          <DashboardListCheck data={data} onToggle={onToggle} />
+          <DashboardListCheck data={data} onToggle={onToggle}   loading={loading}
+  error={error}/>
         </section>
 
         <section className="rounded-2xl bg-white p-5 shadow transition hover:shadow-lg">
@@ -26,15 +36,14 @@ export default function DashboardHome({ data, notes, onToggle,filteredMeeting })
 
           <div className="mt-5 space-y-3">
             <div className="flex overflow-hidden rounded-xl border border-slate-200">
-            {filteredMeeting.length=== 0 ? (
-              <div className="py-6 text-center">
-              <p className="text-sm text-gray-500">
-                Bugün için bir toplantı oluşturulmadı.
-              </p>
-            </div>
-          ) : (
-              filteredMeeting.map((item,index) => (
-
+              {filteredMeeting.length === 0 ? (
+                <div className="py-6 px-6 flex ">
+                  <p className="text-sm text-gray-500">
+                    Bugün için bir toplantı oluşturulmadı.
+                  </p>
+                </div>
+              ) : (
+                filteredMeeting.map((item, index) => (
                   <>
                     <div className="flex min-w-17.5 items-center justify-center bg-[#555A8A] px-4 text-sm font-semibold text-white">
                       {item.meeting}
@@ -50,9 +59,8 @@ export default function DashboardHome({ data, notes, onToggle,filteredMeeting })
                       </span>
                     </div>{" "}
                   </>
-                    )
-                    ))}
-                  
+                ))
+              )}
             </div>
           </div>
         </section>

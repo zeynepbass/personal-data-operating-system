@@ -1,28 +1,68 @@
+
 "use client";
 
-import { useState } from "react";
-import meetings from "../../../shared/mocks/data.json";
+import { useEffect, useState } from "react";
+
+import meetingsRepository from "../meeting.container";
 import columns from "../../../shared/mocks/event.json";
 import fields from "../../../shared/mocks/fields.json";
 
 export const useFeed = () => {
   const [open, setOpen] = useState(false);
 
+  const [meetings, setMeetings] = useState([]);
+
+
   const [data, setData] = useState(columns);
+
   const [documents, setDocuments] = useState(fields);
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+
+  const today = new Date().toISOString().split("T")[0];
+
+
+  const fetchMeetings = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await meetingsRepository.getAllMeetings();
+
+      console.log("Meetings:", response);
+
+      setMeetings(response ?? []);
+    } catch (error) {
+      console.error("Meetings error:", error);
+
+      setError(error.message || "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMeetings();
+  }, []);
+
+  const filteredMeeting = meetings.filter((item) => {
+    if (!item.meetingCalendar) return false;
+
+    const meetingDate = new Date(item.meetingCalendar)
+      .toISOString()
+      .split("T")[0];
+
+    return meetingDate === today;
+  });
+
+  const filteredData =
+    data?.filter((item) => item.start === today) ?? [];
+
+
   const [form, setForm] = useState({
-    title: "",
-    description: "",
-    label: "",
-    assignee: "",
-
-    priority: "Medium",
-    status: "Todo",
-    startDate: "",
-    dueDate: "",
-    estimatedHours: "",
-
+    name: "",
     type: "pdf",
     size: "",
     date: "",
@@ -31,6 +71,7 @@ export const useFeed = () => {
     favorite: false,
     shared: false,
   });
+
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -41,9 +82,7 @@ export const useFeed = () => {
     }));
   };
 
-  const onClose = () => {
-    setOpen(false);
-
+  const resetForm = () => {
     setForm({
       name: "",
       type: "pdf",
@@ -55,6 +94,13 @@ export const useFeed = () => {
       shared: false,
     });
   };
+
+
+  const onClose = () => {
+    setOpen(false);
+    resetForm();
+  };
+
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -68,26 +114,35 @@ export const useFeed = () => {
 
     onClose();
   };
-  const today = new Date().toISOString().split("T")[0];
-  const filteredData = data?.filter(
-    (item) => item.start === today
-  ) ?? [];
-  const filteredMeeting=meetings.filter((item)=>item.meetingCalendar===today)
-  console.log(today)
-  console.log(filteredMeeting)
+
   return {
+
     data,
     setData,
     filteredData,
+
+
+    meetings,
+    filteredMeeting,
+
+
     documents,
     setDocuments,
-    filteredMeeting,
+
+    loading,
+    error,
+
+
     open,
     setOpen,
+
 
     form,
     handleChange,
     onSubmit,
     onClose,
+
+
+    today,
   };
 };

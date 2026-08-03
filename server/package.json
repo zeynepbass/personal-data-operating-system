@@ -1,11 +1,8 @@
 {
   "name": "pdos-backend",
   "version": "1.0.0",
-
-    "type": "module",
-
-  "description": "PDOS Backend API",
   "type": "module",
+  "description": "PDOS Backend API",
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
@@ -16,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^3.0.2",
-    "cors": "^2.8.5",
+    "cors": "^2.8.6",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
