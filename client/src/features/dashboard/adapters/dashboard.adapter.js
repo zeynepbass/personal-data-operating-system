@@ -1,7 +1,7 @@
 export function meetingAdapter(meeting) {
 
     return {
-      id: meeting.id,
+      id: meeting._id,
       name:meeting.name,
       title: meeting.title,
       color: meeting.color,
@@ -36,3 +36,17 @@ export function meetingAdapter(meeting) {
     };
   };
 
+export function documentAdapter(document){
+
+  return{
+    id: document._id,
+    title: document.name,
+    type: document.type,
+    size: document.size,
+    date: document.date,
+    icon: document.icon,
+    color: document.color,
+    favorite: document.favorite,
+    shared: document.shared,
+  }
+}

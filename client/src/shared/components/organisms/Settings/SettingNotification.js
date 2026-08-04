@@ -1,9 +1,9 @@
 
 import Input from "@/shared/components/atoms/Input";
 import  Button  from "@/shared/components/atoms/Input";
-import Heading from "@/shared/components/atoms/Heading";
+import {Heading} from "@/shared/components/molecules";
 
-export default function SettingsNotification() {
+export const SettingNotification=()=> {
   const Item = ({
     title,
     description,

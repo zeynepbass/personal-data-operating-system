@@ -1,12 +1,18 @@
-import dashboardProvider from "../../providers/dashboard.provider";
+import { dashboardProvider } from "../../providers/dashboard.provider";
 
 import {
-  createmeetingRepository
-} from "./repositories/meeting.repository";
+  createmeetingRepository,
+  createDocumentRepository,
+} from "./repositories/dashboard.repository";
 
 
-export const meetingsRepository =
-  createmeetingRepository(dashboardProvider);
+const meetingRepository = createmeetingRepository(dashboardProvider);
+const documentRepository = createDocumentRepository(dashboardProvider);
 
 
+
+export const dashboardRepository = {
+  ...meetingRepository,
+  ...documentRepository,
+};
 
