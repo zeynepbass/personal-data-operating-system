@@ -1,6 +1,10 @@
-import * as meetingApi from "../features/dashboard/api/dashboard.api"
+import {
+  getDocument,
+  getMeeting,
+} from "../features/dashboard/api/dashboard.api";
 
-const meetingProvider={
-    getMeetingApi:meetingApi.getMeeting,
-}
-export default meetingProvider
+export const dashboardProvider = {
+  getMeetingApi: getMeeting,
+  getDocumentApi: getDocument,
+};
+

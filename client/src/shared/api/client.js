@@ -6,5 +6,4 @@ const apiClient = axios.create({
     "Content-Type": "application/json",
   },
 });
-console.log("API URL:", process.env.NEXT_PUBLIC_API_URI);
 export default apiClient;

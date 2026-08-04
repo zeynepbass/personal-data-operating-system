@@ -7,11 +7,13 @@ import DashboardListCheck from "../DashboardListCheck";
 export default function DashboardHome({
   filteredData = [],
   filteredMeeting = [],
-  notes,
+  documents,
   onToggle,
+
   loading,
   error,
 }) {
+
   const today = new Date().toLocaleDateString("tr-TR", {
     weekday: "long",
     day: "numeric",
@@ -28,7 +30,7 @@ export default function DashboardHome({
 
 <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
 
-  <section className="relative h-[30vh] rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:shadow-md">
+  <section className="relative h-[32vh] rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:shadow-md">
 
     <div className="mb-5 flex items-center justify-between">
       <DashboardHeading title="Bugünkü Görevler" />
@@ -50,7 +52,7 @@ export default function DashboardHome({
   </section>
 
 
-  <section className="relative h-[30vh] rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:shadow-md">
+  <section className="relative h-[32vh] rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:shadow-md">
 
     <div className="mb-5 flex items-start justify-between">
       <div>
@@ -204,8 +206,8 @@ export default function DashboardHome({
 
 
     <div className="h-[calc(30vh-110px)] overflow-y-auto pr-2">
-      {notes?.length > 0 ? (
-        <DashboardList data={notes.slice(-3).reverse()} />
+      {documents?.length > 0 ? (
+        <DashboardList documents={documents.slice(-3).reverse()} />
       ) : (
         <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 px-4 py-8 text-center">
           <p className="text-sm font-medium text-slate-600">

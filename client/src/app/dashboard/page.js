@@ -1,4 +1,7 @@
+import { dashboardRepository } from "@/features/dashboard/dashboard.container";
 import DashboardPage from "@/features/dashboard/pages/DashboardPage";
-export default function Dashboard() {
-  return <DashboardPage />;
+export const dynamic = "force-dynamic";
+export default async function Dashboard() {
+  const meetings=await dashboardRepository.getAllMeetings();
+  return <DashboardPage meetings={meetings}/>;
 }
