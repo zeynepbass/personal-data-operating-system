@@ -19,7 +19,7 @@ app.use("/api/meetings", meetingRoutes);
 app.use("/api/documents", documentRoutes);
 app.use("/api/goals", goalRoutes);
 
-// MongoDB
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -29,7 +29,7 @@ mongoose
     console.error("MongoDB connection error:", error);
   });
 
-// Server
+
 const PORT = process.env.PORT || 6021;
 
 app.listen(PORT, () => {
