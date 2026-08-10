@@ -1,4 +1,4 @@
-export function meetingAdapter(meeting) {
+export function tasksAdapter(meeting) {
 
     return {
       id: meeting._id,

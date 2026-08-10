@@ -8,11 +8,45 @@ export function transformTasksToRows(data = []) {
     }))
   );
 }
-
 export function getTodayTasks(data = []) {
-  const todoColumn = data.find(
-    (column) => column.title?.toLowerCase() === "todo"
-  );
+  return data
+    .filter((column) => column.name?.toLowerCase() === "todo")
+    .flatMap((column) => column.tasks ?? []);
+}
+export function groupTasksByStatus(data = []) {
+  const groups = {
+    todo: {
+      id: "todo",
+      name: "todo",
+      title: "Todo",
+      color: "green",
+      tasks: [],
+    },
 
-  return todoColumn?.tasks ?? [];
+    "in-progress": {
+      id: "in-progress",
+      name: "in-progress",
+      title: "In Progress",
+      color: "purple",
+      tasks: [],
+    },
+
+    done: {
+      id: "done",
+      name: "done",
+      title: "Done",
+      color: "red",
+      tasks: [],
+    },
+  };
+
+  data.forEach((column) => {
+    const name = column.name?.toLowerCase();
+
+    if (!groups[name]) return;
+
+    groups[name].tasks.push(...(column.tasks ?? []));
+  });
+
+  return Object.values(groups);
 }
