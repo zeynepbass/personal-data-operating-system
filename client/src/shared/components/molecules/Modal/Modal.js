@@ -1,85 +1,118 @@
 "use client";
 
- import Button from "@/shared/components/atoms/Button";
- import Input from "@/shared/components/atoms/Input";
- import Heading from "@/shared/components/atoms/Heading"
- import  Select  from "@/shared/components/atoms/Select";;
- import Textarea from "@/shared/components/atoms/Textarea";
+import { useState } from "react";
+import Button from "@/shared/components/atoms/Button";
+import Input from "@/shared/components/atoms/Input";
+import Heading from "@/shared/components/atoms/Heading";
+import Select from "@/shared/components/atoms/Select";
 
-export default function Modal  ({
+const initialForm = {
+  name: "",
+  type: "",
+  color: "",
+  shared: false,
+  file: null,
+};
+
+export default function Modal({
   open,
   setOpen,
+  isCreating,
   onSubmit,
-  handleChange,
-  form,
-  onClose,
 }) {
+  const [form, setForm] = useState(initialForm);
+
   if (!open) return null;
+
+  const handleChange = (e) => {
+    const { name, value, type, files } = e.target;
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === "file" ? files[0] : value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const file = form.file;
+
+    const document = {
+      id: crypto.randomUUID(),
+      name: form.name,
+      type: form.type,
+      size: file ? `${(file.size / 1024 / 1024).toFixed(2)} MB` : "0 MB",
+      date: new Date().toLocaleDateString("tr-TR"),
+      icon: form.type,
+      color: form.color,
+      favorite: false,
+      shared: form.shared === "true",
+    };
+
+    onSubmit(document);
+  };
+
+  const handleClose = () => {
+    if (isCreating) return;
+
+    setForm(initialForm);
+    setOpen(false);
+  };
 
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-      onClick={() => setOpen(false)}
+      onClick={handleClose}
     >
       <div
         className="relative w-full max-w-3xl rounded-2xl bg-white shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between border-b border-gray-200 px-6 py-5">
-        <div className="mb-4">
-      <h3 className="text-lg font-bold">Yeni Görev</h3>
-      <p className="text-gray-600 mt-1">Projeye yeni bir görev oluşturun.</p>
-    </div>
- 
+  
+        <div className="flex items-center justify-between border-b border-gray-200 p-6">
+          <div>
+            <Heading title="Yeni Belge" />
+            <p className="mt-1 text-sm text-gray-500">
+              Projeye yeni bir belge oluşturun.
+            </p>
+          </div>
 
           <button
-            onClick={() => setOpen(false)}
+            type="button"
+            onClick={handleClose}
             className="rounded-lg p-2 transition hover:bg-gray-100"
           >
             ✕
           </button>
         </div>
 
+
         <div className="max-h-[75vh] overflow-y-auto p-6">
-          <form onSubmit={onSubmit} className="space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-8">
+
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-6">
               <Heading title="Belge Bilgileri" />
 
               <div className="mt-5 space-y-5">
                 <Input
                   text="Belge Adı"
-                  name="title"
-                  value={form.title}
+                  name="name"
+                  value={form.name}
                   onChange={handleChange}
                   type="text"
                   placeholder="Örn. System Design.pdf"
+                  required
                   className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-[#555A8A] focus:ring-2 focus:ring-purple-100"
-                />
-
-                <Textarea
-                  label="Açıklama"
-                  name="description"
-                  value={form.description}
-                  onChange={handleChange}
-                  placeholder="Belge hakkında kısa bir açıklama..."
                 />
               </div>
             </div>
+
 
             <div className="rounded-xl border border-gray-200 bg-white p-6">
               <Heading title="Dosya Bilgileri" />
 
               <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-                <Input
-                  text="Etiket"
-                  type="text"
-                  name="label"
-                  value={form.label}
-                  onChange={handleChange}
-                  placeholder="Frontend"
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-[#555A8A] focus:ring-2 focus:ring-purple-100"
-                />
-
                 <Select
                   text="Belge Türü"
                   name="type"
@@ -95,13 +128,7 @@ export default function Modal  ({
                     { value: "zip", label: "🗂️ ZIP" },
                   ]}
                 />
-              </div>
-            </div>
 
-            <div className="rounded-xl border border-gray-200 bg-gray-50 p-6">
-              <Heading title="Belge Ayarları" />
-
-              <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
                 <Select
                   text="Renk"
                   name="color"
@@ -117,7 +144,14 @@ export default function Modal  ({
                     { value: "gray", label: "⚪ Gri" },
                   ]}
                 />
+              </div>
+            </div>
 
+
+            <div className="rounded-xl border border-gray-200 bg-gray-50 p-6">
+              <Heading title="Belge Ayarları" />
+
+              <div className="mt-5">
                 <Select
                   text="Paylaşım"
                   name="shared"
@@ -131,6 +165,7 @@ export default function Modal  ({
                 />
               </div>
             </div>
+
 
             <div className="rounded-xl border border-gray-200 bg-white p-6">
               <Heading title="Dosya Yükleme" />
@@ -147,25 +182,26 @@ export default function Modal  ({
               </div>
             </div>
 
+
             <div className="flex justify-end gap-4 border-t border-gray-200 pt-6">
               <Button
                 type="button"
                 text="İptal"
-                onClick={onClose}
-                className="rounded-xl border border-gray-200
-                 bg-white px-6 py-3 font-medium
-                      text-gray-800
-                   transition-all duration-200
-                    hover:border-[#555A8A]
-                     hover:bg-gray-50
-                hover:text-gray-400
-               "
+                onClick={handleClose}
+                disabled={isCreating}
+                className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-medium text-gray-800 transition-all duration-200 hover:border-[#555A8A] hover:bg-gray-50"
               />
-              <Button type="submit" text="Belgeyi Yükle" className=" hover:text-white" />
+
+              <Button
+                type="submit"
+                disabled={isCreating}
+                text={isCreating ? "Kaydediliyor..." : "Belgeyi Yükle"}
+                className="hover:text-white"
+              />
             </div>
           </form>
         </div>
       </div>
     </div>
   );
-};
+}

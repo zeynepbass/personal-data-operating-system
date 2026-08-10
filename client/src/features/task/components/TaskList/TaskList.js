@@ -3,14 +3,15 @@
 import { MoreVertical } from "lucide-react";
 import Button from "@/shared/components/atoms/Button";
 import Input from "@/shared/components/atoms/Input";
-export default function TaskList  ({ tasks = [], onToggle, onMenuClick, openMenuId })  {
+export default function TaskList  ({ todayTasks, onToggle, onMenuClick, openMenuId })  {
+  console.log(todayTasks)
   return (
     <div className="space-y-2">
-      {tasks &&
-        tasks.map((task,index) => {
+      {todayTasks &&
+        todayTasks.map((task) => {
           return (
             <div
-              key={index}
+              key={task.id}
               className="flex items-center justify-between rounded-xl border border-gray-100 bg-white px-4 py-3 shadow-sm"
             >
               <div className="flex items-center gap-3">

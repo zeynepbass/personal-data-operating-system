@@ -1,42 +1,66 @@
-"use client"
+"use client";
+
 import TaskHome from "../components/TaskHome";
-import  useBoard  from "@/features/notes/hooks/useNotes";
+import { useMemo } from "react";
+import { useTasks } from "../hooks/useTask";
+import {
+  transformTasksToRows,
+  getTodayTasks,
+} from "../utils/colums.filter";
 
 export default function TaskPage() {
   const {
+    data,
+    isLoading,
+    isError,
+    openMenuId,
+    setOpenMenuId,
+    error,
     view,
     setView,
-    data,
-    rows,
     open,
     setOpen,
-    onDragEnd,
-    openMenuId,
-    handleToggle,
-    handleMenuClick,
-    handleChange,
-    form,
-    onSubmit,
-    onClose
-  } = useBoard();
+  } = useTasks();
+
+  const handleMenuClick = (taskId) => {
+    setOpenMenuId((prev) =>
+      prev === taskId ? null : taskId
+    );
+  };
+
+  const rows = useMemo(
+    () => transformTasksToRows(data ?? []),
+    [data]
+  );
+
+  const todayTasks = useMemo(
+    () => getTodayTasks(data),
+    [data]
+  );
+
+  if (isLoading) {
+    return <div>Yükleniyor...</div>;
+  }
+
+  if (isError) {
+    return (
+      <div>
+        Bir hata oluştu: {error.message}
+      </div>
+    );
+  }
 
   return (
     <TaskHome
+      rows={rows}
+      todayTasks={todayTasks}
       view={view}
-      setView={setView}
-      data={data}
-
-      rows={rows} 
+      handleMenuClick={handleMenuClick}
+      openMenuId={openMenuId}
       open={open}
       setOpen={setOpen}
-      onDragEnd={onDragEnd}
-      openMenuId={openMenuId}
-      handleToggle={handleToggle}
-      handleMenuClick={handleMenuClick}
-      handleChange={handleChange}
-      form={form}
-      onSubmit={onSubmit}
-      onClose={onClose}
+      setView={setView}
+      data={data}
     />
   );
 }

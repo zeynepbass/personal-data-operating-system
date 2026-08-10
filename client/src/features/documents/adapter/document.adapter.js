@@ -1,6 +1,6 @@
 export function documentAdapter(document) {
     return {
-      id: document.id,
+      id: document._id,
       name: document.name,
       type: document.type,
       size: document.size,

@@ -4,5 +4,9 @@ import { documentAdapter } from "../adapter/document.adapter.js";
 export async function getAll() {
     const response = await documentProvider.getDocument();
 
-    return response.map(documentAdapter);
+    return response.data.data.map(documentAdapter);
+}
+export async function createDocument(data){
+const response=await documentProvider.createDocument(data);
+return response.data;
 }

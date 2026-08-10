@@ -1,5 +1,12 @@
-import apiClient from "@/shared/api";
-export async function getDocument(){
-const response=await apiClient.get("/documents")
-return response.data.data
-}
+
+import apiClient from "@/shared/api/client";
+
+export const documentApi = {
+    getDocument() {
+    return apiClient.get("/documents");
+  },
+
+  createDocument(data) {
+    return apiClient.post("/documents", data);
+  },
+};

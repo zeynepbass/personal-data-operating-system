@@ -29,7 +29,7 @@ export default function TableView ({ rows ,openMenuId,onMenuClick}) {
           {rows.map((task) => (
             <tr
               key={task?.id}
-              className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
+              className="border-b border-gray-100 hover:bg-gray-50 transition-colors relative"
             >
               <td className="px-5 py-4">
                 <p className="font-medium text-gray-900">{task?.title}</p>
@@ -62,8 +62,8 @@ export default function TableView ({ rows ,openMenuId,onMenuClick}) {
               </td>
 
               <td className="px-5 py-4 text-sm text-gray-500">{task?.date}</td>
-              <div className="relative">
-                <td className="px-5 py-4 text-right">
+   
+                <td className="px-5 py-4 text-right ">
                   <button
                     className="rounded-lg p-2 hover:bg-gray-100"
                     onClick={() => onMenuClick(task?.id)}
@@ -78,7 +78,7 @@ export default function TableView ({ rows ,openMenuId,onMenuClick}) {
 
                   </div>
                 )}
-              </div>
+ 
             </tr>
           ))}
         </tbody>
