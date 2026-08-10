@@ -13,6 +13,7 @@ import { PageHeader, Modal } from "@/shared/components/molecules";
 import Button  from "@/shared/components/atoms/Button";
 import Input from "@/shared/components/atoms/Input";
 import  Select  from "@/shared/components/atoms/Select";
+
 const iconMap = {
   pdf: <FileText size={46} className="text-red-500" />,
   doc: <FileText size={46} className="text-blue-600" />,
@@ -24,13 +25,12 @@ const iconMap = {
 
 export default function DocumentsHome ({
   data,
-  open,
-  setOpen,
-  form,
-  handleChange,
-  onSubmit,
-  onClose,
+  search,
+  setSearch,
+  filter,
+setFilter
 }) {
+
   return (
     <section className="flex flex-col gap-6">
 
@@ -42,17 +42,17 @@ export default function DocumentsHome ({
 
         <Button
           text="+ Belge yükle"
-          onClick={() => setOpen(true)}
+          //onClick={() => setOpen(true)}
           className="w-full md:w-auto hover:text-white"/>
 
-        <Modal
+        {/* /*<Modal
           open={open}
           setOpen={setOpen}
           form={form}
           handleChange={handleChange}
           onSubmit={onSubmit}
           onClose={onClose}
-        />
+        /> */}
       </div>
 
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center ">
@@ -65,20 +65,23 @@ export default function DocumentsHome ({
           <Input
             type="text"
             placeholder="Belge ara..."
+            value={search}
+            onChange={(e)=>setSearch(e.target.value)}
             className="w-full rounded-xl border border-gray-200 bg-white py-2 pl-11  text-sm outline-none transition focus:border-[#555A8A] focus:ring-2 focus:ring-[#555A8A]/20"
           />
         </div>
 
         <div className="w-full lg:w-40">
           <Select
+          value={filter} onChange={(e) => setFilter(e.target.value)}
             placeholder="Tümü"
             options={[
               {
-                value: "eskiden-yeniye",
+                value: "old",
                 label: "Eskiden Yeniye",
               },
               {
-                value: "yeniden-eskiye",
+                value: "new",
                 label: "Yeniden Eskiye",
               },
             ]}
@@ -88,7 +91,7 @@ export default function DocumentsHome ({
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
 
-        {data .map((doc) => (
+        {data?.map((doc) => (
           <div
             key={doc.id}
             className="group cursor-pointer  border border-gray-200 duration-300

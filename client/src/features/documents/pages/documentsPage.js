@@ -1,18 +1,27 @@
 "use client";
 import DocumentsHome from "../components/DocumentsHome";
-import { useFeed } from "@/features/dashboard/hooks/useDocument";
+import { useDocuments } from "../hooks/useDocuments";
+import filteredData from "../utils/filtered.search";
 export default function DocumentsPage() {
-  const { documents, open, setOpen, form, handleChange, onSubmit, onClose } =
-    useFeed();
+  const {data, isLoading,isError,error,search,setSearch,filter,setFilter } =
+  useDocuments();
+  if (isLoading) {
+    return <div>Yükleniyor...</div>;
+  }
+
+  if (isError) {
+    return <div>Bir hata oluştu: {error.message}</div>;
+  }
+const filteredDocuments=filteredData(data,search,filter)
+
   return (
     <DocumentsHome
-      data={documents}
-      open={open}
-      setOpen={setOpen}
-      form={form}
-      handleChange={handleChange}
-      onSubmit={onSubmit}
-      onClose={onClose}
+    data={filteredDocuments}
+    filteredData={filteredData}
+    search={search}
+    setSearch={setSearch}
+filter={filter}
+setFilter={setFilter}
     />
   );
 }

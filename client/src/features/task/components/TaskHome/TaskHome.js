@@ -30,7 +30,7 @@ export default function TaskHome ({
   const todayTasks = useMemo(() => {
     return rows.filter((task) => task.columnId === "todo");
   }, [rows]);
-  console.log(rows)
+
   return (
     
     <section className="flex flex-col gap-6">

@@ -1,7 +1,7 @@
 "use client";
 
 import DashboardHome from "../components/DashboardHome";
-import { useDocument } from "@/features/dashboard/hooks/useDocument";
+import { useDocument } from "@/shared/hooks/useDocument";
 import {
   getTodayMeetings,
   getTodayTasks,
