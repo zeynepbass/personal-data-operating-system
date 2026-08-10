@@ -4,7 +4,7 @@ import { MoreVertical } from "lucide-react";
 import Button from "@/shared/components/atoms/Button";
 import Input from "@/shared/components/atoms/Input";
 export default function TaskList  ({ todayTasks, onToggle, onMenuClick, openMenuId })  {
-  console.log(todayTasks)
+
   return (
     <div className="space-y-2">
       {todayTasks &&

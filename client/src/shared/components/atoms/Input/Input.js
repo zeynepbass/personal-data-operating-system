@@ -10,18 +10,23 @@ export default function Input  ({
   onChange,
   placeholder,
   defaultChecked,
+  text,
   checked,
   className,
   ...props
 })  {
   return (
-<>
-   {label &&  <label className="mb-2 block text-sm text-gray-500">
-   {label}
-  </label>}
+<div className="flex flex-col">
+{(label || text) && (
+  <label className="mb-2 block text-sm text-gray-500">
+    {label || text}
+  </label>
+)}
+
     <input
       type={type}
       name={name}
+
       checked={checked}
       value={value}
       onChange={onChange}
@@ -31,6 +36,6 @@ export default function Input  ({
 
       {...props}
   
-    />    </>
+    />    </div>
   );
 };

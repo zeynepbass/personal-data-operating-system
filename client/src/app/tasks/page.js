@@ -1,4 +1,4 @@
-import Task from "@/features/task/pages/TaskPage";
+import TaskPage from "@/features/task/pages/TaskPage";
 export default function Tasks() {
-  return <Task />;
+  return <TaskPage />;
 }

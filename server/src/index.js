@@ -12,8 +12,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
-// Routes
+app.use(express.urlencoded({ extended: true }));
 app.use("/api/events", eventRoutes);
 app.use("/api/meetings", meetingRoutes);
 app.use("/api/documents", documentRoutes);

@@ -16,6 +16,8 @@ export default function TaskPage() {
     openMenuId,
     setOpenMenuId,
     error,
+    isCreating,
+    createTask,
     view,
     setView,
     open,
@@ -55,6 +57,8 @@ export default function TaskPage() {
       rows={rows}
       todayTasks={todayTasks}
       view={view}
+      isCreating={isCreating}
+      onSubmit={createTask}
       handleMenuClick={handleMenuClick}
       openMenuId={openMenuId}
       open={open}
