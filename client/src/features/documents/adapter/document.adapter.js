@@ -4,9 +4,7 @@ export function documentAdapter(document) {
       name: document.name,
       type: document.type,
       size: document.size,
-      date: document.date ?
-      new Date(document.date).toISOString().split("T")[0] :
-      null,
+      date: document.date,
       icon: document.icon,
       color: document.color,
       favorite: document.favorite,
