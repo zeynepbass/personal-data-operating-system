@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { SearchBar, Sidebar } from "@/shared/components/organisms";
-
+import { Toaster } from "react-hot-toast";
 export default function AppLayout({ children }) {
   const pathname = usePathname();
 
@@ -24,6 +24,7 @@ export default function AppLayout({ children }) {
 
         <main className="flex-1 p-6">
           {children}
+          <Toaster position="bottom-right" />
         </main>
       </div>
     </div>

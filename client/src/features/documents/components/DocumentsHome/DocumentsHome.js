@@ -26,7 +26,11 @@ const iconMap = {
 export default function DocumentsHome ({
   data,
   search,
+  createDocument,
+  isCreating,
   setSearch,
+  open,
+    setOpen,
   filter,
 setFilter
 }) {
@@ -42,17 +46,18 @@ setFilter
 
         <Button
           text="+ Belge yükle"
-          //onClick={() => setOpen(true)}
+          onClick={() => setOpen(true)}
           className="w-full md:w-auto hover:text-white"/>
 
-        {/* /*<Modal
+      <Modal
           open={open}
           setOpen={setOpen}
-          form={form}
-          handleChange={handleChange}
-          onSubmit={onSubmit}
-          onClose={onClose}
-        /> */}
+
+          isCreating={isCreating}
+  
+          onSubmit={createDocument}
+       
+        />
       </div>
 
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center ">

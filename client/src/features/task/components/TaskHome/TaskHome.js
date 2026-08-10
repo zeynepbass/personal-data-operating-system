@@ -76,7 +76,7 @@ export default function TaskHome ({
 {view === "kanban" && (
           <DragDropContext onDragEnd={onDragEnd}>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {data.map((column) => (
+              {data.data.map((column) => (
                 <TaskColumn
                   key={column.id}
                   column={column}

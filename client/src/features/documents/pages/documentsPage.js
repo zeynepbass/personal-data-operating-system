@@ -3,8 +3,19 @@ import DocumentsHome from "../components/DocumentsHome";
 import { useDocuments } from "../hooks/useDocuments";
 import filteredData from "../utils/filtered.search";
 export default function DocumentsPage() {
-  const {data, isLoading,isError,error,search,setSearch,filter,setFilter } =
-  useDocuments();
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    search,
+    setSearch,
+    filter,
+    open, setOpen,
+    setFilter,
+    createDocument,
+    isCreating
+  } = useDocuments();
   if (isLoading) {
     return <div>Yükleniyor...</div>;
   }
@@ -17,6 +28,10 @@ const filteredDocuments=filteredData(data,search,filter)
   return (
     <DocumentsHome
     data={filteredDocuments}
+    createDocument={createDocument}
+    isCreating={isCreating}
+    open={open}
+    setOpen={setOpen}
     filteredData={filteredData}
     search={search}
     setSearch={setSearch}
