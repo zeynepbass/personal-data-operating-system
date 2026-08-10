@@ -105,16 +105,7 @@ export default function useNotes  () {
     setOpen(false);
   };
 
-  const rows = useMemo(() => {
-    return data.flatMap((column) =>
-      column.tasks.map((task) => ({
-        ...task,
-        status: column.title,
-        statusColor: column.color,
-        columnId: column.id,
-      }))
-    );
-  }, [data]);
+
 
   const handleToggle = (taskId) => {
     setData((prev) => {
