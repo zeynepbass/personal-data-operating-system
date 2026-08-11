@@ -25,7 +25,7 @@ const menu = [
   { id: 8, name: "Settings", icon: Settings, href: "/settings" },
 ];
 
-export default function Sidebar() {
+export function Sidebar() {
   const pathname = usePathname();
 
   return (

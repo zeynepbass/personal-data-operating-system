@@ -21,7 +21,7 @@ const colorClasses = {
   },
 };
 
-export default function Column  ({ column })  {
+export function Column  ({ column })  {
   const color = colorClasses[column.color] ?? colorClasses.green;
 
   return (

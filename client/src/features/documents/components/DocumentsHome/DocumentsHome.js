@@ -11,9 +11,11 @@ import {
 } from "lucide-react";
 
 import { PageHeader, Modal } from "@/shared/components/molecules";
-import Button from "@/shared/components/atoms/Button";
-import Input from "@/shared/components/atoms/Input";
-import Select from "@/shared/components/atoms/Select";
+import {
+  Button,
+  Input,
+  Select
+} from "@/shared/components/atoms";
 
 const iconMap = {
   pdf: <FileText size={46} className="text-red-500" />,

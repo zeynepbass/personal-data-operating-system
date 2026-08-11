@@ -1,6 +1,6 @@
 "use client";
 
-import { taskViewStrategies } from "../../strategies/task.strategies";
+import { taskViewStrategies } from "../../../strategies/task.strategies";
 import TaskHeading from "../TaskHeading";
 import TaskNavigation from "../TaskNavigation";
 import dynamic from "next/dynamic";
@@ -34,8 +34,7 @@ export default function TaskHome({router, data, view, setView, open, setOpen,   
       <TaskNavigation
         view={view}
         setView={setView}
-        data={data}
-   openMenuId={openMenuId}
+
       />
 
       <section className="min-h-[60vh]">

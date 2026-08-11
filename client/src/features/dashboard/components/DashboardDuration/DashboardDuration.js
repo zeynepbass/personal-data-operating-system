@@ -1,4 +1,4 @@
-import  Select  from "@/shared/components/atoms/Select";
+import  {Select}  from "@/shared/components/atoms";
 export default function DashboardDuration(){
     return(
         <div className="w-full md:w-52">

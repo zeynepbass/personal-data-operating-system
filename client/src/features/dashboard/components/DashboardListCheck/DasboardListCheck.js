@@ -1,4 +1,4 @@
-import Input from "@/shared/components/atoms/Input";
+import {Input} from "@/shared/components/atoms";
 export default function DashboardListCheck({ filteredData, onToggle}){
     return(
          <div className="mt-5 flex flex-col gap-3  h-[32vh] overflow-scroll">

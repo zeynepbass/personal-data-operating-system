@@ -1,6 +1,6 @@
 "use client";
 
-export default function Textarea({
+export function Textarea({
   label,
   name,
   value,

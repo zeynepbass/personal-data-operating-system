@@ -2,11 +2,13 @@
 "use client";
 
 import { useState } from "react";
-import Button from "@/shared/components/atoms/Button";
-import Input from "@/shared/components/atoms/Input";
-import Heading from "@/shared/components/atoms/Heading";
-import Select from "@/shared/components/atoms/Select";
-import Textarea from "@/shared/components/atoms/Textarea";
+import {
+  Button,
+  Input,
+  Heading,
+  Select,
+  Textarea,
+} from "@/shared/components/atoms";
 
 const initialForm = {
 
@@ -322,7 +324,7 @@ export default function TaskModal({
                  </div>
                </div>
      
-               {/* Actions */}
+ 
                <div className="flex justify-end gap-4 border-t border-gray-200 pt-6">
                  <Button
                    type="button"

@@ -1,7 +1,9 @@
 
-import Input from "@/shared/components/atoms/Input";
-import  Button  from "@/shared/components/atoms/Input";
-import Heading from "@/shared/components/atoms/Heading";
+import {
+  Button,
+  Input,
+  Heading
+} from "@/shared/components/atoms";
 
 export default function SettingsNotification() {
   const Item = ({
@@ -35,7 +37,7 @@ export default function SettingsNotification() {
 
 <Heading
   title="Bildirimler"
-  description="E-posta, uygulama içi ve güvenlik bildirimlerinizi yönetin."
+ // description="E-posta, uygulama içi ve güvenlik bildirimlerinizi yönetin."
 
 />
 
@@ -46,7 +48,7 @@ export default function SettingsNotification() {
     <div className="border-b border-gray-200 px-8 py-6">
       <Heading
         title="Genel Bildirimler"
-        description="Uygulama genelindeki bildirim tercihlerinizi yönetin."
+       // description="Uygulama genelindeki bildirim tercihlerinizi yönetin."
 
       />
     </div>
@@ -73,7 +75,7 @@ export default function SettingsNotification() {
     <div className="border-b border-gray-200 px-8 py-6">
       <Heading
         title="Etkileşim Bildirimleri"
-        description="Diğer kullanıcılarla olan etkileşimleriniz."
+        // description="Diğer kullanıcılarla olan etkileşimleriniz."
         className="text-xl font-semibold"
       />
     </div>

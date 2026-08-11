@@ -1,6 +1,8 @@
-
-import Input from "@/shared/components/atoms/Input";
-import  Button  from "@/shared/components/atoms/Input";
+import {
+  Button,
+  Input,
+  Heading
+} from "@/shared/components/atoms";
 import {Heading} from "@/shared/components/molecules";
 
 export const SettingNotification=()=> {
@@ -18,7 +20,7 @@ export const SettingNotification=()=> {
     >
       <Heading
         title={title}
-        description={description}
+        //description={description}
 
 
       />
@@ -35,7 +37,7 @@ export const SettingNotification=()=> {
 
 <Heading
   title="Bildirimler"
-  description="E-posta, uygulama içi ve güvenlik bildirimlerinizi yönetin."
+  //description="E-posta, uygulama içi ve güvenlik bildirimlerinizi yönetin."
 
 />
 
@@ -46,7 +48,7 @@ export const SettingNotification=()=> {
     <div className="border-b border-gray-200 px-8 py-6">
       <Heading
         title="Genel Bildirimler"
-        description="Uygulama genelindeki bildirim tercihlerinizi yönetin."
+        //description="Uygulama genelindeki bildirim tercihlerinizi yönetin."
 
       />
     </div>
@@ -73,7 +75,7 @@ export const SettingNotification=()=> {
     <div className="border-b border-gray-200 px-8 py-6">
       <Heading
         title="Etkileşim Bildirimleri"
-        description="Diğer kullanıcılarla olan etkileşimleriniz."
+        // description="Diğer kullanıcılarla olan etkileşimleriniz."
         className="text-xl font-semibold"
       />
     </div>
@@ -105,7 +107,7 @@ export const SettingNotification=()=> {
     <div className="border-b border-gray-200 px-8 py-6">
       <Heading
         title="Güvenlik Bildirimleri"
-        description="Hesabınızın güvenliği ile ilgili kritik bildirimler."
+        // description="Hesabınızın güvenliği ile ilgili kritik bildirimler."
 
       />
     </div>
