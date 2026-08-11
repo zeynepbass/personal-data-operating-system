@@ -12,3 +12,8 @@ export async function createTask(payload){
     const response=await taskProvider.postTask(payload);
     return response.data
 }
+export async function updateTask(id,payload){
+
+    const response=await taskProvider.updatedTask(id,payload);
+    return response.data
+}

@@ -19,13 +19,6 @@ export function TaskDetailMeta({ task }) {
         </div>
 
 
-        <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
-          <span className="text-sm text-gray-500">Durum</span>
-
-          <span className="rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-700">
-            {task.status || "-"}
-          </span>
-        </div>
 
 
         <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">

@@ -73,3 +73,93 @@ export const createMeeting = async (req, res) => {
     });
   }
 };
+export const updateMeeting = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const {
+      title,
+      description,
+      label,
+      priority,
+      date,
+      startDate,
+      dueDate,
+      estimatedHours,
+      storyPoints,
+      completed,
+      progress,
+      spentHours,
+      assignee,
+    } = req.body;
+
+    const meeting = await Meeting.findOne({
+      "tasks.id": id,
+    });
+
+    if (!meeting) {
+      return res.status(404).json({
+        success: false,
+        message: "Task bulunamadı.",
+      });
+    }
+
+    const task = meeting.tasks.find(
+      (task) => String(task.id) === String(id)
+    );
+
+    if (!task) {
+      return res.status(404).json({
+        success: false,
+        message: "Task bulunamadı.",
+      });
+    }
+
+    task.title = title;
+    task.description = description;
+    task.label = label;
+    
+    task.priority = priority;
+    task.date = date ? new Date(date) : null;
+    task.startDate = startDate
+      ? new Date(startDate)
+      : null;
+    task.dueDate = dueDate
+      ? new Date(dueDate)
+      : null;
+    task.estimatedHours =
+      Number(estimatedHours) || 0;
+    task.storyPoints =
+      Number(storyPoints) || 0;
+
+    if (completed !== undefined) {
+      task.completed = completed;
+    }
+
+    if (progress !== undefined) {
+      task.progress = Number(progress) || 0;
+    }
+
+    if (spentHours !== undefined) {
+      task.spentHours = Number(spentHours) || 0;
+    }
+
+    if (assignee !== undefined) {
+      task.assignee = assignee;
+    }
+
+    await meeting.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Task başarıyla güncellendi.",
+      data: task,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Task güncellenirken hata oluştu.",
+      error: error.message,
+    });
+  }
+};

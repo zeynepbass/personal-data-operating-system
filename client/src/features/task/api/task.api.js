@@ -6,5 +6,8 @@ export const taskApi = {
   },
   createTask(payload){
     return apiClient.post("/meetings",payload);
+  },
+  updatedTask(id,payload){
+    return apiClient.put(`/meetings/${id}`,payload);
   }
 }
