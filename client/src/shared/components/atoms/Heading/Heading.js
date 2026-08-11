@@ -1,5 +1,5 @@
-export default function Heading({title}){
+export function Heading({title,className}){
     return(
-        <h3>{title}</h3>
+        <h3 className={className}>{title}</h3>
     )
 }

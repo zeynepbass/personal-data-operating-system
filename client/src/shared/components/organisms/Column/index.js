@@ -1,1 +1,1 @@
-export {default} from "./Column"
+export {Column} from "./Column"

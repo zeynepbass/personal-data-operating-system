@@ -1,6 +1,6 @@
-import TaskView from "../components/TaskView";
-import TasKanban from  "../components/TasKanban";
-import TaskList from "../components/TaskList";
+import TaskView from "../components/TaskPage/TaskView";
+import TasKanban from  "../components/TaskPage/TasKanban";
+import TaskList from "../components/TaskPage/TaskList";
 
 export const taskViewStrategies = {
   list: TaskList,

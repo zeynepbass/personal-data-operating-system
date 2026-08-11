@@ -1,8 +1,9 @@
 
-import Button  from "@/shared/components/atoms/Button";
-import  Select  from "@/shared/components/atoms/Select";
-import  Heading  from "@/shared/components/atoms/Heading";
-
+import {
+  Button,
+  Heading,
+  Select
+} from "@/shared/components/atoms";
 export default function SettingLanguage() {
   const SelectRow = ({
     title,
@@ -14,9 +15,9 @@ export default function SettingLanguage() {
       <div className="max-w-md">
         <Heading
           title={title}
-          description={description}
+          // description={description}
           className="text-base font-medium"
-          descriptionClassName="mt-1 text-sm text-muted-foreground"
+          // descriptionClassName="mt-1 text-sm text-muted-foreground"
         />
       </div>
 
@@ -33,9 +34,10 @@ export default function SettingLanguage() {
     <section className="space-y-8">
       <Heading
         title="Dil ve Bölge"
-        description="Uygulama dili, tarih, saat ve bölgesel tercihlerinizi yönetin."
+        // description="Uygulama dili, tarih, saat ve bölgesel tercihlerinizi yönetin."
+        //         descriptionClassName="mt-2 text-base text-muted-foreground"
         className="text-3xl font-bold"
-        descriptionClassName="mt-2 text-base text-muted-foreground"
+
       />
 
 
@@ -43,7 +45,7 @@ export default function SettingLanguage() {
         <div className="border-b border-gray-200 px-8 py-6">
           <Heading
             title="Dil Ayarları"
-            description="Uygulamanın görüntüleme dilini belirleyin."
+            // description="Uygulamanın görüntüleme dilini belirleyin."
             className="text-xl font-semibold"
           />
         </div>
@@ -112,7 +114,7 @@ export default function SettingLanguage() {
         <div className="border-b border-gray-200 px-8 py-6">
           <Heading
             title="Yerel Tercihler"
-            description="Sayı ve para birimi görüntüleme tercihlerini yönetin."
+            // description="Sayı ve para birimi görüntüleme tercihlerini yönetin."
             className="text-xl font-semibold"
           />
         </div>

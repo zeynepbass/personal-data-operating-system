@@ -1,1 +1,1 @@
-export { default} from "./PageHeader"
+export {PageHeader} from "./PageHeader"

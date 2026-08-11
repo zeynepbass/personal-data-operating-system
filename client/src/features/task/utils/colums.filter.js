@@ -8,6 +8,7 @@ export function transformTasksToRows(data = []) {
     }))
   );
 }
+
 export function getTodayTasks(data = []) {
   return data
     .filter((column) => column.name?.toLowerCase() === "todo")

@@ -1,6 +1,7 @@
-import Button from "@/shared/components/atoms/Button"
-import Heading  from "@/shared/components/atoms/Heading";
-
+import {
+  Button,
+  Heading
+} from "@/shared/components/atoms";
 export default function  SettingsSecurity() {
   const SecurityItem = ({
     title,

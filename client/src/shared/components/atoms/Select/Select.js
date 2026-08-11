@@ -1,6 +1,6 @@
 "use client";
 
-export default function Select  ({
+export function Select  ({
   name,
   value,
   onChange,

@@ -3,7 +3,7 @@ import { Draggable } from "@hello-pangea/dnd";
 
 import { Calendar, GripVertical } from "lucide-react";
 
-export default function Card({ task, index }) {
+export function Card({ task, index }) {
   return (
     <Draggable draggableId={String(task.id)} index={index}>
       {(provided) => (

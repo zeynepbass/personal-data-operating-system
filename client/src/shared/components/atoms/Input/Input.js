@@ -1,6 +1,6 @@
 "use client";
 
-export default function Input({
+export function Input({
   type,
   name,
   value,

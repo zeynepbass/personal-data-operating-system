@@ -1,9 +1,11 @@
 "use client";
 
-import Button  from "@/shared/components/atoms/Button";
-import Input from "@/shared/components/atoms/Input";
-import Textarea from "@/shared/components/atoms/Textarea";
-import Heading from "@/shared/components/atoms/Heading";
+import {
+  Button,
+  Input,
+  Heading,
+  Textarea,
+} from "@/shared/components/atoms";
 export  default function SettingsProfile() {
   return (
     <section className="space-y-8">

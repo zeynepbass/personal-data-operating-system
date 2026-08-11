@@ -1,6 +1,6 @@
 "use client";
 
-import TaskHome from "../components/TaskHome";
+import TaskHome from "../components/TaskPage/TaskHome";
 import { useMemo } from "react";
 import { useTasks } from "../hooks/useTask";
 import {
@@ -54,8 +54,8 @@ export default function TaskPage() {
 
   return (
     <TaskHome
-      rows={rows}
-      todayTasks={todayTasks}
+      rows={rows ?? []}
+      todayTasks={todayTasks ?? []}
       view={view}
       router={router}
       isCreating={isCreating}
@@ -65,7 +65,7 @@ export default function TaskPage() {
       open={open}
       setOpen={setOpen}
       setView={setView}
-      data={data}
+      data={data ?? []}
     />
   );
 }

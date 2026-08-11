@@ -1,8 +1,7 @@
 "use client";
 
-import { MoreVertical,Pencil } from "lucide-react";
-import Input from "@/shared/components/atoms/Input";
-export default function TaskList  ({ todayTasks, onToggle, onMenuClick, openMenuId ,router})  {
+import {Input} from "@/shared/components/atoms";
+export default function TaskList  ({ todayTasks, onToggle})  {
 
   return (
     <div className="space-y-2">
@@ -32,7 +31,7 @@ export default function TaskList  ({ todayTasks, onToggle, onMenuClick, openMenu
                 </span>
               </div>
 
-              <div className="relative">
+              {/* <div className="relative">
                 <button
                   onClick={() => onMenuClick(task?.id)}
                   className="rounded-lg p-1 hover:bg-gray-100"
@@ -40,25 +39,8 @@ export default function TaskList  ({ todayTasks, onToggle, onMenuClick, openMenu
                   <MoreVertical size={18} />
                 </button>
 
-                {openMenuId === task?.id && (
-           <div className="absolute right-0 top-5 z-50 rounded-lg bg-white text-sm shadow">
-           <div
-          onClick={() => {
-           localStorage.setItem(
-            "selectedTask",
-             JSON.stringify(task)
-           );
-         
-           router.push(`/tasks/${task.id}`);
-         }}
-             className="flex cursor-pointer items-center gap-2 px-4 py-2 hover:bg-gray-100"
-           >
-             <Pencil width={16} height={16} />
-         
-           </div>
-         </div>
-                )}
-              </div>
+
+              </div> */}
             </div>
           );
         })}

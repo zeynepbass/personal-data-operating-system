@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Button from "@/shared/components/atoms/Button";
-import Input from "@/shared/components/atoms/Input";
-import Heading from "@/shared/components/atoms/Heading";
-import Select from "@/shared/components/atoms/Select";
+import {
+  Button,
+  Input,
+  Heading,
+  Select
+} from "@/shared/components/atoms";
 
 const initialForm = {
   name: "",
@@ -14,7 +16,7 @@ const initialForm = {
   pdf: null,
 };
 
-export default function Modal({
+export function Modal({
   open,
   setOpen,
   isCreating,
