@@ -1,6 +1,10 @@
-import Button from "@/shared/components/atoms/Button"
+"use client";
+import {Pencil} from "lucide-react"
 
-export default function TableView ({ rows ,openMenuId,onMenuClick}) {
+
+
+export default function TableView ({ rows ,openMenuId,onMenuClick,router}) {
+
   return (
     <div className="overflow-hidden rounded-2xl p-2 border border-gray-200 bg-white shadow-sm">
       <table className="w-full border-separate border-spacing-0">
@@ -74,11 +78,23 @@ export default function TableView ({ rows ,openMenuId,onMenuClick}) {
                 </td>
 
                 {openMenuId === task?.id && (
-                  <div className="absolute right-0 top-10 bg-white  shadow rounded-lg text-sm z-50">
-                    <Button text="Düzenle" className="hover:text-white"/>
+  <div className="absolute right-0 top-16 z-50 rounded-lg bg-white text-sm shadow">
+  <div
+ onClick={() => {
+  localStorage.setItem(
+    "selectedTask",
+    JSON.stringify(task)
+  );
 
-                  </div>
-                )}
+  router.push(`/tasks/${task.id}`);
+}}
+    className="flex cursor-pointer items-center gap-2 px-4 py-2 hover:bg-gray-100"
+  >
+    <Pencil width={16} height={16} />
+
+  </div>
+</div>
+)}
  
             </tr>
           ))}

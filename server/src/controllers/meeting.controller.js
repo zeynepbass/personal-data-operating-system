@@ -32,7 +32,7 @@ export const createMeeting = async (req, res) => {
  
     const newMeeting = await Meeting.create({
       
-      id: `meeting-${Date.now()}`,
+      id: `${Date.now()}`,
       title,
       name,
       color,
@@ -43,7 +43,7 @@ export const createMeeting = async (req, res) => {
       meetingDetails,
 
       tasks: tasks.map((task) => ({
-        id: task.id || `task-${Date.now()}`,
+        id: `${Date.now()}`,
         title: task.title,
         description: task.description,
         label: task.label,

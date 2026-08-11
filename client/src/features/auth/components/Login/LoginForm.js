@@ -4,8 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import Input from "@/shared/components/atoms/Input";
-import  Button  from "@/shared/components/atoms/Input";
+import {Input} from "@/shared/components/atoms/Input";
+import  {Button}  from "@/shared/components/atoms/Button";
 import { PageHeader } from "@/shared/components/molecules";
 
 export default function LoginForm() {

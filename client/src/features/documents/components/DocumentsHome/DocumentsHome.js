@@ -7,12 +7,13 @@ import {
   FileSpreadsheet,
   FileArchive,
   Search,
+  Trash,
 } from "lucide-react";
 
 import { PageHeader, Modal } from "@/shared/components/molecules";
-import Button  from "@/shared/components/atoms/Button";
+import Button from "@/shared/components/atoms/Button";
 import Input from "@/shared/components/atoms/Input";
-import  Select  from "@/shared/components/atoms/Select";
+import Select from "@/shared/components/atoms/Select";
 
 const iconMap = {
   pdf: <FileText size={46} className="text-red-500" />,
@@ -23,21 +24,20 @@ const iconMap = {
   zip: <FileArchive size={46} className="text-yellow-500" />,
 };
 
-export default function DocumentsHome ({
+export default function DocumentsHome({
   data,
   search,
   createDocument,
   isCreating,
   setSearch,
   open,
-    setOpen,
+  setOpen,
   filter,
-setFilter
+  setFilter,
+  handleDelete,
 }) {
-
   return (
-    <section className="flex flex-col gap-6">
-
+    <section className="flex flex-col gap-6 h-[80vh] overflow-scroll">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <PageHeader
           title="Belgelerim"
@@ -47,16 +47,14 @@ setFilter
         <Button
           text="+ Belge yükle"
           onClick={() => setOpen(true)}
-          className="w-full md:w-auto hover:text-white"/>
+          className="w-full md:w-auto hover:text-white text-gray-50"
+        />
 
-      <Modal
+        <Modal
           open={open}
           setOpen={setOpen}
-
           isCreating={isCreating}
-  
           onSubmit={createDocument}
-       
         />
       </div>
 
@@ -71,14 +69,15 @@ setFilter
             type="text"
             placeholder="Belge ara..."
             value={search}
-            onChange={(e)=>setSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value)}
             className="w-full rounded-xl border border-gray-200 bg-white py-2 pl-11  text-sm outline-none transition focus:border-[#555A8A] focus:ring-2 focus:ring-[#555A8A]/20"
           />
         </div>
 
         <div className="w-full lg:w-40">
           <Select
-          value={filter} onChange={(e) => setFilter(e.target.value)}
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
             placeholder="Tümü"
             options={[
               {
@@ -95,7 +94,6 @@ setFilter
       </div>
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
-
         {data?.map((doc) => (
           <div
             key={doc.id}
@@ -104,14 +102,33 @@ setFilter
                    rounded-2xl bg-white p-5 shadow transition hover:shadow-lg
              "
           >
-            <div className="mb-6 flex justify-center transition group-hover:scale-105">
-              {iconMap[doc.icon]}
-            </div>
-
+            {" "}
+            <span className="flex justify-end cursor-pointer">
+              <Trash
+                width={20}
+                height={20}
+                color="red"
+                onClick={() => {
+                  handleDelete(doc.id);
+                }}
+              />
+            </span>
+            <div
+  className="mb-6 flex justify-center cursor-pointer transition group-hover:scale-105"
+  onClick={() => {
+    console.log("DOC:", doc);
+    console.log("PDF:", doc.pdf);
+    window.open(
+      `http://localhost:5209${doc.pdf}`,
+      "_blank"
+    );
+  }}
+>
+  {iconMap[doc.icon]}
+</div>
             <h3 className="truncate text-sm font-semibold text-gray-800">
               {doc.name}
             </h3>
-
             <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
               <span>{doc.size}</span>
               <span>{doc.date}</span>
@@ -121,4 +138,4 @@ setFilter
       </div>
     </section>
   );
-};
+}

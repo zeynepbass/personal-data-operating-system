@@ -9,4 +9,7 @@ export const documentApi = {
   createDocument(data) {
     return apiClient.post("/documents", data);
   },
+  deleteDocument(id){
+    return apiClient.delete(`/documents/${id}`);
+  }
 };

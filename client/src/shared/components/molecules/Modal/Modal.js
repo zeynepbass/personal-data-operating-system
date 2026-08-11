@@ -10,8 +10,8 @@ const initialForm = {
   name: "",
   type: "",
   color: "",
-  shared: false,
-  file: null,
+  shared: "false",
+  pdf: null,
 };
 
 export default function Modal({
@@ -29,28 +29,39 @@ export default function Modal({
 
     setForm((prev) => ({
       ...prev,
-      [name]: type === "file" ? files[0] : value,
+      [name]: type === "file" ? files?.[0] || null : value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const file = form.file;
+    const pdf = form.pdf;
 
-    const document = {
-      id: crypto.randomUUID(),
-      name: form.name,
-      type: form.type,
-      size: file ? `${(file.size / 1024 / 1024).toFixed(2)} MB` : "0 MB",
-      date: new Date().toLocaleDateString("tr-TR"),
-      icon: form.type,
-      color: form.color,
-      favorite: false,
-      shared: form.shared === "true",
-    };
+    if (!pdf) {
+      return;
+    }
 
-    onSubmit(document);
+    const formData = new FormData();
+
+    formData.append("id", crypto.randomUUID());
+    formData.append("name", form.name);
+    formData.append("type", form.type);
+    formData.append(
+      "size",
+      `${(pdf.size / 1024 / 1024).toFixed(2)} MB`
+    );
+    formData.append(
+      "date",
+      new Date().toLocaleDateString("tr-TR")
+    );
+    formData.append("icon", "pdf");
+    formData.append("color", form.color);
+    formData.append("favorite", "false");
+    formData.append("shared", form.shared);
+    formData.append("pdf", pdf);
+
+    onSubmit(formData);
   };
 
   const handleClose = () => {
@@ -69,10 +80,11 @@ export default function Modal({
         className="relative w-full max-w-3xl rounded-2xl bg-white shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-  
+
         <div className="flex items-center justify-between border-b border-gray-200 p-6">
           <div>
             <Heading title="Yeni Belge" />
+
             <p className="mt-1 text-sm text-gray-500">
               Projeye yeni bir belge oluşturun.
             </p>
@@ -81,6 +93,7 @@ export default function Modal({
           <button
             type="button"
             onClick={handleClose}
+            disabled={isCreating}
             className="rounded-lg p-2 transition hover:bg-gray-100"
           >
             ✕
@@ -94,7 +107,7 @@ export default function Modal({
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-6">
               <Heading title="Belge Bilgileri" />
 
-              <div className="mt-5 space-y-5">
+              <div className="mt-5">
                 <Input
                   text="Belge Adı"
                   name="name"
@@ -120,12 +133,10 @@ export default function Modal({
                   onChange={handleChange}
                   placeholder="Belge Türü"
                   options={[
-                    { value: "pdf", label: "📄 PDF" },
-                    { value: "doc", label: "📝 Word" },
-                    { value: "ppt", label: "📊 PowerPoint" },
-                    { value: "image", label: "🖼️ Resim" },
-                    { value: "json", label: "💻 JSON" },
-                    { value: "zip", label: "🗂️ ZIP" },
+                    {
+                      value: "pdf",
+                      label: "📄 PDF",
+                    },
                   ]}
                 />
 
@@ -136,12 +147,30 @@ export default function Modal({
                   onChange={handleChange}
                   placeholder="Renk"
                   options={[
-                    { value: "red", label: "🔴 Kırmızı" },
-                    { value: "blue", label: "🔵 Mavi" },
-                    { value: "green", label: "🟢 Yeşil" },
-                    { value: "orange", label: "🟠 Turuncu" },
-                    { value: "purple", label: "🟣 Mor" },
-                    { value: "gray", label: "⚪ Gri" },
+                    {
+                      value: "red",
+                      label: "🔴 Kırmızı",
+                    },
+                    {
+                      value: "blue",
+                      label: "🔵 Mavi",
+                    },
+                    {
+                      value: "green",
+                      label: "🟢 Yeşil",
+                    },
+                    {
+                      value: "orange",
+                      label: "🟠 Turuncu",
+                    },
+                    {
+                      value: "purple",
+                      label: "🟣 Mor",
+                    },
+                    {
+                      value: "gray",
+                      label: "⚪ Gri",
+                    },
                   ]}
                 />
               </div>
@@ -155,12 +184,18 @@ export default function Modal({
                 <Select
                   text="Paylaşım"
                   name="shared"
-                  value={String(form.shared)}
+                  value={form.shared}
                   onChange={handleChange}
                   placeholder="Paylaşım"
                   options={[
-                    { value: "false", label: "🔒 Özel" },
-                    { value: "true", label: "🌍 Paylaşıldı" },
+                    {
+                      value: "false",
+                      label: "🔒 Özel",
+                    },
+                    {
+                      value: "true",
+                      label: "🌍 Paylaşıldı",
+                    },
                   ]}
                 />
               </div>
@@ -172,14 +207,24 @@ export default function Modal({
 
               <div className="mt-5">
                 <Input
-                  text="PDF / Belge Seç"
+                  text="PDF Seç"
                   type="file"
-                  name="file"
-                  accept=".pdf,.doc,.docx,.ppt,.pptx,.png,.jpg,.jpeg,.json,.zip"
+                  name="pdf"
+                  accept="application/pdf,.pdf"
                   onChange={handleChange}
+                  required
                   className="w-full rounded-xl border border-dashed border-gray-300 p-4"
                 />
               </div>
+
+              {form.pdf && (
+                <p className="mt-3 text-sm text-gray-500">
+                  Seçilen dosya:{" "}
+                  <span className="font-medium text-gray-700">
+                    {form.pdf.name}
+                  </span>
+                </p>
+              )}
             </div>
 
 
@@ -194,9 +239,13 @@ export default function Modal({
 
               <Button
                 type="submit"
-                disabled={isCreating}
-                text={isCreating ? "Kaydediliyor..." : "Belgeyi Yükle"}
-                className="hover:text-white"
+                disabled={isCreating || !form.pdf}
+                text={
+                  isCreating
+                    ? "Kaydediliyor..."
+                    : "Belgeyi Yükle"
+                }
+                className="rounded-xl bg-[#555A8A] px-6 py-3 text-gray-50 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
               />
             </div>
           </form>

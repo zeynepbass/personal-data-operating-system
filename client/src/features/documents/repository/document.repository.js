@@ -10,3 +10,8 @@ export async function createDocument(data){
 const response=await documentProvider.createDocument(data);
 return response.data;
 }
+export async function deleteDocument (id) {
+    const response = await documentProvider.deleteDocument(id)
+  
+    return response.data;
+  };

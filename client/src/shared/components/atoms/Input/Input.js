@@ -1,7 +1,6 @@
-
 "use client";
 
-export default function Input  ({
+export default function Input({
   type,
   name,
   value,
@@ -14,28 +13,26 @@ export default function Input  ({
   checked,
   className,
   ...props
-})  {
+}) {
   return (
-<div className="flex flex-col">
-{(label || text) && (
-  <label className="mb-2 block text-sm text-gray-500">
-    {label || text}
-  </label>
-)}
+    <div className="flex flex-col">
+      {(label || text) && (
+        <label className="mb-2 block text-sm text-gray-500">
+          {label || text}
+        </label>
+      )}
 
-    <input
-      type={type}
-      name={name}
-
-      checked={checked}
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      className={className}
-      disabled={disabled}
-
-      {...props}
-  
-    />    </div>
+      <input
+        type={type}
+        name={name}
+        {...(type !== "file" && { value })}
+        checked={checked}
+        onChange={onChange}
+        placeholder={placeholder}
+        className={className}
+        disabled={disabled}
+        {...props}
+      />
+    </div>
   );
-};
+}

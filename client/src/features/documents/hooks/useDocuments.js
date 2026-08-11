@@ -1,6 +1,7 @@
 import {
   getAll,
   createDocument,
+  deleteDocument
 } from "../repository/document.repository";
 import { toast } from "react-hot-toast";
 import {
@@ -22,10 +23,26 @@ export function useDocuments() {
     queryKey: ["documents"],
     queryFn: getAll,
   });
-
   const createMutation = useMutation({
-    mutationFn: createDocument,
+    mutationFn: (formData) => createDocument(formData),
   
+    onSuccess: (response) => {
+      toast.success(response.message);
+  
+      queryClient.invalidateQueries({
+        queryKey: ["documents"],
+      });
+    },
+  
+    onError: (error) => {
+      toast.error(
+        error.response?.data?.message || "Document oluşturulurken hata oluştu."
+      );
+    },
+  });
+  const deleteMutation = useMutation({
+    mutationFn: deleteDocument,
+
     onSuccess: (response) => {
       toast.success(response.message);
 
@@ -33,12 +50,11 @@ export function useDocuments() {
         queryKey: ["documents"],
       });
     },
-  
+
     onError: (error) => {
       toast.error(error.message);
     },
   });
-
   return {
     ...query,
     search,
@@ -48,5 +64,6 @@ export function useDocuments() {
     setFilter,
     createDocument: createMutation.mutate,
     isCreating: createMutation.isPending,
+    deleteDocument: deleteMutation.mutate,
   };
 }
