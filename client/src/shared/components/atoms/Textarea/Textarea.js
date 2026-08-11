@@ -11,7 +11,7 @@ export function Textarea({
   ...props
 })  {
   return (
-    <div>
+<div className="flex flex-col">
       {label && (
         <label
           htmlFor={name}

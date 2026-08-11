@@ -18,9 +18,7 @@ export function TaskDetailHeader({ task }) {
           Geri dön
         </button>
 
-        <h1 className="text-2xl font-semibold text-gray-900">
-          Task Detayı
-        </h1>
+        <h1 className="text-2xl font-semibold text-gray-900">Task Detayı</h1>
 
         <p className="mt-1 text-sm text-gray-500">
           Task bilgilerini görüntüle ve düzenle.
@@ -29,10 +27,14 @@ export function TaskDetailHeader({ task }) {
 
       <button
         type="button"
+        onClick={() => {
+          localStorage.setItem("selectedTask", JSON.stringify(task));
+          router.push(`/tasks/${task.id}/edit`);
+        }}
         className="flex items-center gap-2 rounded-xl bg-[#555A8A] px-4 py-2.5 text-sm font-medium text-white transition hover:opacity-90"
       >
-        <Pencil width={16} height={16} />
-        Düzenle
+        {" "}
+        <Pencil width={16} height={16} /> Düzenle{" "}
       </button>
     </div>
   );
