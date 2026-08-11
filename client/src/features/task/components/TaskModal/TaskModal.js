@@ -340,7 +340,7 @@ export default function TaskModal({
                        ? "Oluşturuluyor..."
                        : "Kolon ve Görevi Oluştur"
                    }
-                   className="rounded-xl bg-[#555A8A] px-6 py-3 text-white hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+                   className="rounded-xl bg-[#555A8A] px-6 py-3 text-gray-50 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
                  />
                </div>
           </form>

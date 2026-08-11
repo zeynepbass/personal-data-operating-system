@@ -9,6 +9,7 @@ export default function DocumentsPage() {
     isError,
     error,
     search,
+    deleteDocument,
     setSearch,
     filter,
     open, setOpen,
@@ -23,7 +24,12 @@ export default function DocumentsPage() {
   if (isError) {
     return <div>Bir hata oluştu: {error.message}</div>;
   }
+  console.log("data",data)
 const filteredDocuments=filteredData(data,search,filter)
+const handleDelete = (id) => {
+  deleteDocument(id);
+};
+
 
   return (
     <DocumentsHome
@@ -37,6 +43,7 @@ const filteredDocuments=filteredData(data,search,filter)
     setSearch={setSearch}
 filter={filter}
 setFilter={setFilter}
+handleDelete={handleDelete}
     />
   );
 }

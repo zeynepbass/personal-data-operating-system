@@ -12,7 +12,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: true }));
+app.use("/uploads", express.static("uploads"));
 app.use("/api/events", eventRoutes);
 app.use("/api/meetings", meetingRoutes);
 app.use("/api/documents", documentRoutes);

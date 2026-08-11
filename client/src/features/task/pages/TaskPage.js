@@ -7,7 +7,7 @@ import {
   transformTasksToRows,
   getTodayTasks,
 } from "../utils/colums.filter";
-
+import { useRouter } from "next/navigation";
 export default function TaskPage() {
   const {
     data,
@@ -23,7 +23,7 @@ export default function TaskPage() {
     open,
     setOpen,
   } = useTasks();
-
+  const router = useRouter();
   const handleMenuClick = (taskId) => {
     setOpenMenuId((prev) =>
       prev === taskId ? null : taskId
@@ -57,6 +57,7 @@ export default function TaskPage() {
       rows={rows}
       todayTasks={todayTasks}
       view={view}
+      router={router}
       isCreating={isCreating}
       onSubmit={createTask}
       handleMenuClick={handleMenuClick}

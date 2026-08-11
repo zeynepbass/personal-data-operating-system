@@ -31,15 +31,15 @@ const tabs = [
         <div className="space-y-6">
 <GoalsHeading/>
 
-      <div className="flex w-fit rounded-xl bg-gray-100 p-1">
+      <div className="flex w-fit rounded-xl  p-1 gap-2">
         {tabs.map((tab) => (
             <Button
             key={tab.value}
             onClick={() => setSelectedTab(tab.value)}
-            className={`rounded-lg px-6 py-2 text-sm font-medium transition-all ${
+            className={`rounded-lg px-6  py-2 text-sm font-medium transition-all ${
               selectedTab === tab.value
-                ? "bg-white hover:text-white shadow-sm"
-                : "text-gray-500 hover:text-white"
+                ? "bg-white shadow-sm"
+                : "text-gray-50 "
             }`}
             text={ tab.text}
             />

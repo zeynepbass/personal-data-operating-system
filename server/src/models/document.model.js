@@ -35,6 +35,10 @@ const documentSchema = new mongoose.Schema(
     color: {
       type: String,
     },
+    pdf: {
+      type: String,
+      required: true,
+    },
 
     favorite: {
       type: Boolean,
