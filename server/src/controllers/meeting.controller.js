@@ -200,101 +200,37 @@ export const deleteMeeting = async (req, res) => {
 export const updateTaskStatus = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, completed } = req.body;
+    const { name } = req.body;
 
-
-    const currentMeeting = await Meeting.findOne({
+    const meeting = await Meeting.findOne({
       "tasks.id": id,
     });
 
-    if (!currentMeeting) {
+    if (!meeting) {
       return res.status(404).json({
         success: false,
         message: "Task bulunamadı.",
       });
     }
 
+    meeting.name = name;
 
-    const task = currentMeeting.tasks.find(
-      (item) => String(item.id) === String(id)
+    const task = meeting.tasks.find(
+      (task) => String(task.id) === String(id)
     );
 
-    if (!task) {
-      return res.status(404).json({
-        success: false,
-        message: "Task bulunamadı.",
-      });
+    if (task) {
+      task.completed = name.toLowerCase() !== "todo";
     }
 
+    await meeting.save();
 
-    if (completed === true) {
-      const doneMeeting = await Meeting.findOne({
-        name: "done",
-      });
-
-      if (!doneMeeting) {
-        return res.status(404).json({
-          success: false,
-          message: "Done kolonu bulunamadı.",
-        });
-      }
-
-      task.completed = true;
-
-      currentMeeting.tasks = currentMeeting.tasks.filter(
-        (item) => String(item.id) !== String(id)
-      );
-
-      doneMeeting.tasks.push(task);
-
-      await currentMeeting.save();
-      await doneMeeting.save();
-
-      return res.status(200).json({
-        success: true,
-        message: "Task tamamlandı.",
-        data: doneMeeting,
-      });
-    }
-
-
-    if (name) {
-      const targetMeeting = await Meeting.findOne({
-        name: name,
-      });
-
-      if (!targetMeeting) {
-        return res.status(404).json({
-          success: false,
-          message: `Hedef kolon bulunamadı: ${name}`,
-        });
-      }
-
-      task.completed = name !== "todo";
-
-      currentMeeting.tasks = currentMeeting.tasks.filter(
-        (item) => String(item.id) !== String(id)
-      );
-
-      targetMeeting.tasks.push(task);
-
-      await currentMeeting.save();
-      await targetMeeting.save();
-
-      return res.status(200).json({
-        success: true,
-        message: "Task durumu güncellendi.",
-        data: targetMeeting,
-      });
-    }
-
-    return res.status(400).json({
-      success: false,
-      message: "Güncellenecek bilgi gönderilmedi.",
+    return res.status(200).json({
+      success: true,
+      message: "Task durumu güncellendi.",
+      data: meeting,
     });
   } catch (error) {
-    console.error(error);
-
     return res.status(500).json({
       success: false,
       message: "Task durumu güncellenemedi.",

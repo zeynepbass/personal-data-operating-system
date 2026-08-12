@@ -46,7 +46,7 @@ export function Column  ({ column })  {
               className={`font-semibold text-lg flex items-center gap-2 ${color.text}`}
             >
               <span className={`w-2 h-2 rounded-full ${color.dot}`} />
-              {column.title}
+              {column.name}
             </h3>
 
             <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-sm font-semibold">
