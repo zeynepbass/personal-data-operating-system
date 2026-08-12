@@ -17,3 +17,11 @@ export async function updateTask(id,payload){
     const response=await taskProvider.updatedTask(id,payload);
     return response.data
 }
+export async function deletedTask(id){
+    const response=await taskProvider.deletedTask(id);
+    return response.data
+}
+export async function updateTaskStatus(id, name,){
+    const response=await taskProvider.updateTaskStatus(id,name);
+    return response.data
+}

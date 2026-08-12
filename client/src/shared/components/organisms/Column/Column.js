@@ -59,7 +59,7 @@ export function Column  ({ column })  {
               <Card key={task.id} task={task} index={index} />
             ))}
 
-            {provided.placeholder}
+
           </div>
         </div>
       )}
