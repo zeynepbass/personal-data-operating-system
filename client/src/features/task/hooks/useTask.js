@@ -4,6 +4,7 @@ import {
   updateTask,
   deletedTask,
   updateTaskStatus,
+  updateTaskCompleted
 } from "../repositories/task.repository";
 
 import { useState } from "react";
@@ -106,16 +107,12 @@ export function useTasks() {
 
   const statusMutation = useMutation({
     mutationFn: ({ id, status }) => {
-      console.log("1️⃣ mutationFn");
-      console.log("id:", id);
-      console.log("status:", status);
-  
+
       return updateTaskStatus(id, status);
     },
   
     onSuccess: (response) => {
-      console.log("2️⃣ status update success");
-      console.log("response:", response);
+
   
       toast.success(
         response.data?.message ||
@@ -128,9 +125,7 @@ export function useTasks() {
     },
   
     onError: (error) => {
-      console.log("❌ status update error");
-      console.log("error:", error);
-      console.log("response:", error.response?.data);
+
   
       toast.error(
         error.response?.data?.message ||
@@ -141,21 +136,15 @@ export function useTasks() {
   });
 
   const handleDragEnd = (result) => {
-    console.log("3️⃣ DRAG END");
-    console.log("result:", result);
-  
+
     const {
       destination,
       source,
       draggableId,
     } = result;
   
-    console.log("draggableId:", draggableId);
-    console.log("source:", source);
-    console.log("destination:", destination);
-  
     if (!destination) {
-      console.log("❌ destination yok");
+
       return;
     }
   
@@ -163,31 +152,31 @@ export function useTasks() {
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
-      console.log("ℹ️ Aynı yerde bırakıldı");
+
       return;
     }
-  
-    console.log("4️⃣ STATUS DEĞİŞİYOR");
-    console.log("task id:", draggableId);
-    console.log(
-      "yeni status:",
-      destination.droppableId
-    );
+
   
     statusMutation.mutate({
       id: draggableId,
       status: destination.droppableId,
     });
   };
-const onToggle=()=>{
-  
-}
+  const onToggle = async (task, completed) => {
+    try {
+      await updateTaskCompleted(task.id, {
+        completed,
+        name: completed ? "done" : task.name,
+      });
+    } catch (error) {
+      console.error("Task güncellenemedi:", error);
+    }
+  };
   return {
     ...query,
 
     view,
     setView,
-
     open,
     setOpen,onToggle,
 

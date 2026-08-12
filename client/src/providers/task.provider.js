@@ -5,7 +5,8 @@ const documentProvider = {
     postTask:taskApi.createTask,
     updatedTask:taskApi.updatedTask,
     deletedTask:taskApi.deletedTask,
-    updateTaskStatus:taskApi.updateTaskStatus
+    updateTaskStatus:taskApi.updateTaskStatus,
+    updateTaskCompleted:taskApi.updateTaskCompleted
 };
 
 export default documentProvider;

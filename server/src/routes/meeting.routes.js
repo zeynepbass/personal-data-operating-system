@@ -1,5 +1,5 @@
 import express from "express";
-import {getMeetings,createMeeting,updateMeeting,deleteMeeting,updateTaskStatus} from "../controllers/meeting.controller.js";
+import {getMeetings,createMeeting,updateMeeting,deleteMeeting,updateTaskStatus,updateTaskCompleted} from "../controllers/meeting.controller.js";
 
 const router = express.Router();
 
@@ -8,4 +8,6 @@ router.post("/",createMeeting)
 router.put("/:id",updateMeeting)
 router.delete("/:id",deleteMeeting)
 router.patch("/:id/status", updateTaskStatus);
+router.patch("/:id/status", updateTaskCompleted);
+
 export default router;

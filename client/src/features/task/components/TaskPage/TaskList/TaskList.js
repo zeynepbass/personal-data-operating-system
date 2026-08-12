@@ -1,8 +1,14 @@
 "use client";
+import { useState } from "react";
+import { Input } from "@/shared/components/atoms";
+export default function TaskList({ todayTasks, onToggle }) {
+  const [checked, setChecked] = useState(todayTasks?.completed === true);
 
-import {Input} from "@/shared/components/atoms";
-export default function TaskList  ({ todayTasks, onToggle})  {
+const handleChange = async (task) => {
+  setChecked(true);
 
+  await onToggle(task);
+};
   return (
     <div className="space-y-2">
       {todayTasks &&
@@ -12,27 +18,24 @@ export default function TaskList  ({ todayTasks, onToggle})  {
               key={task.id}
               className="flex items-center justify-between rounded-xl border border-gray-100 bg-white px-4 py-3 shadow-sm"
             >
-              <div className="flex items-center gap-3">
-              <Input
-  type="checkbox"
-  checked={task?.completed || false}
-  onChange={() => {
-    console.log("Task ID:", task?.id);
-    onToggle(task);
-  }}
-  className="h-4 w-4 accent-indigo-600"
-/>
+<div className="flex items-center gap-3">
+  <Input
+    type="checkbox"
+    checked={checked}
+    onChange={()=>handleChange(task)}
+    className="h-4 w-4 accent-indigo-600"
+  />
 
-                <span
-                  className={`text-sm ${
-                    task?.completed
-                      ? "text-gray-500 line-through"
-                      : "text-gray-800"
-                  }`}
-                >
-                  {task?.title}
-                </span>
-              </div>
+  <span
+    className={`text-sm ${
+      checked
+        ? "text-gray-500 line-through"
+        : "text-gray-800"
+    }`}
+  >
+    {task?.title}
+  </span>
+</div>
 
               {/* <div className="relative">
                 <button
@@ -49,4 +52,4 @@ export default function TaskList  ({ todayTasks, onToggle})  {
         })}
     </div>
   );
-};
+}

@@ -13,6 +13,7 @@ export function getTodayTasks(data = []) {
   return data
     .filter((column) => column.name?.toLowerCase() === "todo")
     .flatMap((column) => column.tasks ?? []);
+  
 
 }
 export function groupTasksByStatus(data = []) {

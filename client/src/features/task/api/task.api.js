@@ -16,5 +16,8 @@ export const taskApi = {
   updateTaskStatus(id,name){
     return apiClient.patch(`/meetings/${id}/status`,
       { name });
-  }
+  },
+ updateTaskCompleted (id, data){
+    return apiClient.patch(`/meetings/${id}/status`,data)
+ }
 }
