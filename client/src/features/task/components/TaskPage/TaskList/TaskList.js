@@ -13,12 +13,15 @@ export default function TaskList  ({ todayTasks, onToggle})  {
               className="flex items-center justify-between rounded-xl border border-gray-100 bg-white px-4 py-3 shadow-sm"
             >
               <div className="flex items-center gap-3">
-                <Input
-                  type="checkbox"
-                  checked={task?.completed || false}
-                  onChange={() => onToggle(task?.id)}
-                  className="h-4 w-4 accent-indigo-600"
-                />
+              <Input
+  type="checkbox"
+  checked={task?.completed || false}
+  onChange={() => {
+    console.log("Task ID:", task?.id);
+    onToggle(task);
+  }}
+  className="h-4 w-4 accent-indigo-600"
+/>
 
                 <span
                   className={`text-sm ${

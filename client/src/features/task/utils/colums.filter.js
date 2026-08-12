@@ -2,17 +2,18 @@ export function transformTasksToRows(data = []) {
   return data.flatMap((column) =>
     column.tasks.map((task) => ({
       ...task,
-      status: column.title,
+      status: column.name,
       statusColor: column.color,
+      name: column.name,
       columnId: column.id,
     }))
   );
 }
-
 export function getTodayTasks(data = []) {
   return data
     .filter((column) => column.name?.toLowerCase() === "todo")
     .flatMap((column) => column.tasks ?? []);
+
 }
 export function groupTasksByStatus(data = []) {
   const groups = {

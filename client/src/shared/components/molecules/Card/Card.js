@@ -25,7 +25,7 @@ export function Card({ task, index }) {
         >
           <GripVertical size={18} className="text-gray-500 mb-3" />
 
-          <h4 className="font-bold">{task?.title}</h4>
+          <h4 className="font-bold">{task?.description}</h4>
 
           <span
             className="
@@ -33,19 +33,19 @@ export function Card({ task, index }) {
                         mt-4
                         rounded-lg
                         bg-indigo-100
-                       text-[#555A8A]
+                       text-red-600
                         px-3
                         py-1
                         text-xs
                     "
           >
-            {task.label}
+            {task.priority}
           </span>
 
           <div className="flex items-center justify-end gap-2 mt-5 text-gray-500 text-sm">
             <Calendar size={15} />
 
-            {task.date}
+           Görev tarihi: {task.date}
           </div>
         </article>
       )}

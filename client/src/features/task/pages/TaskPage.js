@@ -11,10 +11,12 @@ import { useRouter } from "next/navigation";
 export default function TaskPage() {
   const {
     data,
+    deletedTask,
     isLoading,
     isError,
     openMenuId,
     setOpenMenuId,
+    handleDragEnd,
     error,
     isCreating,
     createTask,
@@ -22,6 +24,7 @@ export default function TaskPage() {
     setView,
     open,
     setOpen,
+    onToggle
   } = useTasks();
   const router = useRouter();
   const handleMenuClick = (taskId) => {
@@ -58,11 +61,14 @@ export default function TaskPage() {
       todayTasks={todayTasks ?? []}
       view={view}
       router={router}
+      onToggle={onToggle}
+      deletedTask={deletedTask}
       isCreating={isCreating}
       onSubmit={createTask}
       handleMenuClick={handleMenuClick}
       openMenuId={openMenuId}
       open={open}
+      onDragEnd={handleDragEnd}
       setOpen={setOpen}
       setView={setView}
       data={data ?? []}

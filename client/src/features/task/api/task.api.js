@@ -9,5 +9,12 @@ export const taskApi = {
   },
   updatedTask(id,payload){
     return apiClient.put(`/meetings/${id}`,payload);
+  },
+  deletedTask(id){
+    return apiClient.delete(`/meetings/${id}`);
+  },
+  updateTaskStatus(id,name){
+    return apiClient.patch(`/meetings/${id}/status`,
+      { name });
   }
 }
