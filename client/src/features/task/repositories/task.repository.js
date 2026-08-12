@@ -25,3 +25,12 @@ export async function updateTaskStatus(id, name,){
     const response=await taskProvider.updateTaskStatus(id,name);
     return response.data
 }
+
+export async function updateTaskCompleted(id) {
+    const response = await taskProvider.updateTaskCompleted(id, {
+      completed: false,
+      name: "done",
+    });
+  
+    return response.data;
+  }

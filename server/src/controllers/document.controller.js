@@ -10,7 +10,7 @@ export const getDocuments = async (req, res) => {
       data: documents,
     });
   } catch (error) {
-    console.error("GET DOCUMENTS ERROR:", error);
+
 
     res.status(500).json({
       success: false,
@@ -49,7 +49,7 @@ export const createDocument = async (req, res) => {
       data: document,
     });
   } catch (error) {
-    console.error("CREATE DOCUMENT ERROR:", error);
+
 
     return res.status(500).json({
       success: false,
@@ -75,7 +75,7 @@ export const deletedDocument = async (req, res) => {
       data: document,
     });
   } catch (error) {
-    console.error("DELETE DOCUMENT ERROR:", error);
+
 
     res.status(500).json({
       success: false,

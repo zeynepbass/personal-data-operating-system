@@ -118,8 +118,7 @@ export default function DocumentsHome({
             <div
   className="mb-6 flex justify-center cursor-pointer transition group-hover:scale-105"
   onClick={() => {
-    console.log("DOC:", doc);
-    console.log("PDF:", doc.pdf);
+
     window.open(
       `http://localhost:5209${doc.pdf}`,
       "_blank"
