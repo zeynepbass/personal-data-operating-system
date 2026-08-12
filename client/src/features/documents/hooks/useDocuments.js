@@ -2,7 +2,7 @@ import {
   getAll,
   createDocument,
   deleteDocument
-} from "../repository/document.repository";
+} from "../repositories/document.repository";
 import { toast } from "react-hot-toast";
 import {
   useQuery,
