@@ -108,9 +108,9 @@ export default function DocumentsHome({
             {" "}
             <span className="flex justify-end cursor-pointer">
               <Trash
-                width={20}
-                height={20}
-                color="red"
+                width={15}
+                height={15}
+                color="#7d78ce"
                 onClick={() => {
                   handleDelete(doc.id);
                 }}
