@@ -1,3 +1,4 @@
+import {Select,Input} from "@/shared/components/atoms"
 export function GoalFormBasic({ goal, onChange }) {
   return (
     <div className=" p-4">
@@ -13,39 +14,18 @@ export function GoalFormBasic({ goal, onChange }) {
 
       <div className="grid gap-4 md:grid-cols-2">
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700">
-            Hedef ID
-          </label>
+     
 
-          <input
-            type="number"
-            name="id"
-            value={goal.id}
-            onChange={onChange}
-            placeholder="Hedef ID"
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none focus:border-[#555A8A]"
-          />
+          <Input type="text" name="title" value={goal.title} onChange={onChange} label="Başlık" placeholder="Başlık" />
         </div>
-
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700">
-            Durum
-          </label>
 
-          <select
-            name="status"
-            value={goal.status}
-            onChange={onChange}
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none focus:border-[#555A8A]"
-          >
-            <option value="active">
-              Aktif
-            </option>
 
-            <option value="completed">
-              Tamamlandı
-            </option>
-          </select>
+          <Select name="category" value={goal.category} onChange={onChange} label="Kategori" placeholder="Kategori seç" options={[ { value: "2026-goals", label: "2026 Hedefleri", }, { value: "personal-goals", label: "Kişisel Hedefler", }, { value: "2027-goals", label: "2027 Hedefleri", }, { value: "work-goals", label: "İş Hedefleri", }, ]} />
+        </div>
+        <div>
+
+
         </div>
       </div>
     </div>

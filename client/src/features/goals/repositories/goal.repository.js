@@ -5,3 +5,7 @@ export async function getAll(){
     const response=await goalProvider.getGoals();
     return response.data.data.map(goalAdapter)
 }
+export async function postGoals(data){
+    const response=await goalProvider.postGoals(data);
+    return response.data;
+}
