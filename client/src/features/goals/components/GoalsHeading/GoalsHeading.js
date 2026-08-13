@@ -1,10 +1,12 @@
+"use client"
 import {Button} from "@/shared/components/atoms";
+import {useRouter} from "next/navigation"
 export default function TaskHeading({
   title,
   description,
-  className,
-  setOpen,
+  className
 }) {
+  const router=useRouter();
   return (
     <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <div className="mb-4">
@@ -13,7 +15,7 @@ export default function TaskHeading({
       </div>
       <Button
         text="+ Yeni Görev"
-        onClick={() => setOpen(true)}
+        onClick={() => router.push("/goals/add")}
         className="w-full md:w-auto hover:text-white text-gray-50"
       />{" "}
     </header>

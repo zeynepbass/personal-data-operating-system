@@ -106,7 +106,7 @@ export function Modal({
         <div className="max-h-[75vh] overflow-y-auto p-6">
           <form onSubmit={handleSubmit} className="space-y-8">
 
-            <div className="rounded-xl border border-gray-200 bg-gray-50 p-6">
+            <div className="rounded-xl border border-gray-200 bg-white p-6">
               <Heading title="Belge Bilgileri" />
 
               <div className="mt-5">
@@ -179,7 +179,7 @@ export function Modal({
             </div>
 
 
-            <div className="rounded-xl border border-gray-200 bg-gray-50 p-6">
+            <div className="rounded-xl border border-gray-200 bg-white p-6">
               <Heading title="Belge Ayarları" />
 
               <div className="mt-5">

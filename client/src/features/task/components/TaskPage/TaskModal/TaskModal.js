@@ -243,7 +243,7 @@ export default function TaskModal({
                </div>
      
 
-               <div className="rounded-xl border border-gray-200 bg-gray-50 p-6">
+               <div className="rounded-xl border border-gray-200 bg-white p-6">
                  <Heading title="Görev Detayları" />
      
                  <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-1">

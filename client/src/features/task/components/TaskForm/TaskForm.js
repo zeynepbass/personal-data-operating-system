@@ -27,7 +27,7 @@ export function TaskForm({ initialTask, onSubmit,isUpdating }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border border-gray-200 bg-gray-50 p-5">
+    <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border border-gray-200 bg-white p-5">
       <TaskFormBasic
         task={task}
         onChange={handleChange}

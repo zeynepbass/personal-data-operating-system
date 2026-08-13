@@ -50,7 +50,7 @@ export default function TaskEditPage() {
 
   if (loading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-gray-50">
+      <main className="flex min-h-screen items-center justify-center ">
         <p className="text-sm text-gray-500">
           Yükleniyor...
         </p>
@@ -60,7 +60,7 @@ export default function TaskEditPage() {
 
   if (!task) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-slate-50 p-6">
+      <main className="flex min-h-screen items-center justify-center  p-6">
         <NotFound
           title="Oopss!"
           description="Task bulunamadı."
@@ -73,8 +73,8 @@ export default function TaskEditPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 p-6">
-      <div className="mx-auto max-w-4xl">
+    <main className="min-h-screen ">
+      <div className="mx-auto max-w-full">
 
         <div className="mb-6">
           <p className="text-sm font-medium text-gray-400">
@@ -91,7 +91,7 @@ export default function TaskEditPage() {
         </div>
 
 
-        <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div className="rounded-2xl shadow-sm">
           <TaskForm
             initialTask={task}
             onSubmit={handleSubmit}
