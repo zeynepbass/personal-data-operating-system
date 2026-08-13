@@ -1,7 +1,7 @@
 import GoalItem from "../GoalsItem";
 import { useState } from "react";
 import { Pencil, Trash } from "lucide-react";
-export default function GoalsCard({category,title,id,items=[]}) {
+export default function GoalsCard({category,title,id,items=[],deletedGoals}) {
   const [openMenu, setOpenMenu] = useState(false);
   return (
     <div className="relative rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">

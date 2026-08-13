@@ -2,7 +2,8 @@ import {goalsApi} from "../features/goals/api/goal.api"
 
 const goalProvider={
     getGoals:goalsApi.getGoals,
-    postGoals:goalsApi.postGoals
+    postGoals:goalsApi.postGoals,
+    deletedGoals:goalsApi.deletedGoals
 }
 
 export default goalProvider
