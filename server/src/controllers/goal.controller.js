@@ -1,12 +1,12 @@
 import Goal from "../models/goal.model.js";
 
-
 export const getGoals = async (req, res) => {
   try {
     const goals = await Goal.find().sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
+      message: "Başarılı şekilde kayıt edildi",
       data: goals,
     });
   } catch (error) {
@@ -18,39 +18,31 @@ export const getGoals = async (req, res) => {
   }
 };
 
-
 export const createGoal = async (req, res) => {
   try {
-    const {
-      id,
-      status,
-      category,
-      title,
-      progress,
-      color,
-      items,
-    } = req.body;
 
     const goal = await Goal.create({
-      id,
-      status,
-      category,
-      title,
-      progress,
-      color,
-      items,
+      status: req.body.status,
+      category: req.body.category,
+      title: req.body.title,
+      items: req.body.items,
     });
 
-    res.status(201).json({
-      success: true,
-      message: "Goal başarıyla oluşturuldu.",
-      data: goal,
-    });
+    return res
+      .status(201)
+      .json({
+        success: true,
+        message: "Goal başarıyla oluşturuldu.",
+        data: goal,
+      });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Goal oluşturulurken hata oluştu.",
-      error: error.message,
-    });
+    console.error("CREATE GOAL ERROR:", error);
+    return res
+      .status(500)
+      .json({
+        success: false,
+        message: "Goal oluşturulurken hata oluştu.",
+        error: error.message,
+      });
   }
 };

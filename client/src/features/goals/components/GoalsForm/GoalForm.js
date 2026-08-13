@@ -8,14 +8,14 @@ import { GoalFormBasic } from "./GoalFormBasic";
 import { GoalFormItems } from "./GoalFormItems";
 
 export function GoalForm({
-  initialGoal,
   onSubmit,
   isCreating,
 }) {
   const [goal, setGoal] = useState(
-    initialGoal || {
-      id: "",
+ {
+      title: "",
       status: "active",
+      category:"",
       items: [],
     }
   );
@@ -43,7 +43,7 @@ export function GoalForm({
   };
 
   return (
-   <div className="space-y-4 rounded-xl border border-gray-200 bg-white p-5">
+   <div className="space-y-4 rounded-xl border border-gray-200 bg-white ">
     <form
       onSubmit={handleSubmit}
       className="space-y-4  p-5"

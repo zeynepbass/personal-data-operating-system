@@ -1,16 +1,12 @@
-
-import { Button,Input } from "@/shared/components/atoms";
-import {Trash} from "lucide-react"
-export function GoalFormItems({
-  items,
-  onChange,
-}) {
+import { Button, Input } from "@/shared/components/atoms";
+import { Trash } from "lucide-react";
+export function GoalFormItems({ items, onChange }) {
   const handleAdd = () => {
     onChange([
       ...items,
       {
         title: "",
-        value: 0,
+        value: "",
       },
     ]);
   };
@@ -27,9 +23,7 @@ export function GoalFormItems({
   };
 
   const handleRemove = (index) => {
-    const updatedItems = items.filter(
-      (_, itemIndex) => itemIndex !== index
-    );
+    const updatedItems = items.filter((_, itemIndex) => itemIndex !== index);
 
     onChange(updatedItems);
   };
@@ -38,9 +32,7 @@ export function GoalFormItems({
     <div className=" p-4">
       <div className="mb-4 flex items-center justify-between">
         <div>
-          <p className="text-xs text-gray-400">
-            Hedef Maddeleri
-          </p>
+          <p className="text-xs text-gray-400">Hedef Maddeleri</p>
 
           <h2 className="text-sm font-semibold text-gray-700">
             Hedef İçerikleri
@@ -59,39 +51,40 @@ export function GoalFormItems({
         {items.map((item, index) => (
           <div
             key={index}
-            className="flex gap-3 rounded-xl border border-gray-200 p-3"
+            className="flex  gap-3  rounded-xl border border-gray-200 p-3"
           >
-            <input
+            <div className="w-full">
+            <Input
               type="text"
               value={item.title}
               onChange={(event) =>
-                handleChange(
-                  index,
-                  "title",
-                  event.target.value
-                )
+                handleChange(index, "title", event.target.value)
               }
               placeholder="Hedef maddesi"
-              className="flex-1 rounded-xl  px-4 py-3 text-sm outline-none focus:border-[#555A8A]"
-            />
-<Input   type="number"
+          
+  
+            /></div>
+            <Input
+              type="number"
               value={item.value}
               onChange={(event) =>
-                handleChange(
-                  index,
-                  "value",
-                  Number(event.target.value)
-                )
+                handleChange(index, "value", Number(event.target.value))
               }
               placeholder="Değer"
-
+              className="w-28"
             />
-            
-<div className="flex items-center"> <Trash width="20" height="20" className="cursor-pointer" onClick={() => handleRemove(index)} /> </div>
+            <div className="flex items-center">
+              {" "}
+              <Trash
+                width="20"
+                height="20"
+                className="cursor-pointer"
+                onClick={() => handleRemove(index)}
+              />{" "}
+            </div>
           </div>
         ))}
       </div>
     </div>
   );
 }
-

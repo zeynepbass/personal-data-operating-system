@@ -39,7 +39,7 @@ export function Sidebar() {
         />
       </div>
 
-      <nav className="flex-1 px-4">
+      <nav className="flex-1 px-4 ">
         {menu && menu.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;
@@ -48,10 +48,10 @@ export function Sidebar() {
             <Link
               key={item.id}
               href={item.href}
-              className={`flex w-full items-center gap-4 rounded-xl px-5 py-4 text-left transition-all duration-200 ${
+              className={`flex w-full items-center gap-4 rounded-xl px-5 mb-2 py-4 text-left transition-all duration-200 ${
                 isActive
                   ? "bg-violet-50 text-[#555A8A] shadow-sm"
-                  : "text-white hover:bg-gray-100"
+                  : "text-white hover:bg-gray-100 hover:text-gray-500"
               }`}
             >
               <Icon className="h-5 w-5" />
