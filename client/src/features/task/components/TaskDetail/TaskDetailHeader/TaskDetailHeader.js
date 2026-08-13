@@ -29,7 +29,7 @@ export function TaskDetailHeader({ task }) {
         type="button"
         onClick={() => {
           localStorage.setItem("selectedTask", JSON.stringify(task));
-          router.push(`/tasks/${task.id}/edit`);
+          router.push(`/tasks/edit/${task.id}`);
         }}
         className="flex items-center gap-2 rounded-xl bg-[#555A8A] px-4 py-2.5 text-sm font-medium text-white transition hover:opacity-90"
       >

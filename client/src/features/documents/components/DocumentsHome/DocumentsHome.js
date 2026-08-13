@@ -39,7 +39,8 @@ export default function DocumentsHome({
   handleDelete,
 }) {
   return (
-    <section className="flex flex-col gap-6 h-[80vh] overflow-scroll">
+
+    <section className="flex flex-col gap-6 h-[80vh] overflow-scroll bg-white p-5 shadow-sm rounded-2xl ">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <PageHeader
           title="Belgelerim"

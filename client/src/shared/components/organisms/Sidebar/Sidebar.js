@@ -29,7 +29,7 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="flex min-h-screen w-64 flex-col border-r border-gray-100 bg-[#FAFAFA]">
+    <aside className="flex min-h-screen w-64 flex-col border-r border-gray-100 bg-[rgb(125,120,206)]">
       <div className="flex items-center gap-3 px-6 py-6">
         <img
           src="/images/logo.png"
@@ -51,7 +51,7 @@ export function Sidebar() {
               className={`flex w-full items-center gap-4 rounded-xl px-5 py-4 text-left transition-all duration-200 ${
                 isActive
                   ? "bg-violet-50 text-[#555A8A] shadow-sm"
-                  : "text-gray-600 hover:bg-gray-100"
+                  : "text-white hover:bg-gray-100"
               }`}
             >
               <Icon className="h-5 w-5" />
@@ -68,7 +68,7 @@ export function Sidebar() {
             className="h-10 w-10 rounded-full"
             alt="Zeynep Baş"
           />
-          <span className="text-sm font-medium">Zeynep Baş</span>
+          <span className="text-sm font-medium font-cold text-white">Zeynep Baş</span>
         </div>
       </div>
     </aside>
