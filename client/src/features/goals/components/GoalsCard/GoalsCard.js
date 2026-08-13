@@ -51,7 +51,7 @@ export default function GoalsCard({category,title,id,items=[],deletedGoals}) {
       </div>{" "}
       <h2 className="mt-2 text-3xl font-bold text-[#555A8A]"> {title} </h2>{" "}
       <div className="mt-6 flex items-center gap-5">
-        {" "}
+
         <div className="h-2 flex-1 overflow-hidden rounded-full bg-gray-100">
           {" "}
           <div className="h-full" />{" "}
