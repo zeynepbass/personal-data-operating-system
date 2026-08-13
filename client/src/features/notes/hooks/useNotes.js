@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import columns from "../../../shared/mocks/data.json";
 
 export default function useNotes  () {
