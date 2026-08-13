@@ -101,7 +101,7 @@ export default function DocumentsHome({
           <div
             key={doc.id}
             className="group cursor-pointer  border border-gray-200 duration-300
-             hover:-translate-y-1 hover:border-[#555A8A]
+             hover:-translate-y-1 hover:border-[rgb(125,120,206)]
                    rounded-2xl bg-white p-5 shadow transition hover:shadow-lg
              "
           >

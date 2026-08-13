@@ -331,7 +331,7 @@ export default function TaskModal({
                    text="İptal"
                    onClick={handleClose}
                    disabled={isCreating}
-                   className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-medium text-gray-800 transition hover:border-[#555A8A] hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                   className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-medium text-gray-800 transition hover:border-[rgb(125,120,206)] hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
                  />
      
                  <Button

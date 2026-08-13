@@ -30,16 +30,16 @@ export function Sidebar() {
 
   return (
     <aside className="flex min-h-screen w-64 flex-col border-r border-gray-100 bg-[rgb(125,120,206)]">
-      <div className="flex items-center gap-3 px-6 py-6">
+      <div className="flex items-center gap-3 px-6 py-5">
         <img
           src="/images/logo.png"
-          width={50}
-          height={50}
+          width={60}
+          height={60}
           alt="Logo"
         />
       </div>
 
-      <nav className="flex-1 px-4 ">
+      <nav className="flex-1 px-1">
         {menu && menu.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;

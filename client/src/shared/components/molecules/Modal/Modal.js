@@ -236,7 +236,7 @@ export function Modal({
                 text="İptal"
                 onClick={handleClose}
                 disabled={isCreating}
-                className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-medium text-gray-800 transition-all duration-200 hover:border-[#555A8A] hover:bg-gray-50"
+                className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-medium text-gray-800 transition-all duration-200 hover:border-[rgb(125,120,206)] hover:bg-gray-50"
               />
 
               <Button
