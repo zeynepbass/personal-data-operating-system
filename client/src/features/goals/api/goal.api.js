@@ -5,5 +5,8 @@ export const goalsApi={
     },
     postGoals(data){
         return apiClient.post("/goals",data);
+    },
+    deletedGoals(id){
+        return apiClient.delete(`/goals/${id}`);
     }
 }

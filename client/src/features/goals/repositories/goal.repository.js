@@ -9,3 +9,7 @@ export async function postGoals(data){
     const response=await goalProvider.postGoals(data);
     return response.data;
 }
+export async function deletedGoals(id){
+    const response=await goalProvider.deletedGoals(id);
+    return response.data
+}

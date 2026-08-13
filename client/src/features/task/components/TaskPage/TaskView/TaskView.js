@@ -111,7 +111,7 @@ export default function TableView({
                       <button
                         type="button"
                         onClick={() => deletedTask({ id: task.id })}
-                        className="flex w-full items-center gap-2 px-4 py-2 text-left text-gray-700 transition-colors hover:bg-gray-100"
+                        className="flex w-full items-center gap-2 px-4 py-2 text-left text-[#7d78ce] transition-colors hover:bg-gray-100"
                       >
                         <Trash size={16} />
       

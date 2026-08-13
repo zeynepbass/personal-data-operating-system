@@ -20,7 +20,6 @@ export const getGoals = async (req, res) => {
 
 export const createGoal = async (req, res) => {
   try {
-
     const goal = await Goal.create({
       status: req.body.status,
       category: req.body.category,
@@ -28,20 +27,40 @@ export const createGoal = async (req, res) => {
       items: req.body.items,
     });
 
-    return res
-      .status(201)
-      .json({
-        success: true,
-        message: "Goal başarıyla oluşturuldu.",
-        data: goal,
-      });
+    return res.status(201).json({
+      success: true,
+      message: "Goal başarıyla oluşturuldu.",
+      data: goal,
+    });
   } catch (error) {
     console.error("CREATE GOAL ERROR:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Goal oluşturulurken hata oluştu.",
+      error: error.message,
+    });
+  }
+};
+
+export const deleteGoal = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const goal = await Goal.findByIdAndDelete(id);
+    if (!goal) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Goal bulunamadı." });
+    }
+    return res
+      .status(200)
+      .json({ success: true, message: "Goal başarıyla silindi.", data: goal });
+  } catch (error) {
+    console.error("DELETE GOAL ERROR:", error);
     return res
       .status(500)
       .json({
         success: false,
-        message: "Goal oluşturulurken hata oluştu.",
+        message: "Goal silinirken hata oluştu.",
         error: error.message,
       });
   }

@@ -1,7 +1,7 @@
 import GoalItem from "../GoalsItem";
 import { useState } from "react";
 import { Pencil, Trash } from "lucide-react";
-export default function GoalsCard({ id, category, title, items = [] }) {
+export default function GoalsCard({category,title,id,items=[],deletedGoals}) {
   const [openMenu, setOpenMenu] = useState(false);
   return (
     <div className="relative rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
@@ -35,14 +35,17 @@ export default function GoalsCard({ id, category, title, items = [] }) {
             <button
               type="button"
               onClick={() => {
-                console.log("Delete goal:", id);
+                console.log(id)
+                deletedGoals(id)
+
                 setOpenMenu(false);
               }}
-              className="flex w-full items-center gap-2 px-4 py-2 text-left text-red-600 hover:bg-gray-100"
+              className="flex w-full items-center gap-2 px-4 py-2 text-left text-[#7d78ce] hover:bg-gray-100"
             >
               {" "}
               <Trash size={16} /> Sil{" "}
             </button>{" "}
+            
           </div>
         )}{" "}
       </div>{" "}

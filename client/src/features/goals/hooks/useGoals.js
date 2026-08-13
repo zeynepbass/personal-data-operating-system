@@ -1,4 +1,4 @@
-import { getAll, postGoals } from "../repositories/goal.repository";
+import { getAll, postGoals,deletedGoals } from "../repositories/goal.repository";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 export function useGoals() {
@@ -20,9 +20,26 @@ export function useGoals() {
       );
     },
   });
+  const deleteMutation=useMutation({
+    mutationFn:(id)=>deletedGoals(id),
+    onSuccess: (response) => {
+      toast.success(response.message);
+  
+      queryClient.invalidateQueries({
+        queryKey: ["goals"],
+      });
+    },
+  
+    onError: (error) => {
+      toast.error(
+        error.response?.data?.message || "Goal oluşturulurken hata oluştu."
+      );
+    },
+  })
   return {
     ...query,
     createGoals: createMutation.mutate,
+    deletedGoals:deleteMutation.mutate,
     isCreating: createMutation.isPending,
   };
 }

@@ -2,7 +2,7 @@
 export function goalAdapter (goal) {
 
   return {
-    id: goal.id,
+    id: goal._id,
     status: goal.status,
     category: goal.category,
     title: goal.title,
