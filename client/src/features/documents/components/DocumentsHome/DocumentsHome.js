@@ -73,11 +73,11 @@ export default function DocumentsHome({
             placeholder="Belge ara..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-xl border border-gray-200 bg-white py-2 pl-11  text-sm outline-none transition focus:border-[#555A8A] focus:ring-2 focus:ring-[#555A8A]/20"
+          className="w-full pl-10 border-0  text-sm focus:outline-none focus:ring-2 focus:ring-[#555A8A]"
           />
         </div>
 
-        <div className="w-full lg:w-40">
+        <div className="w-full lg:w-45">
           <Select
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
