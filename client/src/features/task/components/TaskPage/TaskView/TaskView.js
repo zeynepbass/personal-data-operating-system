@@ -61,7 +61,7 @@ export default function TableView({
                       {task.label}
                     </span>
                   ) : (
-                    <span className="text-sm text-gray-400">-</span>
+                    <span className="text-sm text-gray-500">-</span>
                   )}
                 </td>
 

@@ -16,7 +16,7 @@ const initialForm = {
   pdf: null,
 };
 
-export function Modal({
+export default function DocumentsModal({
   open,
   setOpen,
   isCreating,
@@ -215,7 +215,7 @@ export function Modal({
                   accept="application/pdf,.pdf"
                   onChange={handleChange}
                   required
-                  className="w-full rounded-xl border border-dashed border-gray-300 p-4"
+                  className="w-full rounded-xl border border-dashed text-gray-500 border-gray-300 p-4"
                 />
               </div>
 

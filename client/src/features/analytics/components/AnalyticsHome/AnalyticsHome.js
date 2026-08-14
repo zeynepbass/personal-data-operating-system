@@ -141,6 +141,6 @@ const StatCard = ({ title, value, percent, color }) => (
       <p className={`mt-3 text-sm font-semibold ${color}`}>{percent}</p>
     )}
 
-    <p className="mt-1 text-xs text-gray-400">Geçen haftaya göre</p>
+    <p className="mt-1 text-xs text-gray-500">Geçen haftaya göre</p>
   </div>
 );

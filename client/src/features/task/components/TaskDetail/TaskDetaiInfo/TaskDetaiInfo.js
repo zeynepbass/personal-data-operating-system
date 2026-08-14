@@ -17,7 +17,7 @@ export function TaskDetaiInfo({ task }) {
           </div>
 
           <div className="flex-1">
-            <p className="text-xs font-medium text-gray-400">Tarih</p>
+            <p className="text-xs font-medium text-gray-500">Tarih</p>
 
             <div className="mt-2 space-y-1">
               <div className="flex items-center justify-between gap-4 text-sm">
@@ -46,7 +46,7 @@ export function TaskDetaiInfo({ task }) {
           </div>
 
           <div className="flex-1">
-            <p className="text-xs font-medium text-gray-400">
+            <p className="text-xs font-medium text-gray-500">
               Planlama
             </p>
 
