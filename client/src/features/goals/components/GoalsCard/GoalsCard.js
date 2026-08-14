@@ -11,11 +11,14 @@ export default function GoalsCard({
   selectedValue,
   deletedGoals,
   isUpdating,
-  updateGoals
+  updateGoals,
+  openMenu, setOpenMenu,
+ 
+
 }) {
-  const [openMenu, setOpenMenu] = useState(false);
+
   const [localItems, setLocalItems] = useState(items);
-  
+
   const handleItemChange = (index, value) => {
     setLocalItems((prev) =>
       prev.map((item, i) =>
@@ -32,11 +35,10 @@ export default function GoalsCard({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-updateGoals({
-  id:selectedValue,
-  data:localItems
-})
-
+    updateGoals({
+      id: selectedValue,
+      data: localItems,
+    });
   };
 
   return (
@@ -93,37 +95,30 @@ updateGoals({
         </div>{" "}
       </div>{" "}
       <div className="mt-8 space-y-6">
-      <form onSubmit={handleSubmit}>
-      <div className="space-y-3">
-        {localItems.map((item, index) => (
-          <GoalItem
-            key={item.title}
-            title={item.title}
-            value={item.value}
-            selectedValue={selectedValue}
-            
-            onChange={(value) =>
-              handleItemChange(index, value)
-            }
-          />
-        ))}
-      </div>
+        <form onSubmit={handleSubmit}>
+          <div className="space-y-3">
+            {localItems.map((item, index) => (
+              <GoalItem
+                key={item.title}
+                title={item.title}
+                value={item.value}
+                selectedValue={selectedValue}
+                onChange={(value) => handleItemChange(index, value)}
+              />
+            ))}
+          </div>
 
-      {selectedValue && (
-        <div className="mt-4 flex justify-center">
-          <Button
-            type="submit"
-            disabled={isUpdating}
-            text={
-              isUpdating
-                ? "Güncelleniyor..."
-                : "Görevi Düzenle"
-            }
-            className="rounded-xl bg-[#555A8A] px-6 py-3 text-gray-50 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
-          />
-        </div>
-      )}
-    </form>
+          {selectedValue && (
+            <div className="mt-4 flex justify-center">
+              <Button
+                type="submit"
+                disabled={isUpdating}
+                text={isUpdating ? "Güncelleniyor..." : "Görevi Düzenle"}
+                className="rounded-xl bg-[#555A8A] px-6 py-3 text-gray-50 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+              />
+            </div>
+          )}
+        </form>
       </div>{" "}
     </div>
   );

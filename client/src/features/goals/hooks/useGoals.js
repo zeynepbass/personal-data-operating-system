@@ -83,10 +83,15 @@ export function useGoals() {
       );
     },
   });
+  const [openMenu, setOpenMenu] = useState(false);
+
+
   return {
     ...query,
     setSelectedValue,
     selectedValue,
+    openMenu, setOpenMenu,
+
     createGoals: createMutation.mutate,
     deletedGoals:deleteMutation.mutate,
     updateGoals:updateMutation.mutate,
