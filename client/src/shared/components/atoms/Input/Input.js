@@ -31,7 +31,7 @@ export function Input  ({
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className={`w-full resize-none rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 outline-none transition focus:border-[#555A8A] focus:ring-2 focus:ring-purple-100 ${className}`}
+      className={`w-full resize-none rounded-xl border border-gray-300 text-gray-500 bg-gray-50 px-4 py-3 outline-none transition focus:border-[#555A8A] focus:ring-2 focus:ring-purple-100 ${className}`}
       disabled={disabled}
 
       {...props}

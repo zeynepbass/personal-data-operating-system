@@ -77,7 +77,7 @@ export default function TaskEditPage() {
       <div className="mx-auto max-w-full">
 
         <div className="mb-6">
-          <p className="text-sm font-medium text-gray-400">
+          <p className="text-sm font-medium text-gray-500">
             Task Düzenleme
           </p>
 

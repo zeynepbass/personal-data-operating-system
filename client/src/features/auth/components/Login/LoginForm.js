@@ -29,7 +29,7 @@ export default function LoginForm() {
             <div className="relative">
               <Mail
                 size={20}
-                className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"
+                className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"
               />
 
               <Input
@@ -41,7 +41,7 @@ export default function LoginForm() {
             <div className="relative">
               <Lock
                 size={20}
-                className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"
+                className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"
               />
 
               <Input
@@ -53,7 +53,7 @@ export default function LoginForm() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#555A8A]"
+                className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#555A8A]"
               >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
@@ -81,7 +81,7 @@ export default function LoginForm() {
               </div>
 
               <div className="relative flex justify-center">
-                <span className="bg-white px-4 text-sm text-gray-400">
+                <span className="bg-white px-4 text-sm text-gray-500">
                   veya
                 </span>
               </div>
@@ -101,7 +101,7 @@ export default function LoginForm() {
               Hesabın yok mu?{" "}
               <Link
                 href="/register"
-                className="font-semibold text-[#555A8A] hover:text-gray-400"
+                className="font-semibold text-[#555A8A] hover:text-gray-500"
               >
                 Kayıt Ol
               </Link>

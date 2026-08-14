@@ -8,7 +8,7 @@ export default function GoalsPage() {
       {" "}
       <div className="mb-4">
         {" "}
-        <p className="text-md text-gray-400"> Yeni Hedef </p>{" "}
+        <p className="text-md text-gray-500"> Yeni Hedef </p>{" "}
         <h1 className="mt-1 text-2xl font-semibold text-gray-900">
           {" "}
           Yeni hedefler oluştur{" "}
