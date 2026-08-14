@@ -26,7 +26,7 @@ export default function DashboardListCheck({ filteredData, onToggle}){
                   <span
                     className={`text-sm ${
                       task?.completed
-                        ? "line-through text-gray-400"
+                        ? "line-through text-gray-500"
                         : "text-gray-700"
                     }`}
                   >

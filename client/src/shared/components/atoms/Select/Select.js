@@ -20,7 +20,7 @@ export function Select  ({
       name={name}
       value={value}
       onChange={onChange}
-      className="w-full resize-none rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 outline-none transition focus:border-[#555A8A] focus:ring-2 focus:ring-purple-100 "
+      className="w-full resize-none rounded-xl border text-gray-500 border-gray-300 bg-gray-50 px-4 py-3 outline-none transition focus:border-[#555A8A] focus:ring-2 focus:ring-purple-100 "
     >
       <option value="">{placeholder}</option>
 

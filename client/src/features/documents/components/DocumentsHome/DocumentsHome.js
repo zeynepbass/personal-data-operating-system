@@ -10,7 +10,8 @@ import {
   Trash,
 } from "lucide-react";
 
-import { PageHeader, Modal } from "@/shared/components/molecules";
+import { PageHeader } from "@/shared/components/molecules";
+import DocumentsModal from "../DocumentsModal"
 import {
   Button,
   Input,
@@ -53,7 +54,7 @@ export default function DocumentsHome({
           className="w-full md:w-auto hover:text-white text-gray-50"
         />
 
-        <Modal
+        <DocumentsModal
           open={open}
           setOpen={setOpen}
           isCreating={isCreating}
@@ -65,7 +66,7 @@ export default function DocumentsHome({
         <div className="relative flex-1">
           <Search
             size={18}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"
           />
 
           <Input

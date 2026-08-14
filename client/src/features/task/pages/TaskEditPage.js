@@ -80,7 +80,7 @@ export default function TaskEditPage() {
     <main className="min-h-screen  p-6">
       <div>
         <div className="mb-2">
-          <p className="text-md text-gray-400">
+          <p className="text-md text-gray-500">
             Task Düzenle
           </p>
 

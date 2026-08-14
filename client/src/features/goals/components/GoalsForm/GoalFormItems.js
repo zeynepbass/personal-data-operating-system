@@ -32,7 +32,7 @@ export function GoalFormItems({ items, onChange }) {
     <div className=" p-4">
       <div className="mb-4 flex items-center justify-between">
         <div>
-          <p className="text-xs text-gray-400">Hedef Maddeleri</p>
+          <p className="text-xs text-gray-500">Hedef Maddeleri</p>
 
           <h2 className="text-sm font-semibold text-gray-700">
             Hedef İçerikleri
