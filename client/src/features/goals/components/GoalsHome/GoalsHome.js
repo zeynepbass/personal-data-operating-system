@@ -21,8 +21,7 @@ const tabs = [
 ];
 export default function GoalsHome() {
   const { data = [], error, isLoading, isError ,deletedGoals,isUpdating,updateGoals,selectedValue, setSelectedValue,  openMenu, setOpenMenu,
-    localItems, setLocalItems,
-    handleItemChange} = useGoals();
+} = useGoals();
 
   const [selectedTab, setSelectedTab] = useState("all");
 
@@ -66,8 +65,7 @@ export default function GoalsHome() {
           setSelectedValue={setSelectedValue} 
           updateGoals={updateGoals} 
           openMenu={openMenu} setOpenMenu={setOpenMenu}
-          localItems={localItems} setLocalItems={setLocalItems}
-          handleItemChange={handleItemChange}
+        
         />
       ))}
     </div>

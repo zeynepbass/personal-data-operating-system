@@ -13,10 +13,24 @@ export default function GoalsCard({
   isUpdating,
   updateGoals,
   openMenu, setOpenMenu,
-  localItems, setLocalItems,
-  handleItemChange
+ 
+
 }) {
 
+  const [localItems, setLocalItems] = useState(items);
+
+  const handleItemChange = (index, value) => {
+    setLocalItems((prev) =>
+      prev.map((item, i) =>
+        i === index
+          ? {
+              ...item,
+              value,
+            }
+          : item
+      )
+    );
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
