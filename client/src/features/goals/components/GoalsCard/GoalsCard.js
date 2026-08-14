@@ -1,8 +1,44 @@
 import GoalItem from "../GoalsItem";
 import { useState } from "react";
 import { Pencil, Trash } from "lucide-react";
-export default function GoalsCard({category,title,id,items=[],deletedGoals}) {
+import { Button } from "@/shared/components/atoms";
+export default function GoalsCard({
+  category,
+  title,
+  id,
+  items = [],
+  setSelectedValue,
+  selectedValue,
+  deletedGoals,
+  isUpdating,
+  updateGoals
+}) {
   const [openMenu, setOpenMenu] = useState(false);
+  const [localItems, setLocalItems] = useState(items);
+  
+  const handleItemChange = (index, value) => {
+    setLocalItems((prev) =>
+      prev.map((item, i) =>
+        i === index
+          ? {
+              ...item,
+              value,
+            }
+          : item
+      )
+    );
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+updateGoals({
+  id:selectedValue,
+  data:localItems
+})
+
+  };
+
   return (
     <div className="relative rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
       {" "}
@@ -25,6 +61,7 @@ export default function GoalsCard({category,title,id,items=[],deletedGoals}) {
               type="button"
               onClick={() => {
                 console.log("Edit goal:", id);
+                setSelectedValue(id);
                 setOpenMenu(false);
               }}
               className="flex w-full items-center gap-2 px-4 py-2 text-left text-gray-700 hover:bg-gray-100"
@@ -35,8 +72,8 @@ export default function GoalsCard({category,title,id,items=[],deletedGoals}) {
             <button
               type="button"
               onClick={() => {
-                console.log(id)
-                deletedGoals(id)
+                console.log(id);
+                deletedGoals(id);
 
                 setOpenMenu(false);
               }}
@@ -45,23 +82,48 @@ export default function GoalsCard({category,title,id,items=[],deletedGoals}) {
               {" "}
               <Trash size={16} /> Sil{" "}
             </button>{" "}
-            
           </div>
         )}{" "}
       </div>{" "}
       <h2 className="mt-2 text-3xl font-bold text-[#555A8A]"> {title} </h2>{" "}
       <div className="mt-6 flex items-center gap-5">
-
         <div className="h-2 flex-1 overflow-hidden rounded-full bg-gray-100">
           {" "}
           <div className="h-full" />{" "}
         </div>{" "}
       </div>{" "}
       <div className="mt-8 space-y-6">
-        {" "}
-        {items.map((item) => (
-          <GoalItem key={item._id || item.title} {...item} />
-        ))}{" "}
+      <form onSubmit={handleSubmit}>
+      <div className="space-y-3">
+        {localItems.map((item, index) => (
+          <GoalItem
+            key={item.title}
+            title={item.title}
+            value={item.value}
+            selectedValue={selectedValue}
+            
+            onChange={(value) =>
+              handleItemChange(index, value)
+            }
+          />
+        ))}
+      </div>
+
+      {selectedValue && (
+        <div className="mt-4 flex justify-center">
+          <Button
+            type="submit"
+            disabled={isUpdating}
+            text={
+              isUpdating
+                ? "Güncelleniyor..."
+                : "Görevi Düzenle"
+            }
+            className="rounded-xl bg-[#555A8A] px-6 py-3 text-gray-50 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+          />
+        </div>
+      )}
+    </form>
       </div>{" "}
     </div>
   );

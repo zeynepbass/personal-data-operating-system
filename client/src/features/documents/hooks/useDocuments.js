@@ -27,7 +27,10 @@ export function useDocuments() {
     mutationFn: (formData) => createDocument(formData),
   
     onSuccess: (response) => {
-      toast.success(response.message);
+      toast.success(
+        response.data?.message ||
+          "Task başarıyla oluşturuldu."
+      );
   
       queryClient.invalidateQueries({
         queryKey: ["documents"],

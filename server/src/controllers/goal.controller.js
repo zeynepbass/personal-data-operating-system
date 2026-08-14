@@ -65,3 +65,56 @@ export const deleteGoal = async (req, res) => {
       });
   }
 };
+export const updateGoal = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const items = req.body;
+
+    console.log("GOAL ID:", id);
+    console.log("ITEMS:", items);
+
+    const goal = await Goal.findById(id);
+
+    if (!goal) {
+      return res.status(404).json({
+        success: false,
+        message: "Goal bulunamadı.",
+      });
+    }
+
+    if (!Array.isArray(items)) {
+      return res.status(400).json({
+        success: false,
+        message: "Items array olmalıdır.",
+      });
+    }
+
+    const totalValue = items.reduce(
+      (total, item) => total + Number(item.value || 0),
+      0
+    );
+
+    goal.items = items;
+
+    if (totalValue === 100) {
+      goal.status = "completed";
+    }
+
+    await goal.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Goal başarıyla güncellendi.",
+      data: goal,
+    });
+  } catch (error) {
+    console.error("UPDATE GOAL ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Goal güncellenirken hata oluştu.",
+      error: error.message,
+    });
+  }
+};

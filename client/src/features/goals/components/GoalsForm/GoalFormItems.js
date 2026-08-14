@@ -67,6 +67,7 @@ export function GoalFormItems({ items, onChange }) {
             <Input
               type="number"
               value={item.value}
+                                  min="0"
               onChange={(event) =>
                 handleChange(index, "value", Number(event.target.value))
               }

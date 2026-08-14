@@ -13,3 +13,9 @@ export async function deletedGoals(id){
     const response=await goalProvider.deletedGoals(id);
     return response.data
 }
+export const updateGoals = async (id, data) => {
+
+    const response = await goalProvider.updateGoals(id,data)
+
+    return response.data;
+  };
