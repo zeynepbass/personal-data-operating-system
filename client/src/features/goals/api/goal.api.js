@@ -8,5 +8,9 @@ export const goalsApi={
     },
     deletedGoals(id){
         return apiClient.delete(`/goals/${id}`);
+    },
+    updateGoals(id,data){
+
+        return apiClient.patch(`/goals/${id}`,data);
     }
 }

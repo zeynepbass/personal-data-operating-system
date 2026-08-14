@@ -23,9 +23,9 @@ export function SearchBar() {
       </form>
 
       <div className="flex items-center ml-4">
-        <Button text={<Bell size={20}/>} className="bg-transparent    hover:text-white" />
+        <Button text={<Bell size={20}/>} className="bg-transparent    hover:text-[rgb(125,120,206)]" />
 
-        <Button text={<Settings size={20} />} className="bg-transparent    hover:text-white" />
+        <Button text={<Settings size={20} />} className="bg-transparent    hover:text-[rgb(125,120,206)]" />
       </div>
     </div>
   );

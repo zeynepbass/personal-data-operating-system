@@ -109,7 +109,7 @@ export default function RegisterForm() {
               </div>
             </div>
 
-            <button className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl border border-gray-200 hover:border-[#555A8A]">
+            <button className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl border border-gray-200 hover:border-[rgb(125,120,206)]">
               <Image
                 src="/images/google.svg"
                 alt="Google"

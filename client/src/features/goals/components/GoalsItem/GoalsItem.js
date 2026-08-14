@@ -1,25 +1,53 @@
+import { Input } from "@/shared/components/atoms";
+import { useState } from "react";
+export default function GoalItem({
+  title,
+  value,
+  selectedValue,
+  onChange
+}) {
+  const [localValue, setLocalValue] = useState(value ?? 0);
 
-export default function GoalItem ({ title, value }) {
-    return(
-        <div className="grid grid-cols-[24px_1fr_160px_45px] items-center gap-4">
-        <div className={`h-4 w-4 rounded-full border-2 `} />
-    
-        <span className="text-sm font-medium text-gray-700">
-          {title}
-        </span>
-    
-        <div className="h-1.5 rounded-full bg-gray-100">
-          <div
-            className={`h-full rounded-full`}
-            style={{ width: `${value}%` }}
-          />
-        </div>
-    
-        <span className="text-sm font-semibold text-gray-500">
-          {value}%
-        </span>
+  const handleChange = (e) => {
+    const newValue = Number(e.target.value);
+
+    setLocalValue(newValue);
+
+
+    onChange?.(newValue);
+  };
+  return (
+    <div className="flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-4">
+      <div className="h-4 w-4 rounded-full border-2 border-indigo-500" />
+
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-sm font-medium text-gray-700">{title}</p>
       </div>
-    )
-}
 
-  
+      {selectedValue ? (
+        <Input
+  type="text"
+  min="0"
+  max="100"
+  value={localValue}
+  onChange={handleChange}
+  placeholder="0"
+  className="w-20 text-center"
+/>
+      ) : (
+        <div className="flex w-44 items-center gap-3">
+          <div className="h-2 flex-1 rounded-full bg-gray-100">
+            <div
+              className="h-full rounded-full bg-indigo-500 transition-all"
+              style={{ width: `${value}%` }}
+            />
+          </div>
+          <span className="w-10 text-right text-sm font-semibold text-gray-600">
+            {value}%
+          </span>
+</div>
+        
+      )}
+    </div>
+  );
+}

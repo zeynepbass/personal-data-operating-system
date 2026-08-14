@@ -20,7 +20,7 @@ const tabs = [
   },
 ];
 export default function GoalsHome() {
-  const { data = [], error, isLoading, isError ,deletedGoals} = useGoals();
+  const { data = [], error, isLoading, isError ,deletedGoals,isUpdating,updateGoals,selectedValue, setSelectedValue} = useGoals();
 
   const [selectedTab, setSelectedTab] = useState("all");
 
@@ -40,7 +40,6 @@ export default function GoalsHome() {
     if (isError) {
       return <div>Bir hata oluştu: {error.message}</div>;
     }
-  
 
   return (
     <div className="space-y-6">
@@ -60,7 +59,8 @@ export default function GoalsHome() {
       </div>
 
       {filteredGoals.map((goal) => (
-        <GoalsCard key={goal.id} {...goal} deletedGoals={deletedGoals}/>
+        <GoalsCard key={goal.id} {...goal} deletedGoals={deletedGoals} isUpdating={isUpdating}  selectedValue={selectedValue} setSelectedValue={setSelectedValue} updateGoals={updateGoals} 
+        />
       ))}
     </div>
   );

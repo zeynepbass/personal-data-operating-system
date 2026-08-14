@@ -1,6 +1,7 @@
-import { getAll, postGoals,deletedGoals } from "../repositories/goal.repository";
+import { getAll, postGoals,deletedGoals,updateGoals } from "../repositories/goal.repository";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
+import { useState } from "react";
 export function useGoals() {
   const queryClient = useQueryClient();
   const query = useQuery({ queryKey: ["goals"], queryFn: getAll });
@@ -36,10 +37,60 @@ export function useGoals() {
       );
     },
   })
+
+  const [selectedValue, setSelectedValue] = useState(null);
+
+  const updateMutation = useMutation({
+    mutationFn: ({id, data }) => {
+      
+ console.log({id,data})
+      if (!id) {
+        throw new Error("Goal ID bulunamadı.");
+      }
+  
+      return updateGoals(id, data);
+    },
+  
+    onSuccess: (response) => {
+      console.log(
+        "UPDATE GOAL RESPONSE:",
+        JSON.stringify(response, null, 2)
+      );
+  
+      toast.success(response.message);
+  
+      queryClient.invalidateQueries({
+        queryKey: ["goals"],
+      });
+  
+      setSelectedValue(null);
+    },
+  
+    onError: (error) => {
+      console.log(
+        "UPDATE GOAL ERROR:",
+        JSON.stringify(
+          error.response?.data || error.message || error,
+          null,
+          2
+        )
+      );
+  
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          "Goal güncellenemedi."
+      );
+    },
+  });
   return {
     ...query,
+    setSelectedValue,
+    selectedValue,
     createGoals: createMutation.mutate,
     deletedGoals:deleteMutation.mutate,
+    updateGoals:updateMutation.mutate,
+    isUpdating: updateMutation.isPending,
     isCreating: createMutation.isPending,
   };
 }
