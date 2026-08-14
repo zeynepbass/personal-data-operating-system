@@ -83,10 +83,28 @@ export function useGoals() {
       );
     },
   });
+  const [openMenu, setOpenMenu] = useState(false);
+  const [localItems, setLocalItems] = useState(items);
+
+  const handleItemChange = (index, value) => {
+    setLocalItems((prev) =>
+      prev.map((item, i) =>
+        i === index
+          ? {
+              ...item,
+              value,
+            }
+          : item
+      )
+    );
+  };
   return {
     ...query,
     setSelectedValue,
     selectedValue,
+    openMenu, setOpenMenu,
+    localItems, setLocalItems,
+    handleItemChange,
     createGoals: createMutation.mutate,
     deletedGoals:deleteMutation.mutate,
     updateGoals:updateMutation.mutate,
