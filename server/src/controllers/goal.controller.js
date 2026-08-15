@@ -96,9 +96,12 @@ export const updateGoal = async (req, res) => {
     );
 
     goal.items = items;
-
     if (totalValue === 100) {
       goal.status = "completed";
+    } else if (totalValue < 100) {
+      goal.status = "active";
+    } else {
+      goal.status = "all";
     }
 
     await goal.save();
