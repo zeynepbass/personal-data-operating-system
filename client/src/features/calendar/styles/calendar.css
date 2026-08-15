@@ -36,12 +36,13 @@
   .fc .fc-button:hover {
     background: #F8F8FC !important;
     border-color: #555A8A !important;
+  color:gray !important;
   }
   
 
   .fc .fc-button-active {
     background: #555A8A !important;
-    color: #fff !important;
+    color: white !important;
     border-color: #555A8A !important;
   }
   
@@ -54,6 +55,7 @@
   
   .fc .fc-today-button:hover {
     opacity: .9;
+    color:gray
   }
   
 
@@ -78,12 +80,12 @@
     font-weight: 600;
   }
   
-  /* Bugünün tarihi */
+
   .fc .fc-day-today {
     background: rgba(85, 90, 138, 0.06) !important;
   }
   
-  /* Event */
+
   .fc .fc-daygrid-event {
     border-radius: 8px;
     border: none !important;
@@ -92,12 +94,17 @@
     font-weight: 500;
   }
   
-  /* More link */
+
   .fc .fc-daygrid-more-link {
     color: #555A8A;
   }
-  
-
+  .fc .fc-list-event-title a{
+    color: white;
+  }
+  .fc-event {
+    background-color: rgb(200, 146, 233) !important;
+    border-color: orange !important;
+  }
   .fc-scroller {
     overflow: hidden !important;
   }
