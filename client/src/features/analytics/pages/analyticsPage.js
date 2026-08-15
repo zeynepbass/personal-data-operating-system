@@ -9,9 +9,7 @@ export default function AnalyticsPage({ meeting = [] }) {
 
   const totalTasks = tasks.length;
 
-  const completedTasks = tasks.filter(
-    (task) => task.completed === true
-  ).length;
+  const completedTasks = tasks.filter((task) => task.completed === true).length;
 
   const totalEstimatedHours = tasks.reduce(
     (total, task) => total + (Number(task.estimatedHours) || 0),
@@ -38,12 +36,46 @@ export default function AnalyticsPage({ meeting = [] }) {
     return result;
   }, [tasks]);
 
+  const mostProductiveDay = useMemo(() => {
+    if (!chartData.length) return null;
+
+    return chartData.reduce((best, current) =>
+      current.value > best.value ? current : best
+    );
+  }, [chartData]);
+  const mostWorkedCategory = useMemo(() => {
+    if (!tasks.length) return null;
+
+    const categoryCounts = tasks.reduce((acc, task) => {
+      const category = task.label;
+
+      if (!category) return acc;
+
+      acc[category] = (acc[category] || 0) + 1;
+
+      return acc;
+    }, {});
+
+    const [category, count] = Object.entries(categoryCounts).reduce(
+      (best, current) => (current[1] > best[1] ? current : best)
+    );
+
+    const percentage = Math.round((count / tasks.length) * 100);
+
+    return {
+      category,
+      count,
+      percentage,
+    };
+  }, [tasks]);
   return (
     <AnalyticsHome
       filteredData={totalTasks}
       filtered={completedTasks}
       totalEstimatedHours={totalEstimatedHours}
       chartData={chartData}
+      mostProductiveDay={mostProductiveDay}
+      mostWorkedCategory={mostWorkedCategory}
     />
   );
 }
