@@ -13,7 +13,7 @@ import AnalyticsFooter from "../AnalyticsFooter";
 import AnalyticsHeading from "../AnalyticsHeading"
 import AnalyticsSelect from "../AnalyticsSelect";
 const options = getRemainingMonthDates();
-export default function AnalyticsHome() {
+export default function AnalyticsHome({filteredData,filtered,totalEstimatedHours,chartData}) {
   const data = [
     { day: "Pzt", value: 7 },
     { day: "Sal", value: 5 },
@@ -32,22 +32,22 @@ export default function AnalyticsHome() {
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
         <StatCard
           title="Toplam Görev"
-          value="42"
-          percent="+12%"
+          value={filteredData}
+
           color="text-emerald-500"
         />
 
         <StatCard
           title="Tamamlanan"
-          value="28"
-          percent="+18%"
+          value={filtered}
+
           color="text-emerald-500"
         />
 
         <StatCard
           title="Çalışma Süresi"
-          value="16s 45d"
-          percent=""
+          value={`${totalEstimatedHours}` + "s"}
+
           color="text-gray-500"
         />
       </div>
@@ -57,45 +57,54 @@ export default function AnalyticsHome() {
         </h2>
 
         <div className="h-72">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={data}>
-              <defs>
-                <linearGradient id="colorTask" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#6C63FF" stopOpacity={0.35} />
-                  <stop offset="95%" stopColor="#6C63FF" stopOpacity={0} />
-                </linearGradient>
-              </defs>
+        <ResponsiveContainer width="100%" height="100%">
+      <AreaChart data={chartData}>
+        <defs>
+          <linearGradient id="colorTask" x1="0" y1="0" x2="0" y2="1">
+            <stop
+              offset="5%"
+              stopColor="#6C63FF"
+              stopOpacity={0.35}
+            />
+            <stop
+              offset="95%"
+              stopColor="#6C63FF"
+              stopOpacity={0}
+            />
+          </linearGradient>
+        </defs>
 
-              <XAxis
-                dataKey="day"
-                axisLine={false}
-                tickLine={false}
-                tick={{ fill: "#9CA3AF", fontSize: 14 }}
-              />
+        <XAxis
+          dataKey="day"
+          axisLine={false}
+          tickLine={false}
+          tick={{ fill: "#9CA3AF", fontSize: 14 }}
+        />
 
-              <YAxis
-                axisLine={false}
-                tickLine={false}
-                tick={{ fill: "#9CA3AF", fontSize: 14 }}
-              />
+        <YAxis
+          axisLine={false}
+          tickLine={false}
+          tick={{ fill: "#9CA3AF", fontSize: 14 }}
+        />
 
-              <Tooltip />
+        <Tooltip />
 
-              <Area
-                type="monotone"
-                dataKey="value"
-                stroke="#6C63FF"
-                strokeWidth={4}
-                fillOpacity={1}
-                fill="url(#colorTask)"
-                dot={false}
-                activeDot={{
-                  r: 6,
-                  fill: "#6C63FF",
-                }}
-              />
-            </AreaChart>
-          </ResponsiveContainer>
+        <Area
+          type="monotone"
+          dataKey="value"
+          stroke="#6C63FF"
+          strokeWidth={4}
+          fillOpacity={1}
+          fill="url(#colorTask)"
+          dot={false}
+          activeDot={{
+            r: 6,
+            fill: "#6C63FF",
+          }}
+        />
+      </AreaChart>
+    </ResponsiveContainer>
+  
         </div>
       </section>
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
