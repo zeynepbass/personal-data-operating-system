@@ -1,48 +1,132 @@
 "use client";
 
+import { useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 import interactionPlugin from "@fullcalendar/interaction";
 import trLocale from "@fullcalendar/core/locales/tr";
+
 import "../../styles/calendar.css";
-import events from "@/shared/mocks/event.json";
 import { PageHeader } from "@/shared/components/molecules";
-export default function Calendar(){
-    return(
-        <div className="space-y-6">
-        <PageHeader title="Takvim" />
-  
-        <div className="rounded-3xl bg-white p-6 shadow-sm">
-          <FullCalendar
-            plugins={[
-              dayGridPlugin,
-              timeGridPlugin,
-              listPlugin,
-              interactionPlugin,
-            ]}
-            locale={trLocale}
-            initialView="dayGridMonth"
-            initialDate="2024-06-01"
-            events={events}
-            height="auto"
-            fixedWeekCount={false}
-            headerToolbar={{
-              left: "title",
-              center: "",
-              right:
-                "dayGridMonth,timeGridWeek,timeGridDay,listWeek today prev,next",
-            }}
-            buttonText={{
-              today: "Bugün",
-              dayGridMonth: "Ay",
-              timeGridWeek: "Hafta",
-              timeGridDay: "Gün",
-              listWeek: "Ajanda",
-            }}
-          />
-        </div>
+import { Button, Heading } from "@/shared/components/atoms";
+
+export default function Calendar({ data = [] }) {
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  return (
+    <div className="space-y-6">
+      <PageHeader title="Takvim" />
+
+      <div className="rounded-3xl bg-white p-6 shadow-sm">
+        <FullCalendar
+          plugins={[
+            dayGridPlugin,
+            timeGridPlugin,
+            listPlugin,
+            interactionPlugin,
+          ]}
+          locale={trLocale}
+          initialView="dayGridMonth"
+          initialDate="2026-08-15"
+          events={data}
+          height="auto"
+          fixedWeekCount={false}
+          editable={true}
+          selectable={true}
+          dayMaxEvents={3}
+          eventClick={(info) => {
+            setSelectedTask({
+              id: info.event.id,
+              title: info.event.title,
+              start: info.event.start,
+              ...info.event.extendedProps,
+            });
+          }}
+          eventContent={(eventInfo) => (
+            <div className="w-full overflow-hidden px-1">
+              <div className="font-semibold truncate">
+                {eventInfo.event.title}
+              </div>
+        
+              {eventInfo.event.extendedProps.description && (
+                <div className="truncate text-xs opacity-70">
+                  {eventInfo.event.extendedProps.description}
+                </div>
+              )}
+            </div>
+          )}
+          headerToolbar={{
+            left: "title",
+            center: "",
+            right:
+              "dayGridMonth,timeGridWeek,timeGridDay,listWeek today prev,next",
+          }}
+          buttonText={{
+            today: "Bugün",
+            dayGridMonth: "Ay",
+            timeGridWeek: "Hafta",
+            timeGridDay: "Gün",
+            listWeek: "Ajanda",
+          }}
+        />
       </div>
-    )
+
+      {selectedTask && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+            <div className="flex items-center justify-between">
+              <Heading title="Task Detayı" />
+              <Button
+                type="button"
+                text="x"
+                onClick={() => setSelectedTask(null)}
+                className="text-xl text-gray-400 hover:text-gray-700 bg-transparent"
+              />
+            </div>
+
+            <div className="mt-5 space-y-4">
+              <div>
+                <p className="text-xs text-gray-400">Başlık</p>
+                <p className="font-medium text-gray-800">
+                  {selectedTask.title}
+                </p>
+              </div>
+
+              {selectedTask.description && (
+                <div>
+                  <p className="text-xs text-gray-400">Açıklama</p>
+                  <p className="text-sm text-gray-600">
+                    {selectedTask.description}
+                  </p>
+                </div>
+              )}
+
+              <div>
+                <p className="text-xs text-gray-400">Başlangıç-Bitiş tarihi</p>
+                <p className="text-sm text-gray-600">
+                  {selectedTask.start}- {selectedTask.end}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-xs text-gray-400">Öncelik</p>
+                <p className="text-sm text-gray-600">
+                  {selectedTask.priority || "-"}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-xs text-gray-400">Durum</p>
+                <p className="text-sm text-gray-600">
+                  {selectedTask.completed ? "Tamamlandı" : "Devam ediyor"}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
