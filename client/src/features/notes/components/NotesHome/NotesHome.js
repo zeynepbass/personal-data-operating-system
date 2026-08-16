@@ -1,15 +1,11 @@
 import NotesCard from "../NotesCard";
-import NotesModal from "../NotesModal";
 
-export default function NotesHome({ note, open }) {
+
+export default function NotesHome({ note}) {
   if (!note) {
     return <div>Bir not seçin.</div>;
   }
 
-  return (
-    <>
-      <NotesCard note={note} />
-      {open && console.log("acıldı")}{" "}
-    </>
-  );
+  return    <NotesCard note={note} />
+
 }

@@ -2,12 +2,10 @@ import { PageHeader } from "@/shared/components/molecules";
 import { Button } from "@/shared/components/atoms";
 import NotesMenu from "../../../components/NotesMenu";
 import NotesNavbar from "../../../components/NotesNavbar";
-import NotesModal from "@/features/notes/components/NotesModal";
 
 export default function NotesLayout({
   children,
   note,
-  open,
   setOpen,
   openMenu,
   setOpenMenu,
