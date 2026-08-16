@@ -14,6 +14,7 @@ export default function TaskHome({router, onToggle,onDragEnd,deletedTask,data, v
   const ViewComponent = taskViewStrategies[view];
   return (
     <section className="flex flex-col gap-6">
+      
       <TaskHeading
         title="Görevler"
         setOpen={setOpen}

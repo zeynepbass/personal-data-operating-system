@@ -40,19 +40,21 @@ export default function DocumentsHome({
   handleDelete,
 }) {
   return (
+    <>
 
+    <div className="flex flex-col gap-4 md:flex-row py-4 md:items-center md:justify-between">
+    <PageHeader
+      title="Belgelerim"
+      description="Belgelerinizi görüntüleyin ve yönetin."
+    />
+
+    <Button
+      text="+ Belge yükle"
+      onClick={() => setOpen(true)}
+      className="w-full md:w-auto hover:text-white text-gray-50"
+    />
+</div>
     <section className="flex flex-col gap-6 h-[80vh] overflow-scroll bg-white p-5 shadow-sm rounded-2xl ">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <PageHeader
-          title="Belgelerim"
-          description="Belgelerinizi görüntüleyin ve yönetin."
-        />
-
-        <Button
-          text="+ Belge yükle"
-          onClick={() => setOpen(true)}
-          className="w-full md:w-auto hover:text-white text-gray-50"
-        />
 
         <DocumentsModal
           open={open}
@@ -60,7 +62,7 @@ export default function DocumentsHome({
           isCreating={isCreating}
           onSubmit={createDocument}
         />
-      </div>
+
 
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center ">
         <div className="relative flex-1">
@@ -139,6 +141,6 @@ export default function DocumentsHome({
           </div>
         ))}
       </div>
-    </section>
+    </section>    </>
   );
 }

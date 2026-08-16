@@ -11,7 +11,7 @@ import {
 
 import AnalyticsCard from "../AnalyticsCard";
 import AnalyticsSelect from "../AnalyticsSelect";
-import { Heading } from "@/shared/components/atoms";
+import { PageHeader } from "@/shared/components/molecules";
 
 export default function AnalyticsHome({
   totalTasks = 0,
@@ -27,10 +27,10 @@ export default function AnalyticsHome({
   return (
     <div className="space-y-6">
 
-      <div className="flex justify-between">
-        <Heading
+<div className="flex flex-col gap-4 md:flex-row py-4 md:items-center md:justify-between">
+        <PageHeader
           title="Analitik"
-          className="text-2xl"
+   
         />
 
         <AnalyticsSelect

@@ -53,28 +53,28 @@ export const createNote = async (req, res) => {
   }
 };
 export const deleteNote = async (req, res) => {
-    try {
-      const { id } = req.params;
-  
-      const note = await Notes.findOneAndDelete({ id });
-  
-      if (!note) {
-        return res.status(404).json({
-          success: false,
-          message: "Silinecek not bulunamadı.",
-        });
-      }
-  
-      return res.status(200).json({
-        success: true,
-        message: "Not başarıyla silindi.",
-        data: note,
-      });
-    } catch (error) {
-      return res.status(500).json({
+  try {
+    const { id } = req.params;
+
+    const note = await Notes.findByIdAndDelete(id);
+
+    if (!note) {
+      return res.status(404).json({
         success: false,
-        message: "Not silinirken hata oluştu.",
-        error: error.message,
+        message: "Silinecek not bulunamadı.",
       });
     }
-  };
+
+    return res.status(200).json({
+      success: true,
+      message: "Not başarıyla silindi.",
+      data: note,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Not silinirken hata oluştu.",
+      error: error.message,
+    });
+  }
+};

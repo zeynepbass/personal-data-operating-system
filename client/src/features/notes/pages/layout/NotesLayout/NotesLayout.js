@@ -1,25 +1,39 @@
 import { PageHeader } from "@/shared/components/molecules";
+import { Button } from "@/shared/components/atoms";
 import NotesMenu from "../../../components/NotesMenu";
 import NotesNavbar from "../../../components/NotesNavbar";
+import NotesModal from "@/features/notes/components/NotesModal";
 
 export default function NotesLayout({
   children,
   note,
+  open,
+  setOpen,
   openMenu,
   setOpenMenu,
   activeNote,
   setActiveNote,
+  deletedNotes,
 }) {
   return (
     <>
-      <PageHeader title="Notlar" />
+       <div className="flex flex-col gap-4 md:flex-row py-4 md:items-center md:justify-between">
+        <PageHeader
+          title="Notlar"
+          description="Notlarınızı görüntüleyin ve yönetin."
+        />
 
-      <div className="grid gap-8 lg:grid-cols-[260px_minmax(0,1fr)_260px]">
-        
-
-        <aside>
+        <Button
+          text="+ Yeni not yükle"
+          onClick={() => setOpen(true)}
+          className="w-full md:w-auto hover:text-white text-gray-50"
+        />
+      </div>
+      <div className="grid gap-5 lg:grid-cols-[260px_minmax(0,1fr)_260px]">
+        <aside className="rounded-2xl bg-white p-3">
           <NotesMenu
             note={note}
+            deletedNotes={deletedNotes}
             openMenu={openMenu}
             setOpenMenu={setOpenMenu}
             activeNote={activeNote}
@@ -27,16 +41,11 @@ export default function NotesLayout({
           />
         </aside>
 
-
-        <main className="min-w-0">
-          {children}
-        </main>
-
+        <main className="min-w-0">{children}</main>
 
         <aside className="hidden w-64 xl:block">
-          <NotesNavbar  note={activeNote}/>
+          <NotesNavbar note={activeNote} />
         </aside>
-
       </div>
     </>
   );

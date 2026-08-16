@@ -6,8 +6,8 @@ import NotesLayout from "./layout/NotesLayout";
 import useNotes from "../hooks/useNotes";
 
 export default function NotesPage() {
-  const { data = [], isLoading } = useNotes();
-
+  const { data = [], isLoading,deletedNotes} = useNotes();
+  const [open, setOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState(null);
   const [activeNote, setActiveNote] = useState(null);
 
@@ -29,12 +29,15 @@ export default function NotesPage() {
   return (
     <NotesLayout
       note={data}
+
+      setOpen={setOpen}
       openMenu={openMenu}
       setOpenMenu={setOpenMenu}
+      deletedNotes={deletedNotes}
       activeNote={activeNote}
       setActiveNote={setActiveNote}
     >
-      <NotesHome note={activeNote} />
+      <NotesHome note={activeNote}  open={open}/>
     </NotesLayout>
   );
 }
