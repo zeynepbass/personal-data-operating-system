@@ -1,6 +1,9 @@
+
+
 export default function NotesCard({ note }) {
   return (
-    <article className="flex-1">
+
+    <article className="flex-1 bg-white p-4 rounded-2xl">
       <span className="rounded-full bg-violet-100 px-3 py-1 text-sm font-medium text-violet-700">
         {note.category} / {note.subCategory}
       </span>
@@ -29,5 +32,6 @@ export default function NotesCard({ note }) {
         </div>
       ))}
     </article>
+
   );
 }

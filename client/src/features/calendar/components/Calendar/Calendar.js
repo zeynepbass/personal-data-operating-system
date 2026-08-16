@@ -17,7 +17,7 @@ export default function Calendar({ data = [] }) {
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Takvim" />
+      <PageHeader title="Takvim" className="py-6"/>
 
       <div className="rounded-3xl bg-white p-6 shadow-sm">
         <FullCalendar
