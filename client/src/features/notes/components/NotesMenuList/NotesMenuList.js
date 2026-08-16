@@ -1,12 +1,18 @@
-import Link from "next/link";
-import Icon from "lucide-react"
-export default function MenuList({ href, className, icon: Icon, item }) {
+export default function NotesMenuList({
+  title,
+  isActive,
+  onClick,
+}) {
   return (
-    <Link  href={href} className={className}>
-      <div className="flex items-center gap-4" >
-        <Icon className="h-5 w-5" />
-        <span>{item}</span>
-      </div>
-    </Link>
+    <button
+      onClick={onClick}
+      className={`w-full rounded-md px-3 py-2 text-left text-sm transition ${
+        isActive
+          ? "bg-violet-100 font-semibold text-violet-700"
+          : "text-slate-600 hover:bg-gray-100"
+      }`}
+    >
+      {title}
+    </button>
   );
 }
