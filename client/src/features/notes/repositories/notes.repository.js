@@ -8,3 +8,8 @@ export async function deletedNotes(id){
     const response=await notesProvider.deleteNotesApi(id);
     return response.data;
 }
+export async function createdNotes(data){
+
+    const response=await notesProvider.createNotesApi(data);
+    return response.data;
+}

@@ -7,5 +7,8 @@ export const notesApi = {
   },
   deleteNotes(id){
     return apiClient.delete(`/notes/${id}`);
+  },
+  createNotes(data){
+ return apiClient.post("/notes",data);
   }
 };

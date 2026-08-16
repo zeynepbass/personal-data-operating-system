@@ -4,7 +4,8 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import {
   getNotes,
-  deletedNotes
+  deletedNotes,
+  createdNotes
 } from "../repositories/notes.repository";
 
 export default function useNotes() {
@@ -33,8 +34,30 @@ export default function useNotes() {
       );
     },
   });
+  const createMutation = useMutation({
+    mutationFn: (data) => {
+      return createdNotes(data);
+    },
+  
+    onSuccess: (response) => {
+      toast.success(response.message);
+  
+      queryClient.invalidateQueries({
+        queryKey: ["notes"],
+      });
+    },
+  
+    onError: (error) => {
+      toast.error(
+        error.response?.data?.message ||
+          "Not eklenirken hata oluştu."
+      );
+    },
+  });
   return {
  ...query,
- deletedNotes:deleteMutation.mutate
+ deletedNotes:deleteMutation.mutate,
+ createNotes:createMutation.mutate,
+ isCreating: createMutation.isPending
   };
 }
