@@ -1,6 +1,6 @@
 import  {taskApi} from "../features/task/api/task.api";
 
-const documentProvider = {
+const taskProvider = {
     getTask: taskApi.getTask,
     postTask:taskApi.createTask,
     updatedTask:taskApi.updatedTask,
@@ -9,4 +9,4 @@ const documentProvider = {
     updateTaskCompleted:taskApi.updateTaskCompleted
 };
 
-export default documentProvider;
+export default taskProvider;

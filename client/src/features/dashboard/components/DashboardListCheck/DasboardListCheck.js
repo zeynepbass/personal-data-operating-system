@@ -1,5 +1,5 @@
-import {Input} from "@/shared/components/atoms";
-export default function DashboardListCheck({ filteredData, onToggle}){
+
+export default function DashboardListCheck({ filteredData}){
     return(
          <div className="mt-5 flex flex-col gap-3  h-[32vh] overflow-scroll">
           {filteredData.length=== 0 ? (
@@ -16,12 +16,7 @@ export default function DashboardListCheck({ filteredData, onToggle}){
                   key={index}
                   className="flex items-center gap-3 rounded-xl border border-gray-100 p-3 transition hover:bg-gray-50"
                 >
-                  <Input
-                    type="checkbox"
-                    checked={task?.completed}
-                    onChange={() => onToggle(task?.id)}
-                    className="h-4 w-4 accent-purple-600"
-                  />
+        
 
                   <span
                     className={`text-sm ${

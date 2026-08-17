@@ -1,18 +1,10 @@
-import { dashboardProvider } from "../../providers/dashboard.provider";
+import taskProvider from "../../providers/task.provider";
+import documentProvider from "../../providers/documents.provider";
 
-import {
-  createmeetingRepository,
-  createDocumentRepository,
-} from "./repositories/dashboard.repository";
-
-
-const meetingRepository = createmeetingRepository(dashboardProvider);
-const documentRepository = createDocumentRepository(dashboardProvider);
-
-
+import { getTask } from "@/features/task/repositories/task.repository";
+import { getAll } from "@/features/documents/repositories/document.repository";
 
 export const dashboardRepository = {
-  ...meetingRepository,
-  ...documentRepository,
+  getTask: () => getTask(taskProvider),
+  getAll: () => getAll(documentProvider),
 };
-
