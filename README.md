@@ -171,11 +171,11 @@ Version 2 kapsamında öncelikli olarak authentication ve authorization altyapı
 
 ## Tasks Create
 
-![Tasks]("./client/public/assets/readMe/task-pdos.png")
+![Tasks]("../client/public/assets/readMe/task-pdos.png")
 
 ## Dashboard
 
-![Task Detail]("./client/public/assets/readMe/dashboard.png")
+![Dashboard]("./client/public/assets/readMe/dashboard.png")
 
 ## Analytics
 
