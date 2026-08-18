@@ -155,32 +155,33 @@ Version 2 kapsamında öncelikli olarak authentication ve authorization altyapı
 
 ## Login
 
-![Login]("./client/public/assets/readMe/login.png")
+<img src="./client/public/assets/readMe/login.png" width="500"/>
+
 
 ## Calendar
 
-![Calendar](./client/public/assets/readMe/calendar.png)
+<img src="./client/public/assets/readMe/calendar.png" width="500"/>
 
 ## Notes
 
-![Notes]("./client/public/assets/readMe/notes.png")
+<img src="./client/public/assets/readMe/notes.png" width="500"/>
 
 ## Tasks Kanban
 
-![Tasks]("./client/public/assets/readMe/task.png")
+<img src="./client/public/assets/readMe/task.png" width="500"/>
 
 ## Tasks Create
 
-![Tasks]("../client/public/assets/readMe/task-pdos.png")
+<img src="./client/public/assets/readMe/task-pdos.png" width="500"/>
 
 ## Dashboard
 
-![Dashboard]("./client/public/assets/readMe/dashboard.png")
+<img src="./client/public/assets/readMe/dashboard.png" width="500"/>
 
 ## Analytics
 
-![Analytics]("./client/public/assets/readMe/analist.png")
+<img src="./client/public/assets/readMe/analist.png" width="500"/>
 
 ## Goals
 
-![Analytics]("./client/public/assets/readMe/goals.png")
+<img src="./client/public/assets/readMe/goals.png" width="500"/>
