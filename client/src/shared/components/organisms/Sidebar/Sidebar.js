@@ -15,14 +15,14 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 const menu = [
-  { id: 1, name: "Dashboard", icon: Home, href: "/dashboard" },
-  { id: 2, name: "Tasks", icon: SquareCheck, href: "/tasks" },
-  { id: 3, name: "Notes", icon: FileText, href: "/notes" },
-  { id: 4, name: "Documents", icon: File, href: "/documents" },
-  { id: 5, name: "Calendar", icon: Calendar, href: "/calendar" },
-  { id: 6, name: "Goals", icon: Target, href: "/goals" },
-  { id: 7, name: "Analytics", icon: BarChart3, href: "/analytics" },
-  { id: 8, name: "Settings", icon: Settings, href: "/settings" },
+  { id: 1, name: "Ana Sayfa", icon: Home, href: "/dashboard" },
+  { id: 2, name: "Görevler", icon: SquareCheck, href: "/tasks" },
+  { id: 3, name: "Notlar", icon: FileText, href: "/notes" },
+  { id: 4, name: "Dökümanlar", icon: File, href: "/documents" },
+  { id: 5, name: "Takvim", icon: Calendar, href: "/calendar" },
+  { id: 6, name: "Hedefler", icon: Target, href: "/goals" },
+  { id: 7, name: "Analist", icon: BarChart3, href: "/analytics" },
+  { id: 8, name: "Ayarlar", icon: Settings, href: "/settings" },
 ];
 
 export function Sidebar() {
