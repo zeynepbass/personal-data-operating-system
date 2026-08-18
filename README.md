@@ -153,6 +153,10 @@ Version 2 kapsamında öncelikli olarak authentication ve authorization altyapı
 
 <img src="./client/public/assets/readMe/notes.png" width="500"/>
 
+## Döküman
+
+<img src="./client/public/assets/readMe/document.png" width="500"/>
+
 ## Tasks Kanban
 
 <img src="./client/public/assets/readMe/task.png" width="500"/>
