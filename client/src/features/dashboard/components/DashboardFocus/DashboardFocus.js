@@ -311,7 +311,7 @@ export default function DashboardFocus({ duration }) {
 
               return (
                 <div
-                  key={item.date}
+                  key={item.id}
                   className="flex flex-col items-center gap-2"
                 >
                   <span className="text-xs font-medium text-purple-300">

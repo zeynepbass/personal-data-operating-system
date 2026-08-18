@@ -21,7 +21,7 @@ const menu = [
   { id: 4, name: "Dökümanlar", icon: File, href: "/documents" },
   { id: 5, name: "Takvim", icon: Calendar, href: "/calendar" },
   { id: 6, name: "Hedefler", icon: Target, href: "/goals" },
-  { id: 7, name: "Analist", icon: BarChart3, href: "/analytics" },
+  { id: 7, name: "Analiz", icon: BarChart3, href: "/analytics" },
   { id: 8, name: "Ayarlar", icon: Settings, href: "/settings" },
 ];
 
