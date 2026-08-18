@@ -167,7 +167,7 @@ Version 2 kapsamında öncelikli olarak authentication ve authorization altyapı
 
 ## Tasks Kanban
 
-![Tasks](/assets/readMe/task.png)
+![Tasks](/client/assets/readMe/task.png)
 
 ## Tasks Create
 
