@@ -92,19 +92,6 @@ Kullanıcı:
 
 ---
 
-# 📋 Task Management
-
-Task sistemi PDOS'un temel özelliklerinden biridir.
-
-Task'lar üç temel durum üzerinden yönetilir:
-
-```text
-TODO
-IN-PROGRESS
-DONE
-
----
-
 🛠️ Tech Stack
 Frontend
 Next.js 14
