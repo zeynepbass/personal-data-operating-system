@@ -136,8 +136,6 @@ Version 2 kapsamında öncelikli olarak authentication ve authorization altyapı
  Yetkisiz kullanıcıların protected sayfalara erişiminin engellenmesi
  Authentication state'in route seviyesinde kontrol edilmesi
  Sayfaların rollere göre ayrılması
- Menü düzenlenmesi
- Tasarım bozukluklarının giderilmesi
  
 ---
 
