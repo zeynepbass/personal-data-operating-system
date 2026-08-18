@@ -142,7 +142,7 @@ Version 2 kapsamında öncelikli olarak authentication ve authorization altyapı
 
 ## Login
 
-<img src="./client/assets/readMe/login.png" width="500"/>
+<img src="./client/public/assets/readMe/login.png" width="500"/>
 
 ## Calendar
 
