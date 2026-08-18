@@ -9,6 +9,7 @@ export default function AppLayout({ children }) {
   const hideLayout = [
     "/login",
     "/register",
+    "/forgot-password"
   ].includes(pathname);
 
   if (hideLayout) {

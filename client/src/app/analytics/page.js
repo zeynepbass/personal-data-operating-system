@@ -1,7 +1,7 @@
 import AnalyticsPage from "@/features/analytics/pages/AnalyticsPage";
 import {
   getTask
-} from "../../features/task/repositories/task.repository";
+} from "@/features/task/repositories/task.repository";
 
 export default async function Analytics() {
   const meetings = await getTask();
