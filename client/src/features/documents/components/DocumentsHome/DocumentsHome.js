@@ -44,7 +44,7 @@ export default function DocumentsHome({
 
     <div className="flex flex-col gap-4 md:flex-row py-4 md:items-center md:justify-between">
     <PageHeader
-      title="Belgelerim"
+      title="Dökümanlar"
       description="Belgelerinizi görüntüleyin ve yönetin."
     />
 
