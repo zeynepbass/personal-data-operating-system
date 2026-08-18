@@ -28,12 +28,17 @@ const taskSchema = new mongoose.Schema(
     estimatedHours: Number,
     spentHours: Number,
     progress: Number,
+    spentHours: Number,
     storyPoints: Number,
 
-    completed: Boolean,
+    completed: {
+      type: Boolean,
+      default: false,
+    },
 
     assignee: {
       type: assigneeSchema,
+      default: null,
     },
   },
   {
@@ -43,6 +48,12 @@ const taskSchema = new mongoose.Schema(
 
 const meetingSchema = new mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
     id: {
       type: String,
       required: true,

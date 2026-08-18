@@ -40,6 +40,9 @@ export default function GoalsCard({
       data: localItems,
     });
   };
+  const handleMenuClick = (id) => {
+    setOpenMenu((prev) => (prev === id ? null : id));
+  };
 
   return (
     <div className="relative rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
@@ -50,13 +53,13 @@ export default function GoalsCard({
         <button
           type="button"
           aria-label="Goal menüsünü aç"
-          onClick={() => setOpenMenu((prev) => !prev)}
+          onClick={() => handleMenuClick(id)}
           className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900"
         >
           {" "}
           ⋮{" "}
         </button>{" "}
-        {openMenu && (
+        {openMenu===id && (
           <div className="absolute right-4 top-14 z-50 min-w-[120px] overflow-hidden rounded-lg border border-gray-200 bg-white py-1 text-sm shadow-lg">
             {" "}
             <button

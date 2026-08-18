@@ -8,6 +8,12 @@ const documentSchema = new mongoose.Schema(
       unique: true,
     },
 
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
     name: {
       type: String,
       required: true,
@@ -28,13 +34,10 @@ const documentSchema = new mongoose.Schema(
       required: true,
     },
 
-    icon: {
-      type: String,
-    },
+    icon: String,
 
-    color: {
-      type: String,
-    },
+    color: String,
+
     pdf: {
       type: String,
       required: true,
@@ -55,6 +58,9 @@ const documentSchema = new mongoose.Schema(
   }
 );
 
-const Document = mongoose.model("Document", documentSchema);
+const Document = mongoose.model(
+  "Document",
+  documentSchema
+);
 
 export default Document;

@@ -1,14 +1,20 @@
 import Meeting from "../models/meeting.model.js";
+import User from "../models/user.model.js";
 
 export const getMeetings = async (req, res) => {
   try {
-    const meetings = await Meeting.find().lean();
+    const meetings = await Meeting.find()
+      .populate("user", "fullName email role")
+      .sort({ createdAt: -1 })
+      .lean();
 
     return res.status(200).json({
       success: true,
       data: meetings,
     });
   } catch (error) {
+    console.error("GET MEETINGS ERROR:", error);
+
     return res.status(500).json({
       success: false,
       message: "Meetings alınırken hata oluştu.",
@@ -16,11 +22,36 @@ export const getMeetings = async (req, res) => {
     });
   }
 };
+export const getUsers = async (req, res) => {
+  try {
+    const users = await User.find({
+      role: "user",
+      _id: {
+        $ne: req.user.id,
+      },
+    })
+      .select("_id fullName email role")
+      .sort({
+        fullName: 1,
+      });
+
+    return res.status(200).json({
+      success: true,
+      data: users,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Kullanıcılar alınırken hata oluştu.",
+      error: error.message,
+    });
+  }
+};
 
 export const createMeeting = async (req, res) => {
-
   try {
     const {
+      user,
       title,
       name,
       color,
@@ -29,33 +60,81 @@ export const createMeeting = async (req, res) => {
       meetingDetails,
       tasks = [],
     } = req.body;
- 
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "Meeting için kullanıcı seçilmelidir.",
+      });
+    }
+
+    const selectedUser = await User.findOne({
+      _id: user,
+      role: "user",
+    });
+
+    if (!selectedUser) {
+      return res.status(404).json({
+        success: false,
+        message: "Seçilen kullanıcı bulunamadı.",
+      });
+    }
+
+    if (String(selectedUser._id) === String(req.user.id)) {
+      return res.status(403).json({
+        success: false,
+        message: "Kendinize meeting atayamazsınız.",
+      });
+    }
+
     const newMeeting = await Meeting.create({
-      
+      user: selectedUser._id,
+
       id: `${Date.now()}`,
+
       title,
       name,
       color,
       meeting,
+
       meetingCalendar: meetingCalendar
         ? new Date(meetingCalendar)
         : null,
+
       meetingDetails,
 
-      tasks: tasks.map((task) => ({
-        id: `${Date.now()}`,
+      tasks: tasks.map((task, index) => ({
+        id: `${Date.now()}-${index}`,
+
         title: task.title,
         description: task.description,
         label: task.label,
         priority: task.priority,
-        date: task.date ? new Date(task.date) : null,
-        startDate: task.startDate ? new Date(task.startDate) : null,
-        dueDate: task.dueDate ? new Date(task.dueDate) : null,
-        estimatedHours: Number(task.estimatedHours) || 0,
+
+        date: task.date
+          ? new Date(task.date)
+          : null,
+
+        startDate: task.startDate
+          ? new Date(task.startDate)
+          : null,
+
+        dueDate: task.dueDate
+          ? new Date(task.dueDate)
+          : null,
+
+        estimatedHours:
+          Number(task.estimatedHours) || 0,
+
         spentHours: 0,
+
         progress: 0,
-        storyPoints: Number(task.storyPoints) || 0,
+
+        storyPoints:
+          Number(task.storyPoints) || 0,
+
         completed: false,
+
         assignee: null,
       })),
     });
@@ -66,6 +145,8 @@ export const createMeeting = async (req, res) => {
       data: newMeeting,
     });
   } catch (error) {
+    console.error("CREATE MEETING ERROR:", error);
+
     return res.status(500).json({
       success: false,
       message: "Meeting oluşturulurken hata oluştu.",
@@ -73,6 +154,8 @@ export const createMeeting = async (req, res) => {
     });
   }
 };
+
+
 export const updateMeeting = async (req, res) => {
   try {
     const { id } = req.params;
@@ -115,33 +198,62 @@ export const updateMeeting = async (req, res) => {
       });
     }
 
-    task.title = title;
-    task.description = description;
-    task.label = label;
-    
-    task.priority = priority;
-    task.date = date ? new Date(date) : null;
-    task.startDate = startDate
-      ? new Date(startDate)
-      : null;
-    task.dueDate = dueDate
-      ? new Date(dueDate)
-      : null;
-    task.estimatedHours =
-      Number(estimatedHours) || 0;
-    task.storyPoints =
-      Number(storyPoints) || 0;
+    if (title !== undefined) {
+      task.title = title;
+    }
+
+    if (description !== undefined) {
+      task.description = description;
+    }
+
+    if (label !== undefined) {
+      task.label = label;
+    }
+
+    if (priority !== undefined) {
+      task.priority = priority;
+    }
+
+    if (date !== undefined) {
+      task.date = date
+        ? new Date(date)
+        : null;
+    }
+
+    if (startDate !== undefined) {
+      task.startDate = startDate
+        ? new Date(startDate)
+        : null;
+    }
+
+    if (dueDate !== undefined) {
+      task.dueDate = dueDate
+        ? new Date(dueDate)
+        : null;
+    }
+
+    if (estimatedHours !== undefined) {
+      task.estimatedHours =
+        Number(estimatedHours) || 0;
+    }
+
+    if (storyPoints !== undefined) {
+      task.storyPoints =
+        Number(storyPoints) || 0;
+    }
 
     if (completed !== undefined) {
-      task.completed = completed;
+      task.completed = Boolean(completed);
     }
 
     if (progress !== undefined) {
-      task.progress = Number(progress) || 0;
+      task.progress =
+        Number(progress) || 0;
     }
 
     if (spentHours !== undefined) {
-      task.spentHours = Number(spentHours) || 0;
+      task.spentHours =
+        Number(spentHours) || 0;
     }
 
     if (assignee !== undefined) {
@@ -156,6 +268,8 @@ export const updateMeeting = async (req, res) => {
       data: task,
     });
   } catch (error) {
+    console.error("UPDATE MEETING ERROR:", error);
+
     return res.status(500).json({
       success: false,
       message: "Task güncellenirken hata oluştu.",
@@ -163,6 +277,8 @@ export const updateMeeting = async (req, res) => {
     });
   }
 };
+
+
 export const deleteMeeting = async (req, res) => {
   try {
     const { id } = req.params;
@@ -179,7 +295,7 @@ export const deleteMeeting = async (req, res) => {
     }
 
     meeting.tasks = meeting.tasks.filter(
-      (task) => task.id !== id
+      (task) => String(task.id) !== String(id)
     );
 
     await meeting.save();
@@ -190,6 +306,8 @@ export const deleteMeeting = async (req, res) => {
       data: meeting,
     });
   } catch (error) {
+    console.error("DELETE MEETING ERROR:", error);
+
     return res.status(500).json({
       success: false,
       message: "Task silinirken hata oluştu.",
@@ -197,82 +315,92 @@ export const deleteMeeting = async (req, res) => {
     });
   }
 };
+
 export const updateTaskStatus = async (req, res) => {
   try {
     const { id } = req.params;
     const { name } = req.body;
 
+    if (!name) {
+      return res.status(400).json({
+        success: false,
+        message: "Status bilgisi gereklidir.",
+      });
+    }
+
     const meeting = await Meeting.findOne({
-      "tasks.id": id,
+      id: id,
     });
 
     if (!meeting) {
       return res.status(404).json({
         success: false,
-        message: "Task bulunamadı.",
+        message: "Meeting bulunamadı.",
       });
     }
 
     meeting.name = name;
 
-    const task = meeting.tasks.find(
-      (task) => String(task.id) === String(id)
-    );
+    await meeting.save();
 
-    if (task) {
-      task.completed = name.toLowerCase() !== "todo";
+    return res.status(200).json({
+      success: true,
+      message: "Meeting durumu güncellendi.",
+      data: meeting,
+    });
+  } catch (error) {
+    console.error("UPDATE MEETING STATUS ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Meeting durumu güncellenemedi.",
+      error: error.message,
+    });
+  }
+};
+
+export const updateTaskCompleted = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { completed } = req.body;
+
+    const meeting = await Meeting.findOne({
+      id,
+      user: req.user.id,
+    });
+
+    if (!meeting) {
+      return res.status(404).json({
+        success: false,
+        message: "Meeting bulunamadı.",
+      });
     }
+
+    if (!meeting.tasks.length) {
+      return res.status(404).json({
+        success: false,
+        message: "Meeting içerisinde task bulunamadı.",
+      });
+    }
+
+    const task = meeting.tasks[0];
+
+    task.completed = Boolean(completed);
 
     await meeting.save();
 
     return res.status(200).json({
       success: true,
-      message: "Task durumu güncellendi.",
-      data: meeting,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Task durumu güncellenemedi.",
-      error: error.message,
-    });
-  }
-};
-export const updateTaskCompleted = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { completed, name } = req.body;
-
-
-    const task = await Task.findByIdAndUpdate(
-      id,
-      {
-        completed,
-        name,
-      },
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
-
-    if (!task) {
-      return res.status(404).json({
-        success: false,
-        message: "Task bulunamadı",
-      });
-    }
-
-    return res.status(200).json({
-      success: true,
+      message: "Task tamamlanma durumu güncellendi.",
       data: task,
     });
   } catch (error) {
-
+    console.error("UPDATE TASK COMPLETED ERROR:", error);
 
     return res.status(500).json({
       success: false,
-      message: error.message,
+      message: "Task güncellenemedi.",
+      error: error.message,
     });
   }
 };
