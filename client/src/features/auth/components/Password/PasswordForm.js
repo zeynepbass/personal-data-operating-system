@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Lock, Eye, EyeOff } from "lucide-react";
+import { Lock, Eye, EyeOff ,Mail} from "lucide-react";
 import { useState } from "react";
 
 import { Input, Button } from "@/shared/components/atoms";
@@ -34,7 +34,17 @@ export default function PasswordForm() {
           />
 
           <form className="mt-8 space-y-5">
+          <div className="relative">
+              <Mail
+                size={20}
+                className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"
+              />
 
+              <Input
+                placeholder="E-posta adresiniz"
+                className="h-14 rounded-2xl pl-14 pr-14 w-full border border-gray-200"
+              />
+            </div>
             <div className="relative">
               <Lock
                 size={20}

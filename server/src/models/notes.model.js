@@ -1,5 +1,3 @@
-
-
 import mongoose from "mongoose";
 
 const sectionSchema = new mongoose.Schema(
@@ -42,6 +40,12 @@ const sectionSchema = new mongoose.Schema(
 
 const noteSchema = new mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
     id: {
       type: String,
       required: true,

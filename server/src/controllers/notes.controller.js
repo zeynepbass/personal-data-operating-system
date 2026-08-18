@@ -1,8 +1,12 @@
 import Notes from "../models/notes.model.js";
 
+
+
 export const getNotes = async (req, res) => {
   try {
-    const notes = await Notes.find().sort({
+    const notes = await Notes.find({
+      user: req.user._id,
+    }).sort({
       createdAt: -1,
     });
 
@@ -19,6 +23,8 @@ export const getNotes = async (req, res) => {
   }
 };
 
+
+
 export const createNote = async (req, res) => {
   try {
     const {
@@ -31,6 +37,8 @@ export const createNote = async (req, res) => {
     } = req.body;
 
     const note = await Notes.create({
+      user: req.user._id,
+
       id,
       title,
       description,
@@ -52,11 +60,17 @@ export const createNote = async (req, res) => {
     });
   }
 };
+
+
+
 export const deleteNote = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const note = await Notes.findByIdAndDelete(id);
+    const note = await Notes.findOneAndDelete({
+      _id: id,
+      user: req.user._id,
+    });
 
     if (!note) {
       return res.status(404).json({

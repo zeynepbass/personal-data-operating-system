@@ -1,18 +1,22 @@
 import Document from "../models/document.model.js";
-
-
 export const getDocuments = async (req, res) => {
   try {
-    const documents = await Document.find();
+    let documents;
 
-    res.status(200).json({
+    if (req.user.role === "admin") {
+      documents = await Document.find();
+    } else {
+      documents = await Document.find({
+        user: req.user._id,
+      });
+    }
+
+    return res.status(200).json({
       success: true,
       data: documents,
     });
   } catch (error) {
-
-
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: "Documents alınırken hata oluştu.",
       error: error.message,
@@ -30,15 +34,23 @@ export const createDocument = async (req, res) => {
 
     const document = await Document.create({
       id: req.body.id,
+
+      user: req.user._id,
+
       name: req.body.name,
       type: req.body.type,
       size: req.body.size,
       date: req.body.date,
       icon: req.body.icon,
       color: req.body.color,
-      favorite: req.body.favorite === "true",
-      shared: req.body.shared === "true",
 
+      favorite: req.body.favorite === "true",
+
+
+      shared:
+        req.user.role === "admin"
+          ? req.body.shared === "true"
+          : false,
 
       pdf: `/uploads/${req.file.filename}`,
     });
@@ -49,8 +61,6 @@ export const createDocument = async (req, res) => {
       data: document,
     });
   } catch (error) {
-
-
     return res.status(500).json({
       success: false,
       message: "Document oluşturulurken hata oluştu.",
@@ -60,24 +70,32 @@ export const createDocument = async (req, res) => {
 };
 export const deletedDocument = async (req, res) => {
   try {
-    const document = await Document.findByIdAndDelete(req.params.id);
+    const { id } = req.params;
+
+    const filter =
+      req.user.role === "admin"
+        ? { _id: id }
+        : {
+            _id: id,
+            user: req.user._id,
+          };
+
+    const document = await Document.findOneAndDelete(filter);
 
     if (!document) {
       return res.status(404).json({
         success: false,
-        message: "Document bulunamadı.",
+        message: "Document bulunamadı veya silme yetkiniz yok.",
       });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "Document başarıyla silindi.",
       data: document,
     });
   } catch (error) {
-
-
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: "Document silinirken hata oluştu.",
       error: error.message,
