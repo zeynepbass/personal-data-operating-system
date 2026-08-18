@@ -1,25 +1,30 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { PageHeader } from "@/shared/components/molecules";
-import {
-  Button,
-  Input
-} from "@/shared/components/atoms";
+import { Button, Input } from "@/shared/components/atoms";
+import Image from "next/image";
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="grid min-h-screen lg:grid-cols-12">
-      <div className="relative hidden lg:col-span-6 lg:block">
-        <img src="/images/login.jpg" alt="Login" className="object-contain" />
+      <div className="relative hidden lg:col-span-6  lg:block">
+  <Image
+    src="/images/login.jpg"
+    alt="login"
+    fill
+    priority
+
+    className="object-contain object-left"
+  />
+
       </div>
 
       <div className="flex items-center justify-center bg-[#FAFAFA]   lg:col-span-6">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-lg">
           <PageHeader
             title="Hoş Geldiniz 👋"
             description="Hesabınıza giriş yaparak hedeflerinizi takip etmeye devam edin."
@@ -73,21 +78,21 @@ export default function LoginForm() {
               </Link>
             </div>
 
-            <Button text="Giriş Yap" className="w-full hover:text-white" />
+            <Button text="Giriş Yap" className="w-full text-white " />
 
             <div className="relative py-2">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t" />
+                <div className="w-full border-t text-gray-300" />
               </div>
 
               <div className="relative flex justify-center">
-                <span className="bg-white px-4 text-sm text-gray-500">
+                <span className="bg-[#FAFAFA] px-4 text-sm text-gray-400">
                   veya
                 </span>
               </div>
             </div>
 
-            <button className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl border border-gray-200 hover:border-[rgb(125,120,206)]">
+            <button className="flex h-14 text-gray-500 w-full items-center justify-center gap-3 rounded-2xl border border-gray-200 hover:border-[rgb(125,120,206)]">
               <Image
                 src="/images/google.svg"
                 alt="Google"

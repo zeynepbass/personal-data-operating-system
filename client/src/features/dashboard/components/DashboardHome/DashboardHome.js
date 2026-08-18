@@ -1,14 +1,16 @@
-
+"use client";
+import { useState } from "react";
 import DashboardList from "../DashboardList";
 import DashboardDuration from "../DashboardDuration";
 import DashboardHeading from "../DashboardHeading";
 import DashboardListCheck from "../DashboardListCheck";
+import DashboardFocus from "../DashboardFocus";
 import useNotes from "@/features/notes/hooks/useNotes";
 import { useRouter } from "next/navigation";
 import { Button } from "@/shared/components/atoms";
 export default function DashboardHome({
   filteredData = [],
-  filteredMeeting = []
+  filteredMeeting = [],
 }) {
   const today = new Date().toLocaleDateString("tr-TR", {
     weekday: "long",
@@ -17,7 +19,9 @@ export default function DashboardHome({
     year: "numeric",
   });
   const { data, isLoading, isError, error } = useNotes();
-const router=useRouter();
+  const [duration, setDuration] = useState("day");
+  const router = useRouter();
+  console.log(duration);
   return (
     <div className="space-y-6">
       <DashboardHeading
@@ -36,12 +40,7 @@ const router=useRouter();
           </div>
 
           <div className="h-[calc(30vh-110px)] overflow-y-auto pr-2">
-            <DashboardListCheck
-              filteredData={filteredData}
-
-
-              error={error}
-            />
+            <DashboardListCheck filteredData={filteredData} error={error} />
           </div>
         </section>
 
@@ -76,7 +75,7 @@ const router=useRouter();
                     key={item._id || index}
                     className="group flex overflow-hidden rounded-xl border border-slate-100 bg-slate-50 transition hover:border-indigo-100 hover:bg-white hover:shadow-sm"
                   >
-                    <div className="flex min-w-20 items-center justify-center bg-[#555A8A] px-3 text-sm font-bold text-white">
+                    <div className="flex min-w-20 items-center justify-center bg-purple-300 px-3 text-sm font-bold text-white">
                       {item.meeting}
                     </div>
 
@@ -102,66 +101,14 @@ const router=useRouter();
           </div>
         </section>
 
-        <section className="relative h-[40vh] rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:shadow-md">
+        <section className="relative h-auto rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:shadow-md">
           <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <DashboardHeading title="İstatistikler" />
 
-            <DashboardDuration />
+            <DashboardDuration value={duration} onChange={setDuration} />
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
-            <div className="rounded-xl border border-indigo-100 bg-indigo-50 p-4 text-center">
-              <p className="text-2xl font-bold text-[#555A8A]">25</p>
-
-              <p className="mt-1 text-xs font-medium text-slate-500">Görev</p>
-            </div>
-
-            <div className="rounded-xl border border-green-100 bg-green-50 p-4 text-center">
-              <p className="text-2xl font-bold text-green-600">4</p>
-
-              <p className="mt-1 text-xs font-medium text-slate-500">Hedef</p>
-            </div>
-
-            <div className="rounded-xl border border-orange-100 bg-orange-50 p-4 text-center">
-              <p className="text-2xl font-bold text-orange-500">12</p>
-
-              <p className="mt-1 text-xs font-medium text-slate-500">Saat</p>
-            </div>
-          </div>
-
-          <div className="mt-8">
-            <div className="mb-3 flex items-center justify-between">
-              <p className="text-sm font-semibold text-slate-700">
-                Haftalık Aktivite
-              </p>
-
-              <span className="text-xs text-slate-400">Son 7 gün</span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <div className="flex min-w-105 items-end justify-between gap-5 px-2 pt-4">
-                {[
-                  ["Pzt", "h-12"],
-                  ["Sal", "h-20"],
-                  ["Çar", "h-10"],
-                  ["Per", "h-16"],
-                  ["Cum", "h-8"],
-                  ["Cmt", "h-14"],
-                  ["Paz", "h-24"],
-                ].map(([day, height]) => (
-                  <div key={day} className="flex flex-col items-center gap-2">
-                    <div
-                      className={`w-7 rounded-t-lg bg-[#555A8A] transition-all hover:opacity-80 ${height}`}
-                    />
-
-                    <span className="text-xs font-medium text-slate-400">
-                      {day}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <DashboardFocus duration={duration} />
         </section>
 
         <section className="relative h-[40vh] rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:shadow-md">
@@ -180,27 +127,23 @@ const router=useRouter();
               <p>Hata: {error.message}</p>
             ) : !data?.length ? (
               <div className="flex h-full items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50">
-              <div className="flex flex-col items-center text-center">
-                <p className="text-sm font-medium text-slate-600">
-                  Henüz not bulunmuyor.
-                </p>
-                <Button
-                
-                text="İlk notunu oluşturarak başlayabilirsin."
-                onClick={() => router.push("/notes")}
-                className="text-xs text-slate-400 underline bg-transparent"
-              />
-    
-       
+                <div className="flex flex-col items-center text-center">
+                  <p className="text-sm font-medium text-slate-600">
+                    Henüz not bulunmuyor.
+                  </p>
+                  <Button
+                    text="İlk notunu oluşturarak başlayabilirsin."
+                    onClick={() => router.push("/notes")}
+                    className="text-xs text-slate-400 underline bg-transparent"
+                  />
+                </div>
               </div>
-            </div>
             ) : (
               <DashboardList documents={data.slice(-3).reverse()} />
             )}
           </div>
         </section>
       </div>
-
     </div>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import DashboardHome from "../components/DashboardHome";
-import useNotes from "@/features/notes/hooks/useNotes";
 import {
   getTodayMeetings,
   getTodayTasks,
