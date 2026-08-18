@@ -29,7 +29,8 @@ export default function AnalyticsHome({
 
 <div className="flex flex-col gap-4 md:flex-row py-4 md:items-center md:justify-between">
         <PageHeader
-          title="Analitik"
+          title="Analist"
+          description="Periyotlarınızın takibini yapın."
    
         />
 

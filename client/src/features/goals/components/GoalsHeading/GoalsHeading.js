@@ -6,7 +6,7 @@ export default function TaskHeading() {
   const router = useRouter();
   return (
     <header  className="flex flex-col gap-4 md:flex-row py-4 md:items-center md:justify-between">
-        <PageHeader title="Kariyer" description="Kariyer hedeflerinizi yönetin" />
+        <PageHeader title="Hedefler" description="Kariyer hedeflerinizi yönetin" />
 
       <Button
         text="+ Yeni Hedef"
