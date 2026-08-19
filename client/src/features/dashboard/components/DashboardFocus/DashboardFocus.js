@@ -300,7 +300,7 @@ export default function DashboardFocus({ duration }) {
         <div className="overflow-x-auto">
           <div className="flex min-w-105 items-end justify-between gap-5 px-2 pt-4">
 
-            {activityData.map((item) => {
+            {activityData.map((item,index) => {
               const height =
                 item.count === 0
                   ? 8
@@ -311,7 +311,7 @@ export default function DashboardFocus({ duration }) {
 
               return (
                 <div
-                  key={item.id}
+                  key={index}
                   className="flex flex-col items-center gap-2"
                 >
                   <span className="text-xs font-medium text-purple-300">

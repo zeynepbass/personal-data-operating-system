@@ -9,7 +9,7 @@ const TaskModal = dynamic(() => import("../TaskModal"), {
 });
 
 export default function TaskHome({users,router, onToggle,onDragEnd,deletedTask,data, view, setView, open, setOpen,     isCreating,
-  onSubmit, rows,handleMenuClick,openMenuId,todayTasks,isAdmin}) {
+  onSubmit, rows,handleMenuClick,openMenuId,todayTasks,isAdmin,isInitialized}) {
 
   const ViewComponent = taskViewStrategies[view];
   return (
@@ -19,6 +19,7 @@ export default function TaskHome({users,router, onToggle,onDragEnd,deletedTask,d
         title="Görevler"
         setOpen={setOpen}
         isAdmin={isAdmin}
+        isInitialized={isInitialized}
         description="Bugün seni neler bekliyor."
       />
       <TaskModal
@@ -39,6 +40,7 @@ export default function TaskHome({users,router, onToggle,onDragEnd,deletedTask,d
         view={view}
         setView={setView}
         isAdmin={isAdmin}
+        isInitialized={isInitialized}
       />
 
       <section className="min-h-[60vh]">

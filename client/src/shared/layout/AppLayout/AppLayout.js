@@ -3,9 +3,15 @@
 import { usePathname } from "next/navigation";
 import { SearchBar, Sidebar } from "@/shared/components/organisms";
 import { Toaster } from "react-hot-toast";
+import { useEffect } from "react";
+import { useAuth } from "@/features/auth/hooks/useAuth";
 export default function AppLayout({ children }) {
   const pathname = usePathname();
+  const { initializeAuth } = useAuth();
 
+  useEffect(() => {
+    initializeAuth();
+  }, [initializeAuth]);
   const hideLayout = [
     "/login",
     "/register",

@@ -9,6 +9,7 @@ export const useAuth = () => {
     user,
     token,
     isAuthenticated,
+    isInitialized,
     login: setLogin,
     logout: setLogout,
     initializeAuth,
@@ -20,7 +21,8 @@ export const useAuth = () => {
     onSuccess: (response) => {
       if (!response?.success) {
         toast.error(
-          response?.message || "Giriş yapılamadı."
+             response?.data?.message || "Giriş yapılmadı."
+
         );
         return;
       }
@@ -28,42 +30,39 @@ export const useAuth = () => {
       setLogin(response.data);
 
       toast.success(
-        response.message || "Giriş başarılı."
+        response.data?.message ||
+          "Giriş başarılı"
       );
     },
 
     onError: (error) => {
       toast.error(
-        error?.response?.data?.message ||
-          "Giriş yapılamadı."
+        error.response?.data?.message || "Hata oluştu."
       );
     },
   });
 
   const registerMutation = useMutation({
     mutationFn: (data) => authContainer.register(data),
-
+  
     onSuccess: (response) => {
       if (!response?.success) {
         toast.error(
-          response?.message ||
-            "Kayıt oluşturulamadı."
+             response?.data?.message ||      "Kayıt oluşturulamadı."
+
         );
         return;
       }
 
-      setLogin(response.data);
-
       toast.success(
-        response.message ||
-          "Hesabınız başarıyla oluşturuldu."
+        response.data?.message ||
+       "Hesabınız başarıyla oluşturuldu."
       );
-    },
 
+    },
     onError: (error) => {
       toast.error(
-        error?.response?.data?.message ||
-          "Kayıt oluşturulamadı."
+        error.response?.data?.message || "Hata oluştu."
       );
     },
   });
@@ -78,6 +77,7 @@ export const useAuth = () => {
     user,
     token,
     isAuthenticated,
+    isInitialized,
 
     login: loginMutation.mutateAsync,
     register: registerMutation.mutateAsync,

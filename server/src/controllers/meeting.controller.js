@@ -3,10 +3,7 @@ import User from "../models/user.model.js";
 
 export const getMeetings = async (req, res) => {
   try {
-    const meetings = await Meeting.find()
-      .populate("user", "fullName email role")
-      .sort({ createdAt: -1 })
-      .lean();
+    const meetings = await Meeting.find().sort({ createdAt: -1 }).lean();
 
     return res.status(200).json({
       success: true,
@@ -47,11 +44,9 @@ export const getUsers = async (req, res) => {
     });
   }
 };
-
 export const createMeeting = async (req, res) => {
   try {
     const {
-      user,
       title,
       name,
       color,
@@ -61,35 +56,73 @@ export const createMeeting = async (req, res) => {
       tasks = [],
     } = req.body;
 
-    if (!user) {
+    if (!tasks.length) {
       return res.status(400).json({
         success: false,
-        message: "Meeting için kullanıcı seçilmelidir.",
+        message: "En az bir görev oluşturmalısınız.",
       });
     }
 
-    const selectedUser = await User.findOne({
-      _id: user,
-      role: "user",
-    });
+    const preparedTasks = [];
 
-    if (!selectedUser) {
-      return res.status(404).json({
-        success: false,
-        message: "Seçilen kullanıcı bulunamadı.",
+    for (const [index, task] of tasks.entries()) {
+      if (!task.assignee) {
+        return res.status(400).json({
+          success: false,
+          message: "Her görev için kullanıcı seçilmelidir.",
+        });
+      }
+
+      const selectedUser = await User.findOne({
+        email: task.assignee,
+        role: "user",
       });
-    }
 
-    if (String(selectedUser._id) === String(req.user.id)) {
-      return res.status(403).json({
-        success: false,
-        message: "Kendinize meeting atayamazsınız.",
+      if (!selectedUser) {
+        return res.status(404).json({
+          success: false,
+          message: `${task.assignee} kullanıcısı bulunamadı.`,
+        });
+      }
+
+      if (String(selectedUser._id) === String(req.user.id)) {
+        return res.status(403).json({
+          success: false,
+          message: "Kendinize görev atayamazsınız.",
+        });
+      }
+
+      preparedTasks.push({
+        id: `${Date.now()}`,
+
+        title: task.title,
+        description: task.description,
+        label: task.label,
+        priority: task.priority,
+
+        date: task.date ? new Date(task.date) : null,
+        startDate: task.startDate ? new Date(task.startDate) : null,
+        dueDate: task.dueDate ? new Date(task.dueDate) : null,
+
+        estimatedHours: Number(task.estimatedHours) || 0,
+        spentHours: 0,
+        progress: 0,
+        storyPoints: Number(task.storyPoints) || 0,
+
+        completed: false,
+
+        assignee: {
+          id: String(selectedUser._id),
+          fullName: selectedUser.fullName,
+          email: selectedUser.email,
+          role: selectedUser.role,
+          avatar: selectedUser.avatar,
+          status: selectedUser.status,
+        },
       });
     }
 
     const newMeeting = await Meeting.create({
-      user: selectedUser._id,
-
       id: `${Date.now()}`,
 
       title,
@@ -97,46 +130,11 @@ export const createMeeting = async (req, res) => {
       color,
       meeting,
 
-      meetingCalendar: meetingCalendar
-        ? new Date(meetingCalendar)
-        : null,
+      meetingCalendar: meetingCalendar ? new Date(meetingCalendar) : null,
 
       meetingDetails,
 
-      tasks: tasks.map((task, index) => ({
-        id: `${Date.now()}-${index}`,
-
-        title: task.title,
-        description: task.description,
-        label: task.label,
-        priority: task.priority,
-
-        date: task.date
-          ? new Date(task.date)
-          : null,
-
-        startDate: task.startDate
-          ? new Date(task.startDate)
-          : null,
-
-        dueDate: task.dueDate
-          ? new Date(task.dueDate)
-          : null,
-
-        estimatedHours:
-          Number(task.estimatedHours) || 0,
-
-        spentHours: 0,
-
-        progress: 0,
-
-        storyPoints:
-          Number(task.storyPoints) || 0,
-
-        completed: false,
-
-        assignee: null,
-      })),
+      tasks: preparedTasks,
     });
 
     return res.status(201).json({
@@ -154,8 +152,6 @@ export const createMeeting = async (req, res) => {
     });
   }
 };
-
-
 export const updateMeeting = async (req, res) => {
   try {
     const { id } = req.params;
@@ -187,9 +183,7 @@ export const updateMeeting = async (req, res) => {
       });
     }
 
-    const task = meeting.tasks.find(
-      (task) => String(task.id) === String(id)
-    );
+    const task = meeting.tasks.find((task) => String(task.id) === String(id));
 
     if (!task) {
       return res.status(404).json({
@@ -215,31 +209,23 @@ export const updateMeeting = async (req, res) => {
     }
 
     if (date !== undefined) {
-      task.date = date
-        ? new Date(date)
-        : null;
+      task.date = date ? new Date(date) : null;
     }
 
     if (startDate !== undefined) {
-      task.startDate = startDate
-        ? new Date(startDate)
-        : null;
+      task.startDate = startDate ? new Date(startDate) : null;
     }
 
     if (dueDate !== undefined) {
-      task.dueDate = dueDate
-        ? new Date(dueDate)
-        : null;
+      task.dueDate = dueDate ? new Date(dueDate) : null;
     }
 
     if (estimatedHours !== undefined) {
-      task.estimatedHours =
-        Number(estimatedHours) || 0;
+      task.estimatedHours = Number(estimatedHours) || 0;
     }
 
     if (storyPoints !== undefined) {
-      task.storyPoints =
-        Number(storyPoints) || 0;
+      task.storyPoints = Number(storyPoints) || 0;
     }
 
     if (completed !== undefined) {
@@ -247,13 +233,11 @@ export const updateMeeting = async (req, res) => {
     }
 
     if (progress !== undefined) {
-      task.progress =
-        Number(progress) || 0;
+      task.progress = Number(progress) || 0;
     }
 
     if (spentHours !== undefined) {
-      task.spentHours =
-        Number(spentHours) || 0;
+      task.spentHours = Number(spentHours) || 0;
     }
 
     if (assignee !== undefined) {
@@ -277,7 +261,6 @@ export const updateMeeting = async (req, res) => {
     });
   }
 };
-
 
 export const deleteMeeting = async (req, res) => {
   try {
@@ -324,12 +307,12 @@ export const updateTaskStatus = async (req, res) => {
     if (!name) {
       return res.status(400).json({
         success: false,
-        message: "Status bilgisi gereklidir.",
+        message: "Durum bilgisi gereklidir.",
       });
     }
 
     const meeting = await Meeting.findOne({
-      id: id,
+      "tasks.id": id,
     });
 
     if (!meeting) {
@@ -340,6 +323,11 @@ export const updateTaskStatus = async (req, res) => {
     }
 
     meeting.name = name;
+    const task = meeting.tasks.find((task) => String(task.id) === String(id));
+
+    if (task) {
+      task.completed = name.toLowerCase() !== "todo";
+    }
 
     await meeting.save();
 
@@ -358,44 +346,36 @@ export const updateTaskStatus = async (req, res) => {
     });
   }
 };
-
 export const updateTaskCompleted = async (req, res) => {
   try {
     const { id } = req.params;
-    const { completed } = req.body;
+
 
     const meeting = await Meeting.findOne({
-      id,
-      user: req.user.id,
+      "tasks.id": id,
     });
 
     if (!meeting) {
       return res.status(404).json({
         success: false,
-        message: "Meeting bulunamadı.",
+        message: "Task bulunamadı.",
       });
     }
 
-    if (!meeting.tasks.length) {
-      return res.status(404).json({
-        success: false,
-        message: "Meeting içerisinde task bulunamadı.",
-      });
+
+    if (meeting.id === id) {
+      meeting.name = "done";
+
+      await meeting.save();
     }
-
-    const task = meeting.tasks[0];
-
-    task.completed = Boolean(completed);
-
-    await meeting.save();
 
     return res.status(200).json({
       success: true,
-      message: "Task tamamlanma durumu güncellendi.",
-      data: task,
+      message: "Task tamamlandı.",
+      data: meeting,
     });
   } catch (error) {
-    console.error("UPDATE TASK COMPLETED ERROR:", error);
+    console.error("UPDATE TASK ERROR:", error);
 
     return res.status(500).json({
       success: false,

@@ -1,7 +1,7 @@
 "use client";
 import { Draggable } from "@hello-pangea/dnd";
 
-import { Calendar, GripVertical } from "lucide-react";
+import { Calendar, GripVertical,User } from "lucide-react";
 
 export function Card({ task, index }) {
   return (
@@ -41,11 +41,15 @@ export function Card({ task, index }) {
           >
             {task.priority}
           </span>
+          <div className="flex items-center justify-end gap-2 mt-5 text-gray-500 text-sm">
+            <User size={15} />
 
+         {task.assignee.fullName}
+          </div>
           <div className="flex items-center justify-end gap-2 mt-5 text-gray-500 text-sm">
             <Calendar size={15} />
 
-           Görev tarihi: {task.date}
+           {task.date}
           </div>
         </article>
       )}
