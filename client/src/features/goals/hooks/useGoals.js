@@ -8,7 +8,10 @@ export function useGoals() {
   const createMutation = useMutation({
     mutationFn: (formData) => postGoals(formData),
     onSuccess: (response) => {
-      toast.success(response.message);
+      toast.success(
+        response.data?.message ||
+          "Başarıyla oluşturuldu."
+      );
   
       queryClient.invalidateQueries({
         queryKey: ["goals"],
@@ -17,14 +20,17 @@ export function useGoals() {
   
     onError: (error) => {
       toast.error(
-        error.response?.data?.message || "Goal oluşturulurken hata oluştu."
+        error.response?.data?.message || "Hedef oluşturulurken hata oluştu."
       );
     },
   });
   const deleteMutation=useMutation({
     mutationFn:(id)=>deletedGoals(id),
     onSuccess: (response) => {
-      toast.success(response.message);
+      toast.success(
+        response.data?.message ||
+          "Başarıyla silindi."
+      );
   
       queryClient.invalidateQueries({
         queryKey: ["goals"],
@@ -33,7 +39,7 @@ export function useGoals() {
   
     onError: (error) => {
       toast.error(
-        error.response?.data?.message || "Goal oluşturulurken hata oluştu."
+        error.response?.data?.message || "Hedef oluşturulurken hata oluştu."
       );
     },
   })
@@ -43,7 +49,7 @@ export function useGoals() {
   const updateMutation = useMutation({
     mutationFn: ({id, data }) => {
       
- console.log({id,data})
+
       if (!id) {
         throw new Error("Goal ID bulunamadı.");
       }
@@ -52,12 +58,11 @@ export function useGoals() {
     },
   
     onSuccess: (response) => {
-      console.log(
-        "UPDATE GOAL RESPONSE:",
-        JSON.stringify(response, null, 2)
+      toast.success(
+        response.data?.message ||
+          "Başarıyla güncellendi."
       );
-  
-      toast.success(response.message);
+
   
       queryClient.invalidateQueries({
         queryKey: ["goals"],
@@ -67,19 +72,8 @@ export function useGoals() {
     },
   
     onError: (error) => {
-      console.log(
-        "UPDATE GOAL ERROR:",
-        JSON.stringify(
-          error.response?.data || error.message || error,
-          null,
-          2
-        )
-      );
-  
       toast.error(
-        error.response?.data?.message ||
-          error.message ||
-          "Goal güncellenemedi."
+        error.response?.data?.message || "Hedef oluşturulurken hata oluştu."
       );
     },
   });

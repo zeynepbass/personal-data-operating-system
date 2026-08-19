@@ -37,16 +37,7 @@ const handleChange = async (task) => {
   </span>
 </div>
 
-              {/* <div className="relative">
-                <button
-                  onClick={() => onMenuClick(task?.id)}
-                  className="rounded-lg p-1 hover:bg-gray-100"
-                >
-                  <MoreVertical size={18} />
-                </button>
 
-
-              </div> */}
             </div>
           );
         })}

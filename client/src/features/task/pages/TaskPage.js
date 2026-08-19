@@ -3,14 +3,15 @@
 import TaskHome from "../components/TaskPage/TaskHome";
 import { useMemo } from "react";
 import { useTasks } from "../hooks/useTask";
-import {useAuthStore} from "@/shared/store/auth.store"
+import {useAuth} from "@/features/auth/hooks/useAuth"
 import {
   transformTasksToRows,
   getTodayTasks,
 } from "../utils/colums.filter";
 import { useRouter } from "next/navigation";
 export default function TaskPage() {
-  const { user } = useAuthStore();
+  const {user,isInitialized} = useAuth();  
+  const isAdmin = user?.role === "admin";
   const {
     data,
     deletedTask,
@@ -60,15 +61,17 @@ export default function TaskPage() {
   }
 
 
-  const isAdmin = user?.role === "admin";
+
   return (
     <TaskHome
       rows={rows ?? []}
+
       todayTasks={todayTasks ?? []}
       view={view}
+      isInitialized={isInitialized}
       router={router}
       onToggle={onToggle}
-      users={users}
+      users={users ?? []}
       deletedTask={deletedTask}
       isCreating={isCreating}
       onSubmit={createTask}

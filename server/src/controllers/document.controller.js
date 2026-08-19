@@ -4,10 +4,19 @@ export const getDocuments = async (req, res) => {
     let documents;
 
     if (req.user.role === "admin") {
+
       documents = await Document.find();
     } else {
+  
       documents = await Document.find({
-        user: req.user._id,
+        $or: [
+          {
+            user: req.user._id,
+          },
+          {
+            shared: true,
+          },
+        ],
       });
     }
 

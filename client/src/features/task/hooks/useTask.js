@@ -159,13 +159,10 @@ export function useTasks() {
     });
   };
 
-  const onToggle = async (task, completed) => {
+  const onToggle = async (task) => {
     try {
-      await updateTaskCompleted(task.id, {
-        completed,
-        name: completed ? "done" : task.name,
-      });
-
+      await updateTaskCompleted(task.id);
+  
       queryClient.invalidateQueries({
         queryKey: ["tasks"],
       });
@@ -173,12 +170,11 @@ export function useTasks() {
       console.error("Task güncellenemedi:", error);
     }
   };
-
   return {
     ...query,
 
 
-    users: usersQuery.data?.data || [],
+    users: usersQuery.data ?? [],
     usersLoading: usersQuery.isLoading,
     usersError: usersQuery.error,
 

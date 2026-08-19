@@ -30,9 +30,6 @@ apiClient.interceptors.response.use(
         window.location.href = "/login";
       }
 
-      if (status === 403) {
-        window.location.href = "/not-found";
-      }
     }
 
     return Promise.reject(error);

@@ -1,9 +1,9 @@
 import { create } from "zustand";
-
 export const useAuthStore = create((set) => ({
   user: null,
   token: null,
   isAuthenticated: false,
+  isInitialized: false,
 
   login: (data) => {
     localStorage.setItem("token", data.token);
@@ -13,6 +13,7 @@ export const useAuthStore = create((set) => ({
       token: data.token,
       user: data.user,
       isAuthenticated: true,
+      isInitialized: true,
     });
   },
 
@@ -24,6 +25,7 @@ export const useAuthStore = create((set) => ({
       token: null,
       user: null,
       isAuthenticated: false,
+      isInitialized: true,
     });
   },
 
@@ -36,7 +38,17 @@ export const useAuthStore = create((set) => ({
         token,
         user: JSON.parse(user),
         isAuthenticated: true,
+        isInitialized: true,
       });
+
+      return;
     }
+
+    set({
+      token: null,
+      user: null,
+      isAuthenticated: false,
+      isInitialized: true,
+    });
   },
 }));

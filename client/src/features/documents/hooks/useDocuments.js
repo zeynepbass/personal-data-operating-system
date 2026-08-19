@@ -29,7 +29,7 @@ export function useDocuments() {
     onSuccess: (response) => {
       toast.success(
         response.data?.message ||
-          "Task başarıyla oluşturuldu."
+          "Döküman başarıyla oluşturuldu."
       );
   
       queryClient.invalidateQueries({
@@ -39,7 +39,7 @@ export function useDocuments() {
   
     onError: (error) => {
       toast.error(
-        error.response?.data?.message || "Document oluşturulurken hata oluştu."
+        error.response?.data?.message || "Döküman oluşturulurken hata oluştu."
       );
     },
   });
@@ -47,7 +47,10 @@ export function useDocuments() {
     mutationFn: deleteDocument,
 
     onSuccess: (response) => {
-      toast.success(response.message);
+      toast.success(
+        response.data?.message ||
+          "Başarıyla silindi."
+      );
 
       queryClient.invalidateQueries({
         queryKey: ["documents"],
@@ -55,7 +58,10 @@ export function useDocuments() {
     },
 
     onError: (error) => {
-      toast.error(error.message);
+      toast.error(
+
+        error.response?.data?.message || "Döküman oluşturulurken hata oluştu."
+      );
     },
   });
   return {

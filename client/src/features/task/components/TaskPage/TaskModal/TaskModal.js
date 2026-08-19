@@ -17,7 +17,7 @@ const initialForm = {
   meetingCalendar: "",
   meetingDetails: "",
 
-  kullanici: "",
+  assignee: "",
 
   taskTitle: "",
   description: "",
@@ -35,7 +35,7 @@ export default function TaskModal({
   setOpen,
   onSubmit,
   isCreating,
-  users = [],
+  users,
 }) {
   const [form, setForm] = useState(initialForm);
 
@@ -76,7 +76,7 @@ export default function TaskModal({
           label: form.label.trim(),
           priority: form.priority,
 
-          assignee: form.kullanici || null,
+          assignee: form.assignee || null,
 
           date: form.date || null,
           startDate: form.startDate || null,
@@ -88,6 +88,7 @@ export default function TaskModal({
     };
 
     onSubmit(payload);
+    console.log(payload)
   };
 
   const handleClose = () => {
@@ -249,17 +250,14 @@ export default function TaskModal({
 
                 <Select
                   text="Atanacak Kullanıcı"
-                  name="kullanici"
-                  value={form.kullanici}
+                  name="assignee"
+                  value={form.assignee}
                   onChange={handleChange}
                   placeholder="Kullanıcı seçin"
                   options={[
-                    {
-                      value: "",
-                      label: "Kullanıcı seçin",
-                    },
+         
                     ...users.map((user) => ({
-                      value: user._id,
+                      value: user.email,
                       label: user.email,
                     })),
                   ]}

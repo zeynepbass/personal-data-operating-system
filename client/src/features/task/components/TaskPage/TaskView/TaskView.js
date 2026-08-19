@@ -7,25 +7,29 @@ export default function TableView({
   deletedTask,
   openMenuId,
   onMenuClick,
+  data,
   router
 }) {
+
   return (
     <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white p-2 shadow-sm">
       <table className="w-full border-separate border-spacing-0">
         <thead>
           <tr>
             <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-              Task
+              Görev
             </th>
 
             <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-              Label
+              Etiket
             </th>
 
             <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-              Status
+              Durum
             </th>
-
+            <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+              kullanıcı
+            </th>
             <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
               Date
             </th>
@@ -76,7 +80,9 @@ export default function TableView({
                     {task?.status || "-"}
                   </span>
                 </td>
-
+                <td className="px-5 py-4 text-sm text-gray-500">
+                  {task?.assignee?.fullName || "-"}
+                </td>
                 <td className="px-5 py-4 text-sm text-gray-500">
                   {task?.date || "-"}
                 </td>

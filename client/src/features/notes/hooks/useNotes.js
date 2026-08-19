@@ -19,7 +19,10 @@ export default function useNotes() {
     mutationFn: (id) => deletedNotes(id),
   
     onSuccess: (response) => {
-      toast.success(response.message);
+      toast.success(
+        response.data?.message ||
+          "Başarıyla silindi."
+      );
   
       queryClient.invalidateQueries({
         queryKey: ["notes"],
@@ -29,8 +32,7 @@ export default function useNotes() {
   
     onError: (error) => {
       toast.error(
-        error.response?.data?.message ||
-          "Not silinirken hata oluştu."
+        error.response?.data?.message || "Not oluşturulurken hata oluştu."
       );
     },
   });
@@ -40,7 +42,10 @@ export default function useNotes() {
     },
   
     onSuccess: (response) => {
-      toast.success(response.message);
+      toast.success(
+        response.data?.message ||
+          "Not başarıyla oluşturuldu."
+      );
   
       queryClient.invalidateQueries({
         queryKey: ["notes"],
@@ -48,10 +53,7 @@ export default function useNotes() {
     },
   
     onError: (error) => {
-      toast.error(
-        error.response?.data?.message ||
-          "Not eklenirken hata oluştu."
-      );
+          error.response?.data?.message || "Not oluşturulurken hata oluştu."
     },
   });
   return {

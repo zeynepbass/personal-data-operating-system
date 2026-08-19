@@ -1,6 +1,6 @@
 "use client";
 
-export default function TaskNavigation  ({ setView, view,isAdmin })  {
+export default function TaskNavigation  ({ setView, view,isAdmin,isInitialized})  {
 
 
   const base =
@@ -20,10 +20,12 @@ export default function TaskNavigation  ({ setView, view,isAdmin })  {
       <button className={`${base} ${getClass("kanban")}`} onClick={() => setView("kanban")}>
         Kanban
       </button>
-  {isAdmin &&   
-      <button className={`${base} ${getClass("table")}`} onClick={() => setView("table")}>
+  {isInitialized && isAdmin &&   (
+     <button className={`${base} ${getClass("table")}`} onClick={() => setView("table")}>
         Tablo
-      </button>}
+      </button>
+  )
+     }
 
     </div>
 

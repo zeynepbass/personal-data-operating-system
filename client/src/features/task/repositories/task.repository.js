@@ -11,7 +11,7 @@ export async function getTask() {
 export async function getUsers() {
     const response = await taskProvider.getUsers();
 
-    return response.data.data
+    return response.data?.data ?? [];
 }
 export async function createTask(payload){
 
@@ -33,10 +33,7 @@ export async function updateTaskStatus(id, name){
 }
 
 export async function updateTaskCompleted(id) {
-    const response = await taskProvider.updateTaskCompleted(id, {
-      completed: false,
-      name: "done",
-    });
+    const response = await taskProvider.updateTaskCompleted(id);
   
     return response.data;
   }

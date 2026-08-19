@@ -2,10 +2,11 @@
 import DocumentsHome from "../components/DocumentsHome";
 import { useDocuments } from "../hooks/useDocuments";
 import filteredData from "../utils/filtered.search";
-import {useAuthStore} from "@/shared/store/auth.store"
+import {useAuth} from "@/features/auth/hooks/useAuth"
 export default function DocumentsPage() {
-  const user=useAuthStore();
-  const isAdmin=user?.role==="admin"
+  const { user, isInitialized } = useAuth();
+
+  const isAdmin = user?.role === "admin";
   const {
     data,
     isLoading,
@@ -38,6 +39,7 @@ const handleDelete = (id) => {
     <DocumentsHome
     data={filteredDocuments}
     isAdmin={isAdmin}
+    isInitialized={isInitialized}
     createDocument={createDocument}
     isCreating={isCreating}
     open={open}

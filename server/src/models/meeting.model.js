@@ -4,6 +4,7 @@ const assigneeSchema = new mongoose.Schema(
   {
     id: String,
     fullName: String,
+    email: String,
     role: String,
     avatar: String,
     status: String,
@@ -16,6 +17,7 @@ const assigneeSchema = new mongoose.Schema(
 const taskSchema = new mongoose.Schema(
   {
     id: String,
+
     title: String,
     description: String,
     label: String,
@@ -28,7 +30,6 @@ const taskSchema = new mongoose.Schema(
     estimatedHours: Number,
     spentHours: Number,
     progress: Number,
-    spentHours: Number,
     storyPoints: Number,
 
     completed: {
@@ -48,12 +49,6 @@ const taskSchema = new mongoose.Schema(
 
 const meetingSchema = new mongoose.Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-
     id: {
       type: String,
       required: true,
@@ -62,6 +57,7 @@ const meetingSchema = new mongoose.Schema(
 
     name: {
       type: String,
+      
       required: true,
     },
 
