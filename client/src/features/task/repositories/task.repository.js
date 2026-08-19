@@ -7,6 +7,12 @@ export async function getTask() {
 
     return response.data.data.map(tasksAdapter);
 }
+
+export async function getUsers() {
+    const response = await taskProvider.getUsers();
+
+    return response.data.data
+}
 export async function createTask(payload){
 
     const response=await taskProvider.postTask(payload);

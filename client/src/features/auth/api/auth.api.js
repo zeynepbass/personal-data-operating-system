@@ -1,0 +1,11 @@
+import apiClient from "@/shared/api";
+
+export const authApi = {
+  login(data) {
+    return apiClient.post("/auth/login", data);
+  },
+
+  register(data) {
+    return apiClient.post("/auth/register", data);
+  }
+};

@@ -20,6 +20,7 @@ export default function DocumentsModal({
   open,
   setOpen,
   isCreating,
+  isAdmin,
   onSubmit,
 }) {
   const [form, setForm] = useState(initialForm);
@@ -178,10 +179,10 @@ export default function DocumentsModal({
               </div>
             </div>
 
-
-            <div className="rounded-xl border border-gray-200 bg-white p-6">
+          { isAdmin && 
+          <div className="rounded-xl border border-gray-200 bg-white p-6">
               <Heading title="Belge Ayarları" />
-
+  
               <div className="mt-5">
                 <Select
                   text="Paylaşım"
@@ -202,6 +203,9 @@ export default function DocumentsModal({
                 />
               </div>
             </div>
+            
+            }
+        
 
 
             <div className="rounded-xl border border-gray-200 bg-white p-6">

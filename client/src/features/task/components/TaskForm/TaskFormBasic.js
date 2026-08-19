@@ -33,6 +33,7 @@ export function TaskFormBasic({ task, onChange }) {
           onChange={onChange}
           placeholder="Örn. frontend"
         />
+
       </div>
     </div>
   );

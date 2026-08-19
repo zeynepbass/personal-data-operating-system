@@ -1,11 +1,13 @@
-"use client"
+"use client";
+
 import {
   getTask,
   createTask,
   updateTask,
   deletedTask,
   updateTaskStatus,
-  updateTaskCompleted
+  updateTaskCompleted,
+  getUsers,
 } from "../repositories/task.repository";
 
 import { useState } from "react";
@@ -27,6 +29,11 @@ export function useTasks() {
   const query = useQuery({
     queryKey: ["tasks"],
     queryFn: getTask,
+  });
+
+  const usersQuery = useQuery({
+    queryKey: ["meeting-users"],
+    queryFn: getUsers,
   });
 
   const createMutation = useMutation({
@@ -107,27 +114,21 @@ export function useTasks() {
   });
 
   const statusMutation = useMutation({
-    mutationFn: ({ id, status }) => {
+    mutationFn: ({ id, status }) =>
+      updateTaskStatus(id, status),
 
-      return updateTaskStatus(id, status);
-    },
-  
     onSuccess: (response) => {
-
-  
       toast.success(
         response.data?.message ||
           "Task durumu güncellendi."
       );
-  
+
       queryClient.invalidateQueries({
         queryKey: ["tasks"],
       });
     },
-  
-    onError: (error) => {
 
-  
+    onError: (error) => {
       toast.error(
         error.response?.data?.message ||
           error.message ||
@@ -137,49 +138,57 @@ export function useTasks() {
   });
 
   const handleDragEnd = (result) => {
-
     const {
       destination,
       source,
       draggableId,
     } = result;
-  
-    if (!destination) {
 
-      return;
-    }
-  
+    if (!destination) return;
+
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
-
       return;
     }
 
-  
     statusMutation.mutate({
       id: draggableId,
       status: destination.droppableId,
     });
   };
+
   const onToggle = async (task, completed) => {
     try {
       await updateTaskCompleted(task.id, {
         completed,
         name: completed ? "done" : task.name,
       });
+
+      queryClient.invalidateQueries({
+        queryKey: ["tasks"],
+      });
     } catch (error) {
       console.error("Task güncellenemedi:", error);
     }
   };
+
   return {
     ...query,
 
+
+    users: usersQuery.data?.data || [],
+    usersLoading: usersQuery.isLoading,
+    usersError: usersQuery.error,
+
     view,
     setView,
+
     open,
-    setOpen,onToggle,
+    setOpen,
+
+    onToggle,
 
     openMenuId,
     setOpenMenuId,

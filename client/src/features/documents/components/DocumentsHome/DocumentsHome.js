@@ -35,6 +35,7 @@ export default function DocumentsHome({
   setSearch,
   open,
   setOpen,
+  isAdmin,
   filter,
   setFilter,
   handleDelete,
@@ -58,6 +59,7 @@ export default function DocumentsHome({
 
         <DocumentsModal
           open={open}
+          isAdmin={isAdmin}
           setOpen={setOpen}
           isCreating={isCreating}
           onSubmit={createDocument}
