@@ -1,10 +1,23 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import AnalyticsHome from "../components/AnalyticsHome";
 import { getRemainingMonthDates } from "../utils/date";
+import { useTasks } from "@/features/task/hooks/useTask";
 
-export default function AnalyticsPage({ meeting = [] }) {
+export default function AnalyticsPage() {
+  const router = useRouter();
+  const { data: meeting = [], isLoading, error } = useTasks();
+
+  useEffect(() => {
+    if (error?.response?.status === 401) {
+      window.localStorage.removeItem("pdos_token");
+      window.localStorage.removeItem("pdos_user");
+      router.replace("/login");
+    }
+  }, [error, router]);
+
   const tasks = useMemo(() => {
     return meeting.flatMap((column) => column.tasks ?? []);
   }, [meeting]);
@@ -112,6 +125,17 @@ export default function AnalyticsPage({ meeting = [] }) {
       ),
     };
   }, [filteredTasks]);
+
+  if (isLoading) {
+    return <p className="p-6 text-sm text-gray-500">Yükleniyor...</p>;
+  }
+
+  if (error) {
+    if (error.response?.status === 401) {
+      return <p className="p-6 text-sm text-gray-500">Giriş sayfasına yönlendiriliyorsunuz...</p>;
+    }
+    return <p className="p-6 text-sm text-red-600">Veriler yüklenemedi: {error.message}</p>;
+  }
 
   return (
     <AnalyticsHome

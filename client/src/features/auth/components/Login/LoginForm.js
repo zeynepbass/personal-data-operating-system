@@ -3,11 +3,40 @@
 import Link from "next/link";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import apiClient from "@/shared/api";
 import { PageHeader } from "@/shared/components/molecules";
 import { Button, Input } from "@/shared/components/atoms";
 import Image from "next/image";
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError("");
+    setIsSubmitting(true);
+
+    try {
+      const response = await apiClient.post("/auth/login", { email, password });
+      const { token, user } = response.data.data;
+
+      window.localStorage.setItem("pdos_token", token);
+      window.localStorage.setItem("pdos_user", JSON.stringify(user));
+      router.replace("/dashboard");
+    } catch (requestError) {
+      setError(
+        requestError.response?.data?.message ||
+          "Giriş yapılamadı. Bilgilerinizi kontrol edin."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="grid min-h-screen lg:grid-cols-12">
@@ -30,7 +59,7 @@ export default function LoginForm() {
             description="Hesabınıza giriş yaparak hedeflerinizi takip etmeye devam edin."
           />
 
-          <form className="mt-8 space-y-6">
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="relative">
               <Mail
                 size={20}
@@ -38,6 +67,11 @@ export default function LoginForm() {
               />
 
               <Input
+                type="email"
+                name="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
                 placeholder="E-posta adresiniz"
                 className="h-14 rounded-2xl pl-14 pr-14 w-full border border-gray-200"
               />
@@ -51,6 +85,10 @@ export default function LoginForm() {
 
               <Input
                 type={showPassword ? "text" : "password"}
+                name="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                required
                 placeholder="Şifreniz"
                 className="h-14 rounded-2xl pl-14 pr-14 w-full border border-gray-200"
               />
@@ -78,7 +116,18 @@ export default function LoginForm() {
               </Link>
             </div>
 
-            <Button text="Giriş Yap" className="w-full text-white " />
+            {error && (
+              <p className="text-sm text-red-600" role="alert">
+                {error}
+              </p>
+            )}
+
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              text={isSubmitting ? "Giriş yapılıyor..." : "Giriş Yap"}
+              className="w-full text-white disabled:cursor-not-allowed disabled:opacity-60"
+            />
 
             <div className="relative py-2">
               <div className="absolute inset-0 flex items-center">
@@ -92,7 +141,7 @@ export default function LoginForm() {
               </div>
             </div>
 
-            <button className="flex h-14 text-gray-500 w-full items-center justify-center gap-3 rounded-2xl border border-gray-200 hover:border-[rgb(125,120,206)]">
+            <button type="button" className="flex h-14 text-gray-500 w-full items-center justify-center gap-3 rounded-2xl border border-gray-200 hover:border-[rgb(125,120,206)]">
               <Image
                 src="/images/google.svg"
                 alt="Google"
