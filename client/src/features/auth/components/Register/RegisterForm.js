@@ -4,11 +4,47 @@ import Link from "next/link";
 import Image from "next/image";
 import { Mail, Lock, Eye, EyeOff, User } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import apiClient from "@/shared/api";
 import {Input,Button} from "@/shared/components/atoms";
 import { PageHeader } from "@/shared/components/molecules";
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordAgain, setPasswordAgain] = useState("");
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError("");
+    setIsSubmitting(true);
+
+    try {
+      const response = await apiClient.post("/auth/register", {
+        fullName,
+        email,
+        password,
+        passwordAgain,
+      });
+      const { token, user } = response.data.data;
+
+      window.localStorage.setItem("pdos_token", token);
+      window.localStorage.setItem("pdos_user", JSON.stringify(user));
+      router.replace("/dashboard");
+    } catch (requestError) {
+      setError(
+        requestError.response?.data?.message ||
+          "Kayıt oluşturulamadı. Bilgilerinizi kontrol edin."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="grid min-h-screen lg:grid-cols-12">
@@ -31,7 +67,7 @@ export default function RegisterForm() {
             description="Hesabınızı oluşturarak notlarınızı düzenlemeye, öğrenme yolculuğunuzu takip etmeye ve tüm içeriklere erişmeye başlayın."
           />
 
-          <form className="mt-8 space-y-6">
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="relative">
               <User
                 size={20}
@@ -39,6 +75,10 @@ export default function RegisterForm() {
               />
 
               <Input
+                name="fullName"
+                value={fullName}
+                onChange={(event) => setFullName(event.target.value)}
+                required
                 placeholder="Adınız Soyadınız"
                 className="h-14 rounded-2xl pl-14 pr-14 w-full border border-gray-200"
               />
@@ -50,6 +90,11 @@ export default function RegisterForm() {
               />
 
               <Input
+                type="email"
+                name="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
                 placeholder="E-posta adresiniz"
                 className="h-14 rounded-2xl pl-14 pr-14 w-full border border-gray-200"
               />
@@ -62,6 +107,10 @@ export default function RegisterForm() {
 
               <Input
                 type={showPassword ? "text" : "password"}
+                name="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                required
                 placeholder="Şifreniz"
                 className="h-14 rounded-2xl pl-14 pr-14 w-full border border-gray-200"
               />
@@ -83,6 +132,10 @@ export default function RegisterForm() {
 
               <Input
                 type={showPassword ? "text" : "password"}
+                name="passwordAgain"
+                value={passwordAgain}
+                onChange={(event) => setPasswordAgain(event.target.value)}
+                required
                 placeholder="Şifre Tekrar"
                 className="h-14 rounded-2xl pl-14 pr-14 w-full border border-gray-200"
               />
@@ -103,10 +156,20 @@ export default function RegisterForm() {
               </label>
             </div>
 
+            {error && (
+              <p className="text-sm text-red-600" role="alert">
+                {error}
+              </p>
+            )}
 
-            <Button text="Kayıt Ol" className="w-full text-white " />
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              text={isSubmitting ? "Kayıt oluşturuluyor..." : "Kayıt Ol"}
+              className="w-full text-white disabled:cursor-not-allowed disabled:opacity-60"
+            />
 
-    
+
 
             <div className="relative py-2">
               <div className="absolute inset-0 flex items-center">
@@ -119,8 +182,8 @@ export default function RegisterForm() {
                 </span>
               </div>
             </div>
-    
-                <button className="flex h-14 text-gray-500 w-full items-center justify-center gap-3 rounded-2xl border border-gray-200 hover:border-[rgb(125,120,206)]">
+
+                <button type="button" className="flex h-14 text-gray-500 w-full items-center justify-center gap-3 rounded-2xl border border-gray-200 hover:border-[rgb(125,120,206)]">
                   <Image
                     src="/images/google.svg"
                     alt="Google"
