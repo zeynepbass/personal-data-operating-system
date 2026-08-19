@@ -54,7 +54,7 @@ export default function DocumentsHome({
       className="w-full md:w-auto hover:text-white text-gray-50"
     />
 </div>
-    <section className="flex flex-col gap-6 h-[80vh] overflow-scroll bg-white p-5 shadow-sm rounded-2xl ">
+    <section className="scrollbar-thin flex flex-col gap-6 h-[80vh] overflow-y-auto overflow-x-hidden bg-white dark:bg-[#1a1a22] p-5 shadow-sm rounded-2xl ">
 
         <DocumentsModal
           open={open}
@@ -68,7 +68,7 @@ export default function DocumentsHome({
         <div className="relative flex-1">
           <Search
             size={18}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
           />
 
           <Input
@@ -76,7 +76,7 @@ export default function DocumentsHome({
             placeholder="Belge ara..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-10 border-0  text-sm focus:outline-none focus:ring-2 focus:ring-[#555A8A]"
+          className="w-full pl-10 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#555A8A]"
           />
         </div>
 
@@ -103,9 +103,9 @@ export default function DocumentsHome({
         {data?.map((doc) => (
           <div
             key={doc.id}
-            className="group cursor-pointer  border border-gray-200 duration-300
-             hover:-translate-y-1 hover:border-[rgb(125,120,206)]
-                   rounded-2xl bg-white p-5 shadow transition hover:shadow-lg
+            className="group cursor-pointer  border border-gray-200 dark:border-white/10 duration-300
+             hover:-translate-y-1 hover:border-[rgb(125,120,206)] dark:hover:border-[#7d78ce]
+                   rounded-2xl bg-white dark:bg-white/5 p-5 shadow transition hover:shadow-lg
              "
           >
             {" "}
@@ -131,10 +131,10 @@ export default function DocumentsHome({
 >
   {iconMap[doc.icon]}
 </div>
-            <h3 className="truncate text-sm font-semibold text-gray-800">
+            <h3 className="truncate text-sm font-semibold text-gray-800 dark:text-gray-100">
               {doc.name}
             </h3>
-            <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
+            <div className="mt-4 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
               <span>{doc.size}</span>
               <span>{doc.date}</span>
             </div>

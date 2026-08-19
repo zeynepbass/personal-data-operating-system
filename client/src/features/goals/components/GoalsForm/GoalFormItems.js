@@ -32,18 +32,19 @@ export function GoalFormItems({ items, onChange }) {
     <div className=" p-4">
       <div className="mb-4 flex items-center justify-between">
         <div>
-          <p className="text-xs text-gray-500">Hedef Maddeleri</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">Hedef Maddeleri</p>
 
-          <h2 className="text-sm font-semibold text-gray-700">
+          <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-200">
             Hedef İçerikleri
           </h2>
         </div>
 
         <Button
           type="button"
+          variant="ghost"
           text="+ Ekle"
           onClick={handleAdd}
-          className="rounded-lg bg-gray-100 px-4 py-2 text-sm text-gray-700"
+          className="rounded-lg bg-gray-100 dark:bg-white/10 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-white/15"
         />
       </div>
 
@@ -51,7 +52,7 @@ export function GoalFormItems({ items, onChange }) {
         {items.map((item, index) => (
           <div
             key={index}
-            className="flex  gap-3  rounded-xl border border-gray-200 p-3"
+            className="flex  gap-3  rounded-xl border border-gray-200 dark:border-white/10 p-3"
           >
             <div className="w-full">
             <Input
@@ -79,7 +80,7 @@ export function GoalFormItems({ items, onChange }) {
               <Trash
                 width="20"
                 height="20"
-                className="cursor-pointer"
+                className="cursor-pointer text-gray-500 dark:text-gray-400"
                 onClick={() => handleRemove(index)}
               />{" "}
             </div>

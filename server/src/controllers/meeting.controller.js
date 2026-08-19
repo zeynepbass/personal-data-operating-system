@@ -1,9 +1,14 @@
+import { v4 as uuidv4 } from "uuid";
 import Meeting from "../models/meeting.model.js";
 import User from "../models/user.model.js";
 
+const generateShortId = () => uuidv4().split("-")[0];
+
 export const getMeetings = async (req, res) => {
   try {
-    const meetings = await Meeting.find()
+    const meetings = await Meeting.find({
+      user: req.user._id,
+    })
       .populate("user", "fullName email role")
       .sort({ createdAt: -1 })
       .lean();
@@ -51,7 +56,6 @@ export const getUsers = async (req, res) => {
 export const createMeeting = async (req, res) => {
   try {
     const {
-      user,
       title,
       name,
       color,
@@ -61,36 +65,10 @@ export const createMeeting = async (req, res) => {
       tasks = [],
     } = req.body;
 
-    if (!user) {
-      return res.status(400).json({
-        success: false,
-        message: "Meeting için kullanıcı seçilmelidir.",
-      });
-    }
-
-    const selectedUser = await User.findOne({
-      _id: user,
-      role: "user",
-    });
-
-    if (!selectedUser) {
-      return res.status(404).json({
-        success: false,
-        message: "Seçilen kullanıcı bulunamadı.",
-      });
-    }
-
-    if (String(selectedUser._id) === String(req.user.id)) {
-      return res.status(403).json({
-        success: false,
-        message: "Kendinize meeting atayamazsınız.",
-      });
-    }
-
     const newMeeting = await Meeting.create({
-      user: selectedUser._id,
+      user: req.user._id,
 
-      id: `${Date.now()}`,
+      id: generateShortId(),
 
       title,
       name,
@@ -103,8 +81,8 @@ export const createMeeting = async (req, res) => {
 
       meetingDetails,
 
-      tasks: tasks.map((task, index) => ({
-        id: `${Date.now()}-${index}`,
+      tasks: tasks.map((task) => ({
+        id: generateShortId(),
 
         title: task.title,
         description: task.description,
@@ -156,6 +134,66 @@ export const createMeeting = async (req, res) => {
 };
 
 
+export const updateMeetingDetails = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const {
+      meeting,
+      meetingCalendar,
+      meetingDetails,
+      meetingNotes,
+    } = req.body;
+
+    const meetingDoc = await Meeting.findOne({
+      id,
+      user: req.user.id,
+    });
+
+    if (!meetingDoc) {
+      return res.status(404).json({
+        success: false,
+        message: "Etkinlik bulunamadı.",
+      });
+    }
+
+    if (meeting !== undefined) {
+      meetingDoc.meeting = meeting;
+    }
+
+    if (meetingCalendar !== undefined) {
+      meetingDoc.meetingCalendar = meetingCalendar
+        ? new Date(meetingCalendar)
+        : null;
+    }
+
+    if (meetingDetails !== undefined) {
+      meetingDoc.meetingDetails = meetingDetails;
+    }
+
+    if (meetingNotes !== undefined) {
+      meetingDoc.meetingNotes = meetingNotes;
+    }
+
+    await meetingDoc.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Etkinlik başarıyla güncellendi.",
+      data: meetingDoc,
+    });
+  } catch (error) {
+    console.error("UPDATE MEETING DETAILS ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Etkinlik güncellenirken hata oluştu.",
+      error: error.message,
+    });
+  }
+};
+
+
 export const updateMeeting = async (req, res) => {
   try {
     const { id } = req.params;
@@ -178,6 +216,7 @@ export const updateMeeting = async (req, res) => {
 
     const meeting = await Meeting.findOne({
       "tasks.id": id,
+      user: req.user.id,
     });
 
     if (!meeting) {
@@ -285,6 +324,7 @@ export const deleteMeeting = async (req, res) => {
 
     const meeting = await Meeting.findOne({
       "tasks.id": id,
+      user: req.user.id,
     });
 
     if (!meeting) {
@@ -329,13 +369,14 @@ export const updateTaskStatus = async (req, res) => {
     }
 
     const meeting = await Meeting.findOne({
-      id: id,
+      "tasks.id": id,
+      user: req.user.id,
     });
 
     if (!meeting) {
       return res.status(404).json({
         success: false,
-        message: "Meeting bulunamadı.",
+        message: "Task bulunamadı.",
       });
     }
 
@@ -345,7 +386,7 @@ export const updateTaskStatus = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "Meeting durumu güncellendi.",
+      message: "Görev durumu güncellendi.",
       data: meeting,
     });
   } catch (error) {

@@ -14,7 +14,6 @@ export default function AnalyticsSelect({  options,
   text="Filtrele"
   name="type"
   placeholder="Filtrele"
-  className="bg-white"
   options={options}
 />{" "}
 </div>

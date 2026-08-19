@@ -60,8 +60,8 @@ export default function AnalyticsHome({
       </div>
 
 
-      <section className="rounded-2xl bg-white p-6 shadow-sm">
-        <h2 className="mb-5 text-lg font-semibold text-[#555A8A]">
+      <section className="rounded-2xl bg-white dark:bg-[#1a1a22] p-6 shadow-sm">
+        <h2 className="mb-5 text-lg font-semibold text-[#555A8A] dark:text-[#a5a1e8]">
           Günlere Göre Görev Tamamlama
         </h2>
 
@@ -136,16 +136,16 @@ export default function AnalyticsHome({
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
 
 
-        <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-          <p className="text-sm text-gray-500">
+        <div className="rounded-2xl border border-gray-100 dark:border-white/10 bg-white dark:bg-[#1a1a22] p-6 shadow-sm">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             En Verimli Gün
           </p>
 
-          <h2 className="mt-2 text-3xl font-bold text-[#555A8A]">
+          <h2 className="mt-2 text-3xl font-bold text-[#555A8A] dark:text-[#a5a1e8]">
             {mostProductiveDay?.day ?? "-"}
           </h2>
 
-          <p className="mt-2 text-sm font-medium text-emerald-500">
+          <p className="mt-2 text-sm font-medium text-emerald-500 dark:text-emerald-400">
             {mostProductiveDay
               ? `${mostProductiveDay.value} task`
               : "Henüz veri yok"}
@@ -153,16 +153,16 @@ export default function AnalyticsHome({
         </div>
 
 
-        <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-          <p className="text-sm text-gray-500">
+        <div className="rounded-2xl border border-gray-100 dark:border-white/10 bg-white dark:bg-[#1a1a22] p-6 shadow-sm">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             En Çok Çalışılan Kategori
           </p>
 
-          <h2 className="mt-2 text-3xl font-bold text-[#555A8A]">
+          <h2 className="mt-2 text-3xl font-bold text-[#555A8A] dark:text-[#a5a1e8]">
             {mostWorkedCategory?.category ?? "-"}
           </h2>
 
-          <div className="mt-5 h-2 overflow-hidden rounded-full bg-gray-200">
+          <div className="mt-5 h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-white/10">
             <div
               className="h-full rounded-full bg-[#665CFF]"
               style={{
@@ -171,7 +171,7 @@ export default function AnalyticsHome({
             />
           </div>
 
-          <p className="mt-2 text-sm font-medium text-[#665CFF]">
+          <p className="mt-2 text-sm font-medium text-[#665CFF] dark:text-[#a5a1e8]">
             {mostWorkedCategory?.percentage ?? 0}%
           </p>
         </div>

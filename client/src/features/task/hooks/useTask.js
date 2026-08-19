@@ -3,6 +3,7 @@ import {
   getTask,
   createTask,
   updateTask,
+  updateEventDetails,
   deletedTask,
   updateTaskStatus,
   updateTaskCompleted
@@ -10,6 +11,7 @@ import {
 
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { emptyTaskFilters } from "../utils/taskFilters";
 
 import {
   useQuery,
@@ -21,6 +23,8 @@ export function useTasks() {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState("list");
   const [openMenuId, setOpenMenuId] = useState(null);
+  const [editingEvent, setEditingEvent] = useState(null);
+  const [filters, setFilters] = useState(emptyTaskFilters);
 
   const queryClient = useQueryClient();
 
@@ -76,6 +80,32 @@ export function useTasks() {
         error.response?.data?.message ||
           error.message ||
           "Task güncellenemedi."
+      );
+    },
+  });
+
+  const updateEventMutation = useMutation({
+    mutationFn: ({ id, data }) =>
+      updateEventDetails(id, data),
+
+    onSuccess: (response) => {
+      toast.success(
+        response.message ||
+          "Etkinlik başarıyla güncellendi."
+      );
+
+      queryClient.invalidateQueries({
+        queryKey: ["tasks"],
+      });
+
+      setEditingEvent(null);
+    },
+
+    onError: (error) => {
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          "Etkinlik güncellenemedi."
       );
     },
   });
@@ -197,5 +227,13 @@ export function useTasks() {
 
     updateTaskStatus: statusMutation.mutate,
     isUpdatingStatus: statusMutation.isPending,
+
+    editingEvent,
+    setEditingEvent,
+    updateEvent: updateEventMutation.mutate,
+    isUpdatingEvent: updateEventMutation.isPending,
+
+    filters,
+    setFilters,
   };
 }

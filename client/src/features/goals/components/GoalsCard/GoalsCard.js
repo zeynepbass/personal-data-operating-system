@@ -45,22 +45,22 @@ export default function GoalsCard({
   };
 
   return (
-    <div className="relative rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
+    <div className="relative rounded-3xl border border-gray-100 dark:border-white/10 bg-white dark:bg-[#1a1a22] p-6 shadow-sm">
       {" "}
       <div className="flex items-center justify-between">
         {" "}
-        <p className="text-sm font-semibold"> {category} </p>{" "}
+        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100"> {category} </p>{" "}
         <button
           type="button"
           aria-label="Goal menüsünü aç"
           onClick={() => handleMenuClick(id)}
-          className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900"
+          className="rounded-lg p-2 text-gray-500 dark:text-gray-400 transition-colors hover:bg-gray-100 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-gray-100"
         >
           {" "}
           ⋮{" "}
         </button>{" "}
         {openMenu===id && (
-          <div className="absolute right-4 top-14 z-50 min-w-[120px] overflow-hidden rounded-lg border border-gray-200 bg-white py-1 text-sm shadow-lg">
+          <div className="absolute right-4 top-14 z-50 min-w-[120px] overflow-hidden rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#232330] py-1 text-sm shadow-lg">
             {" "}
             <button
               type="button"
@@ -69,7 +69,7 @@ export default function GoalsCard({
                 setSelectedValue(id);
                 setOpenMenu(false);
               }}
-              className="flex w-full items-center gap-2 px-4 py-2 text-left text-gray-700 hover:bg-gray-100"
+              className="flex w-full items-center gap-2 px-4 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/10"
             >
               {" "}
               <Pencil size={16} /> Düzenle{" "}
@@ -82,7 +82,7 @@ export default function GoalsCard({
 
                 setOpenMenu(false);
               }}
-              className="flex w-full items-center gap-2 px-4 py-2 text-left text-[#7d78ce] hover:bg-gray-100"
+              className="flex w-full items-center gap-2 px-4 py-2 text-left text-[#7d78ce] hover:bg-gray-100 dark:hover:bg-white/10"
             >
               {" "}
               <Trash size={16} /> Sil{" "}
@@ -90,9 +90,9 @@ export default function GoalsCard({
           </div>
         )}{" "}
       </div>{" "}
-      <h2 className="mt-2 text-3xl font-bold text-[#555A8A]"> {title} </h2>{" "}
+      <h2 className="mt-2 text-3xl font-bold text-[#555A8A] dark:text-[#a5a1e8]"> {title} </h2>{" "}
       <div className="mt-6 flex items-center gap-5">
-        <div className="h-2 flex-1 overflow-hidden rounded-full bg-gray-100">
+        <div className="h-2 flex-1 overflow-hidden rounded-full bg-gray-100 dark:bg-white/10">
           {" "}
           <div className="h-full" />{" "}
         </div>{" "}
@@ -117,7 +117,7 @@ export default function GoalsCard({
                 type="submit"
                 disabled={isUpdating}
                 text={isUpdating ? "Güncelleniyor..." : "Görevi Düzenle"}
-                className="rounded-xl bg-[#555A8A] px-6 py-3 text-gray-50 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl px-6 py-3 disabled:cursor-not-allowed disabled:opacity-60"
               />
             </div>
           )}

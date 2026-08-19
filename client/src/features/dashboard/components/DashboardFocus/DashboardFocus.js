@@ -214,34 +214,34 @@ export default function DashboardFocus({ duration }) {
       <div className="grid grid-cols-3 gap-3">
 
 
-        <div className="rounded-xl border border-indigo-100 bg-indigo-50 p-4 text-center">
-          <p className="text-2xl font-bold text-[#555A8A]">
+        <div className="rounded-xl border border-indigo-100 dark:border-indigo-400/20 bg-indigo-50 dark:bg-indigo-400/10 p-4 text-center">
+          <p className="text-2xl font-bold text-[#555A8A] dark:text-[#a5a1e8]">
             {statistics.total}
           </p>
 
-          <p className="mt-1 text-xs font-medium text-slate-500">
+          <p className="mt-1 text-xs font-medium text-slate-500 dark:text-slate-400">
             Toplam Görev
           </p>
         </div>
 
 
-        <div className="rounded-xl border border-green-100 bg-green-50 p-4 text-center">
-          <p className="text-2xl font-bold text-green-600">
+        <div className="rounded-xl border border-green-100 dark:border-green-400/20 bg-green-50 dark:bg-green-400/10 p-4 text-center">
+          <p className="text-2xl font-bold text-green-600 dark:text-green-400">
             {statistics.done}
           </p>
 
-          <p className="mt-1 text-xs font-medium text-slate-500">
+          <p className="mt-1 text-xs font-medium text-slate-500 dark:text-slate-400">
             Tamamlanan
           </p>
         </div>
 
 
-        <div className="rounded-xl border border-orange-100 bg-orange-50 p-4 text-center">
-          <p className="text-2xl font-bold text-orange-500">
+        <div className="rounded-xl border border-orange-100 dark:border-orange-400/20 bg-orange-50 dark:bg-orange-400/10 p-4 text-center">
+          <p className="text-2xl font-bold text-orange-500 dark:text-orange-400">
             {statistics.pending}
           </p>
 
-          <p className="mt-1 text-xs font-medium text-slate-500">
+          <p className="mt-1 text-xs font-medium text-slate-500 dark:text-slate-400">
             Tamamlanmayı Bekleyen
           </p>
         </div>
@@ -251,7 +251,7 @@ export default function DashboardFocus({ duration }) {
       <div className="mt-4 grid grid-cols-3 gap-3">
 
 
-        <div className="rounded-xl border border-green-500 bg-white p-3 text-center">
+        <div className="rounded-xl border border-green-500 bg-white dark:bg-transparent p-3 text-center">
           <p className="text-lg font-bold text-green-500">
             {statistics.todo}
           </p>
@@ -262,7 +262,7 @@ export default function DashboardFocus({ duration }) {
         </div>
 
 
-        <div className="rounded-xl border border-blue-500 bg-white p-3 text-center">
+        <div className="rounded-xl border border-blue-500 bg-white dark:bg-transparent p-3 text-center">
           <p className="text-lg font-bold text-blue-500">
             {statistics.inProgress}
           </p>
@@ -273,8 +273,8 @@ export default function DashboardFocus({ duration }) {
         </div>
 
 
-        <div className="rounded-xl border border-orange-500 bg-white p-3 text-center">
-          
+        <div className="rounded-xl border border-orange-500 bg-white dark:bg-transparent p-3 text-center">
+
           <p className="text-lg font-bold text-orange-500">
             {statistics.done}
           </p>
@@ -288,11 +288,11 @@ export default function DashboardFocus({ duration }) {
 
       <div className="mt-8">
         <div className="mb-3 flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-700">
+          <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">
             Haftalık Aktivite
           </p>
 
-          <span className="text-xs text-slate-400">
+          <span className="text-xs text-slate-400 dark:text-slate-500">
             Son 7 gün
           </span>
         </div>
@@ -314,18 +314,18 @@ export default function DashboardFocus({ duration }) {
                   key={item.id}
                   className="flex flex-col items-center gap-2"
                 >
-                  <span className="text-xs font-medium text-purple-300">
+                  <span className="text-xs font-medium text-purple-300 dark:text-purple-300">
                     {item.count}
                   </span>
 
                   <div
-                    className="w-7 rounded-t-lg bg-purple-300 transition-all hover:opacity-80"
+                    className="w-7 rounded-t-lg bg-purple-300 dark:bg-purple-400 transition-all hover:opacity-80"
                     style={{
                       height: `${height}px`,
                     }}
                   />
 
-                  <span className="text-xs font-medium text-slate-400">
+                  <span className="text-xs font-medium text-slate-400 dark:text-slate-500">
                     {item.day}
                   </span>
                 </div>

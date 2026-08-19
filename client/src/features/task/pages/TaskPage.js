@@ -7,6 +7,7 @@ import {
   transformTasksToRows,
   getTodayTasks,
 } from "../utils/colums.filter";
+import { filterMeetings } from "../utils/taskFilters";
 import { useRouter } from "next/navigation";
 export default function TaskPage() {
   const {
@@ -16,7 +17,7 @@ export default function TaskPage() {
     isError,
     openMenuId,
     setOpenMenuId,
-    
+
     handleDragEnd,
     error,
     isCreating,
@@ -25,7 +26,13 @@ export default function TaskPage() {
     setView,
     open,
     setOpen,
-    onToggle
+    onToggle,
+    editingEvent,
+    setEditingEvent,
+    updateEvent,
+    isUpdatingEvent,
+    filters,
+    setFilters,
   } = useTasks();
   const router = useRouter();
   const handleMenuClick = (taskId) => {
@@ -34,14 +41,19 @@ export default function TaskPage() {
     );
   };
 
+  const filteredData = useMemo(
+    () => filterMeetings(data ?? [], filters),
+    [data, filters]
+  );
+
   const rows = useMemo(
-    () => transformTasksToRows(data ?? []),
-    [data]
+    () => transformTasksToRows(filteredData),
+    [filteredData]
   );
 
   const todayTasks = useMemo(
-    () => getTodayTasks(data),
-    [data]
+    () => getTodayTasks(filteredData),
+    [filteredData]
   );
 
   if (isLoading) {
@@ -72,7 +84,13 @@ export default function TaskPage() {
       onDragEnd={handleDragEnd}
       setOpen={setOpen}
       setView={setView}
-      data={data ?? []}
+      data={filteredData}
+      editingEvent={editingEvent}
+      setEditingEvent={setEditingEvent}
+      updateEvent={updateEvent}
+      isUpdatingEvent={isUpdatingEvent}
+      filters={filters}
+      setFilters={setFilters}
     />
   );
 }

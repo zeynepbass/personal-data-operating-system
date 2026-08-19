@@ -17,11 +17,11 @@ export default function GoalItem({
     onChange?.(newValue);
   };
   return (
-    <div className="flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-4">
+    <div className="flex items-center gap-4 rounded-xl border border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 p-4">
       <div className="h-4 w-4 rounded-full border-2 border-indigo-500" />
 
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-medium text-gray-700">{title}</p>
+        <p className="truncate text-sm font-medium text-gray-700 dark:text-gray-200">{title}</p>
       </div>
 
       {selectedValue ? (
@@ -36,13 +36,13 @@ export default function GoalItem({
 />
       ) : (
         <div className="flex w-44 items-center gap-3">
-          <div className="h-2 flex-1 rounded-full bg-gray-100">
+          <div className="h-2 flex-1 rounded-full bg-gray-100 dark:bg-white/10">
             <div
               className="h-full rounded-full bg-indigo-500 transition-all"
               style={{ width: `${value}%` }}
             />
           </div>
-          <span className="w-10 text-right text-sm font-semibold text-gray-600">
+          <span className="w-10 text-right text-sm font-semibold text-gray-600 dark:text-gray-300">
             {value}%
           </span>
 </div>

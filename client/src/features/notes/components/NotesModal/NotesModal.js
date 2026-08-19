@@ -199,18 +199,18 @@ export default function NotesModal({
       onClick={handleClose}
     >
       <div
-        className="relative w-full max-w-3xl overflow-hidden rounded-2xl bg-white shadow-xl"
+        className="relative w-full max-w-3xl overflow-hidden rounded-2xl bg-white dark:bg-[#1a1a22] shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
 
 
-        <div className="flex items-center justify-between border-b border-gray-200 p-6">
+        <div className="flex items-center justify-between border-b border-gray-200 dark:border-white/10 p-6">
           <div>
-            <h2 className="text-xl font-semibold text-gray-900">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
               Yeni Not Oluştur
             </h2>
 
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
               Yeni bir not ve içerik bölümleri oluşturun.
             </p>
           </div>
@@ -219,7 +219,7 @@ export default function NotesModal({
             type="button"
             onClick={handleClose}
             disabled={isCreating}
-            className="rounded-lg p-2 text-gray-500 transition hover:bg-gray-100 hover:text-gray-900 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg p-2 text-gray-500 dark:text-gray-400 transition hover:bg-gray-100 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
           >
             ✕
           </button>
@@ -227,13 +227,13 @@ export default function NotesModal({
 
 
 
-        <div className="max-h-[75vh] overflow-y-auto p-6">
+        <div className="scrollbar-thin max-h-[75vh] overflow-y-auto p-6">
           <form
             onSubmit={handleSubmit}
             className="space-y-6"
 >
 
-            <div className="rounded-xl border border-gray-200 bg-gray-50 p-6">
+            <div className="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 p-6">
               <Heading title="Not Bilgileri" />
 
               <div className="mt-5 space-y-5">
@@ -289,7 +289,7 @@ export default function NotesModal({
             {/* SECTIONS */}
             {/* -------------------------------- */}
 
-            <div className="rounded-xl border border-gray-200 bg-white p-6">
+            <div className="rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
               <div className="flex items-center justify-between">
                 <Heading title="Sections" />
 
@@ -297,13 +297,13 @@ export default function NotesModal({
                   type="button"
                   text="+ Section Ekle"
                   onClick={addSection}
-                  className="rounded-xl bg-[#555A8A] px-4 py-2 text-sm text-white hover:bg-[#474c78]"
+                  className="rounded-xl px-4 py-2 text-sm"
                 />
               </div>
 
               <div className="mt-5 space-y-6">
                 {form.sections.length === 0 && (
-                  <div className="rounded-xl border border-dashed border-gray-300 p-6 text-center text-sm text-gray-500">
+                  <div className="rounded-xl border border-dashed border-gray-300 dark:border-white/15 p-6 text-center text-sm text-gray-500 dark:text-gray-400">
                     Henüz section eklenmedi.
                   </div>
                 )}
@@ -312,12 +312,12 @@ export default function NotesModal({
                   (section, sectionIndex) => (
                     <div
                       key={section.id}
-                      className="rounded-xl border border-gray-200 bg-gray-50 p-5"
+                      className="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 p-5"
                     >
                       {/* SECTION HEADER */}
 
                       <div className="mb-5 flex items-center justify-between">
-                        <h3 className="font-semibold text-gray-800">
+                        <h3 className="font-semibold text-gray-800 dark:text-gray-200">
                           Section {sectionIndex + 1}
                         </h3>
 
@@ -326,7 +326,7 @@ export default function NotesModal({
                           onClick={() =>
                             removeSection(sectionIndex)
                           }
-                          className="rounded-lg px-3 py-1 text-sm text-red-500 hover:bg-red-50"
+                          className="rounded-lg px-3 py-1 text-sm text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10"
                         >
                           Sil
                         </button>
@@ -424,7 +424,7 @@ export default function NotesModal({
                         {section.type === "list" && (
                           <div className="space-y-3">
                             <div className="flex items-center justify-between">
-                              <label className="text-sm font-medium text-gray-700">
+                              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Liste Elemanları
                               </label>
 
@@ -435,7 +435,7 @@ export default function NotesModal({
                                     sectionIndex
                                   )
                                 }
-                                className="text-sm font-medium text-violet-600 hover:text-violet-700"
+                                className="text-sm font-medium text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300"
                               >
                                 + Madde Ekle
                               </button>
@@ -470,7 +470,7 @@ export default function NotesModal({
                                         itemIndex
                                       )
                                     }
-                                    className="rounded-lg px-3 text-red-500 hover:bg-red-50"
+                                    className="rounded-lg px-3 text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10"
                                   >
                                     ✕
                                   </button>
@@ -490,13 +490,14 @@ export default function NotesModal({
             {/* BUTTONS */}
             {/* -------------------------------- */}
 
-            <div className="flex justify-end gap-4 border-t border-gray-200 pt-6">
+            <div className="flex justify-end gap-4 border-t border-gray-200 dark:border-white/10 pt-6">
               <Button
                 type="button"
+                variant="outline"
                 text="İptal"
                 onClick={handleClose}
                 disabled={isCreating}
-                className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-medium text-gray-800 transition hover:border-[rgb(125,120,206)] hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-xl px-6 py-3 hover:border-[rgb(125,120,206)] disabled:cursor-not-allowed disabled:opacity-50"
               />
 
               <Button
@@ -507,7 +508,7 @@ export default function NotesModal({
                     ? "Oluşturuluyor..."
                     : "Notu Oluştur"
                 }
-                className="rounded-xl bg-[#555A8A] px-6 py-3 text-gray-50 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl px-6 py-3 disabled:cursor-not-allowed disabled:opacity-60"
               />
             </div>
           </form>

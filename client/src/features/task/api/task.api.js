@@ -10,6 +10,9 @@ export const taskApi = {
   updatedTask(id,payload){
     return apiClient.put(`/meetings/${id}`,payload);
   },
+  updateEventDetails(id,payload){
+    return apiClient.put(`/meetings/${id}/details`,payload);
+  },
   deletedTask(id){
     return apiClient.delete(`/meetings/${id}`);
   },

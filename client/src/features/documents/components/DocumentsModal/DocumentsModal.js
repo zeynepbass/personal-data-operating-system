@@ -79,15 +79,15 @@ export default function DocumentsModal({
       onClick={handleClose}
     >
       <div
-        className="relative w-full max-w-3xl rounded-2xl bg-white shadow-xl"
+        className="relative w-full max-w-3xl rounded-2xl bg-white dark:bg-[#1a1a22] shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
 
-        <div className="flex items-center justify-between border-b border-gray-200 p-6">
+        <div className="flex items-center justify-between border-b border-gray-200 dark:border-white/10 p-6">
           <div>
             <Heading title="Yeni Belge" />
 
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
               Projeye yeni bir belge oluşturun.
             </p>
           </div>
@@ -96,17 +96,17 @@ export default function DocumentsModal({
             type="button"
             onClick={handleClose}
             disabled={isCreating}
-            className="rounded-lg p-2 transition hover:bg-gray-100"
+            className="rounded-lg p-2 text-gray-700 dark:text-gray-300 transition hover:bg-gray-100 dark:hover:bg-white/10"
           >
             ✕
           </button>
         </div>
 
 
-        <div className="max-h-[75vh] overflow-y-auto p-6">
+        <div className="scrollbar-thin max-h-[75vh] overflow-y-auto p-6">
           <form onSubmit={handleSubmit} className="space-y-8">
 
-            <div className="rounded-xl border border-gray-200 bg-white p-6">
+            <div className="rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
               <Heading title="Belge Bilgileri" />
 
               <div className="mt-5">
@@ -124,7 +124,7 @@ export default function DocumentsModal({
             </div>
 
 
-            <div className="rounded-xl border border-gray-200 bg-white p-6">
+            <div className="rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
               <Heading title="Dosya Bilgileri" />
 
               <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -179,7 +179,7 @@ export default function DocumentsModal({
             </div>
 
 
-            <div className="rounded-xl border border-gray-200 bg-white p-6">
+            <div className="rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
               <Heading title="Belge Ayarları" />
 
               <div className="mt-5">
@@ -204,7 +204,7 @@ export default function DocumentsModal({
             </div>
 
 
-            <div className="rounded-xl border border-gray-200 bg-white p-6">
+            <div className="rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
               <Heading title="Dosya Yükleme" />
 
               <div className="mt-5">
@@ -215,14 +215,14 @@ export default function DocumentsModal({
                   accept="application/pdf,.pdf"
                   onChange={handleChange}
                   required
-                  className="w-full rounded-xl border border-dashed text-gray-500 border-gray-300 p-4"
+                  className="w-full rounded-xl border border-dashed text-gray-500 dark:text-gray-400 border-gray-300 dark:border-white/15 p-4"
                 />
               </div>
 
               {form.pdf && (
-                <p className="mt-3 text-sm text-gray-500">
+                <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
                   Seçilen dosya:{" "}
-                  <span className="font-medium text-gray-700">
+                  <span className="font-medium text-gray-700 dark:text-gray-200">
                     {form.pdf.name}
                   </span>
                 </p>
@@ -230,13 +230,14 @@ export default function DocumentsModal({
             </div>
 
 
-            <div className="flex justify-end gap-4 border-t border-gray-200 pt-6">
+            <div className="flex justify-end gap-4 border-t border-gray-200 dark:border-white/10 pt-6">
               <Button
                 type="button"
+                variant="outline"
                 text="İptal"
                 onClick={handleClose}
                 disabled={isCreating}
-                className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-medium text-gray-800 transition-all duration-200 hover:border-[rgb(125,120,206)] hover:bg-gray-50"
+                className="rounded-xl px-6 py-3 hover:border-[rgb(125,120,206)] disabled:cursor-not-allowed disabled:opacity-60"
               />
 
               <Button
@@ -247,7 +248,7 @@ export default function DocumentsModal({
                     ? "Kaydediliyor..."
                     : "Belgeyi Yükle"
                 }
-                className="rounded-xl bg-[#555A8A] px-6 py-3 text-gray-50 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl px-6 py-3 disabled:cursor-not-allowed disabled:opacity-60"
               />
             </div>
           </form>

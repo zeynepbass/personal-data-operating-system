@@ -1,110 +1,245 @@
-
 .fc {
-    font-family: inherit;
-    color: #555A8A;
-  }
-  
+  --fc-page-bg-color: transparent;
+  --fc-neutral-bg-color: #f4f4f6;
+  --fc-neutral-text-color: #6b7280;
+  --fc-border-color: #eef0f4;
 
-  .fc .fc-toolbar-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #555A8A;
-  }
-  
+  --fc-button-text-color: #555a8a;
+  --fc-button-bg-color: transparent;
+  --fc-button-border-color: transparent;
+  --fc-button-hover-bg-color: #f4f3fb;
+  --fc-button-hover-border-color: transparent;
+  --fc-button-active-bg-color: #555a8a;
+  --fc-button-active-border-color: #555a8a;
 
-  .fc .fc-toolbar {
-    margin-bottom: 24px;
-  }
-  
-  .fc .fc-button-group {
-    gap: 8px;
+  --fc-event-bg-color: #8b5cf6;
+  --fc-event-border-color: #8b5cf6;
+  --fc-event-text-color: #fff;
 
-  }
+  --fc-more-link-bg-color: transparent;
+  --fc-more-link-text-color: #555a8a;
 
-  .fc .fc-button {
-    background: #fff !important;
-    border: 1px solid #E5E7EB !important;
-    color: #555A8A !important;
-    border-radius: 12px !important;
- 
-    padding: 8px 16px !important;
-    font-weight: 600 !important;
-    box-shadow: none !important;
-    transition: .2s;
-  }
-  
-  .fc .fc-button:hover {
-    background: #F8F8FC !important;
-    border-color: #555A8A !important;
-  color:gray !important;
-  }
-  
+  --fc-highlight-color: rgba(85, 90, 138, 0.08);
+  --fc-today-bg-color: rgba(139, 92, 246, 0.06);
+  --fc-now-indicator-color: #8b5cf6;
 
-  .fc .fc-button-active {
-    background: #555A8A !important;
-    color: white !important;
-    border-color: #555A8A !important;
-  }
-  
+  font-family: inherit;
+  color: #555a8a;
+}
 
-  .fc .fc-today-button {
-    background: #16A34A !important;
-    border-color: #16A34A !important;
-    color: white !important;
-  }
-  
-  .fc .fc-today-button:hover {
-    opacity: .9;
-    color:gray
-  }
-  
+.dark .fc {
+  --fc-neutral-bg-color: #232330;
+  --fc-neutral-text-color: #a1a1aa;
+  --fc-border-color: rgba(255, 255, 255, 0.08);
 
-  .fc .fc-col-header-cell {
-    background: #FAFAFC;
-    color: #555A8A;
-    font-weight: 700;
-  }
-  
+  --fc-button-text-color: #c7c4f0;
+  --fc-button-hover-bg-color: rgba(255, 255, 255, 0.06);
+  --fc-button-active-bg-color: #6f6bb3;
+  --fc-button-active-border-color: #6f6bb3;
 
-  .fc-theme-standard td,
-  .fc-theme-standard th {
-    border-color: #EEF2F7;
-  }
-  
-  .fc .fc-daygrid-day {
-    min-height: 110px;
-  }
-  
-  .fc .fc-daygrid-day-number {
-    color: #555A8A;
-    font-weight: 600;
-  }
-  
+  --fc-event-bg-color: #7c6ae0;
+  --fc-event-border-color: #7c6ae0;
 
-  .fc .fc-day-today {
-    background: rgba(85, 90, 138, 0.06) !important;
-  }
-  
+  --fc-more-link-text-color: #a5a1e8;
 
-  .fc .fc-daygrid-event {
-    border-radius: 8px;
-    border: none !important;
-    padding: 3px 8px;
-    font-size: 12px;
-    font-weight: 500;
-  }
-  
+  --fc-highlight-color: rgba(165, 161, 232, 0.1);
+  --fc-today-bg-color: rgba(139, 135, 217, 0.1);
 
-  .fc .fc-daygrid-more-link {
-    color: #555A8A;
-  }
-  .fc .fc-list-event-title a{
-    color: white;
-  }
-  .fc-event {
-    background-color: rgb(200, 146, 233) !important;
-    border-color: orange !important;
-  }
-  .fc-scroller {
-    overflow: hidden !important;
-  }
+  color: #a5a1e8;
+}
+
+/* --- shell --- */
+
+.fc .fc-toolbar-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #555a8a;
+}
+
+.dark .fc .fc-toolbar-title {
+  color: #f4f4f5;
+}
+
+.fc .fc-toolbar {
+  margin-bottom: 20px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.fc .fc-scrollgrid {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th,
+.fc-theme-standard .fc-scrollgrid {
+  border-color: var(--fc-border-color);
+}
+
+/* --- toolbar buttons: segmented pill control --- */
+
+.fc .fc-button-group {
+  gap: 4px;
+  background: var(--fc-neutral-bg-color);
+  padding: 4px;
+  border-radius: 14px;
+}
+
+.fc .fc-button {
+  background: var(--fc-button-bg-color) !important;
+  border: none !important;
+  color: var(--fc-button-text-color) !important;
+  border-radius: 10px !important;
+  padding: 7px 14px !important;
+  font-weight: 600 !important;
+  font-size: 13px;
+  box-shadow: none !important;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.fc .fc-button:hover {
+  background: var(--fc-button-hover-bg-color) !important;
+  color: var(--fc-button-text-color) !important;
+}
+
+.fc .fc-button-active {
+  background: var(--fc-button-active-bg-color) !important;
+  color: #fff !important;
+}
+
+.fc .fc-today-button {
+  background: transparent !important;
+  border: 1px solid var(--fc-border-color) !important;
+  color: #16a34a !important;
+  font-weight: 700 !important;
+}
+
+.dark .fc .fc-today-button {
+  color: #4ade80 !important;
+}
+
+.fc .fc-today-button:hover {
+  background: var(--fc-button-hover-bg-color) !important;
+}
+
+.fc .fc-prev-button,
+.fc .fc-next-button {
+  background: var(--fc-neutral-bg-color) !important;
+  border-radius: 12px !important;
+  color: var(--fc-button-text-color) !important;
+  width: 36px;
+}
+
+/* --- grid --- */
+
+.fc .fc-col-header-cell {
+  background: transparent;
+  color: var(--fc-neutral-text-color);
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 10px 0;
+}
+
+.fc .fc-daygrid-day {
+  min-height: 110px;
+  transition: background-color 0.15s;
+}
+
+.fc .fc-daygrid-day:hover {
+  background: var(--fc-neutral-bg-color);
+}
+
+.fc .fc-daygrid-day-number {
+  color: #555a8a;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px;
+}
+
+.dark .fc .fc-daygrid-day-number {
+  color: #d4d4d8;
+}
+
+.fc .fc-day-today {
+  background: var(--fc-today-bg-color) !important;
+}
+
+.fc .fc-day-today .fc-daygrid-day-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  margin: 4px;
+  padding: 0;
+  border-radius: 999px;
+  background: #8b5cf6;
+  color: #fff;
+  font-weight: 700;
+}
+
+.dark .fc .fc-day-today .fc-daygrid-day-number {
+  background: #7c6ae0;
+}
+
+/* --- events --- */
+
+.fc .fc-daygrid-event {
+  border-radius: 8px;
+  border: none !important;
+  padding: 3px 8px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.fc .fc-daygrid-more-link {
+  color: var(--fc-more-link-text-color);
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.fc-event {
+  background-color: var(--fc-event-bg-color) !important;
+  border-color: var(--fc-event-border-color) !important;
+}
+
+/* --- list / agenda view --- */
+
+.fc .fc-list {
+  border-color: var(--fc-border-color);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.fc .fc-list-day-cushion {
+  background: var(--fc-neutral-bg-color) !important;
+  color: var(--fc-neutral-text-color);
+}
+
+.fc .fc-list-event:hover td {
+  background: var(--fc-neutral-bg-color) !important;
+}
+
+.fc .fc-list-event-title a {
+  color: inherit;
+  font-weight: 500;
+}
+
+.dark .fc .fc-list-event-title a {
+  color: #e4e4e7;
+}
+
+.fc .fc-list-empty {
+  background: transparent !important;
+  color: var(--fc-neutral-text-color);
+}
+
+/* only the liquid (flexible) grid section — the actual time-slot/day
+   content — should scroll; header rows and the all-day row are fixed
+   size and must never show their own scrollbar */
+.fc .fc-scrollgrid-section:not(.fc-scrollgrid-section-liquid) .fc-scroller {
+  overflow: hidden !important;
+}

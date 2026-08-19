@@ -29,7 +29,7 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="flex min-h-screen w-64 flex-col border-r border-gray-100 bg-[rgb(125,120,206)]">
+    <aside className="scrollbar-thin sticky top-0 flex h-screen w-64 shrink-0 flex-col overflow-y-auto border-r border-gray-100 bg-[rgb(125,120,206)] dark:bg-[#2a2740] dark:border-white/10">
       <div className="flex items-center gap-3 px-6 py-5">
         <img
           src="/images/logo.png"
@@ -61,7 +61,7 @@ export function Sidebar() {
         })}
       </nav>
 
-      <div className="border-t border-gray-100 p-4">
+      <div className="border-t border-gray-100 dark:border-white/10 p-4">
         <div className="flex items-center gap-3">
           <img
             src="https://i.pravatar.cc/40"

@@ -28,7 +28,7 @@ export default function NotesLayout({
         />
       </div>
       <div className="grid gap-5 lg:grid-cols-[260px_minmax(0,1fr)_260px]">
-        <aside className="rounded-2xl bg-white p-3">
+        <aside className="rounded-2xl bg-white dark:bg-[#1a1a22] p-3">
           <NotesMenu
             note={note}
             deletedNotes={deletedNotes}

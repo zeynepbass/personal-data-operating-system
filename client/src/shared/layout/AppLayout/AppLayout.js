@@ -17,7 +17,7 @@ export default function AppLayout({ children }) {
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-[var(--background)] text-[var(--foreground)] transition-colors">
       <Sidebar />
 
       <div className="flex flex-1 flex-col">

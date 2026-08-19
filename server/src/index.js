@@ -8,6 +8,8 @@ import notesRoutes from "./routes/notes.routes.js";
 import meetingRoutes from "./routes/meeting.routes.js";
 import documentRoutes from "./routes/document.routes.js";
 import goalRoutes from "./routes/goal.routes.js";
+import goalCategoryRoutes from "./routes/goalCategory.routes.js";
+import taskStageRoutes from "./routes/taskStage.routes.js";
 import authRouter from "./routes/auth.routes.js"
 const app = express();
 
@@ -21,6 +23,8 @@ app.use("/api/auth", authRouter);
 app.use("/api/meetings", meetingRoutes);
 app.use("/api/documents", documentRoutes);
 app.use("/api/goals", goalRoutes);
+app.use("/api/goal-categories", goalCategoryRoutes);
+app.use("/api/task-stages", taskStageRoutes);
 
 
 mongoose

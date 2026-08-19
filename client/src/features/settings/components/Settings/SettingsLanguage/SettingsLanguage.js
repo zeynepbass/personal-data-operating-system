@@ -11,7 +11,7 @@ export default function SettingLanguage() {
     placeholder,
     options,
   }) => (
-    <div className="flex items-center justify-between border-b border-gray-200 px-8 py-6 last:border-none">
+    <div className="flex items-center justify-between border-b border-gray-200 dark:border-white/10 px-8 py-6 last:border-none">
       <div className="max-w-md">
         <Heading
           title={title}
@@ -41,8 +41,8 @@ export default function SettingLanguage() {
       />
 
 
-      <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-        <div className="border-b border-gray-200 px-8 py-6">
+      <div className="overflow-hidden rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#1a1a22] shadow-sm">
+        <div className="border-b border-gray-200 dark:border-white/10 px-8 py-6">
           <Heading
             title="Dil Ayarları"
             // description="Uygulamanın görüntüleme dilini belirleyin."
@@ -110,8 +110,8 @@ export default function SettingLanguage() {
       </div>
 
 
-      <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-        <div className="border-b border-gray-200 px-8 py-6">
+      <div className="overflow-hidden rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#1a1a22] shadow-sm">
+        <div className="border-b border-gray-200 dark:border-white/10 px-8 py-6">
           <Heading
             title="Yerel Tercihler"
             // description="Sayı ve para birimi görüntüleme tercihlerini yönetin."
@@ -143,7 +143,7 @@ export default function SettingLanguage() {
         />
       </div>
 
-      <div className="flex justify-end gap-3 border-t border-gray-200 pt-6">
+      <div className="flex justify-end gap-3 border-t border-gray-200 dark:border-white/10 pt-6">
         <Button
           variant="outline"
           text="Varsayılana Döndür"

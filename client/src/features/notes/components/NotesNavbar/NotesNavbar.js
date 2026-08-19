@@ -4,8 +4,8 @@ export default function NotesNavbar({ note }) {
   }
 
   return (
-    <div className="sticky top-24 rounded-2xl bg-white p-6 shadow-md">
-      <h3 className="mb-5 font-semibold">
+    <div className="sticky top-24 rounded-2xl bg-white dark:bg-[#1a1a22] p-6 shadow-md">
+      <h3 className="mb-5 font-semibold text-gray-900 dark:text-gray-100">
         Bu Sayfada
       </h3>
 
@@ -14,7 +14,7 @@ export default function NotesNavbar({ note }) {
           <a
           key={section.id}
           href={`#${section.id}`}
-            className="block text-slate-600 hover:text-violet-600"
+            className="block text-slate-600 dark:text-slate-400 hover:text-violet-600 dark:hover:text-violet-400"
           >
             {section.title}
           </a>

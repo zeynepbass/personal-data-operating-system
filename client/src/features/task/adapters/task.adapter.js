@@ -6,6 +6,7 @@ export function tasksAdapter(meeting) {
     color: meeting.color,
     meeting: meeting.meeting?.trim(),
     meetingDetails: meeting.meetingDetails,
+    meetingNotes: meeting.meetingNotes ?? "",
     meetingCalendar: meeting.meetingCalendar
       ? new Date(meeting.meetingCalendar).toISOString().split("T")[0]
       : null,

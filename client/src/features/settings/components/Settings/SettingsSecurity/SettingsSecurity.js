@@ -12,7 +12,7 @@ export default function  SettingsSecurity() {
   }) => (
     <div
       className={`flex items-center justify-between px-8 py-6 ${
-        border ? "border-b border-gray-200" : ""
+        border ? "border-b border-gray-200 dark:border-white/10" : ""
       }`}
     >
       <div className="max-w-lg">
@@ -43,8 +43,8 @@ export default function  SettingsSecurity() {
       />
 
 
-      <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-        <div className="border-b border-gray-200 px-8 py-6">
+      <div className="overflow-hidden rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#1a1a22] shadow-sm">
+        <div className="border-b border-gray-200 dark:border-white/10 px-8 py-6">
           <Heading
             title="Hesap Güvenliği"
             description="Şifre ve doğrulama ayarlarınızı yönetin."
@@ -70,8 +70,8 @@ export default function  SettingsSecurity() {
       </div>
 
 
-      <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-        <div className="border-b border-gray-200 px-8 py-6">
+      <div className="overflow-hidden rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#1a1a22] shadow-sm">
+        <div className="border-b border-gray-200 dark:border-white/10 px-8 py-6">
           <Heading
             title="Aktif Oturumlar"
             description="Hesabınızın giriş yaptığı cihazları görüntüleyin."
@@ -98,8 +98,8 @@ export default function  SettingsSecurity() {
       </div>
 
 
-      <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-        <div className="border-b border-gray-200 px-8 py-6">
+      <div className="overflow-hidden rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#1a1a22] shadow-sm">
+        <div className="border-b border-gray-200 dark:border-white/10 px-8 py-6">
           <Heading
             title="Güvenlik Bildirimleri"
             description="Hesabınızla ilgili önemli olaylar."
@@ -130,7 +130,7 @@ export default function  SettingsSecurity() {
         />
       </div>
 
-      <div className="flex justify-end gap-3 border-t border-gray-200 pt-6">
+      <div className="flex justify-end gap-3 border-t border-gray-200 dark:border-white/10 pt-6">
         <Button
           variant="outline"
           text="İptal"

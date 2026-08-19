@@ -1,12 +1,16 @@
+"use client";
+
 import { DragDropContext } from "@hello-pangea/dnd";
 import {Column} from "@/shared/components/organisms";
 import { groupTasksByStatus } from "../../../utils/colums.filter";
+import { useTaskStages } from "../../../hooks/useTaskStages";
 
 export default function TaskKanban({
   data,
   onDragEnd,
 }) {
-  const columns = groupTasksByStatus(data);
+  const { data: stages = [] } = useTaskStages();
+  const columns = groupTasksByStatus(data, stages);
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>

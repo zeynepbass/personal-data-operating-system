@@ -7,18 +7,20 @@ import { Button } from "@/shared/components/atoms";
 import { GoalFormBasic } from "./GoalFormBasic";
 import { GoalFormItems } from "./GoalFormItems";
 
+const initialGoal = {
+  title: "",
+  status: "active",
+  category: "",
+  items: [],
+};
+
 export function GoalForm({
   onSubmit,
   isCreating,
+  onCreated,
+  onCancel,
 }) {
-  const [goal, setGoal] = useState(
- {
-      title: "",
-      status: "active",
-      category:"",
-      items: [],
-    }
-  );
+  const [goal, setGoal] = useState(initialGoal);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -36,16 +38,24 @@ export function GoalForm({
     }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const submitGoal = (afterSuccess) => {
+    onSubmit(goal, { onSuccess: afterSuccess });
+  };
 
-    onSubmit(goal);
+  const handleSaveAndClose = (event) => {
+    event.preventDefault();
+    submitGoal(() => onCreated?.());
+  };
+
+  const handleSaveAndNew = (event) => {
+    event.preventDefault();
+    submitGoal(() => setGoal(initialGoal));
   };
 
   return (
-   <div className="space-y-4 rounded-xl border border-gray-200 bg-white ">
+   <div className="space-y-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#1a1a22] ">
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handleSaveAndClose}
       className="space-y-4  p-5"
     >
       <GoalFormBasic
@@ -58,7 +68,29 @@ export function GoalForm({
         onChange={handleItemsChange}
       />
 
-      <div className="flex justify-end gap-3">
+      <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+        <Button
+          type="button"
+          variant="outline"
+          disabled={isCreating}
+          onClick={onCancel}
+          text="Vazgeç"
+          className="rounded-xl px-6 py-3 disabled:cursor-not-allowed disabled:opacity-60"
+        />
+
+        <Button
+          type="button"
+          variant="outline"
+          disabled={isCreating}
+          onClick={handleSaveAndNew}
+          text={
+            isCreating
+              ? "Oluşturuluyor..."
+              : "Kaydet ve Yeni Ekle"
+          }
+          className="rounded-xl px-6 py-3 disabled:cursor-not-allowed disabled:opacity-60"
+        />
+
         <Button
           type="submit"
           disabled={isCreating}
@@ -67,7 +99,7 @@ export function GoalForm({
               ? "Oluşturuluyor..."
               : "Hedef Oluştur"
           }
-          className="rounded-xl bg-[#555A8A] px-6 py-3 text-gray-50 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-xl px-6 py-3 disabled:cursor-not-allowed disabled:opacity-60"
         />
       </div>
     </form></div>

@@ -81,6 +81,11 @@ const meetingSchema = new mongoose.Schema(
 
     meetingCalendar: Date,
 
+    meetingNotes: {
+      type: String,
+      default: "",
+    },
+
     tasks: {
       type: [taskSchema],
       default: [],

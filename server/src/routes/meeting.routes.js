@@ -5,6 +5,7 @@ import {
   getUsers,
   createMeeting,
   updateMeeting,
+  updateMeetingDetails,
   deleteMeeting,
   updateTaskStatus,
   updateTaskCompleted,
@@ -31,21 +32,24 @@ router.get(
 router.post(
   "/",
   protect,
-  adminOnly,
   createMeeting
 );
 
 router.put(
   "/:id",
   protect,
-  adminOnly,
   updateMeeting
+);
+
+router.put(
+  "/:id/details",
+  protect,
+  updateMeetingDetails
 );
 
 router.delete(
   "/:id",
   protect,
-  adminOnly,
   deleteMeeting
 );
 

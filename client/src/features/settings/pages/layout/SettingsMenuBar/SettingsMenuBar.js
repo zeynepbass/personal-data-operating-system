@@ -18,14 +18,14 @@ export default function SettingsMenuBar() {
   return (
     
    
-    <div className="min-h-screen bg-gray-50 p-8">
-       
+    <div className="min-h-screen bg-gray-50 dark:bg-transparent p-8">
+
       <div className="mx-auto max-w-7xl">
       <SettingHeading title="Ayarlar" />
 
         <div className="grid gap-8 lg:grid-cols-[240px_1fr]">
-       
-        <aside className="p-2 bg-white border border-gray-200 rounded-2xl ">
+
+        <aside className="p-2 bg-white dark:bg-[#1a1a22] border border-gray-200 dark:border-white/10 rounded-2xl ">
                {menu.map((item) => {
                  const isActive = pathname === item.link;
 
@@ -38,8 +38,8 @@ export default function SettingsMenuBar() {
                    p-4 text-left transition-all duration-200
                                        ${
                                          isActive
-                                           ? "bg-violet-50 text-[#555A8A] shadow-sm"
-                                           : "text-gray-600 hover:bg-gray-100"
+                                           ? "bg-violet-50 text-[#555A8A] shadow-sm dark:bg-white/10 dark:text-[#8b87d9]"
+                                           : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5"
                                        }`}
                  icon={item.icon}
                  item={item.name}

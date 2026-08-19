@@ -11,8 +11,8 @@ export  default function SettingsProfile() {
     <section className="space-y-8">
 
 <Heading title=" Profil Bilgileri" />
-   
-<div className=" p-6 overflow-hidden rounded-2xl border bg-white border-gray-200 shadow-sm">
+
+<div className=" p-6 overflow-hidden rounded-2xl border bg-white dark:bg-[#1a1a22] border-gray-200 dark:border-white/10 shadow-sm">
 
       <div className="mb-10 flex flex-wrap items-center gap-5">
         <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-violet-600 to-indigo-600 text-2xl font-bold text-white">
@@ -24,12 +24,12 @@ export  default function SettingsProfile() {
       <form className="space-y-6">
         <Input
           label="Ad Soyad"
-          className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition duration-200 focus:border-violet-500 focus:ring-4 focus:ring-violet-100"
+          className="w-full rounded-xl border border-gray-200 dark:border-white/10 px-4 py-3 outline-none transition duration-200 focus:border-violet-500 focus:ring-4 focus:ring-violet-100 dark:focus:ring-violet-500/20"
         />
 
         <Input
           label="E-posta"
-          className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition duration-200 focus:border-violet-500 focus:ring-4 focus:ring-violet-100"
+          className="w-full rounded-xl border border-gray-200 dark:border-white/10 px-4 py-3 outline-none transition duration-200 focus:border-violet-500 focus:ring-4 focus:ring-violet-100 dark:focus:ring-violet-500/20"
           type="email"
         />
 

@@ -15,7 +15,7 @@ export default function SettingsNotification() {
     
     <div
       className={`flex items-start justify-between gap-6 p-6 ${
-        border ? "border-b border-gray-200" : ""
+        border ? "border-b border-gray-200 dark:border-white/10" : ""
       }`}
     >
       <Heading
@@ -44,8 +44,8 @@ export default function SettingsNotification() {
 <div className="space-y-6">
 
 
-  <div className="overflow-hidden rounded-2xl border bg-white border-gray-200 shadow-sm">
-    <div className="border-b border-gray-200 px-8 py-6">
+  <div className="overflow-hidden rounded-2xl border bg-white dark:bg-[#1a1a22] border-gray-200 dark:border-white/10 shadow-sm">
+    <div className="border-b border-gray-200 dark:border-white/10 px-8 py-6">
       <Heading
         title="Genel Bildirimler"
        // description="Uygulama genelindeki bildirim tercihlerinizi yönetin."
@@ -71,8 +71,8 @@ export default function SettingsNotification() {
   </div>
 
 
-  <div className="overflow-hidden rounded-2xl border bg-white border-gray-200  shadow-sm">
-    <div className="border-b border-gray-200 px-8 py-6">
+  <div className="overflow-hidden rounded-2xl border bg-white dark:bg-[#1a1a22] border-gray-200 dark:border-white/10  shadow-sm">
+    <div className="border-b border-gray-200 dark:border-white/10 px-8 py-6">
       <Heading
         title="Etkileşim Bildirimleri"
         // description="Diğer kullanıcılarla olan etkileşimleriniz."
@@ -103,8 +103,8 @@ export default function SettingsNotification() {
   </div>
 
 
-  <div className="overflow-hidden rounded-2xl border bg-white  border-gray-200  shadow-sm">
-    <div className="border-b border-gray-200 px-8 py-6">
+  <div className="overflow-hidden rounded-2xl border bg-white dark:bg-[#1a1a22] border-gray-200 dark:border-white/10  shadow-sm">
+    <div className="border-b border-gray-200 dark:border-white/10 px-8 py-6">
       <Heading
         title="Güvenlik Bildirimleri"
         description="Hesabınızın güvenliği ile ilgili kritik bildirimler."
@@ -131,14 +131,14 @@ export default function SettingsNotification() {
       border={false}
     />
 
-    <div className="border-t  border-gray-200 bg-muted/40 px-8 py-5 text-xs text-muted-foreground">
+    <div className="border-t  border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 px-8 py-5 text-xs text-gray-500 dark:text-gray-400">
       Güvenlik bildirimleri hesabınızı korumak amacıyla devre dışı bırakılamaz.
     </div>
   </div>
 
 </div>
 
-<div className="flex justify-end gap-3 border-t  border-gray-200 p-3">
+<div className="flex justify-end gap-3 border-t  border-gray-200 dark:border-white/10 p-3">
   <Button
     variant="outline"
     text="Varsayılana Döndür"

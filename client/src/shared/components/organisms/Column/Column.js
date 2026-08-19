@@ -2,27 +2,10 @@
 
 import { Droppable } from "@hello-pangea/dnd";
 import { Card } from "@/shared/components/molecules";
-
-const colorClasses = {
-  purple: {
-    badge: "bg-purple-50",
-    text: "text-purple-700",
-    dot: "bg-purple-500",
-  },
-  orange: {
-    badge: "bg-orange-50",
-    text: "text-orange-700",
-    dot: "bg-orange-500",
-  },
-  green: {
-    badge: "bg-green-50",
-    text: "text-green-700",
-    dot: "bg-green-500",
-  },
-};
+import { stageColorClasses } from "@/features/task/utils/stageColors";
 
 export function Column  ({ column })  {
-  const color = colorClasses[column.color] ?? colorClasses.green;
+  const color = stageColorClasses[column.color] ?? stageColorClasses.green;
 
   return (
     <>
@@ -38,7 +21,7 @@ export function Column  ({ column })  {
             p-4
             min-h-175
             border
-            border-gray-200
+            border-gray-200 dark:border-white/10
           `}
         >
           <div className="flex items-center justify-between mb-5">
@@ -49,7 +32,7 @@ export function Column  ({ column })  {
               {column.name}
             </h3>
 
-            <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-sm font-semibold">
+            <span className="w-8 h-8 rounded-full bg-white dark:bg-white/10 text-gray-900 dark:text-gray-100 flex items-center justify-center text-sm font-semibold">
               {column.tasks?.length}
             </span>
           </div>
@@ -59,7 +42,7 @@ export function Column  ({ column })  {
               <Card key={task.id} task={task} index={index} />
             ))}
 
-
+            {provided.placeholder}
           </div>
         </div>
       )}
