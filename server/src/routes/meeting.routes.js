@@ -17,7 +17,6 @@ const router = express.Router();
 
 router.get(
   "/",
-  protect,
   getMeetings
 );
 

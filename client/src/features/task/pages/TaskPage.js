@@ -3,12 +3,14 @@
 import TaskHome from "../components/TaskPage/TaskHome";
 import { useMemo } from "react";
 import { useTasks } from "../hooks/useTask";
+import {useAuthStore} from "@/shared/store/auth.store"
 import {
   transformTasksToRows,
   getTodayTasks,
 } from "../utils/colums.filter";
 import { useRouter } from "next/navigation";
 export default function TaskPage() {
+  const { user } = useAuthStore();
   const {
     data,
     deletedTask,
@@ -25,7 +27,8 @@ export default function TaskPage() {
     setView,
     open,
     setOpen,
-    onToggle
+    onToggle,
+    users
   } = useTasks();
   const router = useRouter();
   const handleMenuClick = (taskId) => {
@@ -56,6 +59,8 @@ export default function TaskPage() {
     );
   }
 
+
+  const isAdmin = user?.role === "admin";
   return (
     <TaskHome
       rows={rows ?? []}
@@ -63,12 +68,14 @@ export default function TaskPage() {
       view={view}
       router={router}
       onToggle={onToggle}
+      users={users}
       deletedTask={deletedTask}
       isCreating={isCreating}
       onSubmit={createTask}
       handleMenuClick={handleMenuClick}
       openMenuId={openMenuId}
       open={open}
+      isAdmin={isAdmin}
       onDragEnd={handleDragEnd}
       setOpen={setOpen}
       setView={setView}

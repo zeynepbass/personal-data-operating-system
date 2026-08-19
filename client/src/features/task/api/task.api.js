@@ -4,6 +4,9 @@ export const taskApi = {
     getTask() {
     return apiClient.get("/meetings");
   },
+  getUsers() {
+    return apiClient.get("/meetings/users");
+  },
   createTask(payload){
     return apiClient.post("/meetings",payload);
   },
@@ -18,6 +21,6 @@ export const taskApi = {
       { name });
   },
  updateTaskCompleted (id, data){
-    return apiClient.patch(`/meetings/${id}/status`,data)
+    return apiClient.patch(`/meetings/${id}/completed`,data)
  }
 }

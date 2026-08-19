@@ -8,8 +8,8 @@ const TaskModal = dynamic(() => import("../TaskModal"), {
   loading: () => <div className="py-10 text-center">Yükleniyor...</div>,
 });
 
-export default function TaskHome({router, onToggle,onDragEnd,deletedTask,data, view, setView, open, setOpen,     isCreating,
-  onSubmit, rows,handleMenuClick,openMenuId,todayTasks}) {
+export default function TaskHome({users,router, onToggle,onDragEnd,deletedTask,data, view, setView, open, setOpen,     isCreating,
+  onSubmit, rows,handleMenuClick,openMenuId,todayTasks,isAdmin}) {
 
   const ViewComponent = taskViewStrategies[view];
   return (
@@ -18,10 +18,13 @@ export default function TaskHome({router, onToggle,onDragEnd,deletedTask,data, v
       <TaskHeading
         title="Görevler"
         setOpen={setOpen}
+        isAdmin={isAdmin}
         description="Bugün seni neler bekliyor."
       />
       <TaskModal
+                    users={users}
           open={open}
+
           setOpen={setOpen}
           data={data}
           isCreating={isCreating}
@@ -35,11 +38,12 @@ export default function TaskHome({router, onToggle,onDragEnd,deletedTask,data, v
       <TaskNavigation
         view={view}
         setView={setView}
-
+        isAdmin={isAdmin}
       />
 
       <section className="min-h-[60vh]">
         <ViewComponent
+
           rows={rows}
           router={router}
           onToggle={onToggle}

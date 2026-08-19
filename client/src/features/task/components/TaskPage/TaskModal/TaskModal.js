@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -11,7 +10,6 @@ import {
 } from "@/shared/components/atoms";
 
 const initialForm = {
-
   name: "",
   title: "",
   color: "",
@@ -19,6 +17,7 @@ const initialForm = {
   meetingCalendar: "",
   meetingDetails: "",
 
+  kullanici: "",
 
   taskTitle: "",
   description: "",
@@ -30,11 +29,13 @@ const initialForm = {
   estimatedHours: "",
   storyPoints: "",
 };
+
 export default function TaskModal({
   open,
   setOpen,
   onSubmit,
   isCreating,
+  users = [],
 }) {
   const [form, setForm] = useState(initialForm);
 
@@ -53,14 +54,14 @@ export default function TaskModal({
     e.preventDefault();
 
     if (isCreating) return;
+
     const colorMap = {
       todo: "bg-green-50",
       done: "bg-orange-50",
       "in-progress": "bg-purple-50",
     };
-    
-    const payload = {
 
+    const payload = {
       name: form.name.trim(),
       title: form.title.trim(),
       color: colorMap[form.name?.toLowerCase()] ?? "gray",
@@ -68,13 +69,15 @@ export default function TaskModal({
       meetingCalendar: form.meetingCalendar || null,
       meetingDetails: form.meetingDetails.trim(),
 
-
       tasks: [
         {
           title: form.taskTitle.trim(),
           description: form.description.trim(),
           label: form.label.trim(),
           priority: form.priority,
+
+          assignee: form.kullanici || null,
+
           date: form.date || null,
           startDate: form.startDate || null,
           dueDate: form.dueDate || null,
@@ -83,7 +86,6 @@ export default function TaskModal({
         },
       ],
     };
-
 
     onSubmit(payload);
   };
@@ -149,7 +151,6 @@ export default function TaskModal({
                       value: "in-progress",
                       label: "In Progress",
                     },
-              
                     {
                       value: "Done",
                       label: "Done",
@@ -172,15 +173,12 @@ export default function TaskModal({
                       value: "progress",
                       label: "progress",
                     },
-           
                     {
                       value: "done",
                       label: "done",
                     },
                   ]}
                 />
-
-    
               </div>
             </div>
 
@@ -218,137 +216,163 @@ export default function TaskModal({
               </div>
             </div>
 
-               <div className="rounded-xl border border-gray-200 bg-white p-6">
-                 <Heading title="İlk Görev Bilgileri" />
-     
-                 <div className="mt-5 space-y-5">
-                   <Input
-                     text="Görev Başlığı"
-                     name="taskTitle"
-                     value={form.taskTitle}
-                     onChange={handleChange}
-                     type="text"
-                     placeholder="Örn. Authentication ekranı tasarlanacak"
-                     required
-                   />
-     
-                   <Textarea
-                     label="Görev Açıklaması"
-                     name="description"
-                     value={form.description}
-                     onChange={handleChange}
-                     placeholder="Örn. Login ve Register sayfalarının UI geliştirmesi."
-                   />
-                 </div>
-               </div>
-     
 
-               <div className="rounded-xl border border-gray-200 bg-white p-6">
-                 <Heading title="Görev Detayları" />
-     
-                 <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-1">
-                   <Input
-                     text="Etiket"
-                     type="text"
-                     name="label"
-                     value={form.label}
-                     onChange={handleChange}
-                     placeholder="Örn. Frontend"
-                   />
-     
-                   <Select
-                     text="Öncelik"
-                     name="priority"
-                     value={form.priority}
-                     onChange={handleChange}
-                     placeholder="Görev önceliğini seçin"
-                     options={[
-                       {
-                         value: "Low",
-                         label: "🟢 Low",
-                       },
-                       {
-                         value: "Medium",
-                         label: "🟡 Medium",
-                       },
-                       {
-                         value: "High",
-                         label: "🔴 High",
-                       },
-                     ]}
-                   />
-     
-                   <Input
-                     text="Görev Tarihi"
-                     type="date"
-                     name="date"
-                     value={form.date}
-                     onChange={handleChange}
-                   />
-     
-                   <Input
-                     text="Başlangıç Tarihi"
-                     type="date"
-                     name="startDate"
-                     value={form.startDate}
-                     onChange={handleChange}
-                   />
-     
-                   <Input
-                     text="Son Teslim Tarihi"
-                     type="date"
-                     name="dueDate"
-                     value={form.dueDate}
-                     onChange={handleChange}
-                   />
-     
-                   <Input
-                     text="Tahmini Süre (Saat)"
-                     type="number"
-                     name="estimatedHours"
-                     value={form.estimatedHours}
-                     onChange={handleChange}
-                     placeholder="Örn. 8"
-                     min="0"
-                   />
-     
-                   <Input
-                     text="Story Point"
-                     type="number"
-                     name="storyPoints"
-                     value={form.storyPoints}
-                     onChange={handleChange}
-                     placeholder="Örn. 5"
-                     min="0"
-                   />
-                 </div>
-               </div>
-     
- 
-               <div className="flex justify-end gap-4 border-t border-gray-200 pt-6">
-                 <Button
-                   type="button"
-                   text="İptal"
-                   onClick={handleClose}
-                   disabled={isCreating}
-                   className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-medium text-gray-800 transition hover:border-[rgb(125,120,206)] hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
-                 />
-     
-                 <Button
-                   type="submit"
-                   disabled={isCreating}
-                   text={
-                     isCreating
-                       ? "Oluşturuluyor..."
-                       : "Kolon ve Görevi Oluştur"
-                   }
-                   className="rounded-xl bg-[#555A8A] px-6 py-3 text-gray-50 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
-                 />
-               </div>
+            <div className="rounded-xl border border-gray-200 bg-white p-6">
+              <Heading title="İlk Görev Bilgileri" />
+
+              <div className="mt-5 space-y-5">
+                <Input
+                  text="Görev Başlığı"
+                  name="taskTitle"
+                  value={form.taskTitle}
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Örn. Authentication ekranı tasarlanacak"
+                  required
+                />
+
+                <Textarea
+                  label="Görev Açıklaması"
+                  name="description"
+                  value={form.description}
+                  onChange={handleChange}
+                  placeholder="Örn. Login ve Register sayfalarının UI geliştirmesi."
+                />
+              </div>
+            </div>
+
+
+            <div className="rounded-xl border border-gray-200 bg-white p-6">
+              <Heading title="Görev Detayları" />
+
+              <div className="mt-5 grid grid-cols-1 gap-5">
+
+                <Select
+                  text="Atanacak Kullanıcı"
+                  name="kullanici"
+                  value={form.kullanici}
+                  onChange={handleChange}
+                  placeholder="Kullanıcı seçin"
+                  options={[
+                    {
+                      value: "",
+                      label: "Kullanıcı seçin",
+                    },
+                    ...users.map((user) => ({
+                      value: user._id,
+                      label: user.email,
+                    })),
+                  ]}
+                />
+
+
+                <Input
+                  text="Etiket"
+                  type="text"
+                  name="label"
+                  value={form.label}
+                  onChange={handleChange}
+                  placeholder="Örn. Frontend"
+                />
+
+
+                <Select
+                  text="Öncelik"
+                  name="priority"
+                  value={form.priority}
+                  onChange={handleChange}
+                  placeholder="Görev önceliğini seçin"
+                  options={[
+                    {
+                      value: "Low",
+                      label: "🟢 Low",
+                    },
+                    {
+                      value: "Medium",
+                      label: "🟡 Medium",
+                    },
+                    {
+                      value: "High",
+                      label: "🔴 High",
+                    },
+                  ]}
+                />
+
+
+                <Input
+                  text="Görev Tarihi"
+                  type="date"
+                  name="date"
+                  value={form.date}
+                  onChange={handleChange}
+                />
+
+
+                <Input
+                  text="Başlangıç Tarihi"
+                  type="date"
+                  name="startDate"
+                  value={form.startDate}
+                  onChange={handleChange}
+                />
+
+
+                <Input
+                  text="Son Teslim Tarihi"
+                  type="date"
+                  name="dueDate"
+                  value={form.dueDate}
+                  onChange={handleChange}
+                />
+
+
+                <Input
+                  text="Tahmini Süre (Saat)"
+                  type="number"
+                  name="estimatedHours"
+                  value={form.estimatedHours}
+                  onChange={handleChange}
+                  placeholder="Örn. 8"
+                  min="0"
+                />
+
+
+                <Input
+                  text="Story Point"
+                  type="number"
+                  name="storyPoints"
+                  value={form.storyPoints}
+                  onChange={handleChange}
+                  placeholder="Örn. 5"
+                  min="0"
+                />
+              </div>
+            </div>
+
+
+            <div className="flex justify-end gap-4 border-t border-gray-200 pt-6">
+              <Button
+                type="button"
+                text="İptal"
+                onClick={handleClose}
+                disabled={isCreating}
+                className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-medium text-gray-800 transition hover:border-[rgb(125,120,206)] hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+
+              <Button
+                type="submit"
+                disabled={isCreating}
+                text={
+                  isCreating
+                    ? "Oluşturuluyor..."
+                    : "Kolon ve Görevi Oluştur"
+                }
+                className="rounded-xl bg-[#555A8A] px-6 py-3 text-gray-50 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+              />
+            </div>
           </form>
         </div>
       </div>
     </div>
   );
 }
-
