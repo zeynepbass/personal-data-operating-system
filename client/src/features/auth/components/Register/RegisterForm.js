@@ -52,10 +52,11 @@ export default function RegisterForm() {
           alt="Hesap oluştur"
           fill
           priority
-          className="object-cover"
+          sizes="(min-width: 1024px) 42vw, 0px"
+className="object-cover object-center"
         />
 
-        {/* Overlay */}
+
         <div className="absolute inset-0 bg-black/20" />
 
         <div className="absolute bottom-10 left-10 max-w-md text-white">
@@ -211,16 +212,6 @@ export default function RegisterForm() {
             </div>
 
 
-            <label className="flex cursor-pointer items-center gap-2 text-sm text-gray-500">
-              <Input
-                type="checkbox"
-                className="h-4 w-4 rounded accent-purple-600"
-              />
-
-              <span>
-                Beni Hatırla
-              </span>
-            </label>
 
 
             <Button
