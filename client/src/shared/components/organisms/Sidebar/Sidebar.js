@@ -1,29 +1,10 @@
 "use client";
 
-import {
-  Home,
-  SquareCheck,
-  FileText,
-  File,
-  Calendar,
-  Target,
-  BarChart3,
-  Settings,
-} from "lucide-react";
+
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-
-const menu = [
-  { id: 1, name: "Ana Sayfa", icon: Home, href: "/dashboard" },
-  { id: 2, name: "Görevler", icon: SquareCheck, href: "/tasks" },
-  { id: 3, name: "Notlar", icon: FileText, href: "/notes" },
-  { id: 4, name: "Dökümanlar", icon: File, href: "/documents" },
-  { id: 5, name: "Takvim", icon: Calendar, href: "/calendar" },
-  { id: 6, name: "Hedefler", icon: Target, href: "/goals" },
-  { id: 7, name: "Analiz", icon: BarChart3, href: "/analytics" },
-  { id: 8, name: "Ayarlar", icon: Settings, href: "/settings" },
-];
+import {navigation} from "@/shared/mock/navigation"
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -40,7 +21,7 @@ export function Sidebar() {
       </div>
 
       <nav className="flex-1 px-1">
-        {menu && menu.map((item) => {
+        {navigation && navigation.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;
 

@@ -88,7 +88,7 @@ export default function TaskModal({
     };
 
     onSubmit(payload);
-    console.log(payload)
+
   };
 
   const handleClose = () => {

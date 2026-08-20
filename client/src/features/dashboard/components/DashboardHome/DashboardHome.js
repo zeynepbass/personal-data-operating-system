@@ -21,7 +21,7 @@ export default function DashboardHome({
   const { data, isLoading, isError, error } = useNotes();
   const [duration, setDuration] = useState("day");
   const router = useRouter();
-  console.log(duration);
+
   return (
     <div className="space-y-6">
       <DashboardHeading
