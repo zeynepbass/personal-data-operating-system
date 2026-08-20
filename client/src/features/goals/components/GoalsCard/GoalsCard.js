@@ -60,7 +60,7 @@ export default function GoalsCard({
           ⋮{" "}
         </button>{" "}
         {openMenu===id && (
-          <div className="absolute right-4 top-14 z-50 min-w-[120px] overflow-hidden rounded-lg border border-gray-200 bg-white py-1 text-sm shadow-lg">
+          <div className="absolute right-4 top-14 z-50 min-w-30 overflow-hidden rounded-lg border border-gray-200 bg-white py-1 text-sm shadow-lg">
             {" "}
             <button
               type="button"

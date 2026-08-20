@@ -2,20 +2,24 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Lock, Eye, EyeOff, User } from "lucide-react";
+import {
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  User
+} from "lucide-react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 import { Input, Button } from "@/shared/components/atoms";
 import { PageHeader } from "@/shared/components/molecules";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 
 export default function RegisterForm() {
-  const router = useRouter();
-
   const { register, registerLoading } = useAuth();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordAgain, setShowPasswordAgain] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -36,42 +40,57 @@ export default function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await register(formData);
-
-    if (response?.success) {
-      router.push("/dashboard");
-    }
+    await register(formData);
   };
 
   return (
     <div className="grid min-h-screen lg:grid-cols-12">
-      <div className="relative hidden lg:col-span-6 lg:block">
+
+      <div className="relative hidden min-h-screen overflow-hidden lg:col-span-5 lg:block">
         <Image
           src="/images/login.jpg"
-          alt="Kayıt ol"
+          alt="Hesap oluştur"
           fill
           priority
-          sizes="50vw"
-          className="object-contain object-left"
+          className="object-cover"
         />
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/20" />
+
+        <div className="absolute bottom-10 left-10 max-w-md text-white">
+          <div className="mb-4 inline-flex items-center rounded-full bg-white/15 px-4 py-2 text-sm backdrop-blur-md">
+            🚀 Kişisel çalışma alanına katıl
+          </div>
+
+          <h2 className="text-3xl font-bold leading-tight">
+            Öğren, organize ol ve hedeflerine ulaş.
+          </h2>
+
+          <p className="mt-4 text-sm leading-6 text-white/80">
+            Notlarını, görevlerini, hedeflerini ve dokümanlarını
+            tek bir yerde yönet.
+          </p>
+        </div>
       </div>
 
-      <div className="flex items-center justify-center bg-[#FAFAFA] lg:col-span-6">
+
+      <div className="flex min-h-screen items-center justify-center bg-[#FAFAFA] px-6 py-12 lg:col-span-7">
         <div className="w-full max-w-lg">
           <PageHeader
             title="Aramıza Katılın 🚀"
-            description="Hesabınızı oluşturarak notlarınızı düzenlemeye, öğrenme yolculuğunuzu takip etmeye ve tüm içeriklere erişmeye başlayın."
+            description="Hesabınızı oluşturarak kişisel çalışma alanınıza erişmeye başlayın."
           />
 
           <form
             onSubmit={handleSubmit}
-            className="mt-8 space-y-6"
+            className="mt-8 space-y-5"
           >
 
             <div className="relative">
               <User
                 size={20}
-                className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"
+                className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"
               />
 
               <Input
@@ -80,7 +99,8 @@ export default function RegisterForm() {
                 onChange={handleChange}
                 placeholder="Adınız Soyadınız"
                 required
-                className="h-14 w-full rounded-2xl border border-gray-200 pl-14 pr-14"
+                autoComplete="name"
+                className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-5 transition focus:border-[#555A8A]"
               />
             </div>
 
@@ -88,7 +108,7 @@ export default function RegisterForm() {
             <div className="relative">
               <Mail
                 size={20}
-                className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"
+                className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"
               />
 
               <Input
@@ -98,16 +118,18 @@ export default function RegisterForm() {
                 onChange={handleChange}
                 placeholder="E-posta adresiniz"
                 required
-                className="h-14 w-full rounded-2xl border border-gray-200 pl-14 pr-14"
+                autoComplete="email"
+                className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-5 transition focus:border-[#555A8A]"
               />
             </div>
 
 
-            <div className="flex gap-2">
-              <div className="relative w-full">
+            <div className="grid gap-4 sm:grid-cols-2">
+
+              <div className="relative">
                 <Lock
                   size={20}
-                  className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"
+                  className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"
                 />
 
                 <Input
@@ -118,67 +140,87 @@ export default function RegisterForm() {
                   placeholder="Şifreniz"
                   required
                   minLength={6}
-                  className="h-14 w-full rounded-2xl border border-gray-200 pl-14 pr-14"
+                  autoComplete="new-password"
+                  className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-12 transition focus:border-[#555A8A]"
                 />
 
                 <button
                   type="button"
+                  aria-label={
+                    showPassword
+                      ? "Şifreyi gizle"
+                      : "Şifreyi göster"
+                  }
                   onClick={() =>
                     setShowPassword((prev) => !prev)
                   }
-                  className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#555A8A]"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 transition hover:text-[#555A8A]"
                 >
                   {showPassword ? (
-                    <EyeOff size={20} />
+                    <EyeOff size={19} />
                   ) : (
-                    <Eye size={20} />
+                    <Eye size={19} />
                   )}
                 </button>
               </div>
 
-              <div className="relative w-full">
+
+              <div className="relative">
                 <Lock
                   size={20}
-                  className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"
+                  className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"
                 />
 
                 <Input
                   name="passwordAgain"
-                  type={showPassword ? "text" : "password"}
+                  type={
+                    showPasswordAgain
+                      ? "text"
+                      : "password"
+                  }
                   value={formData.passwordAgain}
                   onChange={handleChange}
                   placeholder="Şifre Tekrar"
                   required
                   minLength={6}
-                  className="h-14 w-full rounded-2xl border border-gray-200 pl-14 pr-14"
+                  autoComplete="new-password"
+                  className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-12 transition focus:border-[#555A8A]"
                 />
 
                 <button
                   type="button"
-                  onClick={() =>
-                    setShowPassword((prev) => !prev)
+                  aria-label={
+                    showPasswordAgain
+                      ? "Şifreyi gizle"
+                      : "Şifreyi göster"
                   }
-                  className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#555A8A]"
+                  onClick={() =>
+                    setShowPasswordAgain(
+                      (prev) => !prev
+                    )
+                  }
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 transition hover:text-[#555A8A]"
                 >
-                  {showPassword ? (
-                    <EyeOff size={20} />
+                  {showPasswordAgain ? (
+                    <EyeOff size={19} />
                   ) : (
-                    <Eye size={20} />
+                    <Eye size={19} />
                   )}
                 </button>
               </div>
             </div>
 
 
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center gap-2 text-gray-500">
-                <Input
-                  type="checkbox"
-                  className="h-4 w-4 accent-purple-600"
-                />
+            <label className="flex cursor-pointer items-center gap-2 text-sm text-gray-500">
+              <Input
+                type="checkbox"
+                className="h-4 w-4 rounded accent-purple-600"
+              />
+
+              <span>
                 Beni Hatırla
-              </label>
-            </div>
+              </span>
+            </label>
 
 
             <Button
@@ -189,13 +231,13 @@ export default function RegisterForm() {
                   ? "Kayıt oluşturuluyor..."
                   : "Kayıt Ol"
               }
-              className="w-full text-white"
+              className="h-14 w-full rounded-2xl bg-[#555A8A] font-semibold text-white transition hover:bg-[#494e7a] disabled:cursor-not-allowed disabled:opacity-60"
             />
 
-     
+
             <div className="relative py-2">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t text-gray-300" />
+                <div className="w-full border-t border-gray-200" />
               </div>
 
               <div className="relative flex justify-center">
@@ -208,7 +250,7 @@ export default function RegisterForm() {
 
             <button
               type="button"
-              className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl border border-gray-200 text-gray-500 hover:border-[rgb(125,120,206)]"
+              className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl border border-gray-200 bg-white font-medium text-gray-600 transition hover:border-[#7d78ce] hover:bg-gray-50"
             >
               <Image
                 src="/images/google.svg"
@@ -221,11 +263,11 @@ export default function RegisterForm() {
             </button>
 
 
-            <p className="text-center text-gray-500">
+            <p className="pt-2 text-center text-sm text-gray-500">
               Hesabın var mı?{" "}
               <Link
                 href="/login"
-                className="font-semibold text-[#555A8A] hover:text-gray-500"
+                className="font-semibold text-[#555A8A] transition hover:text-[#7d78ce]"
               >
                 Giriş Yap
               </Link>
