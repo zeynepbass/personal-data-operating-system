@@ -61,16 +61,7 @@ export function Sidebar() {
         })}
       </nav>
 
-      <div className="border-t border-gray-100 p-4">
-        <div className="flex items-center gap-3">
-          <img
-            src="https://i.pravatar.cc/40"
-            className="h-10 w-10 rounded-full"
-            alt="Zeynep Baş"
-          />
-          <span className="text-sm font-medium font-cold text-white">Zeynep Baş</span>
-        </div>
-      </div>
+
     </aside>
   );
 }

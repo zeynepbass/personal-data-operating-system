@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast";
 
 import { authContainer } from "../auth.container";
 import { useAuthStore } from "../../../shared/store/auth.store";
+import { useRouter } from "next/navigation";
 
 export const useAuth = () => {
   const {
@@ -66,11 +67,12 @@ export const useAuth = () => {
       );
     },
   });
-
+const router=useRouter();
   const handleLogout = () => {
     setLogout();
 
     toast.success("Çıkış yapıldı.");
+    router.push("/login")
   };
 
   return {
