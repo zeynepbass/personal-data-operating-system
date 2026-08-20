@@ -179,7 +179,7 @@ export default function NotesModal({
             : [],
       })),
     };
-    console.log(payload)
+
   
 
     onSubmit(payload);
@@ -285,10 +285,6 @@ export default function NotesModal({
               </div>
             </div>
 
-            {/* -------------------------------- */}
-            {/* SECTIONS */}
-            {/* -------------------------------- */}
-
             <div className="rounded-xl border border-gray-200 bg-white p-6">
               <div className="flex items-center justify-between">
                 <Heading title="Sections" />
@@ -314,7 +310,7 @@ export default function NotesModal({
                       key={section.id}
                       className="rounded-xl border border-gray-200 bg-gray-50 p-5"
                     >
-                      {/* SECTION HEADER */}
+        
 
                       <div className="mb-5 flex items-center justify-between">
                         <h3 className="font-semibold text-gray-800">
@@ -333,7 +329,7 @@ export default function NotesModal({
                       </div>
 
                       <div className="space-y-5">
-                        {/* TITLE */}
+       
 
                         <Input
                           text="Section Başlığı"
@@ -349,7 +345,7 @@ export default function NotesModal({
                           required
                         />
 
-                        {/* TYPE */}
+
 
                         <Select
                           text="Section Tipi"
@@ -377,7 +373,7 @@ export default function NotesModal({
                           ]}
                         />
 
-                        {/* CODE LANGUAGE */}
+
 
                         {section.type === "code" && (
                           <Input
@@ -394,7 +390,7 @@ export default function NotesModal({
                           />
                         )}
 
-                        {/* CONTENT */}
+
 
                         {section.type !== "list" && (
                           <Textarea
@@ -419,7 +415,7 @@ export default function NotesModal({
                           />
                         )}
 
-                        {/* LIST */}
+
 
                         {section.type === "list" && (
                           <div className="space-y-3">
@@ -486,9 +482,7 @@ export default function NotesModal({
               </div>
             </div>
 
-            {/* -------------------------------- */}
-            {/* BUTTONS */}
-            {/* -------------------------------- */}
+ 
 
             <div className="flex justify-end gap-4 border-t border-gray-200 pt-6">
               <Button

@@ -18,52 +18,70 @@ export const useAuth = () => {
 
   const loginMutation = useMutation({
     mutationFn: (data) => authContainer.login(data),
-
+  
     onSuccess: (response) => {
       if (!response?.success) {
         toast.error(
-             response?.data?.message || "Giriş yapılmadı."
-
+          response?.data.message || "Giriş yapılmadı."
         );
         return;
       }
-
+  
       setLogin(response.data);
-
+  
       toast.success(
-        response.data?.message ||
-          "Giriş başarılı"
+        response?.data.message || "Giriş başarılı"
       );
     },
-
+  
     onError: (error) => {
       toast.error(
         error.response?.data?.message || "Hata oluştu."
       );
     },
   });
-
+  
   const registerMutation = useMutation({
     mutationFn: (data) => authContainer.register(data),
   
     onSuccess: (response) => {
       if (!response?.success) {
         toast.error(
-             response?.data?.message ||      "Kayıt oluşturulamadı."
-
+          response?.data.message || "Kayıt oluşturulamadı."
         );
         return;
       }
-
+  
       toast.success(
-        response.data?.message ||
-       "Hesabınız başarıyla oluşturuldu."
+        response?.data.message || "Hesabınız başarıyla oluşturuldu."
       );
-
     },
+  
     onError: (error) => {
       toast.error(
         error.response?.data?.message || "Hata oluştu."
+      );
+    },
+  });
+  const forgotPasswordMutation = useMutation({
+    mutationFn: (data) => authContainer.password(data),
+  
+    onSuccess: (response) => {
+      if (!response?.success) {
+        toast.error(
+          response?.message || "Şifre güncellenemedi."
+        );
+        return;
+      }
+  
+      toast.success(response?.message);
+ router.push("/login")
+    },
+  
+    onError: (error) => {
+      toast.error(
+        error.response?.data?.message ||
+          "Şifre güncellenirken hata oluştu."
       );
     },
   });
@@ -83,7 +101,7 @@ const router=useRouter();
 
     login: loginMutation.mutateAsync,
     register: registerMutation.mutateAsync,
-
+    password:forgotPasswordMutation.mutateAsync,
     logout: handleLogout,
     initializeAuth,
 

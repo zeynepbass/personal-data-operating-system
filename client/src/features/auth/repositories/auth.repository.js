@@ -9,3 +9,9 @@ export const login = (provider) => async (data) => {
   
     return response.data;
   };
+    
+  export const forgot = (provider) => async (data) => {
+    const response = await provider.password(data);
+  
+    return response.data;
+  };

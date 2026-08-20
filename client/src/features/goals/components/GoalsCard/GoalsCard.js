@@ -65,7 +65,7 @@ export default function GoalsCard({
             <button
               type="button"
               onClick={() => {
-                console.log("Edit goal:", id);
+
                 setSelectedValue(id);
                 setOpenMenu(false);
               }}
@@ -77,7 +77,7 @@ export default function GoalsCard({
             <button
               type="button"
               onClick={() => {
-                console.log(id);
+
                 deletedGoals(id);
 
                 setOpenMenu(false);

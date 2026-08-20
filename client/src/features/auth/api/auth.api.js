@@ -7,5 +7,8 @@ export const authApi = {
 
   register(data) {
     return apiClient.post("/auth/register", data);
+  },
+  password(data){
+    return apiClient.post("/auth/forgot-password", data);
   }
 };
