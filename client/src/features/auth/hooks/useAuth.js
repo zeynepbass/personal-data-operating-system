@@ -6,6 +6,7 @@ import { useAuthStore } from "../../../shared/store/auth.store";
 import { useRouter } from "next/navigation";
 
 export const useAuth = () => {
+  const router=useRouter();
   const {
     user,
     token,
@@ -32,13 +33,14 @@ export const useAuth = () => {
       toast.success(
         response?.data.message || "Giriş başarılı"
       );
+      router.push("/dashboard")
     },
   
     onError: (error) => {
       toast.error(
         error.response?.data?.message || "Hata oluştu."
       );
-      router.push("/dashboard")
+
     },
   });
   
@@ -87,7 +89,7 @@ export const useAuth = () => {
       );
     },
   });
-const router=useRouter();
+
   const handleLogout = () => {
     setLogout();
 
