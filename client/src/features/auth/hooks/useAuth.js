@@ -38,6 +38,7 @@ export const useAuth = () => {
       toast.error(
         error.response?.data?.message || "Hata oluştu."
       );
+      router.push("/dashboard")
     },
   });
   
@@ -55,6 +56,7 @@ export const useAuth = () => {
       toast.success(
         response?.data.message || "Hesabınız başarıyla oluşturuldu."
       );
+      router.push("/dashboard")
     },
   
     onError: (error) => {
