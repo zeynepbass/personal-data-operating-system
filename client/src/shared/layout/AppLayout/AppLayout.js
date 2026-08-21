@@ -1,25 +1,36 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { SearchBar, Sidebar } from "@/shared/components/organisms";
-
+import {
+  SearchBar,
+  Sidebar,
+} from "@/shared/components/organisms";
 import { useEffect } from "react";
-import { useAuth } from "@/features/auth/hooks/useAuth";
+import { useAuthStore } from "@/shared/store/auth.store";
+
 export default function AppLayout({ children }) {
   const pathname = usePathname();
-  const { initializeAuth } = useAuth();
+
+  const initializeAuth = useAuthStore(
+    (state) => state.initializeAuth
+  );
 
   useEffect(() => {
     initializeAuth();
   }, [initializeAuth]);
+
   const hideLayout = [
     "/login",
     "/register",
-    "/forgot-password"
+    "/forgot-password",
   ].includes(pathname);
 
   if (hideLayout) {
-    return <main className="min-h-screen">{children}</main>;
+    return (
+      <main className="min-h-screen">
+        {children}
+      </main>
+    );
   }
 
   return (
@@ -31,7 +42,6 @@ export default function AppLayout({ children }) {
 
         <main className="flex-1 p-6">
           {children}
-
         </main>
       </div>
     </div>

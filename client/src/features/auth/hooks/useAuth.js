@@ -50,20 +50,26 @@ export const useAuth = () => {
     onSuccess: (response) => {
       if (!response?.success) {
         toast.error(
-          response?.data.message || "Kayıt oluşturulamadı."
+          response?.message || "Kayıt oluşturulamadı."
         );
         return;
       }
   
+
+      setLogin(response.data);
+  
       toast.success(
-        response?.data.message || "Hesabınız başarıyla oluşturuldu."
+        response?.message ||
+          "Hesabınız başarıyla oluşturuldu."
       );
-      router.push("/dashboard")
+  
+      router.push("/dashboard");
     },
   
     onError: (error) => {
       toast.error(
-        error.response?.data?.message || "Hata oluştu."
+        error.response?.data?.message ||
+          "Hata oluştu."
       );
     },
   });

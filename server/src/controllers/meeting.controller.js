@@ -1,6 +1,6 @@
 import Meeting from "../models/meeting.model.js";
 import User from "../models/user.model.js";
-
+import Notification from "../models/notification.model.js";
 export const getMeetings = async (req, res) => {
   try {
     const meetings = await Meeting.find().sort({ createdAt: -1 }).lean();
@@ -65,7 +65,7 @@ export const createMeeting = async (req, res) => {
 
     const preparedTasks = [];
 
-    for (const [index, task] of tasks.entries()) {
+    for (const task of tasks) {
       if (!task.assignee) {
         return res.status(400).json({
           success: false,
@@ -93,21 +93,33 @@ export const createMeeting = async (req, res) => {
       }
 
       preparedTasks.push({
-        id: `${Date.now()}`,
+        id: `${Date.now()}-${preparedTasks.length}`,
 
         title: task.title,
         description: task.description,
         label: task.label,
         priority: task.priority,
 
-        date: task.date ? new Date(task.date) : null,
-        startDate: task.startDate ? new Date(task.startDate) : null,
-        dueDate: task.dueDate ? new Date(task.dueDate) : null,
+        date: task.date
+          ? new Date(task.date)
+          : null,
 
-        estimatedHours: Number(task.estimatedHours) || 0,
+        startDate: task.startDate
+          ? new Date(task.startDate)
+          : null,
+
+        dueDate: task.dueDate
+          ? new Date(task.dueDate)
+          : null,
+
+        estimatedHours:
+          Number(task.estimatedHours) || 0,
+
         spentHours: 0,
         progress: 0,
-        storyPoints: Number(task.storyPoints) || 0,
+
+        storyPoints:
+          Number(task.storyPoints) || 0,
 
         completed: false,
 
@@ -130,16 +142,38 @@ export const createMeeting = async (req, res) => {
       color,
       meeting,
 
-      meetingCalendar: meetingCalendar ? new Date(meetingCalendar) : null,
+      meetingCalendar: meetingCalendar
+        ? new Date(meetingCalendar)
+        : null,
 
       meetingDetails,
 
       tasks: preparedTasks,
     });
 
+
+    const notifications = preparedTasks.map((task) => ({
+      id: `${Date.now()}-${task.id}`,
+    
+      user: task.assignee.id,
+    
+      title: "Yeni görev atandı",
+    
+      message: `"${task.title}" görevi size atandı.`,
+    
+      meetingId: newMeeting.id,
+    
+      taskId: task.id,
+    
+      read: false,
+    }));
+    
+    await Notification.insertMany(notifications);
+
+
     return res.status(201).json({
       success: true,
-      message: "Meeting başarıyla oluşturuldu.",
+      message: "Meeting ve görev başarıyla oluşturuldu.",
       data: newMeeting,
     });
   } catch (error) {
@@ -282,7 +316,10 @@ export const deleteMeeting = async (req, res) => {
     );
 
     await meeting.save();
-
+    await Notification.deleteMany({
+      taskId: id,
+      type: "task-assigned",
+    });
     return res.status(200).json({
       success: true,
       message: "Task başarıyla silindi.",
@@ -327,6 +364,12 @@ export const updateTaskStatus = async (req, res) => {
 
     if (task) {
       task.completed = name.toLowerCase() !== "todo";
+
+    }
+    if (name.toLowerCase() === "done") {
+      await Notification.deleteMany({
+        taskId: id,
+      });
     }
 
     await meeting.save();
@@ -350,7 +393,6 @@ export const updateTaskCompleted = async (req, res) => {
   try {
     const { id } = req.params;
 
-
     const meeting = await Meeting.findOne({
       "tasks.id": id,
     });
@@ -362,12 +404,13 @@ export const updateTaskCompleted = async (req, res) => {
       });
     }
 
-
-    if (meeting.id === id) {
-      meeting.name = "done";
-
-      await meeting.save();
+    meeting.name = "done";
+    if (meeting.name.toLowerCase() === "done") {
+      await Notification.deleteMany({
+        taskId: id,
+      });
     }
+    await meeting.save();
 
     return res.status(200).json({
       success: true,

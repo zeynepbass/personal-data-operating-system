@@ -8,6 +8,7 @@ import {
   updateTaskStatus,
   updateTaskCompleted,
   getUsers,
+  getBell
 } from "../repositories/task.repository";
 
 import { useState } from "react";
@@ -35,7 +36,10 @@ export function useTasks() {
     queryKey: ["meeting-users"],
     queryFn: getUsers,
   });
-
+const bellQuery=useQuery({
+  queryKey:["bell"],
+  queryFn:getBell,
+});
   const createMutation = useMutation({
     mutationFn: createTask,
 
@@ -173,7 +177,7 @@ export function useTasks() {
   return {
     ...query,
 
-
+    notifications:bellQuery.data ?? [],
     users: usersQuery.data ?? [],
     usersLoading: usersQuery.isLoading,
     usersError: usersQuery.error,

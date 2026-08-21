@@ -9,6 +9,7 @@ import meetingRoutes from "./routes/meeting.routes.js";
 import documentRoutes from "./routes/document.routes.js";
 import goalRoutes from "./routes/goal.routes.js";
 import authRouter from "./routes/auth.routes.js"
+import notificationRoutes from "./routes/notification.routes.js"
 const app = express();
 
 app.use(cors());
@@ -19,6 +20,7 @@ app.use("/uploads", express.static("uploads"));
 app.use("/api/notes", notesRoutes);
 app.use("/api/auth", authRouter);
 app.use("/api/meetings", meetingRoutes);
+app.use("/api/notification", notificationRoutes);
 app.use("/api/documents", documentRoutes);
 app.use("/api/goals", goalRoutes);
 
