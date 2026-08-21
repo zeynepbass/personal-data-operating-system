@@ -8,7 +8,7 @@ import {
   transformTasksToRows,
   getTodayTasks,
 } from "../utils/colums.filter";
-import { useRouter } from "next/navigation";
+
 export default function TaskPage() {
   const {user,isInitialized} = useAuth();  
   const isAdmin = user?.role === "admin";
@@ -19,7 +19,7 @@ export default function TaskPage() {
     isError,
     openMenuId,
     setOpenMenuId,
-    
+    router,
     handleDragEnd,
     error,
     isCreating,
@@ -31,7 +31,7 @@ export default function TaskPage() {
     onToggle,
     users
   } = useTasks();
-  const router = useRouter();
+
   const handleMenuClick = (taskId) => {
     setOpenMenuId((prev) =>
       prev === taskId ? null : taskId

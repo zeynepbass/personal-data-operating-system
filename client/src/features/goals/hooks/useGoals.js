@@ -1,8 +1,10 @@
 import { getAll, postGoals,deletedGoals,updateGoals } from "../repositories/goal.repository";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 export function useGoals() {
+
   const queryClient = useQueryClient();
   const query = useQuery({ queryKey: ["goals"], queryFn: getAll });
   const createMutation = useMutation({
@@ -24,6 +26,7 @@ export function useGoals() {
       );
     },
   });
+  const router=useRouter();
   const deleteMutation=useMutation({
     mutationFn:(id)=>deletedGoals(id),
     onSuccess: (response) => {
@@ -85,7 +88,7 @@ export function useGoals() {
     setSelectedValue,
     selectedValue,
     openMenu, setOpenMenu,
-
+    router,
     createGoals: createMutation.mutate,
     deletedGoals:deleteMutation.mutate,
     updateGoals:updateMutation.mutate,

@@ -8,13 +8,11 @@ import { Button, Input } from "@/shared/components/atoms";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useTasks } from "@/features/task/hooks/useTask";
 import { navigation } from "@/shared/mock/navigation";
-import { useRouter } from "next/navigation";
+
 
 export function SearchBar() {
   const { user, logout } = useAuth();
-  const { notifications } = useTasks();
-  const [isOpen, setIsOpen] = useState(false);
-  const [search, setSearch] = useState("");
+  const { notifications, isOpen, setIsOpen, search, setSearch,showNotifications, setShowNotifications,router } = useTasks();
 
   const fullName = user?.fullName ?? "Kullanıcı";
   const email = user?.email ?? "Email";
@@ -38,8 +36,7 @@ export function SearchBar() {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
   };
-  const router = useRouter();
-  const [showNotifications, setShowNotifications] = useState(false);
+
 
   return (
     <div className="flex w-full items-center justify-between bg-white px-4 py-3">
@@ -105,10 +102,10 @@ export function SearchBar() {
                 {notifications.map((notification) => (
                   <div
                     key={notification.id}
-                    className="rounded-lg bg-gray-50 p-3"
+                    className="rounded-lg bg-gray-50 p-3 gap-2"
                   >
-                    <p className="text-sm font-medium text-gray-400">
-                      {notification.title}
+                    <p className="text-sm font-medium text-purple-400">
+                      {notification.title}.
                     </p>
 
                     <p className="mt-1 text-xs text-gray-500">

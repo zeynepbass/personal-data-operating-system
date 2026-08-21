@@ -2,10 +2,10 @@
 import { GoalForm } from "@/features/goals/components/GoalsForm/GoalForm";
 import { useGoals } from "@/features/goals/hooks/useGoals";
 import {ArrowLeft} from "lucide-react"
-import { useRouter } from "next/navigation";
+
 export default function GoalsPage() {
-  const { createGoals, isCreating } = useGoals();
-  const router=useRouter();
+  const { createGoals, isCreating,router } = useGoals();
+
   return (
     <div className="space-y-6">
       {" "}

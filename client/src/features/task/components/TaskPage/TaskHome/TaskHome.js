@@ -20,6 +20,7 @@ export default function TaskHome({users,router, onToggle,onDragEnd,deletedTask,d
         setOpen={setOpen}
         isAdmin={isAdmin}
         isInitialized={isInitialized}
+        router={router}
         description="Bugün seni neler bekliyor."
       />
       <TaskModal

@@ -10,7 +10,7 @@ import {
   getUsers,
   getBell
 } from "../repositories/task.repository";
-
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
@@ -24,9 +24,11 @@ export function useTasks() {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState("list");
   const [openMenuId, setOpenMenuId] = useState(null);
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState("");
   const queryClient = useQueryClient();
-
+  const router = useRouter();
+  const [showNotifications, setShowNotifications] = useState(false);
   const query = useQuery({
     queryKey: ["tasks"],
     queryFn: getTask,
@@ -181,7 +183,7 @@ const bellQuery=useQuery({
     users: usersQuery.data ?? [],
     usersLoading: usersQuery.isLoading,
     usersError: usersQuery.error,
-
+    isOpen, setIsOpen,search, setSearch,
     view,
     setView,
 
@@ -192,7 +194,7 @@ const bellQuery=useQuery({
 
     openMenuId,
     setOpenMenuId,
-
+    showNotifications, setShowNotifications,router,
     handleDragEnd,
 
     createTask: createMutation.mutate,

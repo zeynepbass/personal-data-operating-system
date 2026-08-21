@@ -1,17 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import {  useParams } from "next/navigation";
 
 import { TaskForm } from "@/features/task/components/TaskForm";
 import { NotFound } from "@/shared/components/organisms";
 import { useTasks } from "@/features/task/hooks/useTask";
 
 export default function TaskEditPage() {
-  const router = useRouter();
+
   const { id } = useParams();
 
-  const { updateTask, isUpdating } = useTasks();
+  const { updateTask, isUpdating,router } = useTasks();
 
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
