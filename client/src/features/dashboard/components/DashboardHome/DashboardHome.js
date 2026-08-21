@@ -55,18 +55,15 @@ export default function DashboardHome({
 
           <div className="h-[calc(30vh-110px)] overflow-y-auto pr-2">
             {filteredMeeting.length === 0 ? (
-              <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50 px-6 py-10 text-center">
-                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm">
-                  📭
+              <div className="flex h-full items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50">
+                <div className="flex flex-col items-center text-center">
+                  <p className="text-sm font-medium text-slate-600 flex flex-col">
+                    <span> 📭 </span> <span>Bugün için toplantı yok</span>
+                  </p>
+     <p className="text-sm font-medium italic mt-2"> 
+                    Takviminde planlanmış bir toplantı bulunmuyor.
+                  </p>
                 </div>
-
-                <p className="font-medium text-slate-700">
-                  Bugün için toplantı yok
-                </p>
-
-                <p className="mt-1 text-sm text-slate-400">
-                  Takviminde planlanmış bir toplantı bulunmuyor.
-                </p>
               </div>
             ) : (
               <div className="space-y-3">
