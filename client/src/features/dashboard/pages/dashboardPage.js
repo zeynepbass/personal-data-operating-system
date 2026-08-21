@@ -2,16 +2,20 @@
 
 import DashboardHome from "../components/DashboardHome";
 import {
-  getTodayMeetings,
-  getTodayTasks,
+  getTodayMeetings
 } from "@/features/dashboard/utils/meeting.utils";
-
+import {
+  getTodayTasks
+} from "@/features/task/utils/colums.filter";
+import { useMemo } from "react";
 export default function DashboardPage({ meetings = [] }) {
 
   const filteredMeeting = getTodayMeetings(meetings);
-  const filteredData = getTodayTasks(meetings);
 
-
+  const filteredData = useMemo(
+    () => getTodayTasks(meetings),
+    [meetings]
+  );
   return (
     <DashboardHome
 

@@ -6,10 +6,11 @@ import {TaskDetailHeader} from "@/features/task/components/TaskDetail/TaskDetail
 import {TaskDetaiInfo} from "@/features/task/components/TaskDetail/TaskDetaiInfo";
 import {TaskDetailMeta} from "@/features/task/components/TaskDetail/TaskDetailMeta";
 import NotFound  from "@/shared/pages/NotFoundPage";
+import { useRouter } from "next/navigation";
 
 export default function TaskDetail({ id }) {
   const [task, setTask] = useState(null);
-
+const router=useRouter();
   useEffect(() => {
     const storedTask = localStorage.getItem("selectedTask");
 
@@ -23,13 +24,13 @@ export default function TaskDetail({ id }) {
   }, [id]);
 
   if (!task) {
-    return <NotFound title="opsss" description="Bu sayfa Bulunamadı" linkText="Böyle bir sayfa bulunamadı." buttonText="Tasklere dön" route="/tasks"/>
+    return <NotFound title="opsss" description="Bu sayfa Bulunamadı" linkText="Böyle bir sayfa bulunamadı." buttonText="Tasklere dön" route="/tasks" router={router}/>
   }
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div >
-        <TaskDetailHeader task={task} />
+        <TaskDetailHeader task={task} router={router}/>
 
         <div className="rounded-2xl border border-gray-200 bg-white shadow-sm">
 

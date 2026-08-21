@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import {
   Button,
   Heading,
@@ -12,8 +11,9 @@ export function NotFound({
   linkText,
   buttonText,
   route,
+  router
 }) {
-  const router = useRouter();
+
 
   return (
     <div className="py-10 text-center">

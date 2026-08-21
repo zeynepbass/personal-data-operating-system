@@ -1,10 +1,9 @@
 "use client";
 
 import { ArrowLeft, Pencil } from "lucide-react";
-import { useRouter } from "next/navigation";
 
-export function TaskDetailHeader({ task }) {
-  const router = useRouter();
+
+export function TaskDetailHeader({ task,router }) {
 
   return (
     <div className="mb-6 flex items-center justify-between">
