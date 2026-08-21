@@ -7,6 +7,11 @@ export async function getTask() {
 
     return response.data.data.map(tasksAdapter);
 }
+export async function getBell() {
+    const response = await taskProvider.getNotification();
+ console.log(response)
+    return response.data?.data ?? [];
+}
 
 export async function getUsers() {
     const response = await taskProvider.getUsers();

@@ -7,7 +7,8 @@ const taskProvider = {
     updatedTask:taskApi.updatedTask,
     deletedTask:taskApi.deletedTask,
     updateTaskStatus:taskApi.updateTaskStatus,
-    updateTaskCompleted:taskApi.updateTaskCompleted
+    updateTaskCompleted:taskApi.updateTaskCompleted,
+    getNotification:taskApi.getNotification
 };
 
 export default taskProvider;

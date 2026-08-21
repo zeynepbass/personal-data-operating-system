@@ -4,6 +4,9 @@ export const taskApi = {
     getTask() {
     return apiClient.get("/meetings");
   },
+  getNotification(){
+    return apiClient.get("/notification");
+  },
   getUsers() {
     return apiClient.get("/meetings/users");
   },

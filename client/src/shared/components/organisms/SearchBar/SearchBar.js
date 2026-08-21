@@ -1,21 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Bell,
-  Settings,
-  Search,
-  ChevronDown,
-} from "lucide-react";
+import { Bell, Settings, Search, ChevronDown } from "lucide-react";
 import Link from "next/link";
 
 import { Button, Input } from "@/shared/components/atoms";
 import { useAuth } from "@/features/auth/hooks/useAuth";
+import { useTasks } from "@/features/task/hooks/useTask";
 import { navigation } from "@/shared/mock/navigation";
+import { useRouter } from "next/navigation";
 
 export function SearchBar() {
   const { user, logout } = useAuth();
-
+  const { notifications } = useTasks();
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -33,18 +30,19 @@ export function SearchBar() {
       .toUpperCase() || "K";
 
   const filteredPages = navigation.filter((page) =>
-    page.name.toLocaleLowerCase("tr-TR").includes(
-      search.toLocaleLowerCase("tr-TR").trim()
-    )
+    page.name
+      .toLocaleLowerCase("tr-TR")
+      .includes(search.toLocaleLowerCase("tr-TR").trim())
   );
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
   };
+  const router = useRouter();
+  const [showNotifications, setShowNotifications] = useState(false);
 
   return (
     <div className="flex w-full items-center justify-between bg-white px-4 py-3">
-
       <form
         onSubmit={handleSearchSubmit}
         className="relative max-w-full flex-1"
@@ -76,10 +74,7 @@ export function SearchBar() {
                       onClick={() => setSearch("")}
                       className="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 transition hover:bg-gray-50"
                     >
-                      <Icon
-                        size={18}
-                        className="text-purple-500"
-                      />
+                      <Icon size={18} className="text-purple-500" />
 
                       <span>{page.name}</span>
                     </Link>
@@ -95,18 +90,43 @@ export function SearchBar() {
         )}
       </form>
 
-
       <div className="ml-4 flex items-center gap-1">
         <Button
           text={<Bell size={20} />}
+          onClick={() => setShowNotifications((prev) => !prev)}
           className="bg-transparent hover:text-[rgb(125,120,206)]"
         />
+        {showNotifications && (
+          <div className="absolute right-5 top-14 z-50 w-80 rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
+            <h3 className="mb-3 text-gray-500">Bildirimler</h3>
 
+            {notifications?.length > 0 ? (
+              <div className="space-y-2">
+                {notifications.map((notification) => (
+                  <div
+                    key={notification.id}
+                    className="rounded-lg bg-gray-50 p-3"
+                  >
+                    <p className="text-sm font-medium text-gray-400">
+                      {notification.title}
+                    </p>
+
+                    <p className="mt-1 text-xs text-gray-500">
+                      {notification.message}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500">Yeni bildiriminiz yok.</p>
+            )}
+          </div>
+        )}
         <Button
           text={<Settings size={20} />}
+          onClick={() => router.push("/settings")}
           className="bg-transparent hover:text-[rgb(125,120,206)]"
         />
-
 
         <div className="relative ml-2 w-44">
           <button
@@ -114,20 +134,16 @@ export function SearchBar() {
             onClick={() => setIsOpen((prev) => !prev)}
             className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-xs transition hover:bg-slate-50 focus:outline-none"
           >
-
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[rgb(125,120,206)] text-xs font-semibold text-white">
               {initials}
             </span>
-
 
             <span className="flex min-w-0 flex-1 flex-col text-left">
               <span className="truncate font-medium text-gray-900">
                 {fullName}
               </span>
 
-              <span className="truncate text-gray-400">
-                {role}
-              </span>
+              <span className="truncate text-gray-400">{role}</span>
             </span>
 
             <ChevronDown
@@ -137,17 +153,12 @@ export function SearchBar() {
             />
           </button>
 
-
           {isOpen && (
             <div className="absolute right-0 top-full z-50 mt-2 w-64 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
               <div className="border-b border-slate-100 px-4 py-3">
-                <p className="text-sm font-medium text-gray-900">
-                  {fullName}
-                </p>
+                <p className="text-sm font-medium text-gray-900">{fullName}</p>
 
-                <p className="mt-1 text-xs text-gray-500">
-                  {email}
-                </p>
+                <p className="mt-1 text-xs text-gray-500">{email}</p>
               </div>
 
               <button
