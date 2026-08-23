@@ -21,3 +21,14 @@ export const login = (provider) => async (data) => {
   
     return response.data;
   };
+  export const password = (provider) => async (id) => {
+
+    const response = await provider.getPassword(id);
+   console.log("tesr",response.data)
+    return response.data ?? [];
+  };
+  export const deleteAccount = (provider) => async (id) => {
+    const response = await provider.deleteAccount(id);
+  
+    return response.data;
+  };

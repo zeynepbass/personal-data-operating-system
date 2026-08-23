@@ -122,7 +122,8 @@ export function SearchBar() {
             onClick={() => setIsOpen((prev) => !prev)}
             className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-xs transition hover:bg-slate-50 focus:outline-none"
           >
-            <img src={`http://localhost:5209${profileImage}`} height={30} width={30} className="tems-center justify-center rounded-full"/>
+            {profileImage &&  <img src={`http://localhost:5209${profileImage}`} height={30} width={30} className="tems-center justify-center rounded-full"/>}
+           
  
 
             <span className="flex min-w-0 flex-1 flex-col text-left">
@@ -143,7 +144,7 @@ export function SearchBar() {
           {isOpen && (
             <div className="absolute right-0 top-full z-50 mt-2 w-64 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
               <div className="border-b border-slate-100 px-4 py-3">
-                <p className="text-sm font-medium text-gray-900">{fullName}</p>
+
 
                 <p className="mt-1 text-xs text-gray-500">{email}</p>
               </div>

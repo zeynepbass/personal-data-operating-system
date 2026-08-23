@@ -13,5 +13,12 @@ export const authApi = {
   },
   profile(id,data){
     return apiClient.put(`/auth/${id}/profile`,data);
+  },
+  getPassword(id){
+    console.log(id)
+    return apiClient.get(`/auth/${id}/password-info`);
+  },
+  deleteAccount(id) {
+    return apiClient.delete(`/auth/${id}`);
   }
 };
