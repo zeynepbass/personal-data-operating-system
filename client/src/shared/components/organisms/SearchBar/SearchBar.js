@@ -122,7 +122,7 @@ export function SearchBar() {
             onClick={() => setIsOpen((prev) => !prev)}
             className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-xs transition hover:bg-slate-50 focus:outline-none"
           >
-            {profileImage &&  <img src={`http://localhost:5209${profileImage}`} height={30} width={30} className="tems-center justify-center rounded-full"/>}
+            {profileImage &&  <img src={`http://localhost:5209${profileImage}`} className="h-10 w-10 rounded-full object-cover"/>}
            
  
 

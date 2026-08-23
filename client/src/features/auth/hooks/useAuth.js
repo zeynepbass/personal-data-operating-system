@@ -117,7 +117,7 @@ export const useAuth = () => {
       if (data.profileImage) {
         formData.append("profileImage", data.profileImage);
       }
-
+ console.log(formData)
       return authContainer.profile(user.id, formData);
     },
 

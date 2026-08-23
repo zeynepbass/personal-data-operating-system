@@ -20,14 +20,24 @@ export default function AnalyticsPage({ meeting = [] }) {
 
   const filteredTasks = useMemo(() => {
     if (!selectedRange) return tasks;
-
+  
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userId = user?.id;
+  
+    if (!userId) return [];
+  
     const [startDate, endDate] = selectedRange.split("_");
-
+  
     return tasks.filter((task) => {
       if (!task.date) return false;
-
+  
+      const isAssignedToUser =
+        task.assignee?.id === userId;
+  
+      if (!isAssignedToUser) return false;
+  
       const taskDate = String(task.date).slice(0, 10);
-
+  
       return taskDate >= startDate && taskDate <= endDate;
     });
   }, [tasks, selectedRange]);
