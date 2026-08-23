@@ -16,7 +16,7 @@ import { PageHeader } from "@/shared/components/molecules";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 
 export default function RegisterForm() {
-  const { register, registerLoading } = useAuth();
+  const { register} = useAuth();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordAgain, setShowPasswordAgain] = useState(false);
@@ -216,9 +216,9 @@ className="object-cover object-center"
 
             <Button
               type="submit"
-              disabled={registerLoading}
+              disabled={register.isPending}
               text={
-                registerLoading
+                register.isPending
                   ? "Kayıt oluşturuluyor..."
                   : "Kayıt Ol"
               }

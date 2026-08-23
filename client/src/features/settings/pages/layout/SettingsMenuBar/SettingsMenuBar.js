@@ -7,8 +7,6 @@ import SettingsMenu from "../../../components/Settings/SettingsMenu"
 import { usePathname } from "next/navigation";
 const menu = [
   {id:1, name: "Profil", icon: User, link: "/settings" },
-  {id:3, name: "Bildirimler", icon: Bell, link: "/settings/notifications" },
-  { id:4,name: "Dil", icon: Globe, link: "/settings/language" },
   { id:5,name: "Güvenlik", icon: Shield, link: "/settings/security" },
 
 ];
@@ -18,9 +16,9 @@ export default function SettingsMenuBar() {
   return (
     
    
-    <div className="min-h-screen bg-gray-50 p-8">
+
        
-      <div className="mx-auto max-w-7xl">
+      <div className="">
       <SettingHeading title="Ayarlar" />
 
         <div className="grid gap-8 lg:grid-cols-[240px_1fr]">
@@ -52,6 +50,6 @@ export default function SettingsMenuBar() {
        
         </div>
       </div>
-    </div>
+
   );
 }

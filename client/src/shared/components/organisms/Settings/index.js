@@ -1,1 +1,0 @@
-export {SettingNotification} from "./SettingNotification"

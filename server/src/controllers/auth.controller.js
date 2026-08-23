@@ -269,3 +269,60 @@ export const forgotPassword = async (req, res) => {
     });
   }
 };
+
+
+export const updateProfile = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { fullName, email, about } = req.body;
+
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "Kullanıcı bulunamadı.",
+      });
+    }
+
+    if (fullName !== undefined) {
+      user.fullName = fullName;
+    }
+
+    if (email !== undefined) {
+      user.email = email;
+    }
+
+    if (about !== undefined) {
+      user.about = about;
+    }
+
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Profil başarıyla güncellendi.",
+      user: {
+        id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        about: user.about,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    console.error("Update profile error:", error);
+
+    if (error.code === 11000) {
+      return res.status(409).json({
+        success: false,
+        message: "Bu email adresi zaten kullanılıyor.",
+      });
+    }
+
+    return res.status(500).json({
+      success: false,
+      message: "Profil güncellenirken bir hata oluştu.",
+    });
+  }
+};

@@ -10,7 +10,7 @@ import { Button, Input } from "@/shared/components/atoms";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 
 export default function LoginForm() {
-  const { login, loginLoading } = useAuth();
+  const { login } = useAuth();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -89,7 +89,7 @@ export default function LoginForm() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="E-posta adresiniz"
-                disabled={loginLoading}
+                disabled={login.isPending}
                 required
                 autoComplete="email"
                 className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-5 transition focus:border-[#555A8A]"
@@ -109,7 +109,7 @@ export default function LoginForm() {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Şifreniz"
-                disabled={loginLoading}
+                disabled={login.isPending}
                 required
                 autoComplete="current-password"
                 className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-12 transition focus:border-[#555A8A]"
@@ -117,7 +117,7 @@ export default function LoginForm() {
 
               <button
                 type="button"
-                disabled={loginLoading}
+                disabled={login.isPending}
                 aria-label={
                   showPassword
                     ? "Şifreyi gizle"
@@ -141,7 +141,7 @@ export default function LoginForm() {
               <label className="flex cursor-pointer items-center gap-2 text-gray-500">
                 <Input
                   type="checkbox"
-                  disabled={loginLoading}
+                  disabled={login.isPending}
                   className="h-4 w-4 rounded accent-purple-600"
                 />
 
@@ -159,9 +159,9 @@ export default function LoginForm() {
 
             <Button
               type="submit"
-              disabled={loginLoading}
+              disabled={login.isPending}
               text={
-                loginLoading
+                login.isPending
                   ? "Giriş yapılıyor..."
                   : "Giriş Yap"
               }
@@ -184,7 +184,7 @@ export default function LoginForm() {
 
             <button
               type="button"
-              disabled={loginLoading}
+              disabled={login.isPending}
               className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl border border-gray-200 bg-white font-medium text-gray-600 transition hover:border-[#7d78ce] hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
             >
               <Image

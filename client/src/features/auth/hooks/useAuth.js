@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-
+import { useState } from "react";
 import { authContainer } from "../auth.container";
 import { useAuthStore } from "../../../shared/store/auth.store";
 import { useRouter } from "next/navigation";
@@ -16,7 +16,9 @@ export const useAuth = () => {
     logout: setLogout,
     initializeAuth,
   } = useAuthStore();
-
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [about, setAbout] = useState("");
   const loginMutation = useMutation({
     mutationFn: (data) => authContainer.login(data),
   
@@ -96,6 +98,30 @@ export const useAuth = () => {
     },
   });
 
+  
+  const profileMutation = useMutation({
+    mutationFn: ({ id, data }) => authContainer.profile(id, data),
+  
+    onSuccess: (response) => {
+      if (!response?.success) {
+        toast.error(
+          response?.message || "Profil güncellenemedi."
+        );
+        return;
+      }
+  
+      toast.success(
+        response?.message || "Profil başarıyla güncellendi."
+      );
+    },
+  
+    onError: (error) => {
+      toast.error(
+        error.response?.data?.message ||
+          "Profil güncellenirken hata oluştu."
+      );
+    },
+  });
   const handleLogout = () => {
     setLogout();
 
@@ -108,17 +134,14 @@ export const useAuth = () => {
     token,
     isAuthenticated,
     isInitialized,
-
+    fullName, setFullName,
+    about, setAbout,
+    email, setEmail,
+    profile:profileMutation.mutateAsync,
     login: loginMutation.mutateAsync,
     register: registerMutation.mutateAsync,
     password:forgotPasswordMutation.mutateAsync,
     logout: handleLogout,
-    initializeAuth,
-
-    loginLoading: loginMutation.isPending,
-    registerLoading: registerMutation.isPending,
-
-    loginError: loginMutation.error,
-    registerError: registerMutation.error,
+    initializeAuth
   };
 };
