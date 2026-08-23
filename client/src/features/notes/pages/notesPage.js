@@ -14,7 +14,6 @@ export default function NotesPage() {
     isLoading,
     deletedNotes,
     createNotes,
-    isCreating,
   } = useNotes();
 
   const [open, setOpen] = useState(false);
@@ -67,7 +66,7 @@ export default function NotesPage() {
         open={open}
         setOpen={setOpen}
         onSubmit={createNotes}
-        isCreating={isCreating}
+        isCreating={createNotes.isPending}
       />
     </>
   );
