@@ -15,8 +15,9 @@ export const login = (provider) => async (data) => {
   
     return response.data;
   };
-  export const profile = (provider) => async (id) => {
-    const response = await provider.profile(id);
+  export const profile = (provider) => async (id,data) => {
+
+    const response = await provider.profile(id,data);
   
     return response.data;
   };

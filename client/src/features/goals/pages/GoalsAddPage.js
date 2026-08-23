@@ -4,7 +4,7 @@ import { useGoals } from "@/features/goals/hooks/useGoals";
 import {ArrowLeft} from "lucide-react"
 
 export default function GoalsPage() {
-  const { createGoals, isCreating,router } = useGoals();
+  const { createGoals,router } = useGoals();
 
   return (
     <div className="space-y-6">
@@ -27,7 +27,7 @@ export default function GoalsPage() {
       </div>
       <div className="rounded-2xl bg-white shadow-sm">
         {" "}
-        <GoalForm onSubmit={createGoals} isCreating={isCreating} />{" "}
+        <GoalForm onSubmit={createGoals} isCreating={createGoals.isPending} />{" "}
       </div>{" "}
     </div>
   );

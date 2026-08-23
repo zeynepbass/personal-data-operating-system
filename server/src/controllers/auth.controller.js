@@ -270,11 +270,18 @@ export const forgotPassword = async (req, res) => {
   }
 };
 
-
 export const updateProfile = async (req, res) => {
   try {
     const { id } = req.params;
-    const { fullName, email, about } = req.body;
+
+    const {
+      fullName,
+      email,
+      about,
+    } = req.body || {};
+
+    console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
 
     const user = await User.findById(id);
 
@@ -297,6 +304,10 @@ export const updateProfile = async (req, res) => {
       user.about = about;
     }
 
+    if (req.file) {
+      user.profileImage = `/uploads/profiles/${req.file.filename}`;
+    }
+
     await user.save();
 
     return res.status(200).json({
@@ -307,6 +318,7 @@ export const updateProfile = async (req, res) => {
         fullName: user.fullName,
         email: user.email,
         about: user.about,
+        profileImage: user.profileImage,
         role: user.role,
       },
     });

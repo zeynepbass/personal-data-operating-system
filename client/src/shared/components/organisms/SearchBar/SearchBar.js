@@ -17,16 +17,7 @@ export function SearchBar() {
   const fullName = user?.fullName ?? "Kullanıcı";
   const email = user?.email ?? "Email";
   const role = user?.role ?? "Kullanıcı";
-
-  const initials =
-    fullName
-      ?.split(" ")
-      .filter(Boolean)
-      .map((name) => name[0])
-      .join("")
-      .slice(0, 2)
-      .toUpperCase() || "K";
-
+ const profileImage = user?.profileImage ?? null;
   const filteredPages = navigation.filter((page) =>
     page.name
       .toLocaleLowerCase("tr-TR")
@@ -131,9 +122,8 @@ export function SearchBar() {
             onClick={() => setIsOpen((prev) => !prev)}
             className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-xs transition hover:bg-slate-50 focus:outline-none"
           >
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[rgb(125,120,206)] text-xs font-semibold text-white">
-              {initials}
-            </span>
+            <img src={`http://localhost:5209${profileImage}`} height={30} width={30} className="tems-center justify-center rounded-full"/>
+ 
 
             <span className="flex min-w-0 flex-1 flex-col text-left">
               <span className="truncate font-medium text-gray-900">

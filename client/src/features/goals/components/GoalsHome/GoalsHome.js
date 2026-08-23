@@ -20,7 +20,7 @@ const tabs = [
   },
 ];
 export default function GoalsHome() {
-  const { data = [], error, isLoading, isError ,deletedGoals,isUpdating,updateGoals,selectedValue, setSelectedValue,  openMenu, setOpenMenu,
+  const { data = [], error, isLoading, isError ,deletedGoals,updateGoals,selectedValue, setSelectedValue,  openMenu, setOpenMenu,
 } = useGoals();
 
   const [selectedTab, setSelectedTab] = useState("all");
@@ -60,7 +60,7 @@ export default function GoalsHome() {
       </div>
 
       {filteredGoals.map((goal) => (
-        <GoalsCard key={goal.id} {...goal} deletedGoals={deletedGoals} isUpdating={isUpdating} 
+        <GoalsCard key={goal.id} {...goal} deletedGoals={deletedGoals} isUpdating={updateGoals.sPending} 
          selectedValue={selectedValue}
           setSelectedValue={setSelectedValue} 
           updateGoals={updateGoals} 
