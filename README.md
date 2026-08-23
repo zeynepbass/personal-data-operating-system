@@ -145,14 +145,14 @@ Dashboard
 <img src="./client/public/assets/readMe/login.png" width="500"/>
 
 ## Profile Admin
-<img src="./client/public/assets/readMe/admin-profile.png" width="500"/>
+<img src="./client/public/assets/readMe/admin_profile.png" width="500"/>
 
 ## Document Admin
-<img src="./client/public/assets/readMe/admin-document.png" width="500"/>
+<img src="./client/public/assets/readMe/admin_document.png" width="500"/>
 
 ## Admin Tasks
-<img src="./client/public/assets/readMe/admin-task.png" width="500"/>
-<img src="./client/public/assets/readMe/admin-table.png" width="500"/>
+<img src="./client/public/assets/readMe/admin_task.png" width="500"/>
+<img src="./client/public/assets/readMe/admin_table.png" width="500"/>
 
 ## Calendar
 <img src="./client/public/assets/readMe/calendar.png" width="500"/>
@@ -173,7 +173,7 @@ Dashboard
 <img src="./client/public/assets/readMe/dashboard.png" width="500"/>
 
 ## Analytics
-<img src="./client/public/assets/readMe/analiz.png" width="500"/>
+<img src="./client/public/assets/readMe/analist.png" width="500"/>
 
 ## Goals
 <img src="./client/public/assets/readMe/goals.png" width="500"/>
