@@ -138,15 +138,7 @@ export default function LoginForm() {
 
 
             <div className="flex items-center justify-between text-sm">
-              <label className="flex cursor-pointer items-center gap-2 text-gray-500">
-                <Input
-                  type="checkbox"
-                  disabled={login.isPending}
-                  className="h-4 w-4 rounded accent-purple-600"
-                />
-
-                <span>Beni Hatırla</span>
-              </label>
+  
 
               <Link
                 href="/forgot-password"
