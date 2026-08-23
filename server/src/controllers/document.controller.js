@@ -1,30 +1,27 @@
 import Document from "../models/document.model.js";
 export const getDocuments = async (req, res) => {
   try {
-    let documents;
-
-    if (req.user.role === "admin") {
-
-      documents = await Document.find();
-    } else {
-  
-      documents = await Document.find({
-        $or: [
-          {
-            user: req.user._id,
-          },
-          {
-            shared: true,
-          },
-        ],
-      });
-    }
+    const documents = await Document.find({
+      $or: [
+        {
+          user: req.user._id,
+        },
+        {
+          shared: true,
+        },
+      ],
+    }).sort({
+      shared: -1,
+      createdAt: -1,
+    });
 
     return res.status(200).json({
       success: true,
       data: documents,
     });
   } catch (error) {
+    console.error("Get documents error:", error);
+
     return res.status(500).json({
       success: false,
       message: "Documents alınırken hata oluştu.",

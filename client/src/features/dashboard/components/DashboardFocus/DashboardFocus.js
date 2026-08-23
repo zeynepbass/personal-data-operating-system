@@ -6,18 +6,25 @@ import { useTasks } from "@/features/task/hooks/useTask";
 export default function DashboardFocus({ duration }) {
   const { data, isLoading } = useTasks();
 
-    const tasks = useMemo(() => {
-      if (!Array.isArray(data)) return [];
-    
-      return data.flatMap((group) => {
-        if (!Array.isArray(group.tasks)) return [];
-    
-        return group.tasks.map((task) => ({
+  const tasks = useMemo(() => {
+    if (!Array.isArray(data)) return [];
+  
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userId = user?.id;
+  
+    if (!userId) return [];
+  
+    return data.flatMap((group) => {
+      if (!Array.isArray(group.tasks)) return [];
+  
+      return group.tasks
+        .filter((task) => task.assignee?.id === userId)
+        .map((task) => ({
           ...task,
           status: group.name,
         }));
-      });
-    }, [data]);
+    });
+  }, [data]);
     const filteredTasks = useMemo(() => {
       const today = new Date();
     

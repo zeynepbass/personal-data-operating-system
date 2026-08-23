@@ -20,7 +20,7 @@ const tabs = [
   },
 ];
 export default function GoalsHome() {
-  const { data = [], error, isLoading, isError ,deletedGoals,updateGoals,selectedValue, setSelectedValue,  openMenu, setOpenMenu,
+  const { data = [], error, isLoading, isError ,router,deletedGoals,updateGoals,selectedValue, setSelectedValue,  openMenu, setOpenMenu,
 } = useGoals();
 
   const [selectedTab, setSelectedTab] = useState("all");
@@ -44,7 +44,7 @@ export default function GoalsHome() {
 
   return (
     <div className="space-y-6">
-      <GoalsHeading />
+      <GoalsHeading router={router}/>
 
       <div className="flex w-fit rounded-xl  p-1 gap-2">
         {tabs.map((tab) => (

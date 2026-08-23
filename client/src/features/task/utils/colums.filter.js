@@ -13,13 +13,24 @@ export function transformTasksToRows(data = []) {
 export function getTodayTasks(data = []) {
   const today = new Date().toISOString().split("T")[0];
 
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userId = user?.id;
+
+  if (!userId) return [];
+
   return data
     .filter((column) => column.name?.toLowerCase() === "todo")
     .flatMap((column) => column.tasks ?? [])
     .filter((task) => {
       if (!task.date) return false;
 
-      return new Date(task.date).toISOString().split("T")[0] === today;
+      const isToday =
+        new Date(task.date).toISOString().split("T")[0] === today;
+
+      const isAssignedToUser =
+        task.assignee?.id === userId;
+
+      return isToday && isAssignedToUser;
     });
 }
 export function groupTasksByStatus(data = []) {
