@@ -4,7 +4,9 @@ import {
   register,
   login,
   forgotPassword,
-  updateProfile
+  updateProfile,
+  getPasswordInfo,
+  deleteAccount
 } from "../controllers/auth.controller.js";
 
 const router = express.Router();
@@ -17,4 +19,9 @@ router.put(
   upload.single("profileImage"),
   updateProfile
 );
+router.get(
+  "/:id/password-info",
+  getPasswordInfo
+);
+router.delete("/:id", deleteAccount);
 export default router;

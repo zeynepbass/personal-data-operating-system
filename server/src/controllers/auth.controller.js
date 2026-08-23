@@ -196,19 +196,13 @@ export const forgotPassword = async (req, res) => {
       passwordAgain,
     } = req.body;
 
-
-    if (
-      !email ||
-      !password ||
-      !passwordAgain
-    ) {
+    if (!email || !password || !passwordAgain) {
       return res.status(400).json({
         success: false,
         message:
           "Email, yeni şifre ve şifre tekrar alanları gereklidir.",
       });
     }
-
 
     if (password !== passwordAgain) {
       return res.status(400).json({
@@ -217,7 +211,6 @@ export const forgotPassword = async (req, res) => {
       });
     }
 
-
     if (password.length < 6) {
       return res.status(400).json({
         success: false,
@@ -225,11 +218,7 @@ export const forgotPassword = async (req, res) => {
       });
     }
 
-
-    const normalizedEmail = email
-      .toLowerCase()
-      .trim();
-
+    const normalizedEmail = email.toLowerCase().trim();
 
     const user = await User.findOne({
       email: normalizedEmail,
@@ -243,17 +232,22 @@ export const forgotPassword = async (req, res) => {
       });
     }
 
-
-    const hashedPassword =
-      await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(
+      password,
+      10
+    );
 
     user.password = hashedPassword;
+
+
+    user.passwordChangedAt = new Date();
 
     await user.save();
 
     return res.status(200).json({
       success: true,
       message: "Şifreniz başarıyla güncellendi.",
+      passwordChangedAt: user.passwordChangedAt,
     });
   } catch (error) {
     console.error(
@@ -263,9 +257,7 @@ export const forgotPassword = async (req, res) => {
 
     return res.status(500).json({
       success: false,
-      message:
-        "Şifre güncellenirken hata oluştu.",
-      error: error.message,
+      message: "Şifre güncellenirken hata oluştu.",
     });
   }
 };
@@ -335,6 +327,72 @@ export const updateProfile = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Profil güncellenirken bir hata oluştu.",
+    });
+  }
+};
+export const getPasswordInfo = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findById(id).select(
+      "passwordChangedAt"
+    );
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "Kullanıcı bulunamadı.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      passwordChangedAt: user.passwordChangedAt,
+    });
+  } catch (error) {
+    console.error(
+      "GET PASSWORD INFO ERROR:",
+      error
+    );
+
+    return res.status(500).json({
+      success: false,
+      message: "Bilgi alınırken hata oluştu.",
+    });
+  }
+};
+export const deleteAccount = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({
+        success: false,
+        message: "Kullanıcı ID'si gereklidir.",
+      });
+    }
+
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "Kullanıcı bulunamadı.",
+      });
+    }
+
+    await User.findByIdAndDelete(id);
+
+    return res.status(200).json({
+      success: true,
+      message: "Hesabınız başarıyla silindi.",
+    });
+  } catch (error) {
+    console.error("DELETE ACCOUNT ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Hesap silinirken bir hata oluştu.",
     });
   }
 };
