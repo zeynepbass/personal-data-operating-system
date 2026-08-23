@@ -72,7 +72,7 @@ export function useDocuments() {
     filter,
     setFilter,
     createDocument: createMutation.mutate,
-    isCreating: createMutation.isPending,
+
     deleteDocument: deleteMutation.mutate,
   };
 }

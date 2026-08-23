@@ -97,10 +97,20 @@ export const useAuth = () => {
       );
     },
   });
-
-  
   const profileMutation = useMutation({
-    mutationFn: ({ id, data }) => authContainer.profile(id, data),
+    mutationFn: (data) => {
+      const formData = new FormData();
+    
+      formData.append("fullName", data.fullName);
+      formData.append("email", data.email);
+      formData.append("about", data.about);
+    
+      if (data.profileImage) {
+        formData.append("profileImage", data.profileImage);
+      }
+    
+      return authContainer.profile(user.id, formData);
+    },
   
     onSuccess: (response) => {
       if (!response?.success) {
@@ -110,15 +120,35 @@ export const useAuth = () => {
         return;
       }
   
+      const currentUser = JSON.parse(
+        localStorage.getItem("user") || "{}"
+      );
+  
+      const updatedUser = {
+        ...currentUser,
+        ...response.user,
+      };
+  
+      localStorage.setItem(
+        "user",
+        JSON.stringify(updatedUser)
+      );
+  
       toast.success(
-        response?.message || "Profil başarıyla güncellendi."
+        response.message || "Profil başarıyla güncellendi."
       );
     },
   
     onError: (error) => {
+      console.error("PROFILE ERROR:", error);
+      console.error(
+        "BACKEND ERROR:",
+        error?.response?.data
+      );
+  
       toast.error(
-        error.response?.data?.message ||
-          "Profil güncellenirken hata oluştu."
+        error?.response?.data?.message ||
+          "Profil güncellenirken bir hata oluştu."
       );
     },
   });
@@ -137,7 +167,8 @@ export const useAuth = () => {
     fullName, setFullName,
     about, setAbout,
     email, setEmail,
-    profile:profileMutation.mutateAsync,
+    profile: profileMutation.mutateAsync,
+    profileLoading: profileMutation.isPending,
     login: loginMutation.mutateAsync,
     register: registerMutation.mutateAsync,
     password:forgotPasswordMutation.mutateAsync,

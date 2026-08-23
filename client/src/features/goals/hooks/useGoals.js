@@ -92,7 +92,5 @@ export function useGoals() {
     createGoals: createMutation.mutate,
     deletedGoals:deleteMutation.mutate,
     updateGoals:updateMutation.mutate,
-    isUpdating: updateMutation.isPending,
-    isCreating: createMutation.isPending,
   };
 }

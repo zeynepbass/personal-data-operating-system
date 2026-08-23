@@ -198,15 +198,11 @@ const bellQuery=useQuery({
     handleDragEnd,
 
     createTask: createMutation.mutate,
-    isCreating: createMutation.isPending,
 
     updateTask: updateMutation.mutate,
-    isUpdating: updateMutation.isPending,
 
     deletedTask: deleteMutation.mutate,
-    isDeleting: deleteMutation.isPending,
 
     updateTaskStatus: statusMutation.mutate,
-    isUpdatingStatus: statusMutation.isPending,
   };
 }

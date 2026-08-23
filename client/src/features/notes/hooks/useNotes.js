@@ -59,7 +59,6 @@ export default function useNotes() {
   return {
  ...query,
  deletedNotes:deleteMutation.mutate,
- createNotes:createMutation.mutate,
- isCreating: createMutation.isPending
+ createNotes:createMutation.mutate
   };
 }

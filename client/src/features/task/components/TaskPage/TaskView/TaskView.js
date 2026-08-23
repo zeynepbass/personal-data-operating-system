@@ -7,7 +7,6 @@ export default function TableView({
   deletedTask,
   openMenuId,
   onMenuClick,
-  data,
   router
 }) {
 
