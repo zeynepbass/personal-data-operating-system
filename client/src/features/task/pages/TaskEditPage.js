@@ -11,7 +11,7 @@ export default function TaskEditPage() {
 
   const { id } = useParams();
 
-  const { updateTask, isUpdating,router } = useTasks();
+  const { updateTask,router } = useTasks();
 
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -97,7 +97,7 @@ export default function TaskEditPage() {
           <TaskForm
             initialTask={task}
             onSubmit={handleSubmit}
-            isLoading={isUpdating}
+            isLoading={updateTask.isPending}
           />
         </div>
       </div>

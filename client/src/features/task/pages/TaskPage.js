@@ -22,7 +22,7 @@ export default function TaskPage() {
     router,
     handleDragEnd,
     error,
-    isCreating,
+
     createTask,
     view,
     setView,
@@ -73,7 +73,7 @@ export default function TaskPage() {
       onToggle={onToggle}
       users={users ?? []}
       deletedTask={deletedTask}
-      isCreating={isCreating}
+      isCreating={createTask.isPending}
       onSubmit={createTask}
       handleMenuClick={handleMenuClick}
       openMenuId={openMenuId}

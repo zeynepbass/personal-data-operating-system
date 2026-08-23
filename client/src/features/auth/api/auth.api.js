@@ -11,7 +11,7 @@ export const authApi = {
   password(data){
     return apiClient.post("/auth/forgot-password", data);
   },
-  profile(id){
-    return apiClient.post(`/auth/${id}/profile`);
+  profile(id,data){
+    return apiClient.put(`/auth/${id}/profile`,data);
   }
 };

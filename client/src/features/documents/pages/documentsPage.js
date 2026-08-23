@@ -19,7 +19,7 @@ export default function DocumentsPage() {
     open, setOpen,
     setFilter,
     createDocument,
-    isCreating
+    
   } = useDocuments();
   if (isLoading) {
     return <div>Yükleniyor...</div>;
@@ -41,7 +41,7 @@ const handleDelete = (id) => {
     isAdmin={isAdmin}
     isInitialized={isInitialized}
     createDocument={createDocument}
-    isCreating={isCreating}
+    isCreating={createDocument.isPending}
     open={open}
     setOpen={setOpen}
     filteredData={filteredData}
