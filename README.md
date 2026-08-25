@@ -169,6 +169,9 @@ Dashboard
 <img src="./client/public/assets/readMe/task-pdos.png" width="500"/>
 <img src="./client/public/assets/readMe/task.png" width="500"/>
 
+## Notifications
+<img src="./client/public/assets/readMe/notification.png" width="500"/>
+
 ## Dashboard
 <img src="./client/public/assets/readMe/dashboard.png" width="500"/>
 
