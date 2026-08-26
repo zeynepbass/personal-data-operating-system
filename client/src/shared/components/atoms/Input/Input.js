@@ -26,7 +26,7 @@ export function Input  ({
     <input
       type={type}
       name={name}
-
+required
       checked={checked}
       value={value}
       onChange={onChange}

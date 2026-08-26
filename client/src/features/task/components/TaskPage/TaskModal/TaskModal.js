@@ -229,7 +229,7 @@ export default function TaskModal({
                   onChange={handleChange}
                   type="text"
                   placeholder="Örn. Authentication ekranı tasarlanacak"
-                  required
+
                 />
 
                 <Textarea

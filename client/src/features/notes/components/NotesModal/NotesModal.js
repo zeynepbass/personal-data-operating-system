@@ -243,7 +243,7 @@ export default function NotesModal({
                   value={form.id}
                   onChange={handleChange}
                   placeholder="Örn. usememo"
-                  required
+ 
                 />
 
                 <Input
@@ -252,7 +252,7 @@ export default function NotesModal({
                   value={form.title}
                   onChange={handleChange}
                   placeholder="Örn. useMemo Nedir?"
-                  required
+
                 />
 
                 <Textarea
@@ -270,7 +270,7 @@ export default function NotesModal({
                     value={form.category}
                     onChange={handleChange}
                     placeholder="Örn. React"
-                    required
+
                   />
 
                   <Input
@@ -279,7 +279,7 @@ export default function NotesModal({
                     value={form.subCategory}
                     onChange={handleChange}
                     placeholder="Örn. Performance"
-                    required
+
                   />
                 </div>
               </div>
@@ -342,7 +342,7 @@ export default function NotesModal({
                             )
                           }
                           placeholder="Örn. Neden useMemo Kullanılır?"
-                          required
+            
                         />
 
 

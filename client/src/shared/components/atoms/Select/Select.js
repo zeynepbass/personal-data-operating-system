@@ -20,6 +20,7 @@ export function Select  ({
     <select
       name={name}
       value={value}
+      required
       onChange={onChange}
       className={`
         w-full

@@ -23,6 +23,7 @@ export function Textarea({
 
       <textarea
         id={name}
+        required
         name={name}
         value={value}
         onChange={onChange}

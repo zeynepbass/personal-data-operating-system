@@ -99,7 +99,7 @@ className="object-cover object-center"
                 value={formData.fullName}
                 onChange={handleChange}
                 placeholder="Adınız Soyadınız"
-                required
+   
                 autoComplete="name"
                 className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-5 transition focus:border-[#555A8A]"
               />
@@ -118,7 +118,7 @@ className="object-cover object-center"
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="E-posta adresiniz"
-                required
+
                 autoComplete="email"
                 className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-5 transition focus:border-[#555A8A]"
               />
@@ -139,7 +139,7 @@ className="object-cover object-center"
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Şifreniz"
-                  required
+   
                   minLength={6}
                   autoComplete="new-password"
                   className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-12 transition focus:border-[#555A8A]"
@@ -182,7 +182,7 @@ className="object-cover object-center"
                   value={formData.passwordAgain}
                   onChange={handleChange}
                   placeholder="Şifre Tekrar"
-                  required
+      
                   minLength={6}
                   autoComplete="new-password"
                   className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-12 transition focus:border-[#555A8A]"

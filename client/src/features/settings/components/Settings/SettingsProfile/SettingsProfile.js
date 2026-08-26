@@ -79,6 +79,7 @@ export default function SettingsProfile() {
                 type="file"
                 accept="image/png,image/jpeg,image/webp"
                 className="hidden"
+                
                 onChange={handleImageChange}
               />
 

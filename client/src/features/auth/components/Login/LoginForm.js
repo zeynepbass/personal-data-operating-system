@@ -90,7 +90,7 @@ export default function LoginForm() {
                 onChange={handleChange}
                 placeholder="E-posta adresiniz"
                 disabled={login.isPending}
-                required
+
                 autoComplete="email"
                 className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-5 transition focus:border-[#555A8A]"
               />
@@ -110,7 +110,7 @@ export default function LoginForm() {
                 onChange={handleChange}
                 placeholder="Şifreniz"
                 disabled={login.isPending}
-                required
+    
                 autoComplete="current-password"
                 className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-12 transition focus:border-[#555A8A]"
               />

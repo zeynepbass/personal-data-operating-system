@@ -119,7 +119,7 @@ export default function DocumentsModal({
                   onChange={handleChange}
                   type="text"
                   placeholder="Örn. System Design.pdf"
-                  required
+
                   className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-[#555A8A] focus:ring-2 focus:ring-purple-100"
                 />
               </div>
@@ -219,7 +219,7 @@ export default function DocumentsModal({
                   name="pdf"
                   accept="application/pdf,.pdf"
                   onChange={handleChange}
-                  required
+
                   className="w-full rounded-xl border border-dashed text-gray-500 border-gray-300 p-4"
                 />
               </div>
