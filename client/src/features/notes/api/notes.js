@@ -1,5 +1,5 @@
 
-import apiClient from "@/shared/api/client";
+import apiClient from "@/shared/api";
 
 export const notesApi = {
     getNotes() {
