@@ -39,7 +39,7 @@ export default function PasswordForm() {
     <div className="grid min-h-screen lg:grid-cols-12">
       <div className="relative hidden min-h-screen lg:col-span-6 lg:block">
         <Image
-          src="/images/login.jpg"
+          src="/assets/images/login.jpg"
           alt="Şifre yenileme"
           fill
           priority

@@ -39,7 +39,7 @@ export default function LoginForm() {
 
       <div className="relative hidden min-h-screen overflow-hidden lg:col-span-5 lg:block">
         <Image
-          src="/images/login.jpg"
+          src="/assets/images/login.jpg"
           alt="Giriş yap"
           fill
           priority
@@ -180,7 +180,7 @@ export default function LoginForm() {
               className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl border border-gray-200 bg-white font-medium text-gray-600 transition hover:border-[#7d78ce] hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
             >
               <Image
-                src="/images/google.svg"
+                src="/assets/images/google.svg"
                 alt="Google"
                 width={20}
                 height={20}

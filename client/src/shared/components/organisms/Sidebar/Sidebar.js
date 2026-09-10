@@ -13,7 +13,7 @@ export function Sidebar() {
     <aside className="flex min-h-screen w-64 flex-col border-r border-gray-100 bg-[rgb(125,120,206)]">
       <div className="flex items-center gap-3 px-6 py-5">
         <img
-          src="/images/logo.png"
+          src="/assets/images/logo.png"
           width={60}
           height={60}
           alt="Logo"
