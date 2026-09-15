@@ -1,5 +1,5 @@
 
-import taskProvider from "@/providers/task.provider.js";
+import taskProvider from "@/providers/task.provider";
 import { tasksAdapter } from "../adapters/task.adapter";
 
 export async function getTask() {

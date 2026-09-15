@@ -1,4 +1,4 @@
-import  {documentApi} from "../features/documents/api/documents";
+import  {documentApi} from "../features/documents/api/documents.api";
 
 const documentProvider = {
     getDocument: documentApi.getDocument,

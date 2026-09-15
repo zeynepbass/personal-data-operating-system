@@ -1,4 +1,4 @@
-import {notesApi} from "../features/notes/api/notes.js"
+import {notesApi} from "../features/notes/api/notes.api"
 const notesProvider = {
     getNotesApi: notesApi.getNotes,
     deleteNotesApi:notesApi.deleteNotes,
