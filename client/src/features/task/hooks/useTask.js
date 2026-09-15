@@ -1,15 +1,7 @@
 "use client";
 
-import {
-  getTask,
-  createTask,
-  updateTask,
-  deletedTask,
-  updateTaskStatus,
-  updateTaskCompleted,
-  getUsers,
-  getBell
-} from "../repositories/task.repository";
+import * as taskRepository from "../repositories/task.repository";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -26,24 +18,28 @@ export function useTasks() {
   const [openMenuId, setOpenMenuId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const [showNotifications, setShowNotifications] = useState(false);
+
   const queryClient = useQueryClient();
   const router = useRouter();
-  const [showNotifications, setShowNotifications] = useState(false);
+
   const query = useQuery({
     queryKey: ["tasks"],
-    queryFn: getTask,
+    queryFn: taskRepository.getTask,
   });
 
   const usersQuery = useQuery({
     queryKey: ["meeting-users"],
-    queryFn: getUsers,
+    queryFn: taskRepository.getUsers,
   });
-const bellQuery=useQuery({
-  queryKey:["bell"],
-  queryFn:getBell,
-});
+
+  const bellQuery = useQuery({
+    queryKey: ["bell"],
+    queryFn: taskRepository.getBell,
+  });
+
   const createMutation = useMutation({
-    mutationFn: createTask,
+    mutationFn: taskRepository.createTask,
 
     onSuccess: (response) => {
       toast.success(
@@ -69,7 +65,7 @@ const bellQuery=useQuery({
 
   const updateMutation = useMutation({
     mutationFn: ({ id, data }) =>
-      updateTask(id, data),
+      taskRepository.updateTask(id, data),
 
     onSuccess: (response) => {
       toast.success(
@@ -95,7 +91,7 @@ const bellQuery=useQuery({
 
   const deleteMutation = useMutation({
     mutationFn: ({ id }) =>
-      deletedTask(id),
+      taskRepository.deletedTask(id),
 
     onSuccess: (response) => {
       toast.success(
@@ -121,7 +117,7 @@ const bellQuery=useQuery({
 
   const statusMutation = useMutation({
     mutationFn: ({ id, status }) =>
-      updateTaskStatus(id, status),
+      taskRepository.updateTaskStatus(id, status),
 
     onSuccess: (response) => {
       toast.success(
@@ -167,8 +163,8 @@ const bellQuery=useQuery({
 
   const onToggle = async (task) => {
     try {
-      await updateTaskCompleted(task.id);
-  
+      await taskRepository.updateTaskCompleted(task.id);
+
       queryClient.invalidateQueries({
         queryKey: ["tasks"],
       });
@@ -176,14 +172,22 @@ const bellQuery=useQuery({
       console.error("Task güncellenemedi:", error);
     }
   };
+
   return {
     ...query,
 
-    notifications:bellQuery.data ?? [],
+    notifications: bellQuery.data ?? [],
+
     users: usersQuery.data ?? [],
     usersLoading: usersQuery.isLoading,
     usersError: usersQuery.error,
-    isOpen, setIsOpen,search, setSearch,
+
+    isOpen,
+    setIsOpen,
+
+    search,
+    setSearch,
+
     view,
     setView,
 
@@ -194,15 +198,17 @@ const bellQuery=useQuery({
 
     openMenuId,
     setOpenMenuId,
-    showNotifications, setShowNotifications,router,
+
+    showNotifications,
+    setShowNotifications,
+
+    router,
+
     handleDragEnd,
 
     createTask: createMutation.mutate,
-
     updateTask: updateMutation.mutate,
-
     deletedTask: deleteMutation.mutate,
-
     updateTaskStatus: statusMutation.mutate,
   };
 }

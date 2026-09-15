@@ -1,8 +1,6 @@
-import {
-  getAll,
-  createDocument,
-  deleteDocument
-} from "../repositories/document.repository";
+
+import * as documentRepository from "../repositories/document.repository";
+
 import { toast } from "react-hot-toast";
 import {
   useQuery,
@@ -21,10 +19,10 @@ export function useDocuments() {
 
   const query = useQuery({
     queryKey: ["documents"],
-    queryFn: getAll,
+    queryFn: documentRepository.getAll,
   });
   const createMutation = useMutation({
-    mutationFn: (formData) => createDocument(formData),
+    mutationFn: (formData) => documentRepository.createDocument(formData),
   
     onSuccess: (response) => {
       toast.success(
@@ -44,7 +42,7 @@ export function useDocuments() {
     },
   });
   const deleteMutation = useMutation({
-    mutationFn: deleteDocument,
+    mutationFn: documentRepository.deleteDocument,
 
     onSuccess: (response) => {
       toast.success(
