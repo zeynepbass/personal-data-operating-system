@@ -34,16 +34,10 @@ app.use("/api/goals", goalRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("MongoDB connected");
-  })
-  .catch((error) => {
-    console.error("MongoDB connection error:", error);
-  });
+  .then(() => {})
+  .catch(() => {});
 
 
 const PORT = process.env.PORT || 6021;
 
-app.listen(PORT, () => {
-  console.log(`Server running on ${PORT}`);
-});
+app.listen(PORT, () => {});

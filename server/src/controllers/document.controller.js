@@ -20,8 +20,6 @@ export const getDocuments = async (req, res) => {
       data: documents,
     });
   } catch (error) {
-    console.error("Get documents error:", error);
-
     return res.status(500).json({
       success: false,
       message: "Documents alınırken hata oluştu.",

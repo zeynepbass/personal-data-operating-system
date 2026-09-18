@@ -10,8 +10,6 @@ export const getMeetings = async (req, res) => {
       data: meetings,
     });
   } catch (error) {
-    console.error("GET MEETINGS ERROR:", error);
-
     return res.status(500).json({
       success: false,
       message: "Meetings alınırken hata oluştu.",
@@ -177,8 +175,6 @@ export const createMeeting = async (req, res) => {
       data: newMeeting,
     });
   } catch (error) {
-    console.error("CREATE MEETING ERROR:", error);
-
     return res.status(500).json({
       success: false,
       message: "Meeting oluşturulurken hata oluştu.",
@@ -286,8 +282,6 @@ export const updateMeeting = async (req, res) => {
       data: task,
     });
   } catch (error) {
-    console.error("UPDATE MEETING ERROR:", error);
-
     return res.status(500).json({
       success: false,
       message: "Task güncellenirken hata oluştu.",
@@ -326,8 +320,6 @@ export const deleteMeeting = async (req, res) => {
       data: meeting,
     });
   } catch (error) {
-    console.error("DELETE MEETING ERROR:", error);
-
     return res.status(500).json({
       success: false,
       message: "Task silinirken hata oluştu.",
@@ -380,8 +372,6 @@ export const updateTaskStatus = async (req, res) => {
       data: meeting,
     });
   } catch (error) {
-    console.error("UPDATE MEETING STATUS ERROR:", error);
-
     return res.status(500).json({
       success: false,
       message: "Meeting durumu güncellenemedi.",
@@ -418,8 +408,6 @@ export const updateTaskCompleted = async (req, res) => {
       data: meeting,
     });
   } catch (error) {
-    console.error("UPDATE TASK ERROR:", error);
-
     return res.status(500).json({
       success: false,
       message: "Task güncellenemedi.",

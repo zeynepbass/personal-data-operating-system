@@ -19,7 +19,6 @@ const goalItemSchema = new mongoose.Schema(
 
 const goalSchema = new mongoose.Schema(
   {
-    // Goal hangi kullanıcıya ait?
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

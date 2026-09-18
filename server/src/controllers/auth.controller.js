@@ -22,9 +22,6 @@ const generateToken = (user) => {
 const authCookieOptions = () => ({
   httpOnly: true,
   secure: IS_PRODUCTION,
-  // Cross-domain deployments (client and server on different origins)
-  // need "none" for the cookie to be sent on XHR/fetch; same-site
-  // localhost dev works fine with "lax".
   sameSite: IS_PRODUCTION ? "none" : "lax",
 });
 
@@ -128,8 +125,6 @@ export const register = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("REGISTER ERROR:", error);
-
     return res.status(500).json({
       success: false,
       message: "Kayıt sırasında hata oluştu.",
@@ -202,8 +197,6 @@ export const login = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("LOGIN ERROR:", error);
-
     return res.status(500).json({
       success: false,
       message: "Giriş yapılırken hata oluştu.",
@@ -274,11 +267,6 @@ export const forgotPassword = async (req, res) => {
       passwordChangedAt: user.passwordChangedAt,
     });
   } catch (error) {
-    console.error(
-      "FORGOT PASSWORD ERROR:",
-      error
-    );
-
     return res.status(500).json({
       success: false,
       message: "Şifre güncellenirken hata oluştu.",
@@ -366,8 +354,6 @@ export const updateProfile = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Update profile error:", error);
-
     if (error.code === 11000) {
       return res.status(409).json({
         success: false,
@@ -408,11 +394,6 @@ export const getPasswordInfo = async (req, res) => {
       passwordChangedAt: user.passwordChangedAt,
     });
   } catch (error) {
-    console.error(
-      "GET PASSWORD INFO ERROR:",
-      error
-    );
-
     return res.status(500).json({
       success: false,
       message: "Bilgi alınırken hata oluştu.",
@@ -455,8 +436,6 @@ export const deleteAccount = async (req, res) => {
       message: "Hesabınız başarıyla silindi.",
     });
   } catch (error) {
-    console.error("DELETE ACCOUNT ERROR:", error);
-
     return res.status(500).json({
       success: false,
       message: "Hesap silinirken bir hata oluştu.",

@@ -43,8 +43,6 @@ export const createGoal = async (req, res) => {
       data: goal,
     });
   } catch (error) {
-    console.error("CREATE GOAL ERROR:", error);
-
     return res.status(500).json({
       success: false,
       message: "Goal oluşturulurken hata oluştu.",
@@ -77,8 +75,6 @@ export const deleteGoal = async (req, res) => {
       data: goal,
     });
   } catch (error) {
-    console.error("DELETE GOAL ERROR:", error);
-
     return res.status(500).json({
       success: false,
       message: "Goal silinirken hata oluştu.",
@@ -138,8 +134,6 @@ export const updateGoal = async (req, res) => {
       data: goal,
     });
   } catch (error) {
-    console.error("UPDATE GOAL ERROR:", error);
-
     return res.status(500).json({
       success: false,
       message: "Goal güncellenirken hata oluştu.",
