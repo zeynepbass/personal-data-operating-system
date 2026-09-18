@@ -16,6 +16,7 @@ export function TaskFormBasic({ task, onChange }) {
           value={task.title || ""}
           onChange={onChange}
           placeholder="Task başlığını girin"
+          required
         />
 
         <Textarea

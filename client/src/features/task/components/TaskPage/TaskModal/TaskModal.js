@@ -143,6 +143,7 @@ export default function TaskModal({
                   value={form.title}
                   onChange={handleChange}
                   placeholder="Örn. Todo"
+                  required
                   options={[
                     {
                       value: "Todo",
@@ -165,14 +166,15 @@ export default function TaskModal({
                   value={form.name}
                   onChange={handleChange}
                   placeholder="Örn. todo"
+                  required
                   options={[
                     {
                       value: "todo",
                       label: "todo",
                     },
                     {
-                      value: "progress",
-                      label: "progress",
+                      value: "in-progress",
+                      label: "in-progress",
                     },
                     {
                       value: "done",
@@ -229,7 +231,7 @@ export default function TaskModal({
                   onChange={handleChange}
                   type="text"
                   placeholder="Örn. Authentication ekranı tasarlanacak"
-
+                  required
                 />
 
                 <Textarea
@@ -254,6 +256,7 @@ export default function TaskModal({
                   value={form.assignee}
                   onChange={handleChange}
                   placeholder="Kullanıcı seçin"
+                  required
                   options={[
          
                     ...users.map((user) => ({
@@ -352,9 +355,10 @@ export default function TaskModal({
               <Button
                 type="button"
                 text="İptal"
+                variant="outline"
                 onClick={handleClose}
                 disabled={isCreating}
-                className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-medium text-gray-800 transition hover:border-[rgb(125,120,206)] hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-xl px-6 py-3 disabled:cursor-not-allowed disabled:opacity-50"
               />
 
               <Button
@@ -365,7 +369,7 @@ export default function TaskModal({
                     ? "Oluşturuluyor..."
                     : "Kolon ve Görevi Oluştur"
                 }
-                className="rounded-xl bg-[#555A8A] px-6 py-3 text-gray-50 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl px-6 py-3 disabled:cursor-not-allowed disabled:opacity-60"
               />
             </div>
           </form>

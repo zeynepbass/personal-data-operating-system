@@ -10,6 +10,7 @@ import {
   User
 } from "lucide-react";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 import { Input, Button } from "@/shared/components/atoms";
 import { PageHeader } from "@/shared/components/molecules";
@@ -39,6 +40,11 @@ export default function RegisterForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (formData.password !== formData.passwordAgain) {
+      toast.error("Şifreler eşleşmiyor.");
+      return;
+    }
 
     await register(formData);
   };
@@ -99,7 +105,7 @@ className="object-cover object-center"
                 value={formData.fullName}
                 onChange={handleChange}
                 placeholder="Adınız Soyadınız"
-   
+                required
                 autoComplete="name"
                 className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-5 transition focus:border-[#555A8A]"
               />
@@ -118,7 +124,7 @@ className="object-cover object-center"
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="E-posta adresiniz"
-
+                required
                 autoComplete="email"
                 className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-5 transition focus:border-[#555A8A]"
               />
@@ -139,7 +145,7 @@ className="object-cover object-center"
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Şifreniz"
-   
+                  required
                   minLength={6}
                   autoComplete="new-password"
                   className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-12 transition focus:border-[#555A8A]"
@@ -182,7 +188,7 @@ className="object-cover object-center"
                   value={formData.passwordAgain}
                   onChange={handleChange}
                   placeholder="Şifre Tekrar"
-      
+                  required
                   minLength={6}
                   autoComplete="new-password"
                   className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-12 transition focus:border-[#555A8A]"
@@ -222,7 +228,7 @@ className="object-cover object-center"
                   ? "Kayıt oluşturuluyor..."
                   : "Kayıt Ol"
               }
-              className="h-14 w-full rounded-2xl bg-[#555A8A] font-semibold text-white transition hover:bg-[#494e7a] disabled:cursor-not-allowed disabled:opacity-60"
+              className="h-14 w-full rounded-2xl font-semibold transition disabled:cursor-not-allowed disabled:opacity-60"
             />
 
 

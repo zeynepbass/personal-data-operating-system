@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NotesHome from "../components/NotesHome";
 import NotesLayout from "./layout/NotesLayout";
 import useNotes from "../hooks/useNotes";
@@ -20,12 +20,8 @@ export default function NotesPage() {
   const [openMenu, setOpenMenu] = useState(null);
   const [activeNote, setActiveNote] = useState(null);
 
-  useEffect(() => {
-    if (data.length > 0 && !activeNote) {
-      setOpenMenu(data[0].id);
-      setActiveNote(data[0]);
-    }
-  }, [data, activeNote]);
+  const resolvedActiveNote = activeNote ?? data[0] ?? null;
+  const resolvedOpenMenu = openMenu ?? data[0]?.id ?? null;
 
   if (isLoading) {
     return <div>Yükleniyor...</div>;
@@ -49,14 +45,14 @@ export default function NotesPage() {
       ) : (
         <NotesLayout
           note={data}
-          openMenu={openMenu}
+          openMenu={resolvedOpenMenu}
           setOpenMenu={setOpenMenu}
           deletedNotes={deletedNotes}
-          activeNote={activeNote}
+          activeNote={resolvedActiveNote}
           setActiveNote={setActiveNote}
         >
           <NotesHome
-            note={activeNote}
+            note={resolvedActiveNote}
           />
         </NotesLayout>
       )}

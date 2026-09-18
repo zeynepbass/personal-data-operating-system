@@ -67,7 +67,7 @@ export function GoalForm({
               ? "Oluşturuluyor..."
               : "Hedef Oluştur"
           }
-          className="rounded-xl bg-[#555A8A] px-6 py-3 text-gray-50 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-xl px-6 py-3 disabled:cursor-not-allowed disabled:opacity-60"
         />
       </div>
     </form></div>

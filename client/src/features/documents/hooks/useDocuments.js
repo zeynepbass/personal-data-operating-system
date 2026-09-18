@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-query";
 
 import { useState } from "react";
+import { getErrorMessage } from "@/shared/helpers/error.helper";
 
 export function useDocuments() {
   const [search, setSearch] = useState("");
@@ -37,7 +38,7 @@ export function useDocuments() {
   
     onError: (error) => {
       toast.error(
-        error.response?.data?.message || "Döküman oluşturulurken hata oluştu."
+        getErrorMessage(error, "Döküman oluşturulurken hata oluştu.")
       );
     },
   });
@@ -57,8 +58,7 @@ export function useDocuments() {
 
     onError: (error) => {
       toast.error(
-
-        error.response?.data?.message || "Döküman oluşturulurken hata oluştu."
+        getErrorMessage(error, "Döküman silinirken hata oluştu.")
       );
     },
   });

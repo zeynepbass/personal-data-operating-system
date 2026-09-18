@@ -1,9 +1,21 @@
 export const login = (provider) => async (data) => {
     const response = await provider.login(data);
-  
+
     return response.data;
   };
-  
+
+  export const logout = (provider) => async () => {
+    const response = await provider.logout();
+
+    return response.data;
+  };
+
+  export const me = (provider) => async () => {
+    const response = await provider.me();
+
+    return response.data;
+  };
+
   export const register = (provider) => async (data) => {
     const response = await provider.register(data);
   
@@ -24,7 +36,7 @@ export const login = (provider) => async (data) => {
   export const password = (provider) => async (id) => {
 
     const response = await provider.getPassword(id);
-   console.log("tesr",response.data)
+
     return response.data ?? [];
   };
   export const deleteAccount = (provider) => async (id) => {

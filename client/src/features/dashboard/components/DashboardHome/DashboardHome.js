@@ -130,8 +130,9 @@ export default function DashboardHome({
                   </p>
                   <Button
                     text="İlk notunu oluşturarak başlayabilirsin."
+                    variant="ghost"
                     onClick={() => router.push("/notes")}
-                    className="text-xs text-slate-400 underline bg-transparent"
+                    className="text-xs text-slate-400 underline"
                   />
                 </div>
               </div>

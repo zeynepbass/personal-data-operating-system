@@ -16,12 +16,12 @@ export function GoalFormBasic({ goal, onChange }) {
         <div>
      
 
-          <Input type="text" name="title" value={goal.title} onChange={onChange} label="Başlık" placeholder="Başlık" />
+          <Input type="text" name="title" value={goal.title} onChange={onChange} label="Başlık" placeholder="Başlık" required />
         </div>
         <div>
 
 
-          <Select name="category" value={goal.category} onChange={onChange} label="Kategori" placeholder="Kategori seç" options={[ { value: "2026-goals", label: "2026 Hedefleri", }, { value: "personal-goals", label: "Kişisel Hedefler", }, { value: "2027-goals", label: "2027 Hedefleri", }, { value: "work-goals", label: "İş Hedefleri", }, ]} />
+          <Select name="category" value={goal.category} onChange={onChange} label="Kategori" placeholder="Kategori seç" required options={[ { value: "2026-goals", label: "2026 Hedefleri", }, { value: "personal-goals", label: "Kişisel Hedefler", }, { value: "2027-goals", label: "2027 Hedefleri", }, { value: "work-goals", label: "İş Hedefleri", }, ]} />
         </div>
         <div>
 

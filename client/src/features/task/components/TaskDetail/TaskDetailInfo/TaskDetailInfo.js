@@ -3,7 +3,7 @@
 
 import { Calendar, Clock, Gauge } from "lucide-react";
 
-export function TaskDetaiInfo({ task }) {
+export function TaskDetailInfo({ task }) {
   return (
     <div className="grid grid-cols-1 gap-4 p-6 lg:grid-cols-2">
 

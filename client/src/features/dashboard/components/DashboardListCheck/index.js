@@ -1,1 +1,1 @@
-export {default} from "./DasboardListCheck"
+export {default} from "./DashboardListCheck"

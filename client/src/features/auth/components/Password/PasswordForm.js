@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Lock, Eye, EyeOff, Mail } from "lucide-react";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 import { Input, Button } from "@/shared/components/atoms";
 import { PageHeader } from "@/shared/components/molecules";
@@ -31,6 +32,11 @@ export default function PasswordForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (formData.password !== formData.passwordAgain) {
+      toast.error("Şifreler eşleşmiyor.");
+      return;
+    }
 
     await password(formData);
   };
@@ -71,6 +77,7 @@ export default function PasswordForm() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="E-posta adresiniz"
+                required
                 className="h-14 w-full rounded-2xl border border-gray-200 pl-14 pr-14"
               />
             </div>
@@ -88,6 +95,8 @@ export default function PasswordForm() {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Yeni şifreniz"
+                required
+                minLength={6}
                 className="h-14 w-full rounded-2xl border border-gray-200 pl-14 pr-14"
               />
 
@@ -119,6 +128,8 @@ export default function PasswordForm() {
                 value={formData.passwordAgain}
                 onChange={handleChange}
                 placeholder="Şifrenizi tekrar girin"
+                required
+                minLength={6}
                 className="h-14 w-full rounded-2xl border border-gray-200 pl-14 pr-14"
               />
 

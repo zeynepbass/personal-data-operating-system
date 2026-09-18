@@ -1,16 +1,15 @@
 import { create } from "zustand";
+import { authContainer } from "@/features/auth/auth.container";
+
 export const useAuthStore = create((set) => ({
   user: null,
-  token: null,
   isAuthenticated: false,
   isInitialized: false,
 
   login: (data) => {
-    localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data.user));
 
     set({
-      token: data.token,
       user: data.user,
       isAuthenticated: true,
       isInitialized: true,
@@ -18,37 +17,34 @@ export const useAuthStore = create((set) => ({
   },
 
   logout: () => {
-    localStorage.removeItem("token");
     localStorage.removeItem("user");
 
     set({
-      token: null,
       user: null,
       isAuthenticated: false,
       isInitialized: true,
     });
   },
 
-  initializeAuth: () => {
-    const token = localStorage.getItem("token");
-    const user = localStorage.getItem("user");
+  initializeAuth: async () => {
+    try {
+      const response = await authContainer.me();
 
-    if (token && user) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+
       set({
-        token,
-        user: JSON.parse(user),
+        user: response.data,
         isAuthenticated: true,
         isInitialized: true,
       });
+    } catch {
+      localStorage.removeItem("user");
 
-      return;
+      set({
+        user: null,
+        isAuthenticated: false,
+        isInitialized: true,
+      });
     }
-
-    set({
-      token: null,
-      user: null,
-      isAuthenticated: false,
-      isInitialized: true,
-    });
   },
 }));

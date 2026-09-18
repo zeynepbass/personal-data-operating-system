@@ -8,6 +8,7 @@ import { Button, Input } from "@/shared/components/atoms";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useTasks } from "@/features/task/hooks/useTask";
 import { navigation } from "@/shared/mock/navigation";
+import { getAssetUrl } from "@/shared/helpers/asset.helper";
 
 
 export function SearchBar() {
@@ -81,8 +82,8 @@ export function SearchBar() {
       <div className="ml-4 flex items-center gap-1">
         <Button
           text={<Bell size={20} />}
+          variant="ghost"
           onClick={() => setShowNotifications((prev) => !prev)}
-          className="bg-transparent hover:text-[rgb(125,120,206)]"
         />
         {showNotifications && (
           <div className="absolute right-5 top-14 z-50 w-80 rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
@@ -112,8 +113,8 @@ export function SearchBar() {
         )}
         <Button
           text={<Settings size={20} />}
+          variant="ghost"
           onClick={() => router.push("/settings")}
-          className="bg-transparent hover:text-[rgb(125,120,206)]"
         />
 
         <div className="relative ml-2 w-44">
@@ -122,7 +123,13 @@ export function SearchBar() {
             onClick={() => setIsOpen((prev) => !prev)}
             className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-xs transition hover:bg-slate-50 focus:outline-none"
           >
-            {profileImage &&  <img src={`http://localhost:5209${profileImage}`} className="h-10 w-10 rounded-full object-cover"/>}
+            {profileImage && (
+              <img
+                src={getAssetUrl(profileImage)}
+                alt={fullName}
+                className="h-10 w-10 rounded-full object-cover"
+              />
+            )}
            
  
 

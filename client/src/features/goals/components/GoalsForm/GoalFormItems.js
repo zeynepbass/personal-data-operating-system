@@ -42,8 +42,9 @@ export function GoalFormItems({ items, onChange }) {
         <Button
           type="button"
           text="+ Ekle"
+          variant="secondary"
           onClick={handleAdd}
-          className="rounded-lg bg-gray-100 px-4 py-2 text-sm text-gray-700"
+          className="rounded-lg px-4 py-2 text-sm"
         />
       </div>
 
@@ -61,8 +62,7 @@ export function GoalFormItems({ items, onChange }) {
                 handleChange(index, "title", event.target.value)
               }
               placeholder="Hedef maddesi"
-          
-  
+              required
             /></div>
             <Input
               type="number"

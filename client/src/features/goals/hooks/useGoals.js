@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { getErrorMessage } from "@/shared/helpers/error.helper";
 
 export function useGoals() {
   const queryClient = useQueryClient();
@@ -31,10 +32,7 @@ export function useGoals() {
     },
 
     onError: (error) => {
-      toast.error(
-        error.response?.data?.message ||
-          "Hedef oluşturulurken hata oluştu."
-      );
+      toast.error(getErrorMessage(error, "Hedef oluşturulurken hata oluştu."));
     },
   });
 
@@ -52,10 +50,7 @@ export function useGoals() {
     },
 
     onError: (error) => {
-      toast.error(
-        error.response?.data?.message ||
-          "Hedef silinirken hata oluştu."
-      );
+      toast.error(getErrorMessage(error, "Hedef silinirken hata oluştu."));
     },
   });
 
@@ -81,10 +76,7 @@ export function useGoals() {
     },
 
     onError: (error) => {
-      toast.error(
-        error.response?.data?.message ||
-          "Hedef güncellenirken hata oluştu."
-      );
+      toast.error(getErrorMessage(error, "Hedef güncellenirken hata oluştu."));
     },
   });
 

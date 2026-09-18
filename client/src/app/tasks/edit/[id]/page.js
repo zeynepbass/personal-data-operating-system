@@ -1,4 +1,4 @@
-import TaskEditPage from "@/features/task/components/TaskForm/TaskFormHeader";
+import TaskEditPage from "@/features/task/pages/TaskEditPage";
 
 export default function EditPage(){
   return <TaskEditPage/>

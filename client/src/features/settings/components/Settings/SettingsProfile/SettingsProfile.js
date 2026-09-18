@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Button, Input, Textarea } from "@/shared/components/atoms";
 import { Pencil } from "lucide-react";
+import { getAssetUrl } from "@/shared/helpers/asset.helper";
 
 export default function SettingsProfile() {
   const {
@@ -21,7 +22,9 @@ export default function SettingsProfile() {
   const fileInputRef = useRef(null);
 
   const [profileImage, setProfileImage] = useState(null);
-  const [previewImage, setPreviewImage] = useState(user?.profileImage || "");
+  const [previewImage, setPreviewImage] = useState(
+    getAssetUrl(user?.profileImage) || ""
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -99,6 +102,7 @@ export default function SettingsProfile() {
             label="Ad Soyad"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
+            required
             className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition duration-200 focus:border-violet-500 focus:ring-4 focus:ring-violet-100"
           />
 
@@ -107,6 +111,7 @@ export default function SettingsProfile() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
             className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition duration-200 focus:border-violet-500 focus:ring-4 focus:ring-violet-100"
           />
 

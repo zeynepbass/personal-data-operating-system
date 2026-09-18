@@ -8,6 +8,12 @@ export const authApi = {
   register(data) {
     return apiClient.post("/auth/register", data);
   },
+  logout() {
+    return apiClient.post("/auth/logout");
+  },
+  me() {
+    return apiClient.get("/auth/me");
+  },
   password(data){
     return apiClient.post("/auth/forgot-password", data);
   },
@@ -15,7 +21,6 @@ export const authApi = {
     return apiClient.put(`/auth/${id}/profile`,data);
   },
   getPassword(id){
-    console.log(id)
     return apiClient.get(`/auth/${id}/password-info`);
   },
   deleteAccount(id) {

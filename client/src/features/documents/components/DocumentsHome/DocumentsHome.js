@@ -13,6 +13,7 @@ import {
 import { PageHeader } from "@/shared/components/molecules";
 import DocumentsModal from "../DocumentsModal";
 import { Button, Input, Select } from "@/shared/components/atoms";
+import { getAssetUrl } from "@/shared/helpers/asset.helper";
 
 const iconMap = {
   pdf: <FileText size={46} className="text-red-500" />,
@@ -121,7 +122,7 @@ export default function DocumentsHome({
               <div
                 className="mb-6 flex justify-center cursor-pointer transition group-hover:scale-105"
                 onClick={() => {
-                  window.open(`http://localhost:5209${doc.pdf}`, "_blank");
+                  window.open(getAssetUrl(doc.pdf), "_blank");
                 }}
               >
                 {iconMap[doc.icon]}

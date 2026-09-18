@@ -4,6 +4,8 @@ import * as authRepository from "./repositories/auth.repository";
 
 export const authContainer = {
     login: authRepository.login(authProvider),
+    logout: authRepository.logout(authProvider),
+    me: authRepository.me(authProvider),
     register: authRepository.register(authProvider),
     password: authRepository.forgot(authProvider),
     profile: authRepository.profile(authProvider),

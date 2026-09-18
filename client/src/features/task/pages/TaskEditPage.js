@@ -1,37 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import {  useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import { TaskForm } from "@/features/task/components/TaskForm";
 import { NotFound } from "@/shared/components/organisms";
-import { useTasks } from "@/features/task/hooks/useTask";
+import { useTasks, useTaskById } from "@/features/task/hooks/useTask";
 
 export default function TaskEditPage() {
-
+  const router = useRouter();
   const { id } = useParams();
 
-  const { updateTask,router } = useTasks();
-
-  const [task, setTask] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const storedTask = localStorage.getItem("selectedTask");
-
-    if (!storedTask) {
-      setLoading(false);
-      return;
-    }
-
-    const parsedTask = JSON.parse(storedTask);
-
-    if (String(parsedTask.id) === String(id)) {
-      setTask(parsedTask);
-    }
-
-    setLoading(false);
-  }, [id]);
+  const { task, isLoading } = useTaskById(id);
+  const { updateTask, updateTaskPending } = useTasks();
 
   const handleSubmit = (updatedTask) => {
     updateTask(
@@ -41,30 +21,25 @@ export default function TaskEditPage() {
       },
       {
         onSuccess: () => {
-          localStorage.setItem(
-            "selectedTask",
-            JSON.stringify(updatedTask)
-          );
-
           router.push(`/tasks/${id}`);
         },
       }
     );
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50">
+      <main className="flex min-h-screen items-center justify-center ">
         <p className="text-sm text-gray-500">
           Yükleniyor...
         </p>
-      </div>
+      </main>
     );
   }
 
   if (!task) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 p-6">
+      <main className="flex min-h-screen items-center justify-center  p-6">
         <NotFound
           title="Oopss!"
           description="Task bulunamadı."
@@ -72,32 +47,32 @@ export default function TaskEditPage() {
           buttonText="Tasklere Dön"
           route="/tasks"
         />
-      </div>
+      </main>
     );
   }
 
   return (
-    <main className="min-h-screen  p-6">
-      <div>
-        <div className="mb-2">
-          <p className="text-md text-gray-500">
-            Task Düzenle
+    <main className="min-h-screen ">
+      <div className="mx-auto max-w-full">
+        <div className="mb-6">
+          <p className="text-sm font-medium text-gray-500">
+            Task Düzenleme
           </p>
 
           <h1 className="mt-1 text-2xl font-semibold text-gray-900">
             {task.title}
           </h1>
 
-          <p className="mt-1 text-md text-gray-500">
+          <p className="mt-1 text-sm text-gray-500">
             Task bilgilerini güncelleyebilirsiniz.
           </p>
         </div>
 
-        <div className="rounded-xl border border-gray-200 bg-gray-50 p-5">
+        <div className="rounded-2xl shadow-sm">
           <TaskForm
             initialTask={task}
             onSubmit={handleSubmit}
-            isLoading={updateTask.isPending}
+            isUpdating={updateTaskPending}
           />
         </div>
       </div>

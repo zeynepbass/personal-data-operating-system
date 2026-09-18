@@ -2,6 +2,9 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 
+const TOKEN_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
+
 const generateToken = (user) => {
   return jwt.sign(
     {
@@ -14,6 +17,26 @@ const generateToken = (user) => {
       expiresIn: "7d",
     }
   );
+};
+
+const authCookieOptions = () => ({
+  httpOnly: true,
+  secure: IS_PRODUCTION,
+  // Cross-domain deployments (client and server on different origins)
+  // need "none" for the cookie to be sent on XHR/fetch; same-site
+  // localhost dev works fine with "lax".
+  sameSite: IS_PRODUCTION ? "none" : "lax",
+});
+
+const setAuthCookie = (res, token) => {
+  res.cookie("token", token, {
+    ...authCookieOptions(),
+    maxAge: TOKEN_MAX_AGE_MS,
+  });
+};
+
+const clearAuthCookie = (res) => {
+  res.clearCookie("token", authCookieOptions());
 };
 
 export const register = async (req, res) => {
@@ -90,12 +113,12 @@ export const register = async (req, res) => {
 
     const token = generateToken(user);
 
+    setAuthCookie(res, token);
+
     return res.status(201).json({
       success: true,
       message: "Kullanıcı başarıyla oluşturuldu.",
       data: {
-        token,
-
         user: {
           id: user._id,
           fullName: user.fullName,
@@ -163,12 +186,12 @@ export const login = async (req, res) => {
 
     const token = generateToken(user);
 
+    setAuthCookie(res, token);
+
     return res.status(200).json({
       success: true,
       message: "Giriş başarılı.",
       data: {
-        token,
-
         user: {
           id: user._id,
           fullName: user.fullName,
@@ -263,18 +286,45 @@ export const forgotPassword = async (req, res) => {
   }
 };
 
+export const logout = async (req, res) => {
+  clearAuthCookie(res);
+
+  return res.status(200).json({
+    success: true,
+    message: "Çıkış yapıldı.",
+  });
+};
+
+export const getMe = async (req, res) => {
+  return res.status(200).json({
+    success: true,
+    data: {
+      id: req.user._id,
+      fullName: req.user.fullName,
+      email: req.user.email,
+      role: req.user.role,
+      about: req.user.about,
+      profileImage: req.user.profileImage,
+    },
+  });
+};
+
 export const updateProfile = async (req, res) => {
   try {
     const { id } = req.params;
+
+    if (String(req.user._id) !== String(id)) {
+      return res.status(403).json({
+        success: false,
+        message: "Bu işlem için yetkiniz yok.",
+      });
+    }
 
     const {
       fullName,
       email,
       about,
     } = req.body || {};
-
-    console.log("BODY:", req.body);
-    console.log("FILE:", req.file);
 
     const user = await User.findById(id);
 
@@ -335,6 +385,13 @@ export const getPasswordInfo = async (req, res) => {
   try {
     const { id } = req.params;
 
+    if (String(req.user._id) !== String(id)) {
+      return res.status(403).json({
+        success: false,
+        message: "Bu işlem için yetkiniz yok.",
+      });
+    }
+
     const user = await User.findById(id).select(
       "passwordChangedAt"
     );
@@ -373,6 +430,13 @@ export const deleteAccount = async (req, res) => {
       });
     }
 
+    if (String(req.user._id) !== String(id)) {
+      return res.status(403).json({
+        success: false,
+        message: "Bu işlem için yetkiniz yok.",
+      });
+    }
+
     const user = await User.findById(id);
 
     if (!user) {
@@ -383,6 +447,8 @@ export const deleteAccount = async (req, res) => {
     }
 
     await User.findByIdAndDelete(id);
+
+    clearAuthCookie(res);
 
     return res.status(200).json({
       success: true,

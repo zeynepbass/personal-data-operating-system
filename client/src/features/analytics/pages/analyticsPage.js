@@ -3,8 +3,11 @@
 import { useMemo, useState } from "react";
 import AnalyticsHome from "../components/AnalyticsHome";
 import { getRemainingMonthDates } from "../utils/date";
+import { useTasks } from "@/features/task/hooks/useTask";
 
-export default function AnalyticsPage({ meeting = [] }) {
+export default function AnalyticsPage() {
+  const { data: meeting = [], isLoading } = useTasks();
+
   const tasks = useMemo(() => {
     return meeting.flatMap((column) => column.tasks ?? []);
   }, [meeting]);
@@ -122,6 +125,10 @@ export default function AnalyticsPage({ meeting = [] }) {
       ),
     };
   }, [filteredTasks]);
+
+  if (isLoading) {
+    return <div>Yükleniyor...</div>;
+  }
 
   return (
     <AnalyticsHome

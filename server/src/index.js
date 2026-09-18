@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import notesRoutes from "./routes/notes.routes.js";
 import meetingRoutes from "./routes/meeting.routes.js";
@@ -12,7 +13,13 @@ import authRouter from "./routes/auth.routes.js"
 import notificationRoutes from "./routes/notification.routes.js"
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CLIENT_ORIGIN || "http://localhost:3000",
+    credentials: true,
+  })
+);
+app.use(cookieParser());
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));

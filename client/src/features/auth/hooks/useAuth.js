@@ -4,12 +4,12 @@ import { useState } from "react";
 import { authContainer } from "../auth.container";
 import { useAuthStore } from "../../../shared/store/auth.store";
 import { useRouter } from "next/navigation";
+import { getErrorMessage } from "@/shared/helpers/error.helper";
 
 export const useAuth = () => {
   const router = useRouter();
   const {
     user,
-    token,
     isAuthenticated,
     isInitialized,
     login: setLogin,
@@ -22,6 +22,7 @@ export const useAuth = () => {
   const query = useQuery({
     queryKey: ["password", user?.id],
     queryFn: () => authContainer.getPassword(user.id),
+    enabled: !!user?.id,
   });
 
   const loginMutation = useMutation({
@@ -40,7 +41,7 @@ export const useAuth = () => {
     },
 
     onError: (error) => {
-      toast.error(error.response?.data?.message || "Hata oluştu.");
+      toast.error(getErrorMessage(error, "Hata oluştu."));
     },
   });
   const deleteAccountMutation = useMutation({
@@ -54,17 +55,13 @@ export const useAuth = () => {
         return;
       }
 
-
-
       toast.success(response?.message || "Hesabınız başarıyla silindi.");
 
       setLogout();
     },
 
     onError: (error) => {
-      toast.error(
-        error?.response?.message || "Hesap silinirken bir hata oluştu."
-      );
+      toast.error(getErrorMessage(error, "Hesap silinirken bir hata oluştu."));
     },
   });
   const registerMutation = useMutation({
@@ -84,7 +81,7 @@ export const useAuth = () => {
     },
 
     onError: (error) => {
-      toast.error(error.response?.data?.message || "Hata oluştu.");
+      toast.error(getErrorMessage(error, "Hata oluştu."));
     },
   });
   const forgotPasswordMutation = useMutation({
@@ -95,15 +92,14 @@ export const useAuth = () => {
         toast.error(response?.message || "Şifre güncellenemedi.");
         return;
       }
-      localStorage.clear();
+
+      setLogout();
       toast.success(response?.message);
       router.push("/login");
     },
 
     onError: (error) => {
-      toast.error(
-        error.response?.data?.message || "Şifre güncellenirken hata oluştu."
-      );
+      toast.error(getErrorMessage(error, "Şifre güncellenirken hata oluştu."));
     },
   });
   const profileMutation = useMutation({
@@ -117,7 +113,7 @@ export const useAuth = () => {
       if (data.profileImage) {
         formData.append("profileImage", data.profileImage);
       }
- console.log(formData)
+
       return authContainer.profile(user.id, formData);
     },
 
@@ -140,27 +136,30 @@ export const useAuth = () => {
     },
 
     onError: (error) => {
-      console.error("PROFILE ERROR:", error);
-      console.error("BACKEND ERROR:", error?.response?.data);
-
       toast.error(
-        error?.response?.data?.message ||
-          "Profil güncellenirken bir hata oluştu."
+        getErrorMessage(error, "Profil güncellenirken bir hata oluştu.")
       );
     },
   });
-  const handleLogout = () => {
-    setLogout();
+  const logoutMutation = useMutation({
+    mutationFn: () => authContainer.logout(),
 
-    toast.success("Çıkış yapıldı.");
-    router.push("/login");
+    onSettled: () => {
+      setLogout();
+
+      toast.success("Çıkış yapıldı.");
+      router.push("/login");
+    },
+  });
+
+  const handleLogout = () => {
+    logoutMutation.mutate();
   };
 
   return {
     ...query,
     user,
     router,
-    token,
     isAuthenticated,
     isInitialized,
     fullName,

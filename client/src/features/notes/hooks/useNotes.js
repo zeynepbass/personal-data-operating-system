@@ -3,6 +3,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import * as notesRepository from "../repositories/notes.repository";
+import { getErrorMessage } from "@/shared/helpers/error.helper";
 
 export default function useNotes() {
   const queryClient = useQueryClient();
@@ -26,10 +27,7 @@ export default function useNotes() {
     },
 
     onError: (error) => {
-      toast.error(
-        error.response?.data?.message ||
-          "Not silinirken hata oluştu."
-      );
+      toast.error(getErrorMessage(error, "Not silinirken hata oluştu."));
     },
   });
 
@@ -48,10 +46,7 @@ export default function useNotes() {
     },
 
     onError: (error) => {
-      toast.error(
-        error.response?.data?.message ||
-          "Not oluşturulurken hata oluştu."
-      );
+      toast.error(getErrorMessage(error, "Not oluşturulurken hata oluştu."));
     },
   });
 

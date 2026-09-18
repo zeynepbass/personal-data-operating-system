@@ -4,6 +4,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {navigation} from "@/shared/mock/navigation"
 
 export function Sidebar() {
@@ -12,7 +13,7 @@ export function Sidebar() {
   return (
     <aside className="flex min-h-screen w-64 flex-col border-r border-gray-100 bg-[rgb(125,120,206)]">
       <div className="flex items-center gap-3 px-6 py-5">
-        <img
+        <Image
           src="/assets/images/logo.png"
           width={60}
           height={60}

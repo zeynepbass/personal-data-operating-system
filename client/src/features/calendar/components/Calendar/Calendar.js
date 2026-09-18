@@ -81,8 +81,9 @@ export default function Calendar({ data = [] }) {
               <Button
                 type="button"
                 text="x"
+                variant="ghost"
                 onClick={() => setSelectedTask(null)}
-                className="text-xl text-gray-400 hover:text-gray-700 bg-transparent"
+                className="text-xl text-gray-400 hover:text-gray-700"
               />
             </div>
 

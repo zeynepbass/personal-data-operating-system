@@ -239,9 +239,10 @@ export default function DocumentsModal({
               <Button
                 type="button"
                 text="İptal"
+                variant="outline"
                 onClick={handleClose}
                 disabled={isCreating}
-                className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-medium text-gray-800 transition-all duration-200 hover:border-[rgb(125,120,206)] hover:bg-gray-50"
+                className="rounded-xl px-6 py-3"
               />
 
               <Button
@@ -252,7 +253,7 @@ export default function DocumentsModal({
                     ? "Kaydediliyor..."
                     : "Belgeyi Yükle"
                 }
-                className="rounded-xl bg-[#555A8A] px-6 py-3 text-gray-50 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl px-6 py-3 disabled:cursor-not-allowed disabled:opacity-60"
               />
             </div>
           </form>

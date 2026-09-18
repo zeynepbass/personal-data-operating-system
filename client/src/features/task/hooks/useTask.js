@@ -12,6 +12,9 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 
+import { transformTasksToRows } from "../utils/colums.filter";
+import { getErrorMessage } from "@/shared/helpers/error.helper";
+
 export function useTasks() {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState("list");
@@ -55,11 +58,7 @@ export function useTasks() {
     },
 
     onError: (error) => {
-      toast.error(
-        error.response?.data?.message ||
-          error.message ||
-          "Task oluşturulamadı."
-      );
+      toast.error(getErrorMessage(error, "Task oluşturulamadı."));
     },
   });
 
@@ -81,11 +80,7 @@ export function useTasks() {
     },
 
     onError: (error) => {
-      toast.error(
-        error.response?.data?.message ||
-          error.message ||
-          "Task güncellenemedi."
-      );
+      toast.error(getErrorMessage(error, "Task güncellenemedi."));
     },
   });
 
@@ -107,11 +102,7 @@ export function useTasks() {
     },
 
     onError: (error) => {
-      toast.error(
-        error.response?.data?.message ||
-          error.message ||
-          "Task silinemedi."
-      );
+      toast.error(getErrorMessage(error, "Task silinemedi."));
     },
   });
 
@@ -131,11 +122,21 @@ export function useTasks() {
     },
 
     onError: (error) => {
-      toast.error(
-        error.response?.data?.message ||
-          error.message ||
-          "Task durumu güncellenemedi."
-      );
+      toast.error(getErrorMessage(error, "Task durumu güncellenemedi."));
+    },
+  });
+
+  const toggleMutation = useMutation({
+    mutationFn: (task) => taskRepository.updateTaskCompleted(task.id),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["tasks"],
+      });
+    },
+
+    onError: (error) => {
+      toast.error(getErrorMessage(error, "Task güncellenemedi."));
     },
   });
 
@@ -161,18 +162,6 @@ export function useTasks() {
     });
   };
 
-  const onToggle = async (task) => {
-    try {
-      await taskRepository.updateTaskCompleted(task.id);
-
-      queryClient.invalidateQueries({
-        queryKey: ["tasks"],
-      });
-    } catch (error) {
-      console.error("Task güncellenemedi:", error);
-    }
-  };
-
   return {
     ...query,
 
@@ -194,7 +183,7 @@ export function useTasks() {
     open,
     setOpen,
 
-    onToggle,
+    onToggle: toggleMutation.mutateAsync,
 
     openMenuId,
     setOpenMenuId,
@@ -208,7 +197,23 @@ export function useTasks() {
 
     createTask: createMutation.mutate,
     updateTask: updateMutation.mutate,
+    updateTaskPending: updateMutation.isPending,
     deletedTask: deleteMutation.mutate,
     updateTaskStatus: statusMutation.mutate,
+  };
+}
+
+export function useTaskById(id) {
+  const query = useQuery({
+    queryKey: ["tasks"],
+    queryFn: taskRepository.getTask,
+  });
+
+  const rows = transformTasksToRows(query.data ?? []);
+  const task = rows.find((row) => String(row.id) === String(id));
+
+  return {
+    ...query,
+    task,
   };
 }

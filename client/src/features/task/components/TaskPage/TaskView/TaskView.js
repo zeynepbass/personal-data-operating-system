@@ -100,14 +100,7 @@ export default function TableView({
                     <div className="absolute right-2 top-12 z-50 min-w-10 overflow-hidden rounded-lg border border-gray-200 bg-white py-1 text-sm shadow-lg">
                       <button
                         type="button"
-                        onClick={() => {
-                          localStorage.setItem(
-                            "selectedTask",
-                            JSON.stringify(task)
-                          );
-
-                          router.push(`/tasks/${task.id}`);
-                        }}
+                        onClick={() => router.push(`/tasks/${task.id}`)}
                         className="flex w-full items-center gap-2 px-4 py-2 text-left text-gray-700 transition-colors hover:bg-gray-100"
                       >
                         <Pencil size={16} />

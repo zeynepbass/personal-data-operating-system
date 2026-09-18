@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   SearchBar,
   Sidebar,
@@ -8,28 +8,53 @@ import {
 import { useEffect } from "react";
 import { useAuthStore } from "@/shared/store/auth.store";
 
+const PUBLIC_ROUTES = [
+  "/login",
+  "/register",
+  "/forgot-password",
+];
+
 export default function AppLayout({ children }) {
   const pathname = usePathname();
+  const router = useRouter();
 
   const initializeAuth = useAuthStore(
     (state) => state.initializeAuth
+  );
+  const isAuthenticated = useAuthStore(
+    (state) => state.isAuthenticated
+  );
+  const isInitialized = useAuthStore(
+    (state) => state.isInitialized
   );
 
   useEffect(() => {
     initializeAuth();
   }, [initializeAuth]);
 
-  const hideLayout = [
-    "/login",
-    "/register",
-    "/forgot-password",
-  ].includes(pathname);
+  const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
 
-  if (hideLayout) {
+  useEffect(() => {
+    if (!isInitialized) return;
+
+    if (!isAuthenticated && !isPublicRoute) {
+      router.replace("/login");
+    }
+  }, [isInitialized, isAuthenticated, isPublicRoute, router]);
+
+  if (isPublicRoute) {
     return (
       <main className="min-h-screen">
         {children}
       </main>
+    );
+  }
+
+  if (!isInitialized || !isAuthenticated) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <p className="text-sm text-gray-500">Yükleniyor...</p>
+      </div>
     );
   }
 

@@ -9,7 +9,7 @@ export async function getTask() {
 }
 export async function getBell() {
     const response = await taskProvider.getNotification();
- console.log(response)
+
     return response.data?.data ?? [];
 }
 

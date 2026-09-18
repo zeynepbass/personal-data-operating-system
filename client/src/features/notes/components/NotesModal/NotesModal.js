@@ -293,7 +293,7 @@ export default function NotesModal({
                   type="button"
                   text="+ Section Ekle"
                   onClick={addSection}
-                  className="rounded-xl bg-[#555A8A] px-4 py-2 text-sm text-white hover:bg-[#474c78]"
+                  className="rounded-xl px-4 py-2 text-sm"
                 />
               </div>
 
@@ -488,9 +488,10 @@ export default function NotesModal({
               <Button
                 type="button"
                 text="İptal"
+                variant="outline"
                 onClick={handleClose}
                 disabled={isCreating}
-                className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-medium text-gray-800 transition hover:border-[rgb(125,120,206)] hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-xl px-6 py-3 disabled:cursor-not-allowed disabled:opacity-50"
               />
 
               <Button
@@ -501,7 +502,7 @@ export default function NotesModal({
                     ? "Oluşturuluyor..."
                     : "Notu Oluştur"
                 }
-                className="rounded-xl bg-[#555A8A] px-6 py-3 text-gray-50 hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl px-6 py-3 disabled:cursor-not-allowed disabled:opacity-60"
               />
             </div>
           </form>

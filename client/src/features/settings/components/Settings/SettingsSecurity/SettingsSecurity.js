@@ -3,16 +3,15 @@ import { Button, Heading } from "@/shared/components/atoms";
 import { Eye, PencilIcon, TrashIcon } from "lucide-react";
 import Modal from "../SettingsModal";
 
-export default function SettingsSecurity({ open, setOpen, data, router,deleteAccount }) {
-  const SecurityItem = ({
-    title,
-    description,
-    action,
-    danger = false,
-    border = true,
-    className,
-    text,
-  }) => (
+function SecurityItem({
+  title,
+  description,
+  action,
+  danger = false,
+  border = true,
+  text,
+}) {
+  return (
     <div
       className={`flex items-center justify-between px-8 py-6 ${
         border ? "border-b border-gray-200" : ""
@@ -30,13 +29,15 @@ export default function SettingsSecurity({ open, setOpen, data, router,deleteAcc
       {action || (
         <Button
           text={text}
-          className={`text-white ${className}`}
-          variant={danger ? "destructive" : "outline"}
+          className="p-2"
+          variant={danger ? "destructive" : "ghost"}
         />
       )}
     </div>
   );
+}
 
+export default function SettingsSecurity({ open, setOpen, data, router,deleteAccount }) {
   return (
     <section className="space-y-8">
       <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
@@ -59,7 +60,6 @@ export default function SettingsSecurity({ open, setOpen, data, router,deleteAcc
               onClick={() => router.push("/forgot-password")}
             />
           }
-          className="bg-transparent "
         />
       </div>
 
@@ -83,7 +83,6 @@ export default function SettingsSecurity({ open, setOpen, data, router,deleteAcc
               onClick={() => setOpen(!open)}
             />
           }
-          className="bg-transparent "
         />
         {open && (
           <Modal
@@ -108,8 +107,8 @@ export default function SettingsSecurity({ open, setOpen, data, router,deleteAcc
           title="Hesabı Sil"
           description="Bu işlem geri alınamaz."
           border={false}
-          text={<TrashIcon className="text-[#555A8A]" width={20} height={20}  onClick={() =>deleteAccount()}/>}
-          className="bg-transparent "
+          danger
+          text={<TrashIcon width={20} height={20} onClick={() => deleteAccount()} />}
         />
       </div>
     </section>
