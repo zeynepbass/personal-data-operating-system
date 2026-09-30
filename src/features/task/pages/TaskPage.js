@@ -9,7 +9,7 @@ import { useTasks } from "../hooks/useTask";
 import { transformTasksToRows, getTodayTasks } from "../utils/colums.filter";
 
 export default function TaskPage() {
-  const { user, isInitialized } = useAuth();
+  const { user } = useAuth();
   const isAdmin = user?.role === "admin";
   const {
     data,
@@ -53,7 +53,6 @@ export default function TaskPage() {
 
       todayTasks={todayTasks ?? []}
       view={view}
-      isInitialized={isInitialized}
       router={router}
       onToggle={onToggle}
       users={users ?? []}

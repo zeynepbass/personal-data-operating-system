@@ -5,7 +5,7 @@ import DocumentsHome from "../components/DocumentsHome";
 import { useDocuments } from "../hooks/useDocuments";
 import filteredData from "../utils/filtered.search";
 export default function DocumentsPage() {
-  const { user, isInitialized } = useAuth();
+  const { user } = useAuth();
 
   const isAdmin = user?.role === "admin";
   const {
@@ -39,7 +39,6 @@ export default function DocumentsPage() {
     <DocumentsHome
       data={filteredDocuments}
       isAdmin={isAdmin}
-      isInitialized={isInitialized}
       createDocument={createDocument}
       isCreating={createDocument.isPending}
       open={open}

@@ -1,209 +1,100 @@
 "use client";
 
-import { Mail, Lock, Eye, EyeOff, User } from "lucide-react";
-import Image from "next/image";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Mail, User } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
-import { toast } from "react-hot-toast";
+import { useTransition } from "react";
+import { useForm } from "react-hook-form";
 
-import { useAuth } from "@/features/auth/hooks/useAuth";
-import { Input, Button } from "@/shared/components/atoms";
-import { PageHeader } from "@/shared/components/molecules";
+import { registerAction } from "@/features/auth/actions/auth.actions";
+import { Button } from "@/shared/components/atoms";
+import { handleActionResult } from "@/shared/helpers/form.helper";
+import { registerSchema } from "@/shared/schemas/auth";
+
+import { IconInput, PasswordInput } from "../AuthFields";
+import AuthShell from "../AuthShell";
 
 export default function RegisterForm() {
-  const { register } = useAuth();
-
-  const [showPassword, setShowPassword] = useState(false);
-  const [showPasswordAgain, setShowPasswordAgain] = useState(false);
-
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    passwordAgain: "",
+  const [isPending, startTransition] = useTransition();
+  const form = useForm({
+    resolver: zodResolver(registerSchema),
+    defaultValues: { fullName: "", email: "", password: "", passwordAgain: "" },
   });
+  const { errors } = form.formState;
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (formData.password !== formData.passwordAgain) {
-      toast.error("Şifreler eşleşmiyor.");
-      return;
-    }
-
-    await register(formData);
-  };
+  const onSubmit = form.handleSubmit((values) =>
+    startTransition(async () => {
+      const result = await registerAction(values);
+      handleActionResult(form, result);
+    }),
+  );
 
   return (
-    <div className="grid min-h-screen lg:grid-cols-12">
-      <div className="relative hidden min-h-screen overflow-hidden lg:col-span-5 lg:block">
-        <Image
-          src="/assets/images/login.jpg"
-          alt="Hesap oluştur"
-          fill
-          priority
-          sizes="(min-width: 1024px) 42vw, 0px"
-          className="object-cover object-center"
+    <AuthShell
+      badge="🚀 Kişisel çalışma alanına katıl"
+      headline="Öğren, organize ol ve hedeflerine ulaş."
+      tagline="Notlarını, görevlerini, hedeflerini ve dokümanlarını tek bir yerde yönet."
+      title="Aramıza Katılın 🚀"
+      description="Hesabınızı oluşturarak kişisel çalışma alanınıza erişmeye başlayın."
+    >
+      <form onSubmit={onSubmit} noValidate className="mt-8 space-y-5">
+        <IconInput
+          icon={User}
+          placeholder="Adınız Soyadınız"
+          aria-label="Ad soyad"
+          autoComplete="name"
+          disabled={isPending}
+          error={errors.fullName?.message}
+          {...form.register("fullName")}
         />
 
-        <div className="absolute inset-0 bg-black/20" />
+        <IconInput
+          icon={Mail}
+          type="email"
+          placeholder="E-posta adresiniz"
+          aria-label="E-posta adresi"
+          autoComplete="email"
+          disabled={isPending}
+          error={errors.email?.message}
+          {...form.register("email")}
+        />
 
-        <div className="absolute bottom-10 left-10 max-w-md text-white">
-          <div className="mb-4 inline-flex items-center rounded-full bg-white/15 px-4 py-2 text-sm backdrop-blur-md">
-            🚀 Kişisel çalışma alanına katıl
-          </div>
-
-          <h2 className="text-3xl font-bold leading-tight">
-            Öğren, organize ol ve hedeflerine ulaş.
-          </h2>
-
-          <p className="mt-4 text-sm leading-6 text-white/80">
-            Notlarını, görevlerini, hedeflerini ve dokümanlarını tek bir yerde yönet.
-          </p>
-        </div>
-      </div>
-
-      <div className="flex min-h-screen items-center justify-center bg-[#FAFAFA] px-6 py-12 lg:col-span-7">
-        <div className="w-full max-w-lg">
-          <PageHeader
-            title="Aramıza Katılın 🚀"
-            description="Hesabınızı oluşturarak kişisel çalışma alanınıza erişmeye başlayın."
+        <div className="grid gap-4 sm:grid-cols-2">
+          <PasswordInput
+            placeholder="Şifreniz"
+            aria-label="Şifre"
+            autoComplete="new-password"
+            disabled={isPending}
+            error={errors.password?.message}
+            {...form.register("password")}
           />
-
-          <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-            <div className="relative">
-              <User size={20} className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" />
-
-              <Input
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
-                placeholder="Adınız Soyadınız"
-                required
-                autoComplete="name"
-                className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-5 transition focus:border-[#555A8A]"
-              />
-            </div>
-
-            <div className="relative">
-              <Mail size={20} className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" />
-
-              <Input
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="E-posta adresiniz"
-                required
-                autoComplete="email"
-                className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-5 transition focus:border-[#555A8A]"
-              />
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="relative">
-                <Lock
-                  size={20}
-                  className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"
-                />
-
-                <Input
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Şifreniz"
-                  required
-                  minLength={6}
-                  autoComplete="new-password"
-                  className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-12 transition focus:border-[#555A8A]"
-                />
-
-                <button
-                  type="button"
-                  aria-label={showPassword ? "Şifreyi gizle" : "Şifreyi göster"}
-                  onClick={() => setShowPassword((prev) => !prev)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 transition hover:text-[#555A8A]"
-                >
-                  {showPassword ? <EyeOff size={19} /> : <Eye size={19} />}
-                </button>
-              </div>
-
-              <div className="relative">
-                <Lock
-                  size={20}
-                  className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"
-                />
-
-                <Input
-                  name="passwordAgain"
-                  type={showPasswordAgain ? "text" : "password"}
-                  value={formData.passwordAgain}
-                  onChange={handleChange}
-                  placeholder="Şifre Tekrar"
-                  required
-                  minLength={6}
-                  autoComplete="new-password"
-                  className="h-14 w-full rounded-2xl border border-gray-200 bg-white pl-14 pr-12 transition focus:border-[#555A8A]"
-                />
-
-                <button
-                  type="button"
-                  aria-label={showPasswordAgain ? "Şifreyi gizle" : "Şifreyi göster"}
-                  onClick={() => setShowPasswordAgain((prev) => !prev)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 transition hover:text-[#555A8A]"
-                >
-                  {showPasswordAgain ? <EyeOff size={19} /> : <Eye size={19} />}
-                </button>
-              </div>
-            </div>
-
-            <Button
-              type="submit"
-              disabled={register.isPending}
-              text={register.isPending ? "Kayıt oluşturuluyor..." : "Kayıt Ol"}
-              className="h-14 w-full rounded-2xl font-semibold transition disabled:cursor-not-allowed disabled:opacity-60"
-            />
-
-            <div className="relative py-2">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-200" />
-              </div>
-
-              <div className="relative flex justify-center">
-                <span className="bg-[#FAFAFA] px-4 text-sm text-gray-400">veya</span>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl border border-gray-200 bg-white font-medium text-gray-600 transition hover:border-[#7d78ce] hover:bg-gray-50"
-            >
-              <Image src="/assets/images/google.svg" alt="Google" width={20} height={20} />
-              Google ile giriş yap
-            </button>
-
-            <p className="pt-2 text-center text-sm text-gray-500">
-              Hesabın var mı?{" "}
-              <Link
-                href="/login"
-                className="font-semibold text-[#555A8A] transition hover:text-[#7d78ce]"
-              >
-                Giriş Yap
-              </Link>
-            </p>
-          </form>
+          <PasswordInput
+            placeholder="Şifre Tekrar"
+            aria-label="Şifre tekrarı"
+            autoComplete="new-password"
+            disabled={isPending}
+            error={errors.passwordAgain?.message}
+            {...form.register("passwordAgain")}
+          />
         </div>
-      </div>
-    </div>
+
+        <Button
+          type="submit"
+          disabled={isPending}
+          text={isPending ? "Kayıt oluşturuluyor..." : "Kayıt Ol"}
+          className="h-14 w-full rounded-2xl font-semibold transition disabled:cursor-not-allowed disabled:opacity-60"
+        />
+
+        <p className="pt-2 text-center text-sm text-gray-500">
+          Hesabın var mı?{" "}
+          <Link
+            href="/login"
+            className="font-semibold text-[#555A8A] transition hover:text-[#7d78ce]"
+          >
+            Giriş Yap
+          </Link>
+        </p>
+      </form>
+    </AuthShell>
   );
 }

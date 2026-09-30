@@ -1,10 +1,10 @@
 import { Button } from "@/shared/components/atoms";
 import { PageHeader } from "@/shared/components/molecules";
-export default function TaskHeading({ title, description, isAdmin, isInitialized, setOpen }) {
+export default function TaskHeading({ title, description, isAdmin, setOpen }) {
   return (
     <header className="flex flex-col gap-4 md:flex-row py-4 md:items-center md:justify-between">
       <PageHeader title={title} description={description} />
-      {isInitialized && isAdmin && (
+      {isAdmin && (
         <Button
           text="+ Yeni Görev"
           onClick={() => setOpen(true)}

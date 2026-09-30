@@ -1,134 +1,73 @@
 "use client";
 
-import { Lock, Eye, EyeOff, Mail } from "lucide-react";
-import Image from "next/image";
-import { useState } from "react";
-import { toast } from "react-hot-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Mail } from "lucide-react";
+import Link from "next/link";
+import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
 
-import { useAuth } from "@/features/auth/hooks/useAuth";
-import { Input, Button } from "@/shared/components/atoms";
-import { PageHeader } from "@/shared/components/molecules";
+import { requestPasswordResetAction } from "@/features/auth/actions/auth.actions";
+import { Button } from "@/shared/components/atoms";
+import { handleActionResult } from "@/shared/helpers/form.helper";
+import { forgotPasswordSchema } from "@/shared/schemas/auth";
+
+import { IconInput } from "../AuthFields";
+import AuthShell from "../AuthShell";
 
 export default function PasswordForm() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    passwordAgain: "",
+  const [isPending, startTransition] = useTransition();
+  const [sentMessage, setSentMessage] = useState("");
+  const form = useForm({
+    resolver: zodResolver(forgotPasswordSchema),
+    defaultValues: { email: "" },
   });
 
-  const { password } = useAuth();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (formData.password !== formData.passwordAgain) {
-      toast.error("Şifreler eşleşmiyor.");
-      return;
-    }
-
-    await password(formData);
-  };
+  const onSubmit = form.handleSubmit((values) =>
+    startTransition(async () => {
+      const result = await requestPasswordResetAction(values);
+      if (handleActionResult(form, result)) setSentMessage(result.data.message);
+    }),
+  );
 
   return (
-    <div className="grid min-h-screen lg:grid-cols-12">
-      <div className="relative hidden min-h-screen lg:col-span-6 lg:block">
-        <Image
-          src="/assets/images/login.jpg"
-          alt="Şifre yenileme"
-          fill
-          priority
-          className="object-contain object-left"
-        />
-      </div>
-
-      <div className="flex items-center justify-center bg-[#FAFAFA] px-6 py-12 lg:col-span-6">
-        <div className="w-full max-w-md">
-          <PageHeader
-            title="Şifreni Yenile"
-            description="Yeni şifreni belirleyerek hesabına tekrar güvenli bir şekilde eriş."
+    <AuthShell
+      badge="🔐 Hesap kurtarma"
+      headline="Şifreni mi unuttun? Sorun değil."
+      tagline="E-posta adresine tek kullanımlık bir sıfırlama bağlantısı gönderelim."
+      title="Şifreni Yenile"
+      description="Kayıtlı e-posta adresini gir, sana bir sıfırlama bağlantısı gönderelim."
+    >
+      {sentMessage ? (
+        <p role="status" className="mt-8 rounded-2xl bg-green-50 px-4 py-3 text-sm text-green-700">
+          {sentMessage}
+        </p>
+      ) : (
+        <form onSubmit={onSubmit} noValidate className="mt-8 space-y-5">
+          <IconInput
+            icon={Mail}
+            type="email"
+            placeholder="E-posta adresiniz"
+            aria-label="E-posta adresi"
+            autoComplete="email"
+            disabled={isPending}
+            error={form.formState.errors.email?.message}
+            {...form.register("email")}
           />
 
-          <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-            <div className="relative">
-              <Mail size={20} className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500" />
+          <Button
+            type="submit"
+            disabled={isPending}
+            text={isPending ? "Gönderiliyor..." : "Sıfırlama Bağlantısı Gönder"}
+            className="h-14 w-full rounded-2xl font-semibold transition disabled:cursor-not-allowed disabled:opacity-60"
+          />
+        </form>
+      )}
 
-              <Input
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="E-posta adresiniz"
-                required
-                className="h-14 w-full rounded-2xl border border-gray-200 pl-14 pr-14"
-              />
-            </div>
-
-            <div className="relative">
-              <Lock size={20} className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500" />
-
-              <Input
-                name="password"
-                type={showPassword ? "text" : "password"}
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Yeni şifreniz"
-                required
-                minLength={6}
-                className="h-14 w-full rounded-2xl border border-gray-200 pl-14 pr-14"
-              />
-
-              <button
-                type="button"
-                onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#555A8A]"
-              >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
-            </div>
-
-            <div className="relative">
-              <Lock size={20} className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500" />
-
-              <Input
-                name="passwordAgain"
-                type={showConfirmPassword ? "text" : "password"}
-                value={formData.passwordAgain}
-                onChange={handleChange}
-                placeholder="Şifrenizi tekrar girin"
-                required
-                minLength={6}
-                className="h-14 w-full rounded-2xl border border-gray-200 pl-14 pr-14"
-              />
-
-              <button
-                type="button"
-                onClick={() => setShowConfirmPassword((prev) => !prev)}
-                className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#555A8A]"
-              >
-                {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
-            </div>
-
-            <Button
-              type="submit"
-              text="Şifre Yenile"
-              className="h-14 w-full rounded-2xl text-white"
-            />
-          </form>
-        </div>
-      </div>
-    </div>
+      <p className="pt-6 text-center text-sm text-gray-500">
+        <Link href="/login" className="font-semibold text-[#555A8A] hover:text-[#7d78ce]">
+          Giriş sayfasına dön
+        </Link>
+      </p>
+    </AuthShell>
   );
 }

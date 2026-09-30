@@ -15,7 +15,6 @@ const initialForm = {
 export default function DocumentsModal({
   open,
   setOpen,
-  isInitialized,
   isCreating,
   isAdmin,
   onSubmit,
@@ -164,7 +163,7 @@ export default function DocumentsModal({
               </div>
             </div>
 
-            {isInitialized && isAdmin && (
+            {isAdmin && (
               <div className="rounded-xl border border-gray-200 bg-white p-6">
                 <Heading title="Belge Ayarları" />
 

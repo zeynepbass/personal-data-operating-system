@@ -27,7 +27,6 @@ export default function TaskHome({
   openMenuId,
   todayTasks,
   isAdmin,
-  isInitialized,
 }) {
   const ViewComponent = taskViewStrategies[view];
   return (
@@ -36,7 +35,6 @@ export default function TaskHome({
         title="Görevler"
         setOpen={setOpen}
         isAdmin={isAdmin}
-        isInitialized={isInitialized}
         router={router}
         description="Bugün seni neler bekliyor."
       />
@@ -55,7 +53,6 @@ export default function TaskHome({
         view={view}
         setView={setView}
         isAdmin={isAdmin}
-        isInitialized={isInitialized}
       />
 
       <section className="min-h-[60vh]">

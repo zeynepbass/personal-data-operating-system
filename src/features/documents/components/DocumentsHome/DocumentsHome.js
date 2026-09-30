@@ -28,7 +28,6 @@ const iconMap = {
 export default function DocumentsHome({
   data,
   search,
-  isInitialized,
   createDocument,
   isCreating,
   setSearch,
@@ -54,7 +53,6 @@ export default function DocumentsHome({
         <DocumentsModal
           open={open}
           isAdmin={isAdmin}
-          isInitialized={isInitialized}
           setOpen={setOpen}
           isCreating={isCreating}
           onSubmit={createDocument}

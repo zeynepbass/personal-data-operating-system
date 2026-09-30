@@ -1,6 +1,6 @@
 "use client";
 
-export default function TaskNavigation({ setView, view, isAdmin, isInitialized }) {
+export default function TaskNavigation({ setView, view, isAdmin }) {
   const base = "px-4 py-2 text-sm rounded-t-lg border-b-2 transition";
 
   const getClass = (key) =>
@@ -17,7 +17,7 @@ export default function TaskNavigation({ setView, view, isAdmin, isInitialized }
       <button className={`${base} ${getClass("kanban")}`} onClick={() => setView("kanban")}>
         Kanban
       </button>
-      {isInitialized && isAdmin && (
+      {isAdmin && (
         <button className={`${base} ${getClass("table")}`} onClick={() => setView("table")}>
           Tablo
         </button>
