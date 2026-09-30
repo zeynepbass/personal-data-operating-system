@@ -1,5 +1,3 @@
-"use client";
-
 export function TaskDetailMeta({ task }) {
   return (
     <div className="border-t border-gray-200 p-6">

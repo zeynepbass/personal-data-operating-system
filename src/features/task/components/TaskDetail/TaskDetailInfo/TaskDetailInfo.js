@@ -1,5 +1,3 @@
-"use client";
-
 import { Calendar, Clock, Gauge } from "lucide-react";
 
 export function TaskDetailInfo({ task }) {

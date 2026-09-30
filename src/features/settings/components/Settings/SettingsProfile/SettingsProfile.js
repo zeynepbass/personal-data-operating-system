@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Pencil } from "lucide-react";
+import Image from "next/image";
 import { useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
@@ -91,9 +92,12 @@ export default function SettingsProfile() {
             <div className="relative">
               <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-violet-600 to-indigo-600 text-2xl font-bold text-white">
                 {previewImage ? (
-                  <img
+                  <Image
                     src={previewImage}
                     alt={`${user?.fullName ?? "Kullanıcı"} profil fotoğrafı`}
+                    width={80}
+                    height={80}
+                    unoptimized
                     className="h-full w-full object-cover"
                   />
                 ) : (

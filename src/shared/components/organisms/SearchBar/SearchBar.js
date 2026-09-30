@@ -1,6 +1,7 @@
 "use client";
 
 import { Bell, Settings, Search, ChevronDown } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -122,12 +123,17 @@ export function SearchBar() {
           <button
             type="button"
             onClick={() => setIsOpen((prev) => !prev)}
+            aria-haspopup="menu"
+            aria-expanded={isOpen}
             className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-xs transition hover:bg-slate-50 focus:outline-none"
           >
             {profileImage && (
-              <img
+              <Image
                 src={profileImage}
-                alt={fullName}
+                alt=""
+                width={40}
+                height={40}
+                unoptimized
                 className="h-10 w-10 rounded-full object-cover"
               />
             )}
