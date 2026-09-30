@@ -48,15 +48,16 @@ const assigneeId = (task) => String(task.assignee?._id ?? task.assignee);
  * @returns {TaskDTO}
  */
 export function toTaskDTO(task) {
-  const assignee = task.assignee && typeof task.assignee === "object" && "email" in task.assignee
-    ? {
-        id: String(task.assignee._id),
-        fullName: task.assignee.fullName,
-        email: task.assignee.email,
-        role: task.assignee.role,
-        avatar: task.assignee.profileImage ?? "",
-      }
-    : null;
+  const assignee =
+    task.assignee && typeof task.assignee === "object" && "email" in task.assignee
+      ? {
+          id: String(task.assignee._id),
+          fullName: task.assignee.fullName,
+          email: task.assignee.email,
+          role: task.assignee.role,
+          avatar: task.assignee.profileImage ?? "",
+        }
+      : null;
 
   return {
     id: String(task._id),

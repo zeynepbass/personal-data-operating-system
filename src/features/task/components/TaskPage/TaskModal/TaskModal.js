@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/shared/components/atoms";
-import { Modal } from "@/shared/components/organisms";
+import { Modal } from "@/shared/components/organisms/Modal";
 import { MEETING_FORM_DEFAULTS, meetingFormSchema, toMeetingPayload } from "@/shared/schemas/task";
 
 import MeetingFields from "./MeetingFields";

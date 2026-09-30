@@ -19,7 +19,8 @@ export const getCurrentUser = cache(async () => {
 
 export async function requireUser() {
   const user = await getCurrentUser();
-  if (!user) throw new AppError("UNAUTHENTICATED", "Oturumunuz sona erdi. Lütfen tekrar giriş yapın.");
+  if (!user)
+    throw new AppError("UNAUTHENTICATED", "Oturumunuz sona erdi. Lütfen tekrar giriş yapın.");
   return user;
 }
 

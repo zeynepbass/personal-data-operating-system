@@ -29,10 +29,10 @@ export const POST = authedRoute(async ({ request, user }) => {
   const document = await uploadDocument(
     user,
     {
-      name: form.get("name"),
-      type: form.get("type"),
-      color: form.get("color"),
-      shared: form.get("shared"),
+      name: form.get("name") ?? undefined,
+      type: form.get("type") ?? undefined,
+      color: form.get("color") ?? undefined,
+      shared: form.get("shared") ?? undefined,
     },
     upload,
   );

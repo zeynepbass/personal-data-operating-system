@@ -16,6 +16,7 @@ export default function TaskList({ todayTasks, onToggle }) {
               <div className="flex items-center gap-3">
                 <Input
                   type="checkbox"
+                  aria-label={`${task.title} tamamlandı olarak işaretle`}
                   checked={checked}
                   onChange={() => onToggle(task)}
                   className="h-4 w-4 accent-indigo-600"

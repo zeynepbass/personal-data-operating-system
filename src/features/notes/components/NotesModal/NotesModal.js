@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 
 import { Button, Input, Textarea } from "@/shared/components/atoms";
-import { Modal } from "@/shared/components/organisms";
+import { Modal } from "@/shared/components/organisms/Modal";
 import {
   emptyNoteSection,
   noteFormSchema,

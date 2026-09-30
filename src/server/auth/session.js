@@ -97,6 +97,8 @@ export async function revokeSession(token) {
  */
 export async function revokeUserSessions(userId, { exceptSessionId } = {}) {
   await connectDB();
-  const filter = exceptSessionId ? { user: userId, _id: { $ne: exceptSessionId } } : { user: userId };
+  const filter = exceptSessionId
+    ? { user: userId, _id: { $ne: exceptSessionId } }
+    : { user: userId };
   await Session.deleteMany(filter);
 }

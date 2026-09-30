@@ -94,6 +94,19 @@ async function seedLegacyData() {
 }
 
 describe("data migrations", () => {
+  it("drops the legacy unique id index even if the old server recreated it", async () => {
+    const { connection } = await connectDB();
+    const db = connection.db;
+    await db.collection("documents").createIndex({ id: 1 }, { unique: true });
+    await db.collection("migrations").insertOne({ _id: "2026-10-01-drop-legacy-id-indexes" });
+
+    await runMigrations(db);
+
+    const indexes = await db.collection("documents").indexes();
+    expect(indexes.map((index) => index.name)).not.toContain("id_1");
+    await db.collection("documents").insertMany([{ name: "a" }, { name: "b" }]);
+  });
+
   it("moves embedded tasks into their own collection with per-task status", async () => {
     const { db, admin, alice } = await seedLegacyData();
 
@@ -154,6 +167,7 @@ describe("data migrations", () => {
     process.env.LEGACY_UPLOADS_DIR = uploadsDir;
     const second = await runMigrations(db);
     expect(second).toEqual(["2026-10-01-import-legacy-uploads"]);
+    expect(first).toContain("2026-10-02-drop-legacy-id-indexes-after-express-removal");
 
     await expect(runMigrations(db)).resolves.toEqual([]);
     expect(await db.collection("tasks").countDocuments()).toBe(1);

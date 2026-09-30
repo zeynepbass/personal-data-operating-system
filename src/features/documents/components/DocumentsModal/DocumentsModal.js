@@ -5,7 +5,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 
 import { Button, Input, Select } from "@/shared/components/atoms";
-import { Modal } from "@/shared/components/organisms";
+import { Modal } from "@/shared/components/organisms/Modal";
 import { DOCUMENT_MAX_BYTES, documentMetaSchema } from "@/shared/schemas/document";
 
 const COLORS = [

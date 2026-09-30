@@ -26,7 +26,9 @@ export default function TableView({ rows, deletedTask, openMenuId, onMenuClick, 
               Date
             </th>
 
-            <th className="w-12 px-3 py-3" />
+            <th className="w-12 px-3 py-3">
+              <span className="sr-only">İşlemler</span>
+            </th>
           </tr>
         </thead>
 
@@ -36,8 +38,8 @@ export default function TableView({ rows, deletedTask, openMenuId, onMenuClick, 
 
             const statusStyles = {
               "in-progress": "bg-purple-100 text-purple-700",
-              Done: "bg-orange-100 text-orange-700",
-              Todo: "bg-green-100 text-green-700",
+              done: "bg-orange-100 text-orange-700",
+              todo: "bg-green-100 text-green-700",
             };
 
             return (
@@ -77,7 +79,8 @@ export default function TableView({ rows, deletedTask, openMenuId, onMenuClick, 
                 <td className="relative px-3 py-4 text-right">
                   <button
                     type="button"
-                    aria-label="Task menüsünü aç"
+                    aria-label={`${task.title} menüsü`}
+                    aria-expanded={isMenuOpen}
                     onClick={() => onMenuClick(task?.id)}
                     className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900"
                   >
@@ -89,16 +92,22 @@ export default function TableView({ rows, deletedTask, openMenuId, onMenuClick, 
                       <button
                         type="button"
                         onClick={() => router.push(`/tasks/${task.id}`)}
+                        aria-label={`${task.title} detayını aç`}
                         className="flex w-full items-center gap-2 px-4 py-2 text-left text-gray-700 transition-colors hover:bg-gray-100"
                       >
-                        <Pencil size={16} />
+                        <Pencil size={16} aria-hidden="true" />
                       </button>
                       <button
                         type="button"
-                        onClick={() => deletedTask({ id: task.id })}
+                        onClick={() => {
+                          if (window.confirm(`"${task.title}" görevi silinsin mi?`)) {
+                            deletedTask({ id: task.id });
+                          }
+                        }}
+                        aria-label={`${task.title} görevini sil`}
                         className="flex w-full items-center gap-2 px-4 py-2 text-left text-[#7d78ce] transition-colors hover:bg-gray-100"
                       >
-                        <Trash size={16} />
+                        <Trash size={16} aria-hidden="true" />
                       </button>
                     </div>
                   )}

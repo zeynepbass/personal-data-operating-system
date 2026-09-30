@@ -23,7 +23,10 @@ describe("note service", () => {
 
     const note = await createNote(user, { ...validNote(), id: "hijack", user: "someone-else" });
 
-    expect(note).toMatchObject({ title: "Closures", sections: [expect.objectContaining({ id: "s1" })] });
+    expect(note).toMatchObject({
+      title: "Closures",
+      sections: [expect.objectContaining({ id: "s1" })],
+    });
     const { items } = await listNotes(user);
     expect(items).toHaveLength(1);
   });
@@ -59,18 +62,23 @@ describe("note service", () => {
     const { user } = await createTestUser();
     const note = await createNote(user, validNote());
 
-    await expect(updateNote(user, note.id, validNote({ title: "Updated" }))).resolves.toMatchObject({
-      title: "Updated",
-    });
+    await expect(updateNote(user, note.id, validNote({ title: "Updated" }))).resolves.toMatchObject(
+      {
+        title: "Updated",
+      },
+    );
     await deleteNote(user, note.id);
     await expect(getNote(user, note.id)).rejects.toMatchObject({ code: "NOT_FOUND" });
   });
 
-  it.each(["not-an-id", "", "507f1f77bcf86cd799439011"])("returns NOT_FOUND for id %j", async (id) => {
-    const { user } = await createTestUser();
-    await expect(getNote(user, id)).rejects.toMatchObject({ code: "NOT_FOUND" });
-    await expect(deleteNote(user, id)).rejects.toMatchObject({ code: "NOT_FOUND" });
-  });
+  it.each(["not-an-id", "", "507f1f77bcf86cd799439011"])(
+    "returns NOT_FOUND for id %j",
+    async (id) => {
+      const { user } = await createTestUser();
+      await expect(getNote(user, id)).rejects.toMatchObject({ code: "NOT_FOUND" });
+      await expect(deleteNote(user, id)).rejects.toMatchObject({ code: "NOT_FOUND" });
+    },
+  );
 
   it("paginates newest first with a stable cursor", async () => {
     const { user } = await createTestUser();
@@ -87,7 +95,9 @@ describe("note service", () => {
 
   it("rejects malformed cursors and out-of-range limits", async () => {
     const { user } = await createTestUser();
-    await expect(listNotes(user, { cursor: "garbage" })).rejects.toMatchObject({ code: "VALIDATION" });
+    await expect(listNotes(user, { cursor: "garbage" })).rejects.toMatchObject({
+      code: "VALIDATION",
+    });
     await expect(listNotes(user, { limit: 0 })).rejects.toMatchObject({ code: "VALIDATION" });
     await expect(listNotes(user, { limit: 1000 })).rejects.toMatchObject({ code: "VALIDATION" });
   });

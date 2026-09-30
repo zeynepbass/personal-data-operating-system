@@ -21,3 +21,4 @@ build
 .idea
 *.logtest-results
 playwright-report
+.lighthouseci

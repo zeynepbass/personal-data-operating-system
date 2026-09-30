@@ -1,31 +1,28 @@
 "use client";
-import { useRouter } from "next/navigation";
+
 import { useState } from "react";
 
 import { useCurrentUser } from "@/features/auth/context/AuthProvider";
-import { Button } from "@/shared/components/atoms";
 
 import DashboardDuration from "../DashboardDuration";
 import DashboardFocus from "../DashboardFocus";
 import DashboardHeading from "../DashboardHeading";
-import DashboardList from "../DashboardList";
 import DashboardListCheck from "../DashboardListCheck";
+import TodayMeetings from "../TodayMeetings";
 
-export default function DashboardHome({
-  filteredData = [],
-  filteredMeeting = [],
-  recentNotes = [],
-}) {
+const CARD =
+  "relative rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:shadow-md";
+
+export default function DashboardHome({ filteredData = [], filteredMeeting = [], recentNotes }) {
+  const user = useCurrentUser();
+  const firstName = user?.fullName?.split(" ")[0] ?? "";
+  const [duration, setDuration] = useState("day");
   const today = new Date().toLocaleDateString("tr-TR", {
     weekday: "long",
     day: "numeric",
     month: "long",
     year: "numeric",
   });
-  const user = useCurrentUser();
-  const firstName = user?.fullName?.split(" ")[0] ?? "";
-  const [duration, setDuration] = useState("day");
-  const router = useRouter();
 
   return (
     <div className="space-y-6">
@@ -35,106 +32,42 @@ export default function DashboardHome({
       />
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-        <section className="relative h-[32vh] rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:shadow-md">
+        <section aria-label="Bugünkü görevler" className={`${CARD} h-[32vh]`}>
           <div className="mb-5 flex items-center justify-between">
             <DashboardHeading title="Bugünkü Görevler" />
-
             <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-[#555A8A]">
               Bugün
             </span>
           </div>
-
           <div className="h-[calc(30vh-110px)] overflow-y-auto pr-2">
             <DashboardListCheck filteredData={filteredData} />
           </div>
         </section>
 
-        <section className="relative h-[32vh] rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:shadow-md">
-          <div className="mb-5 flex items-start justify-between">
-            <div>
-              <DashboardHeading title="Takvim" />
-
-              <p className="mt-1 text-sm text-slate-400">{today}</p>
-            </div>
+        <section aria-label="Bugünkü toplantılar" className={`${CARD} h-[32vh]`}>
+          <div className="mb-5">
+            <DashboardHeading title="Takvim" />
+            <p className="mt-1 text-sm text-slate-500">{today}</p>
           </div>
-
           <div className="h-[calc(30vh-110px)] overflow-y-auto pr-2">
-            {filteredMeeting.length === 0 ? (
-              <div className="flex h-full items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50">
-                <div className="flex flex-col items-center text-center">
-                  <p className="text-sm font-medium text-slate-600 flex flex-col">
-                    <span> 📭 </span> <span>Bugün için toplantı yok</span>
-                  </p>
-                  <p className="text-sm font-medium italic mt-2">
-                    Takviminde planlanmış bir toplantı bulunmuyor.
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {filteredMeeting.map((item, index) => (
-                  <div
-                    key={item._id || index}
-                    className="group flex overflow-hidden rounded-xl border border-slate-100 bg-slate-50 transition hover:border-indigo-100 hover:bg-white hover:shadow-sm"
-                  >
-                    <div className="flex min-w-20 items-center justify-center bg-purple-300 px-3 text-sm font-bold text-white">
-                      {item.meeting}
-                    </div>
-
-                    <div className="flex flex-1 items-center justify-between gap-4 px-4 py-3">
-                      <div className="min-w-0">
-                        <p className="truncate font-semibold text-slate-700">
-                          {item.meetingDetails}
-                        </p>
-
-                        <p className="mt-1 text-xs text-slate-400">Bugünkü toplantı</p>
-                      </div>
-
-                      <span className="shrink-0 rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
-                        Tamamlandı
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+            <TodayMeetings meetings={filteredMeeting} />
           </div>
         </section>
 
-        <section className="relative h-auto rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:shadow-md">
+        <section aria-label="İstatistikler" className={CARD}>
           <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <DashboardHeading title="İstatistikler" />
-
             <DashboardDuration value={duration} onChange={setDuration} />
           </div>
-
           <DashboardFocus duration={duration} />
         </section>
 
-        <section className="relative h-[40vh] rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:shadow-md">
+        <section aria-label="Son notlar" className={`${CARD} h-[40vh]`}>
           <div className="mb-5 flex items-center justify-between">
             <DashboardHeading title="Son Notlar" />
-
-            <span className="text-xs font-medium text-slate-400">Son 3 not</span>
+            <span className="text-xs font-medium text-slate-500">Son 3 not</span>
           </div>
-
-          <div className="h-[calc(40vh-110px)] overflow-y-auto pr-2">
-            {!recentNotes.length ? (
-              <div className="flex h-full items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50">
-                <div className="flex flex-col items-center text-center">
-                  <p className="text-sm font-medium text-slate-600">Henüz not bulunmuyor.</p>
-                  <Button
-                    text="İlk notunu oluşturarak başlayabilirsin."
-                    variant="ghost"
-                    onClick={() => router.push("/notes")}
-                    className="text-xs text-slate-400 underline"
-                  />
-                </div>
-              </div>
-            ) : (
-              <DashboardList documents={recentNotes} />
-            )}
-          </div>
+          <div className="h-[calc(40vh-110px)] overflow-y-auto pr-2">{recentNotes}</div>
         </section>
       </div>
     </div>

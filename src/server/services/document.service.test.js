@@ -45,7 +45,11 @@ describe("document service", () => {
 
   it.each([
     ["no file", { name: "x" }, null],
-    ["a non-pdf payload", { name: "x" }, { data: new TextEncoder().encode("<html>"), name: "x.pdf" }],
+    [
+      "a non-pdf payload",
+      { name: "x" },
+      { data: new TextEncoder().encode("<html>"), name: "x.pdf" },
+    ],
     ["a missing name", { name: "" }, upload],
     ["an invalid type", { name: "x", type: "exe" }, upload],
   ])("rejects %s", async (_label, meta, file) => {

@@ -1,27 +1,29 @@
 "use client";
 
+const VIEWS = [
+  { key: "list", label: "Liste" },
+  { key: "kanban", label: "Kanban" },
+  { key: "table", label: "Tablo", adminOnly: true },
+];
+
 export default function TaskNavigation({ setView, view, isAdmin }) {
-  const base = "px-4 py-2 text-sm rounded-t-lg border-b-2 transition";
-
-  const getClass = (key) =>
-    view === key
-      ? "bg-indigo-50 border-[#555A8A]text-[#555A8A]"
-      : "border-transparent text-gray-500 hover:text-indigo-700 hover:border-indigo-300";
-
   return (
-    <div className="flex gap-2 border-b border-gray-200 max-w-sm">
-      <button className={`${base} ${getClass("list")}`} onClick={() => setView("list")}>
-        Liste
-      </button>
-
-      <button className={`${base} ${getClass("kanban")}`} onClick={() => setView("kanban")}>
-        Kanban
-      </button>
-      {isAdmin && (
-        <button className={`${base} ${getClass("table")}`} onClick={() => setView("table")}>
-          Tablo
+    <div role="group" aria-label="Görünüm" className="flex max-w-sm gap-2 border-b border-gray-200">
+      {VIEWS.filter((item) => !item.adminOnly || isAdmin).map((item) => (
+        <button
+          key={item.key}
+          type="button"
+          aria-pressed={view === item.key}
+          onClick={() => setView(item.key)}
+          className={`rounded-t-lg border-b-2 px-4 py-2 text-sm transition ${
+            view === item.key
+              ? "border-[#555A8A] bg-indigo-50 text-[#555A8A]"
+              : "border-transparent text-gray-500 hover:border-indigo-300 hover:text-indigo-700"
+          }`}
+        >
+          {item.label}
         </button>
-      )}
+      ))}
     </div>
   );
 }

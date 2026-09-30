@@ -32,7 +32,11 @@ describe("register", () => {
   it("normalizes input and never returns the password", async () => {
     const user = await register(valid);
 
-    expect(user).toMatchObject({ fullName: "Ada Lovelace", email: "ada@example.com", role: "user" });
+    expect(user).toMatchObject({
+      fullName: "Ada Lovelace",
+      email: "ada@example.com",
+      role: "user",
+    });
     expect(user).not.toHaveProperty("password");
 
     const stored = await User.findOne({ email: "ada@example.com" }).select("+password").lean();
@@ -60,7 +64,10 @@ describe("register", () => {
     ["short password", { ...valid, password: "short", passwordAgain: "short" }],
     ["mismatched passwords", { ...valid, passwordAgain: "something-else" }],
     ["invalid email", { ...valid, email: "not-an-email" }],
-    ["password over 72 bytes", { ...valid, password: "ş".repeat(40), passwordAgain: "ş".repeat(40) }],
+    [
+      "password over 72 bytes",
+      { ...valid, password: "ş".repeat(40), passwordAgain: "ş".repeat(40) },
+    ],
   ])("rejects %s with field errors", async (_label, input) => {
     await expect(register(input)).rejects.toMatchObject({
       code: "VALIDATION",
@@ -81,9 +88,10 @@ describe("authenticate", () => {
   it("uses the same error for unknown email and wrong password", async () => {
     await createTestUser({ email: "grace@example.com" });
 
-    const unknown = await authenticate({ email: "nobody@example.com", password: "whatever-1" }).catch(
-      (error) => error,
-    );
+    const unknown = await authenticate({
+      email: "nobody@example.com",
+      password: "whatever-1",
+    }).catch((error) => error);
     const wrong = await authenticate({ email: "grace@example.com", password: "whatever-1" }).catch(
       (error) => error,
     );
@@ -126,7 +134,10 @@ describe("updateProfile", () => {
 
     await expect(
       updateProfile(user, { fullName: user.fullName, email: "new@example.com" }),
-    ).rejects.toMatchObject({ code: "VALIDATION", fieldErrors: { currentPassword: expect.any(Array) } });
+    ).rejects.toMatchObject({
+      code: "VALIDATION",
+      fieldErrors: { currentPassword: expect.any(Array) },
+    });
 
     await expect(
       updateProfile(user, {
@@ -149,7 +160,11 @@ describe("updateProfile", () => {
     const { user: other } = await createTestUser();
 
     await expect(
-      updateProfile(user, { fullName: user.fullName, email: other.email, currentPassword: password }),
+      updateProfile(user, {
+        fullName: user.fullName,
+        email: other.email,
+        currentPassword: password,
+      }),
     ).rejects.toMatchObject({ code: "CONFLICT" });
   });
 
@@ -220,9 +235,15 @@ describe("deleteAccount", () => {
     await deleteAccount(user, { password });
 
     await expect(User.exists({ _id: user._id })).resolves.toBeNull();
-    await expect(connection.collection("notes").countDocuments({ user: user._id })).resolves.toBe(0);
-    await expect(connection.collection("notes").countDocuments({ user: other._id })).resolves.toBe(1);
-    await expect(connection.collection("goals").countDocuments({ user: user._id })).resolves.toBe(0);
+    await expect(connection.collection("notes").countDocuments({ user: user._id })).resolves.toBe(
+      0,
+    );
+    await expect(connection.collection("notes").countDocuments({ user: other._id })).resolves.toBe(
+      1,
+    );
+    await expect(connection.collection("goals").countDocuments({ user: user._id })).resolves.toBe(
+      0,
+    );
     await expect(
       connection.collection("files.files").countDocuments({ "metadata.owner": user._id }),
     ).resolves.toBe(0);

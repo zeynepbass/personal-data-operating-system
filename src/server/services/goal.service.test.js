@@ -33,7 +33,13 @@ describe("goal service", () => {
   });
 
   it.each([
-    ["total above 100", [{ title: "a", value: 60 }, { title: "b", value: 60 }]],
+    [
+      "total above 100",
+      [
+        { title: "a", value: 60 },
+        { title: "b", value: 60 },
+      ],
+    ],
     ["negative value", [{ title: "a", value: -1 }]],
     ["non-numeric value", [{ title: "a", value: "abc" }]],
     ["missing title", [{ value: 10 }]],
@@ -70,6 +76,8 @@ describe("goal service", () => {
 
     const completed = await listGoals(user, { status: "completed" });
     expect(completed.items).toHaveLength(1);
-    await expect(listGoals(user, { status: "bogus" })).rejects.toMatchObject({ code: "VALIDATION" });
+    await expect(listGoals(user, { status: "bogus" })).rejects.toMatchObject({
+      code: "VALIDATION",
+    });
   });
 });

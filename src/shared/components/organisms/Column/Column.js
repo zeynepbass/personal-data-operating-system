@@ -32,6 +32,8 @@ export function Column({ column }) {
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
+            role="region"
+            aria-label={`${column.title ?? column.name} sütunu`}
             className={`
             ${color.badge}
             rounded-2xl
