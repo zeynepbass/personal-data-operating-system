@@ -14,7 +14,10 @@ const ASSIGNEE_FIELDS = "fullName email role profileImage";
  */
 export async function findTasks(filter) {
   await connectDB();
-  return Task.find(filter).sort({ createdAt: -1, _id: -1 }).populate("assignee", ASSIGNEE_FIELDS).lean();
+  return Task.find(filter)
+    .sort({ createdAt: -1, _id: -1 })
+    .populate("assignee", ASSIGNEE_FIELDS)
+    .lean();
 }
 
 /**
@@ -31,7 +34,9 @@ export async function findTaskById(id) {
  */
 export async function findMeetingsByIds(ids) {
   await connectDB();
-  return Meeting.find({ _id: { $in: ids } }).sort({ createdAt: -1, _id: -1 }).lean();
+  return Meeting.find({ _id: { $in: ids } })
+    .sort({ createdAt: -1, _id: -1 })
+    .lean();
 }
 
 export async function findAllMeetings() {
@@ -44,7 +49,9 @@ export async function findAllMeetings() {
  */
 export async function findAssignableUsersByEmail(emails) {
   await connectDB();
-  return User.find({ email: { $in: emails }, role: "user" }).select("_id email fullName").lean();
+  return User.find({ email: { $in: emails }, role: "user" })
+    .select("_id email fullName")
+    .lean();
 }
 
 /**
@@ -68,7 +75,9 @@ export async function insertMeetingWithTasks(meeting, tasks, buildNotification) 
   const meetingDoc = await Meeting.create(meeting);
 
   try {
-    const taskDocs = await Task.insertMany(tasks.map((task) => ({ ...task, meeting: meetingDoc._id })));
+    const taskDocs = await Task.insertMany(
+      tasks.map((task) => ({ ...task, meeting: meetingDoc._id })),
+    );
     await Notification.insertMany(taskDocs.map((task) => buildNotification(task, meetingDoc)));
     return { meeting: meetingDoc.toObject(), taskIds: taskDocs.map((task) => task._id) };
   } catch (error) {

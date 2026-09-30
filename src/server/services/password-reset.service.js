@@ -79,7 +79,10 @@ export async function resetPassword(input, { now = new Date() } = {}) {
   );
 
   if (!record) {
-    throw new AppError("VALIDATION", "Bağlantı geçersiz veya süresi dolmuş. Lütfen yeni bir bağlantı isteyin.");
+    throw new AppError(
+      "VALIDATION",
+      "Bağlantı geçersiz veya süresi dolmuş. Lütfen yeni bir bağlantı isteyin.",
+    );
   }
 
   await updateUser(String(record.user), {

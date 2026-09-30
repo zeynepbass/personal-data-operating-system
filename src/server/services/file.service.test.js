@@ -26,14 +26,23 @@ describe("storeFile", () => {
   it("detects the type from content, not from the name", async () => {
     const { user } = await createTestUser();
 
-    const stored = await storeFile({ data: PNG, kind: "avatar", ownerId: user._id, originalName: "x.pdf" });
+    const stored = await storeFile({
+      data: PNG,
+      kind: "avatar",
+      ownerId: user._id,
+      originalName: "x.pdf",
+    });
 
     expect(stored.contentType).toBe("image/png");
   });
 
   it.each([
     ["html pretending to be an image", "avatar", new TextEncoder().encode("<html></html>")],
-    ["svg (script-capable)", "avatar", new TextEncoder().encode('<svg xmlns="http://www.w3.org/2000/svg"/>')],
+    [
+      "svg (script-capable)",
+      "avatar",
+      new TextEncoder().encode('<svg xmlns="http://www.w3.org/2000/svg"/>'),
+    ],
     ["a png uploaded as a document", "document", PNG],
     ["an empty file", "avatar", new Uint8Array()],
   ])("rejects %s", async (_label, kind, data) => {
@@ -48,16 +57,20 @@ describe("storeFile", () => {
     const big = new Uint8Array(FILE_RULES.avatar.maxBytes + 1);
     big.set(PNG);
 
-    await expect(storeFile({ data: big, kind: "avatar", ownerId: user._id })).rejects.toMatchObject({
-      code: "VALIDATION",
-    });
+    await expect(storeFile({ data: big, kind: "avatar", ownerId: user._id })).rejects.toMatchObject(
+      {
+        code: "VALIDATION",
+      },
+    );
   });
 
   it("rejects unknown kinds", async () => {
     const { user } = await createTestUser();
-    await expect(storeFile({ data: PNG, kind: "script", ownerId: user._id })).rejects.toMatchObject({
-      code: "VALIDATION",
-    });
+    await expect(storeFile({ data: PNG, kind: "script", ownerId: user._id })).rejects.toMatchObject(
+      {
+        code: "VALIDATION",
+      },
+    );
   });
 });
 
@@ -85,7 +98,12 @@ describe("openFileForRead", () => {
     const { user: admin } = await createTestUser({ role: "admin" });
     const { user: other } = await createTestUser();
     const privateFile = await storeFile({ data: PNG, kind: "avatar", ownerId: owner._id });
-    const sharedFile = await storeFile({ data: PDF, kind: "document", ownerId: owner._id, shared: true });
+    const sharedFile = await storeFile({
+      data: PDF,
+      kind: "document",
+      ownerId: owner._id,
+      shared: true,
+    });
 
     await expect(openFileForRead(privateFile.id, admin)).resolves.toBeTruthy();
     await expect(openFileForRead(sharedFile.id, other)).resolves.toBeTruthy();

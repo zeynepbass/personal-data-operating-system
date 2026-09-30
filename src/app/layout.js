@@ -1,8 +1,6 @@
 import { headers } from "next/headers";
 import { Toaster } from "react-hot-toast";
 
-import QueryProvider from "@/providers/QueryProvider";
-
 import "./globals.css";
 
 export const metadata = {
@@ -19,10 +17,8 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="tr" className="h-full antialiased">
       <body className="flex min-h-full flex-col">
-        <QueryProvider>
-          {children}
-          <Toaster position="bottom-right" />
-        </QueryProvider>
+        {children}
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );

@@ -24,6 +24,8 @@ export function toPublicUser(user) {
     role: user.role,
     about: user.about ?? "",
     profileImage: user.profileImage ?? "",
-    passwordChangedAt: user.passwordChangedAt ? new Date(user.passwordChangedAt).toISOString() : null,
+    passwordChangedAt: user.passwordChangedAt
+      ? new Date(user.passwordChangedAt).toISOString()
+      : null,
   };
 }

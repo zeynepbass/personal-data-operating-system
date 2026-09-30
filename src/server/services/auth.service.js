@@ -124,7 +124,9 @@ export async function deleteAccount(actor, input) {
   if (!user) throw new AppError("NOT_FOUND", "Kullanıcı bulunamadı.");
 
   if (!(await verifyPassword(password, user.password))) {
-    throw new AppError("VALIDATION", "Şifre hatalı.", { fieldErrors: { password: ["Şifre hatalı."] } });
+    throw new AppError("VALIDATION", "Şifre hatalı.", {
+      fieldErrors: { password: ["Şifre hatalı."] },
+    });
   }
 
   await deleteFilesOwnedBy(user._id);

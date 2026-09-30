@@ -10,8 +10,11 @@ export function GoalFormItems({ form }) {
 
   return (
     <fieldset className="p-4">
+      <legend className="sr-only">Hedef adımları</legend>
       <div className="mb-4 flex items-center justify-between">
-        <legend className="text-sm font-semibold text-gray-700">Hedef adımları</legend>
+        <p aria-hidden="true" className="text-sm font-semibold text-gray-700">
+          Hedef adımları
+        </p>
         <Button
           type="button"
           text="+ Ekle"

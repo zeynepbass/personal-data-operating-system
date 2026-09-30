@@ -197,6 +197,14 @@ export const migrations = [
       }
     },
   },
+  {
+    id: "2026-10-02-drop-legacy-id-indexes-after-express-removal",
+    async up(db) {
+      await dropIndexIfExists(db, "notes", "id_1");
+      await dropIndexIfExists(db, "documents", "id_1");
+      await dropIndexIfExists(db, "meetings", "id_1");
+    },
+  },
 ];
 
 /**

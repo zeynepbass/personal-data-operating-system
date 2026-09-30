@@ -3,8 +3,6 @@
 .next
 node_modules
 coverage
-server
-tests
 .env
 .env.*
 !.env.example

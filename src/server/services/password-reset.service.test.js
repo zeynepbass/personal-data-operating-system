@@ -104,7 +104,10 @@ describe("resetPassword", () => {
     ["an unknown token", { token: "made-up", password: NEW_PASSWORD, passwordAgain: NEW_PASSWORD }],
     ["an empty token", { token: "", password: NEW_PASSWORD, passwordAgain: NEW_PASSWORD }],
     ["a weak password", { token: "x", password: "short", passwordAgain: "short" }],
-    ["mismatched passwords", { token: "x", password: NEW_PASSWORD, passwordAgain: "other-password" }],
+    [
+      "mismatched passwords",
+      { token: "x", password: NEW_PASSWORD, passwordAgain: "other-password" },
+    ],
     ["a null body", null],
   ])("rejects %s", async (_label, input) => {
     await expect(resetPassword(input)).rejects.toMatchObject({ code: "VALIDATION" });
@@ -114,10 +117,12 @@ describe("resetPassword", () => {
     const { password } = await createTestUser({ email: "victim@example.com" });
 
     await expect(
-      resetPassword({ email: "victim@example.com", password: NEW_PASSWORD, passwordAgain: NEW_PASSWORD }),
+      resetPassword({
+        email: "victim@example.com",
+        password: NEW_PASSWORD,
+        passwordAgain: NEW_PASSWORD,
+      }),
     ).rejects.toMatchObject({ code: "VALIDATION" });
-    await expect(
-      authenticate({ email: "victim@example.com", password }),
-    ).resolves.toBeTruthy();
+    await expect(authenticate({ email: "victim@example.com", password })).resolves.toBeTruthy();
   });
 });

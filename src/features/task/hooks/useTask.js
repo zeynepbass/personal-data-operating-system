@@ -78,7 +78,10 @@ function useOptimisticTaskMutation(mutationFn, applyUpdate, errorMessage) {
       queryClient.setQueryData(BOARD_QUERY_KEY, context?.previous);
       toast.error(error.message || errorMessage);
     },
-    onSettled: () => queryClient.invalidateQueries({ queryKey: BOARD_QUERY_KEY }),
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: BOARD_QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+    },
   });
 }
 

@@ -163,8 +163,12 @@ describe("changing status", () => {
 
   it("toggles completion back and forth", async () => {
     const { alice, aliceTask } = await setup();
-    await expect(toggleTaskCompletion(alice, aliceTask.id)).resolves.toMatchObject({ status: "done" });
-    await expect(toggleTaskCompletion(alice, aliceTask.id)).resolves.toMatchObject({ status: "todo" });
+    await expect(toggleTaskCompletion(alice, aliceTask.id)).resolves.toMatchObject({
+      status: "done",
+    });
+    await expect(toggleTaskCompletion(alice, aliceTask.id)).resolves.toMatchObject({
+      status: "todo",
+    });
   });
 });
 
@@ -173,7 +177,9 @@ describe("editing and deleting", () => {
     const { admin, alice, aliceTask } = await setup();
     const edit = { title: "Renamed", priority: "low", estimatedHours: 1, progress: 50 };
 
-    await expect(updateTask(alice, aliceTask.id, edit)).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(updateTask(alice, aliceTask.id, edit)).rejects.toMatchObject({
+      code: "FORBIDDEN",
+    });
     await expect(deleteTask(alice, aliceTask.id)).rejects.toMatchObject({ code: "FORBIDDEN" });
 
     await expect(updateTask(admin, aliceTask.id, edit)).resolves.toMatchObject({
@@ -222,9 +228,15 @@ describe("notifications and analytics", () => {
     });
 
     const outside = await getTaskAnalytics(alice, { from: "2026-04-01", to: "2026-04-30" });
-    expect(outside).toMatchObject({ totalTasks: 0, mostProductiveDay: null, mostWorkedCategory: null });
+    expect(outside).toMatchObject({
+      totalTasks: 0,
+      mostProductiveDay: null,
+      mostWorkedCategory: null,
+    });
 
-    await expect(getTaskAnalytics(alice, { from: "2026-05-01", to: "2026-04-01" })).rejects.toMatchObject({
+    await expect(
+      getTaskAnalytics(alice, { from: "2026-05-01", to: "2026-04-01" }),
+    ).rejects.toMatchObject({
       code: "VALIDATION",
     });
     await expect(getTaskAnalytics(alice, { from: "garbage", to: "x" })).rejects.toMatchObject({

@@ -1,5 +1,3 @@
-const legacyApiUrl = process.env.LEGACY_API_URL ?? "http://localhost:6021";
-
 const securityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -19,12 +17,6 @@ const nextConfig = {
   },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
-  },
-  async rewrites() {
-    return [
-      { source: "/api/legacy/:path*", destination: `${legacyApiUrl}/api/:path*` },
-      { source: "/uploads/:path*", destination: `${legacyApiUrl}/uploads/:path*` },
-    ];
   },
 };
 

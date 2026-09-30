@@ -7,7 +7,14 @@ export const logger = pino({
   level: env.LOG_LEVEL,
   base: { service: "pdos" },
   redact: {
-    paths: ["password", "*.password", "token", "*.token", "headers.cookie", "headers.authorization"],
+    paths: [
+      "password",
+      "*.password",
+      "token",
+      "*.token",
+      "headers.cookie",
+      "headers.authorization",
+    ],
     censor: "[redacted]",
   },
 });

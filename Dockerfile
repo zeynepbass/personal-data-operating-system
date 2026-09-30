@@ -9,9 +9,7 @@ RUN pnpm install --frozen-lockfile
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-ARG LEGACY_API_URL=http://api-legacy:6021
-ENV LEGACY_API_URL=$LEGACY_API_URL \
-    SKIP_ENV_VALIDATION=1 \
+ENV SKIP_ENV_VALIDATION=1 \
     NEXT_TELEMETRY_DISABLED=1
 RUN pnpm build
 

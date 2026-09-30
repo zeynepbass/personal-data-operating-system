@@ -9,8 +9,8 @@ import { getTodayTasks } from "@/features/task/utils/colums.filter";
 
 import DashboardHome from "../components/DashboardHome";
 
-export default function DashboardPage({ recentNotes = [] }) {
-  const { data: meetings = [] } = useBoard();
+export default function DashboardPage({ initialBoard, recentNotes }) {
+  const { data: meetings = [] } = useBoard({ initialData: initialBoard });
   const userId = useCurrentUser()?.id;
   const filteredMeeting = getTodayMeetings(meetings, userId);
   const filteredData = useMemo(() => getTodayTasks(meetings, userId), [meetings, userId]);

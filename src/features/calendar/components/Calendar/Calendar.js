@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 
 import { PageHeader } from "@/shared/components/molecules";
-import { Modal } from "@/shared/components/organisms";
+import { Modal } from "@/shared/components/organisms/Modal";
 
 const CalendarBoard = dynamic(() => import("./CalendarBoard"), {
   ssr: false,

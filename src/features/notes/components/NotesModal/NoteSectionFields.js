@@ -16,8 +16,8 @@ function ListItems({ control, register, index, errors }) {
 
   return (
     <fieldset className="space-y-3">
-      <div className="flex items-center justify-between">
-        <legend className="text-sm font-medium text-gray-700">Liste maddeleri</legend>
+      <legend className="text-sm font-medium text-gray-700">Liste maddeleri</legend>
+      <div className="flex justify-end">
         <button
           type="button"
           onClick={() => append({ value: "" })}
@@ -56,9 +56,12 @@ export default function NoteSectionFields({ control, register, index, errors, on
   const sectionErrors = errors?.sections?.[index];
 
   return (
-    <fieldset className="rounded-xl border border-gray-200 bg-gray-50 p-5">
+    <fieldset className="relative rounded-xl border border-gray-200 bg-gray-50 p-5">
+      <legend className="sr-only">Bölüm {index + 1}</legend>
       <div className="mb-5 flex items-center justify-between">
-        <legend className="font-semibold text-gray-800">Bölüm {index + 1}</legend>
+        <p aria-hidden="true" className="font-semibold text-gray-800">
+          Bölüm {index + 1}
+        </p>
         <button
           type="button"
           onClick={onRemove}

@@ -73,7 +73,14 @@ const eslintConfig = defineConfig([
     languageOptions: { globals: globals.node },
   },
   prettier,
-  globalIgnores([".next/**", "out/**", "build/**", "coverage/**", "server/**"]),
+  globalIgnores([
+    ".next/**",
+    "out/**",
+    "build/**",
+    "coverage/**",
+    "playwright-report/**",
+    "test-results/**",
+  ]),
 ]);
 
 export default eslintConfig;

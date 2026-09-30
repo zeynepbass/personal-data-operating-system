@@ -16,7 +16,9 @@ describe("parseEnv", () => {
   });
 
   it("accepts mongodb+srv connection strings", () => {
-    expect(() => parseEnv({ MONGODB_URI: "mongodb+srv://user:pw@cluster.example.net/pdos" })).not.toThrow();
+    expect(() =>
+      parseEnv({ MONGODB_URI: "mongodb+srv://user:pw@cluster.example.net/pdos" }),
+    ).not.toThrow();
   });
 
   it("names the missing variable", () => {

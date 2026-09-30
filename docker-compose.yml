@@ -2,11 +2,11 @@ services:
   app:
     build: .
     ports:
-      - "3000:3000"
+      - "${APP_PORT:-3000}:3000"
     environment:
       MONGODB_URI: mongodb://mongo:27017/pdos
       LOG_LEVEL: info
-      APP_URL: http://localhost:3000
+      APP_URL: ${APP_URL:-http://localhost:3000}
       SMTP_HOST: mailpit
       SMTP_PORT: 1025
       LEGACY_UPLOADS_DIR: /legacy-uploads
@@ -15,19 +15,8 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
-      api-legacy:
+      mailpit:
         condition: service_started
-
-  api-legacy:
-    build: ./server
-    environment:
-      PORT: 6021
-      MONGO_URI: mongodb://mongo:27017/pdos
-    volumes:
-      - uploads:/app/uploads
-    depends_on:
-      mongo:
-        condition: service_healthy
 
   mongo:
     image: mongo:8
