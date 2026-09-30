@@ -37,4 +37,15 @@ describe("parseEnv", () => {
     expect(message).toMatch(/MONGODB_URI/);
     expect(message).toMatch(/LOG_LEVEL/);
   });
+
+  it("still applies defaults when required variables are skipped", () => {
+    expect(parseEnv({}, { skipRequired: true })).toEqual({
+      NODE_ENV: "development",
+      LOG_LEVEL: "info",
+    });
+  });
+
+  it("still validates provided values when required variables are skipped", () => {
+    expect(() => parseEnv({ LOG_LEVEL: "loud" }, { skipRequired: true })).toThrow(/LOG_LEVEL/);
+  });
 });

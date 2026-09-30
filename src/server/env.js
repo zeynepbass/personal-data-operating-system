@@ -13,12 +13,16 @@ const envSchema = z.object({
  * @typedef {z.infer<typeof envSchema>} Env
  */
 
+const buildTimeSchema = envSchema.extend({ MONGODB_URI: z.string().optional() });
+
 /**
  * @param {Record<string, string | undefined>} source
+ * @param {{ skipRequired?: boolean }} [options]
  * @returns {Env}
  */
-export function parseEnv(source) {
-  const result = envSchema.safeParse(source);
+export function parseEnv(source, { skipRequired = false } = {}) {
+  const schema = skipRequired ? buildTimeSchema : envSchema;
+  const result = schema.safeParse(source);
 
   if (!result.success) {
     const problems = result.error.issues
@@ -32,6 +36,6 @@ export function parseEnv(source) {
 }
 
 /** @type {Env} */
-export const env = process.env.SKIP_ENV_VALIDATION
-  ? /** @type {Env} */ (/** @type {unknown} */ (process.env))
-  : parseEnv(process.env);
+export const env = parseEnv(process.env, {
+  skipRequired: Boolean(process.env.SKIP_ENV_VALIDATION),
+});

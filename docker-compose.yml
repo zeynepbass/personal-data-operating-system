@@ -1,0 +1,55 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/pdos
+      LOG_LEVEL: info
+    depends_on:
+      mongo:
+        condition: service_healthy
+      api-legacy:
+        condition: service_started
+
+  api-legacy:
+    build: ./server
+    environment:
+      PORT: 6021
+      MONGO_URI: mongodb://mongo:27017/pdos
+      JWT_SECRET: ${JWT_SECRET:-local-dev-secret}
+    volumes:
+      - uploads:/app/uploads
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  mongo:
+    image: mongo:8
+    ports:
+      - "${MONGO_PORT:-27017}:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+  mongo-test:
+    image: mongo:8
+    profiles: ["test"]
+    ports:
+      - "27018:27017"
+    tmpfs:
+      - /data/db
+
+volumes:
+  mongo-data:
+  uploads:
