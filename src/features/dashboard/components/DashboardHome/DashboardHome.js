@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import useNotes from "@/features/notes/hooks/useNotes";
+import { useCurrentUser } from "@/features/auth/context/AuthProvider";
 import { Button } from "@/shared/components/atoms";
 
 import DashboardDuration from "../DashboardDuration";
@@ -11,21 +11,26 @@ import DashboardHeading from "../DashboardHeading";
 import DashboardList from "../DashboardList";
 import DashboardListCheck from "../DashboardListCheck";
 
-export default function DashboardHome({ filteredData = [], filteredMeeting = [] }) {
+export default function DashboardHome({
+  filteredData = [],
+  filteredMeeting = [],
+  recentNotes = [],
+}) {
   const today = new Date().toLocaleDateString("tr-TR", {
     weekday: "long",
     day: "numeric",
     month: "long",
     year: "numeric",
   });
-  const { data, isLoading, isError, error } = useNotes();
+  const user = useCurrentUser();
+  const firstName = user?.fullName?.split(" ")[0] ?? "";
   const [duration, setDuration] = useState("day");
   const router = useRouter();
 
   return (
     <div className="space-y-6">
       <DashboardHeading
-        title="Günaydın, Zeynep! 👋"
+        title={`Merhaba${firstName ? `, ${firstName}` : ""}! 👋`}
         description="Bugün harika işler seni bekliyor."
       />
 
@@ -40,7 +45,7 @@ export default function DashboardHome({ filteredData = [], filteredMeeting = [] 
           </div>
 
           <div className="h-[calc(30vh-110px)] overflow-y-auto pr-2">
-            <DashboardListCheck filteredData={filteredData} error={error} />
+            <DashboardListCheck filteredData={filteredData} />
           </div>
         </section>
 
@@ -114,11 +119,7 @@ export default function DashboardHome({ filteredData = [], filteredMeeting = [] 
           </div>
 
           <div className="h-[calc(40vh-110px)] overflow-y-auto pr-2">
-            {isLoading ? (
-              <p>Belgeler yükleniyor...</p>
-            ) : isError ? (
-              <p>Hata: {error.message}</p>
-            ) : !data?.length ? (
+            {!recentNotes.length ? (
               <div className="flex h-full items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50">
                 <div className="flex flex-col items-center text-center">
                   <p className="text-sm font-medium text-slate-600">Henüz not bulunmuyor.</p>
@@ -131,7 +132,7 @@ export default function DashboardHome({ filteredData = [], filteredMeeting = [] 
                 </div>
               </div>
             ) : (
-              <DashboardList documents={data.slice(-3).reverse()} />
+              <DashboardList documents={recentNotes} />
             )}
           </div>
         </section>

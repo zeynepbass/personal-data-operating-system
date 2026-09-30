@@ -31,7 +31,7 @@ export async function consume(key, { limit, windowMs }, now = new Date()) {
         },
       },
     ],
-    { upsert: true, new: true, updatePipeline: true },
+    { upsert: true, returnDocument: "after", updatePipeline: true },
   ).lean();
 
   return {

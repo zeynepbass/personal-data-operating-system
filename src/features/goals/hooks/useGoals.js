@@ -1,93 +1,51 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+"use client";
+
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { toast } from "react-hot-toast";
 
-import { getErrorMessage } from "@/shared/helpers/error.helper";
+import { handleActionResult } from "@/shared/helpers/form.helper";
 
-import * as goalRepository from "../repositories/goal.repository";
+import {
+  createGoalAction,
+  deleteGoalAction,
+  updateGoalProgressAction,
+} from "../actions/goal.actions";
 
 export function useGoals() {
-  const queryClient = useQueryClient();
   const router = useRouter();
-
+  const [isPending, startTransition] = useTransition();
   const [selectedValue, setSelectedValue] = useState(null);
-  const [openMenu, setOpenMenu] = useState(false);
+  const [openMenu, setOpenMenu] = useState(null);
 
-  const query = useQuery({
-    queryKey: ["goals"],
-    queryFn: goalRepository.getAll,
-  });
-
-  const createMutation = useMutation({
-    mutationFn: (formData) => goalRepository.postGoals(formData),
-
-    onSuccess: (response) => {
-      toast.success(response.data?.message || "Başarıyla oluşturuldu.");
-
-      queryClient.invalidateQueries({
-        queryKey: ["goals"],
-      });
-    },
-
-    onError: (error) => {
-      toast.error(getErrorMessage(error, "Hedef oluşturulurken hata oluştu."));
-    },
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: (id) => goalRepository.deletedGoals(id),
-
-    onSuccess: (response) => {
-      toast.success(response.data?.message || "Başarıyla silindi.");
-
-      queryClient.invalidateQueries({
-        queryKey: ["goals"],
-      });
-    },
-
-    onError: (error) => {
-      toast.error(getErrorMessage(error, "Hedef silinirken hata oluştu."));
-    },
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: ({ id, data }) => {
-      if (!id) {
-        throw new Error("Goal ID bulunamadı.");
+  const run = (action, successMessage, { form, onSuccess } = {}) =>
+    startTransition(async () => {
+      const result = await action();
+      const ok = form ? handleActionResult(form, result) : result.ok;
+      if (!ok) {
+        if (!form) toast.error(result.error);
+        return;
       }
-
-      return goalRepository.updateGoals(id, data);
-    },
-
-    onSuccess: (response) => {
-      toast.success(response.data?.message || "Başarıyla güncellendi.");
-
-      queryClient.invalidateQueries({
-        queryKey: ["goals"],
-      });
-
-      setSelectedValue(null);
-    },
-
-    onError: (error) => {
-      toast.error(getErrorMessage(error, "Hedef güncellenirken hata oluştu."));
-    },
-  });
+      toast.success(successMessage);
+      onSuccess?.(result.data);
+    });
 
   return {
-    ...query,
-
+    router,
+    isPending,
     selectedValue,
     setSelectedValue,
-
     openMenu,
     setOpenMenu,
-
-    router,
-
-    createGoals: createMutation.mutate,
-    deletedGoals: deleteMutation.mutate,
-    updateGoals: updateMutation.mutate,
+    createGoals: (data, form) =>
+      run(() => createGoalAction(data), "Hedef oluşturuldu.", {
+        form,
+        onSuccess: () => router.push("/goals"),
+      }),
+    deletedGoals: (id) => run(() => deleteGoalAction(id), "Hedef silindi."),
+    updateGoals: ({ id, data }) =>
+      run(() => updateGoalProgressAction(id, data), "Hedef güncellendi.", {
+        onSuccess: () => setSelectedValue(null),
+      }),
   };
 }

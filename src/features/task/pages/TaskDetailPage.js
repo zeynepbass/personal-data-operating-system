@@ -5,39 +5,14 @@ import { useRouter } from "next/navigation";
 import { TaskDetailHeader } from "@/features/task/components/TaskDetail/TaskDetailHeader";
 import { TaskDetailInfo } from "@/features/task/components/TaskDetail/TaskDetailInfo";
 import { TaskDetailMeta } from "@/features/task/components/TaskDetail/TaskDetailMeta";
-import { useTaskById } from "@/features/task/hooks/useTask";
-import NotFound from "@/shared/pages/NotFoundPage";
 
-export default function TaskDetail({ id }) {
+export default function TaskDetail({ task, canEdit = false }) {
   const router = useRouter();
-
-  const { task, isLoading } = useTaskById(id);
-
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50">
-        <p className="text-sm text-gray-500">Yükleniyor...</p>
-      </div>
-    );
-  }
-
-  if (!task) {
-    return (
-      <NotFound
-        title="opsss"
-        description="Bu sayfa Bulunamadı"
-        linkText="Böyle bir sayfa bulunamadı."
-        buttonText="Tasklere dön"
-        route="/tasks"
-        router={router}
-      />
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div>
-        <TaskDetailHeader task={task} router={router} />
+        <TaskDetailHeader task={task} router={router} canEdit={canEdit} />
 
         <div className="rounded-2xl border border-gray-200 bg-white shadow-sm">
           <div className="border-b border-gray-200 p-6">

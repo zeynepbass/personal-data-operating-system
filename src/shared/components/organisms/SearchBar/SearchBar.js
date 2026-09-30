@@ -1,28 +1,24 @@
 "use client";
 
 import { Bell, Settings, Search, ChevronDown } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { logoutAction } from "@/features/auth/actions/auth.actions";
 import { useCurrentUser } from "@/features/auth/context/AuthProvider";
-import { useTasks } from "@/features/task/hooks/useTask";
+import { useNotifications } from "@/features/task/hooks/useNotifications";
 import { Button, Input } from "@/shared/components/atoms";
-import { getAssetUrl } from "@/shared/helpers/asset.helper";
 import { navigation } from "@/shared/mock/navigation";
 
 export function SearchBar() {
   const user = useCurrentUser();
-  const {
-    notifications,
-    isOpen,
-    setIsOpen,
-    search,
-    setSearch,
-    showNotifications,
-    setShowNotifications,
-    router,
-  } = useTasks();
+  const router = useRouter();
+  const { notifications, unread, markAllRead } = useNotifications();
+  const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const [showNotifications, setShowNotifications] = useState(false);
 
   const fullName = user?.fullName ?? "Kullanıcı";
   const email = user?.email ?? "Email";
@@ -79,9 +75,23 @@ export function SearchBar() {
 
       <div className="ml-4 flex items-center gap-1">
         <Button
-          text={<Bell size={20} />}
+          text={
+            <span className="relative inline-flex">
+              <Bell size={20} aria-hidden="true" />
+              {unread > 0 && (
+                <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] text-white">
+                  {unread}
+                </span>
+              )}
+            </span>
+          }
           variant="ghost"
-          onClick={() => setShowNotifications((prev) => !prev)}
+          aria-label={`Bildirimler${unread ? ` (${unread} okunmamış)` : ""}`}
+          aria-expanded={showNotifications}
+          onClick={() => {
+            setShowNotifications((prev) => !prev);
+            if (!showNotifications && unread > 0) markAllRead();
+          }}
         />
         {showNotifications && (
           <div className="absolute right-5 top-14 z-50 w-80 rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
@@ -103,8 +113,9 @@ export function SearchBar() {
           </div>
         )}
         <Button
-          text={<Settings size={20} />}
+          text={<Settings size={20} aria-hidden="true" />}
           variant="ghost"
+          aria-label="Ayarlar"
           onClick={() => router.push("/settings")}
         />
 
@@ -112,12 +123,17 @@ export function SearchBar() {
           <button
             type="button"
             onClick={() => setIsOpen((prev) => !prev)}
+            aria-haspopup="menu"
+            aria-expanded={isOpen}
             className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-xs transition hover:bg-slate-50 focus:outline-none"
           >
             {profileImage && (
-              <img
-                src={getAssetUrl(profileImage)}
-                alt={fullName}
+              <Image
+                src={profileImage}
+                alt=""
+                width={40}
+                height={40}
+                unoptimized
                 className="h-10 w-10 rounded-full object-cover"
               />
             )}

@@ -11,50 +11,56 @@ import useNotes from "../hooks/useNotes";
 
 import NotesLayout from "./layout/NotesLayout";
 
-export default function NotesPage() {
-  const { data = [], isLoading, deletedNotes, createNotes } = useNotes();
+export default function NotesPage({ notes: initialNotes = [] }) {
+  const { notes, saveNote, deleteNote, isPending } = useNotes(initialNotes);
 
-  const [open, setOpen] = useState(false);
+  const [editor, setEditor] = useState({ open: false, note: null });
   const [openMenu, setOpenMenu] = useState(null);
-  const [activeNote, setActiveNote] = useState(null);
+  const [activeNoteId, setActiveNoteId] = useState(null);
 
-  const resolvedActiveNote = activeNote ?? data[0] ?? null;
-  const resolvedOpenMenu = openMenu ?? data[0]?.id ?? null;
+  const activeNote = notes.find((note) => note.id === activeNoteId) ?? notes[0] ?? null;
+  const resolvedOpenMenu = openMenu ?? notes[0]?.id ?? null;
 
-  if (isLoading) {
-    return <div>Yükleniyor...</div>;
-  }
+  const openEditor = (note = null) => setEditor({ open: true, note });
+  const closeEditor = () => setEditor({ open: false, note: null });
 
   return (
     <>
-      {!data.length ? (
+      {!notes.length ? (
         <div className="flex flex-col gap-4 py-4 md:flex-row md:items-center md:justify-between">
           <PageHeader title="Notlar" description="Notlarınız bulunamadı." />
 
           <Button
-            text="+ Yeni not yükle"
-            onClick={() => setOpen(true)}
+            text="+ Yeni not"
+            onClick={() => openEditor()}
             className="w-full text-gray-50 hover:text-white md:w-auto"
           />
         </div>
       ) : (
         <NotesLayout
-          note={data}
+          note={notes}
           openMenu={resolvedOpenMenu}
           setOpenMenu={setOpenMenu}
-          deletedNotes={deletedNotes}
-          activeNote={resolvedActiveNote}
-          setActiveNote={setActiveNote}
+          deletedNotes={deleteNote}
+          activeNote={activeNote}
+          setActiveNote={(note) => setActiveNoteId(note?.id ?? null)}
+          onCreate={() => openEditor()}
         >
-          <NotesHome note={resolvedActiveNote} />
+          <NotesHome note={activeNote} onEdit={() => openEditor(activeNote)} />
         </NotesLayout>
       )}
 
       <NotesModal
-        open={open}
-        setOpen={setOpen}
-        onSubmit={createNotes}
-        isCreating={createNotes.isPending}
+        open={editor.open}
+        note={editor.note}
+        onClose={closeEditor}
+        isSaving={isPending}
+        onSubmit={(payload, form) =>
+          saveNote(editor.note, payload, form, (saved) => {
+            closeEditor();
+            if (saved?.id) setActiveNoteId(saved.id);
+          })
+        }
       />
     </>
   );

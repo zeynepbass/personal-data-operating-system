@@ -1,7 +1,12 @@
-import { dashboardRepository } from "@/features/dashboard/dashboard.container";
 import DashboardPage from "@/features/dashboard/pages/dashboardPage";
-export const dynamic = "force-dynamic";
+import { requirePageUser } from "@/server/auth/dal";
+import { listNotes } from "@/server/services/note.service";
+
+export const metadata = { title: "Dashboard" };
+
 export default async function Dashboard() {
-  const meetings = await dashboardRepository.getTask();
-  return <DashboardPage meetings={meetings} />;
+  const user = await requirePageUser();
+  const { items: recentNotes } = await listNotes(user, { limit: 3 });
+
+  return <DashboardPage recentNotes={recentNotes} />;
 }

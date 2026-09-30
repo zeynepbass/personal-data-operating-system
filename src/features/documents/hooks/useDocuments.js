@@ -1,62 +1,53 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
 import { toast } from "react-hot-toast";
 
-import { getErrorMessage } from "@/shared/helpers/error.helper";
+import { deleteDocumentAction } from "../actions/document.actions";
 
-import * as documentRepository from "../repositories/document.repository";
+async function uploadDocument(formData) {
+  const response = await fetch("/api/documents", { method: "POST", body: formData });
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(body.error ?? "Belge yüklenemedi.");
+  return body;
+}
 
 export function useDocuments() {
+  const router = useRouter();
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("new");
+  const [isPending, startTransition] = useTransition();
 
-  const queryClient = useQueryClient();
+  const createDocument = (formData) =>
+    startTransition(async () => {
+      try {
+        await uploadDocument(formData);
+        toast.success("Belge yüklendi.");
+        setOpen(false);
+        router.refresh();
+      } catch (error) {
+        toast.error(error.message);
+      }
+    });
 
-  const query = useQuery({
-    queryKey: ["documents"],
-    queryFn: documentRepository.getAll,
-  });
-  const createMutation = useMutation({
-    mutationFn: (formData) => documentRepository.createDocument(formData),
+  const deleteDocument = (id) =>
+    startTransition(async () => {
+      const result = await deleteDocumentAction(id);
+      if (result.ok) toast.success("Belge silindi.");
+      else toast.error(result.error);
+    });
 
-    onSuccess: (response) => {
-      toast.success(response.data?.message || "Döküman başarıyla oluşturuldu.");
-
-      queryClient.invalidateQueries({
-        queryKey: ["documents"],
-      });
-    },
-
-    onError: (error) => {
-      toast.error(getErrorMessage(error, "Döküman oluşturulurken hata oluştu."));
-    },
-  });
-  const deleteMutation = useMutation({
-    mutationFn: documentRepository.deleteDocument,
-
-    onSuccess: (response) => {
-      toast.success(response.data?.message || "Başarıyla silindi.");
-
-      queryClient.invalidateQueries({
-        queryKey: ["documents"],
-      });
-    },
-
-    onError: (error) => {
-      toast.error(getErrorMessage(error, "Döküman silinirken hata oluştu."));
-    },
-  });
   return {
-    ...query,
     search,
     setSearch,
     open,
     setOpen,
     filter,
     setFilter,
-    createDocument: createMutation.mutate,
-
-    deleteDocument: deleteMutation.mutate,
+    isPending,
+    createDocument,
+    deleteDocument,
   };
 }

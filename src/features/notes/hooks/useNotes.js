@@ -1,56 +1,47 @@
 "use client";
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useOptimistic, useTransition } from "react";
 import { toast } from "react-hot-toast";
 
-import { getErrorMessage } from "@/shared/helpers/error.helper";
+import { handleActionResult } from "@/shared/helpers/form.helper";
 
-import * as notesRepository from "../repositories/notes.repository";
+import { createNoteAction, deleteNoteAction, updateNoteAction } from "../actions/note.actions";
 
-export default function useNotes() {
-  const queryClient = useQueryClient();
+function notesReducer(notes, change) {
+  switch (change.type) {
+    case "update":
+      return notes.map((note) => (note.id === change.note.id ? { ...note, ...change.note } : note));
+    case "delete":
+      return notes.filter((note) => note.id !== change.id);
+    default:
+      return notes;
+  }
+}
 
-  const query = useQuery({
-    queryKey: ["notes"],
-    queryFn: notesRepository.getNotes,
-  });
+export default function useNotes(notes) {
+  const [optimisticNotes, applyOptimistic] = useOptimistic(notes, notesReducer);
+  const [isPending, startTransition] = useTransition();
 
-  const deleteMutation = useMutation({
-    mutationFn: (id) => notesRepository.deletedNotes(id),
+  const saveNote = (existing, payload, form, onSuccess) =>
+    startTransition(async () => {
+      if (existing) applyOptimistic({ type: "update", note: { ...payload, id: existing.id } });
 
-    onSuccess: (response) => {
-      toast.success(response.data?.message || "Başarıyla silindi.");
+      const result = existing
+        ? await updateNoteAction(existing.id, payload)
+        : await createNoteAction(payload);
 
-      queryClient.invalidateQueries({
-        queryKey: ["notes"],
-      });
-    },
+      if (!handleActionResult(form, result)) return;
+      toast.success(existing ? "Not güncellendi." : "Not oluşturuldu.");
+      onSuccess?.(result.data);
+    });
 
-    onError: (error) => {
-      toast.error(getErrorMessage(error, "Not silinirken hata oluştu."));
-    },
-  });
+  const deleteNote = (id) =>
+    startTransition(async () => {
+      applyOptimistic({ type: "delete", id });
+      const result = await deleteNoteAction(id);
+      if (result.ok) toast.success("Not silindi.");
+      else toast.error(result.error);
+    });
 
-  const createMutation = useMutation({
-    mutationFn: (data) => notesRepository.createdNotes(data),
-
-    onSuccess: (response) => {
-      toast.success(response.data?.message || "Not başarıyla oluşturuldu.");
-
-      queryClient.invalidateQueries({
-        queryKey: ["notes"],
-      });
-    },
-
-    onError: (error) => {
-      toast.error(getErrorMessage(error, "Not oluşturulurken hata oluştu."));
-    },
-  });
-
-  return {
-    ...query,
-
-    deletedNotes: deleteMutation.mutate,
-    createNotes: createMutation.mutate,
-  };
+  return { notes: optimisticNotes, saveNote, deleteNote, isPending };
 }

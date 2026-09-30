@@ -1,56 +1,30 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { toast } from "react-hot-toast";
 
 import { TaskForm } from "@/features/task/components/TaskForm";
-import { useTasks, useTaskById } from "@/features/task/hooks/useTask";
-import { NotFound } from "@/shared/components/organisms";
 
-export default function TaskEditPage() {
+import { updateTaskAction } from "../actions/task.actions";
+
+export default function TaskEditPage({ task }) {
   const router = useRouter();
-  const { id } = useParams();
+  const [isPending, startTransition] = useTransition();
 
-  const { task, isLoading } = useTaskById(id);
-  const { updateTask, updateTaskPending } = useTasks();
-
-  const handleSubmit = (updatedTask) => {
-    updateTask(
-      {
-        id,
-        data: updatedTask,
-      },
-      {
-        onSuccess: () => {
-          router.push(`/tasks/${id}`);
-        },
-      },
-    );
-  };
-
-  if (isLoading) {
-    return (
-      <main className="flex min-h-screen items-center justify-center ">
-        <p className="text-sm text-gray-500">Yükleniyor...</p>
-      </main>
-    );
-  }
-
-  if (!task) {
-    return (
-      <main className="flex min-h-screen items-center justify-center  p-6">
-        <NotFound
-          title="Oopss!"
-          description="Task bulunamadı."
-          linkText="Böyle bir task bulunamadı."
-          buttonText="Tasklere Dön"
-          route="/tasks"
-        />
-      </main>
-    );
-  }
+  const handleSubmit = (updatedTask) =>
+    startTransition(async () => {
+      const result = await updateTaskAction(task.id, updatedTask);
+      if (!result.ok) {
+        toast.error(result.error);
+        return;
+      }
+      toast.success("Görev güncellendi.");
+      router.push(`/tasks/${task.id}`);
+    });
 
   return (
-    <main className="min-h-screen ">
+    <main className="min-h-screen">
       <div className="mx-auto max-w-full">
         <div className="mb-6">
           <p className="text-sm font-medium text-gray-500">Task Düzenleme</p>
@@ -61,7 +35,7 @@ export default function TaskEditPage() {
         </div>
 
         <div className="rounded-2xl shadow-sm">
-          <TaskForm initialTask={task} onSubmit={handleSubmit} isUpdating={updateTaskPending} />
+          <TaskForm initialTask={task} onSubmit={handleSubmit} isUpdating={isPending} />
         </div>
       </div>
     </main>

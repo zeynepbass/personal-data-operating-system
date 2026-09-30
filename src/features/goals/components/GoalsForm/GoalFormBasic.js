@@ -1,43 +1,36 @@
-import { Select, Input } from "@/shared/components/atoms";
-export function GoalFormBasic({ goal, onChange }) {
-  return (
-    <div className=" p-4">
-      <div className="mb-4">
-        <p className="text-xs text-gray-500">Hedef</p>
+import { Input, Select } from "@/shared/components/atoms";
 
-        <h2 className="text-sm font-semibold text-gray-700">Hedef Bilgileri</h2>
-      </div>
+const CATEGORIES = [
+  { value: "2026-goals", label: "2026 Hedefleri" },
+  { value: "personal-goals", label: "Kişisel Hedefler" },
+  { value: "2027-goals", label: "2027 Hedefleri" },
+  { value: "work-goals", label: "İş Hedefleri" },
+];
+
+export function GoalFormBasic({ form }) {
+  const { register, formState } = form;
+
+  return (
+    <fieldset className="p-4">
+      <legend className="mb-4 text-sm font-semibold text-gray-700">Hedef bilgileri</legend>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <div>
-          <Input
-            type="text"
-            name="title"
-            value={goal.title}
-            onChange={onChange}
-            label="Başlık"
-            placeholder="Başlık"
-            required
-          />
-        </div>
-        <div>
-          <Select
-            name="category"
-            value={goal.category}
-            onChange={onChange}
-            label="Kategori"
-            placeholder="Kategori seç"
-            required
-            options={[
-              { value: "2026-goals", label: "2026 Hedefleri" },
-              { value: "personal-goals", label: "Kişisel Hedefler" },
-              { value: "2027-goals", label: "2027 Hedefleri" },
-              { value: "work-goals", label: "İş Hedefleri" },
-            ]}
-          />
-        </div>
-        <div></div>
+        <Input
+          label="Başlık"
+          placeholder="Başlık"
+          required
+          error={formState.errors.title?.message}
+          {...register("title")}
+        />
+        <Select
+          label="Kategori"
+          placeholder="Kategori seç"
+          required
+          options={CATEGORIES}
+          error={formState.errors.category?.message}
+          {...register("category")}
+        />
       </div>
-    </div>
+    </fieldset>
   );
 }

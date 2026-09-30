@@ -75,7 +75,7 @@ export async function resetPassword(input, { now = new Date() } = {}) {
   const record = await PasswordResetToken.findOneAndUpdate(
     { tokenHash: hashToken(token), usedAt: null, expiresAt: { $gt: now } },
     { usedAt: now },
-    { new: true },
+    { returnDocument: "after" },
   );
 
   if (!record) {

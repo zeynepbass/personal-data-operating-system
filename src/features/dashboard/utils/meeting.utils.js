@@ -24,16 +24,3 @@ export const getTodayMeetings = (meetings = [], userId) => {
     })
     .filter(Boolean);
 };
-export const getTodayTasks = (meetings = []) => {
-  const today = getToday();
-
-  return meetings
-    .flatMap((item) => item.tasks ?? [])
-    .filter((task) => {
-      if (!task.date) return false;
-
-      const taskDate = new Date(task.date).toISOString().split("T")[0];
-
-      return taskDate === today;
-    });
-};

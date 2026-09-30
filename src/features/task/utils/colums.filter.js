@@ -1,67 +1,34 @@
+const today = () => new Date().toISOString().slice(0, 10);
+
 export function transformTasksToRows(data = []) {
-  return data.flatMap((column) =>
-    column.tasks.map((task) => ({
+  return data.flatMap((meeting) =>
+    (meeting.tasks ?? []).map((task) => ({
       ...task,
-      status: column.name,
-      statusColor: column.color,
-      name: column.name,
-      columnId: column.id,
+      meetingTitle: meeting.title,
+      columnId: meeting.id,
     })),
   );
 }
 
 export function getTodayTasks(data = [], userId) {
-  const today = new Date().toISOString().split("T")[0];
-
   if (!userId) return [];
+  const day = today();
 
   return data
-    .filter((column) => column.name?.toLowerCase() === "todo")
-    .flatMap((column) => column.tasks ?? [])
-    .filter((task) => {
-      if (!task.date) return false;
-
-      const isToday = new Date(task.date).toISOString().split("T")[0] === today;
-
-      const isAssignedToUser = task.assignee?.id === userId;
-
-      return isToday && isAssignedToUser;
-    });
+    .flatMap((meeting) => meeting.tasks ?? [])
+    .filter((task) => task.status === "todo" && task.date === day && task.assignee?.id === userId);
 }
+
+const COLUMNS = [
+  { id: "todo", name: "todo", title: "Todo", color: "green" },
+  { id: "in-progress", name: "in-progress", title: "In Progress", color: "purple" },
+  { id: "done", name: "done", title: "Done", color: "orange" },
+];
+
 export function groupTasksByStatus(data = []) {
-  const groups = {
-    todo: {
-      id: "todo",
-      name: "todo",
-      title: "Todo",
-      color: "green",
-      tasks: [],
-    },
-
-    "in-progress": {
-      id: "in-progress",
-      name: "in-progress",
-      title: "In Progress",
-      color: "purple",
-      tasks: [],
-    },
-
-    done: {
-      id: "done",
-      name: "done",
-      title: "Done",
-      color: "red",
-      tasks: [],
-    },
-  };
-
-  data.forEach((column) => {
-    const name = column.name?.toLowerCase();
-
-    if (!groups[name]) return;
-
-    groups[name].tasks.push(...(column.tasks ?? []));
-  });
-
-  return Object.values(groups);
+  const tasks = data.flatMap((meeting) => meeting.tasks ?? []);
+  return COLUMNS.map((column) => ({
+    ...column,
+    tasks: tasks.filter((task) => task.status === column.id),
+  }));
 }
