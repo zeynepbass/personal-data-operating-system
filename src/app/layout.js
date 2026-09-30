@@ -1,25 +1,28 @@
-"use client";
-
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState } from "react";
-
-import "./globals.css";
+import { headers } from "next/headers";
 import { Toaster } from "react-hot-toast";
 
-import Layout from "@/shared/layout/AppLayout";
-export default function RootLayout({ children }) {
-  const [queryClient] = useState(() => new QueryClient());
+import QueryProvider from "@/providers/QueryProvider";
+
+import "./globals.css";
+
+export const metadata = {
+  title: {
+    default: "PDOS",
+    template: "%s | PDOS",
+  },
+  description: "Görevler, notlar, hedefler ve dokümanlar için kişisel çalışma alanı.",
+};
+
+export default async function RootLayout({ children }) {
+  await headers();
 
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="tr" className="h-full antialiased">
       <body className="flex min-h-full flex-col">
-        <QueryClientProvider client={queryClient}>
-          <Layout>
-            {children}
-
-            <Toaster position="bottom-right" />
-          </Layout>
-        </QueryClientProvider>
+        <QueryProvider>
+          {children}
+          <Toaster position="bottom-right" />
+        </QueryProvider>
       </body>
     </html>
   );

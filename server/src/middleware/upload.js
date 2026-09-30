@@ -1,3 +1,5 @@
+import crypto from "node:crypto";
+
 import multer from "multer";
 
 const storage = multer.diskStorage({
@@ -6,9 +8,7 @@ const storage = multer.diskStorage({
   },
 
   filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${file.originalname}`;
-
-    cb(null, uniqueName);
+    cb(null, `${crypto.randomUUID()}.pdf`);
   },
 });
 
@@ -16,13 +16,16 @@ const fileFilter = (req, file, cb) => {
   if (file.mimetype === "application/pdf") {
     cb(null, true);
   } else {
-    cb(new Error("Sadece PDF dosyası yükleyebilirsiniz."), false);
+    const error = new Error("Sadece PDF dosyası yükleyebilirsiniz.");
+    error.status = 400;
+    cb(error, false);
   }
 };
 
 const upload = multer({
   storage,
   fileFilter,
+  limits: { fileSize: 10 * 1024 * 1024, files: 1 },
 });
 
 export default upload;

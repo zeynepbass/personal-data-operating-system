@@ -1,19 +1,39 @@
 import Meeting from "../models/meeting.model.js";
 import User from "../models/user.model.js";
 import Notification from "../models/notification.model.js";
+const isAssignee = (task, user) => String(task.assignee?.id) === String(user._id);
+
+const canChangeTask = (task, user) => Boolean(task) && (user.role === "admin" || isAssignee(task, user));
+
+const visibleMeeting = (meeting, user) => {
+  const plain = meeting.toObject();
+  if (user.role === "admin") return plain;
+  return { ...plain, tasks: plain.tasks.filter((task) => isAssignee(task, user)) };
+};
+
 export const getMeetings = async (req, res) => {
   try {
-    const meetings = await Meeting.find().sort({ createdAt: -1 }).lean();
+    if (req.user.role === "admin") {
+      const meetings = await Meeting.find().sort({ createdAt: -1 }).lean();
+      return res.status(200).json({ success: true, data: meetings });
+    }
+
+    const userId = String(req.user._id);
+    const meetings = await Meeting.find({ "tasks.assignee.id": userId })
+      .sort({ createdAt: -1 })
+      .lean();
 
     return res.status(200).json({
       success: true,
-      data: meetings,
+      data: meetings.map((meeting) => ({
+        ...meeting,
+        tasks: meeting.tasks.filter((task) => isAssignee(task, req.user)),
+      })),
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
       message: "Meetings alınırken hata oluştu.",
-      error: error.message,
     });
   }
 };
@@ -38,7 +58,6 @@ export const getUsers = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Kullanıcılar alınırken hata oluştu.",
-      error: error.message,
     });
   }
 };
@@ -178,7 +197,6 @@ export const createMeeting = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Meeting oluşturulurken hata oluştu.",
-      error: error.message,
     });
   }
 };
@@ -285,7 +303,6 @@ export const updateMeeting = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Task güncellenirken hata oluştu.",
-      error: error.message,
     });
   }
 };
@@ -323,7 +340,6 @@ export const deleteMeeting = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Task silinirken hata oluştu.",
-      error: error.message,
     });
   }
 };
@@ -351,13 +367,17 @@ export const updateTaskStatus = async (req, res) => {
       });
     }
 
-    meeting.name = name;
     const task = meeting.tasks.find((task) => String(task.id) === String(id));
 
-    if (task) {
-      task.completed = name.toLowerCase() !== "todo";
-
+    if (!canChangeTask(task, req.user)) {
+      return res.status(404).json({
+        success: false,
+        message: "Task bulunamadı.",
+      });
     }
+
+    meeting.name = name;
+    task.completed = name.toLowerCase() !== "todo";
     if (name.toLowerCase() === "done") {
       await Notification.deleteMany({
         taskId: id,
@@ -369,13 +389,12 @@ export const updateTaskStatus = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Meeting durumu güncellendi.",
-      data: meeting,
+      data: visibleMeeting(meeting, req.user),
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
       message: "Meeting durumu güncellenemedi.",
-      error: error.message,
     });
   }
 };
@@ -394,24 +413,31 @@ export const updateTaskCompleted = async (req, res) => {
       });
     }
 
-    meeting.name = "done";
-    if (meeting.name.toLowerCase() === "done") {
-      await Notification.deleteMany({
-        taskId: id,
+    const task = meeting.tasks.find((task) => String(task.id) === String(id));
+
+    if (!canChangeTask(task, req.user)) {
+      return res.status(404).json({
+        success: false,
+        message: "Task bulunamadı.",
       });
     }
+
+    meeting.name = "done";
+    task.completed = true;
+    await Notification.deleteMany({
+      taskId: id,
+    });
     await meeting.save();
 
     return res.status(200).json({
       success: true,
       message: "Task tamamlandı.",
-      data: meeting,
+      data: visibleMeeting(meeting, req.user),
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
       message: "Task güncellenemedi.",
-      error: error.message,
     });
   }
 };

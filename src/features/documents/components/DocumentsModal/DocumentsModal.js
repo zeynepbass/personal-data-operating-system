@@ -12,14 +12,7 @@ const initialForm = {
   pdf: null,
 };
 
-export default function DocumentsModal({
-  open,
-  setOpen,
-  isInitialized,
-  isCreating,
-  isAdmin,
-  onSubmit,
-}) {
+export default function DocumentsModal({ open, setOpen, isCreating, isAdmin, onSubmit }) {
   const [form, setForm] = useState(initialForm);
 
   if (!open) return null;
@@ -164,7 +157,7 @@ export default function DocumentsModal({
               </div>
             </div>
 
-            {isInitialized && isAdmin && (
+            {isAdmin && (
               <div className="rounded-xl border border-gray-200 bg-white p-6">
                 <Heading title="Belge Ayarları" />
 

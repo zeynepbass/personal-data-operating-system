@@ -2,16 +2,15 @@
 
 import { useMemo } from "react";
 
+import { useCurrentUser } from "@/features/auth/context/AuthProvider";
 import { useTasks } from "@/features/task/hooks/useTask";
 
 export default function DashboardFocus({ duration }) {
   const { data, isLoading } = useTasks();
+  const userId = useCurrentUser()?.id;
 
   const tasks = useMemo(() => {
     if (!Array.isArray(data)) return [];
-
-    const user = JSON.parse(localStorage.getItem("user"));
-    const userId = user?.id;
 
     if (!userId) return [];
 
@@ -25,7 +24,7 @@ export default function DashboardFocus({ duration }) {
           status: group.name,
         }));
     });
-  }, [data]);
+  }, [data, userId]);
   const filteredTasks = useMemo(() => {
     const today = new Date();
 

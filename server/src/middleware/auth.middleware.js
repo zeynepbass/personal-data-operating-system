@@ -1,48 +1,47 @@
-import jwt from "jsonwebtoken";
+import crypto from "node:crypto";
+
+import mongoose from "mongoose";
+
 import User from "../models/user.model.js";
+
+const SESSION_COOKIES = ["__Host-pdos_session", "pdos_session"];
+
+const readSessionToken = (req) => {
+  for (const name of SESSION_COOKIES) {
+    if (req.cookies?.[name]) return req.cookies[name];
+  }
+  return null;
+};
+
+const unauthorized = (res) =>
+  res.status(401).json({
+    success: false,
+    message: "Oturumunuz sona erdi. Lütfen tekrar giriş yapın.",
+  });
 
 export const protect = async (req, res, next) => {
   try {
-    const authHeader = req.headers.authorization;
+    const token = readSessionToken(req);
+    if (!token) return unauthorized(res);
 
-    let token;
+    const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
+    const session = await mongoose.connection
+      .collection("sessions")
+      .findOne({ tokenHash, expiresAt: { $gt: new Date() } });
 
-    if (authHeader && authHeader.startsWith("Bearer ")) {
-      token = authHeader.split(" ")[1];
-    } else if (req.cookies?.token) {
-      token = req.cookies.token;
-    }
+    if (!session) return unauthorized(res);
 
-    if (!token) {
-      return res.status(401).json({
-        success: false,
-        message: "Yetkilendirme tokenı bulunamadı.",
-      });
-    }
+    const user = await User.findById(session.user).select("-password");
+    if (!user) return unauthorized(res);
 
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET
-    );
-
-    const user = await User.findById(decoded.id).select(
-      "-password"
-    );
-
-    if (!user) {
-      return res.status(401).json({
-        success: false,
-        message: "Kullanıcı bulunamadı.",
-      });
+    if (user.passwordChangedAt && session.createdAt < user.passwordChangedAt) {
+      return unauthorized(res);
     }
 
     req.user = user;
-
     next();
   } catch (error) {
-    return res.status(401).json({
-      success: false,
-      message: "Geçersiz veya süresi dolmuş token.",
-    });
+    console.error(error);
+    return unauthorized(res);
   }
 };

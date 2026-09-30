@@ -1,10 +1,7 @@
 import { getToday } from "@/shared/helpers/format.helper";
 
-export const getTodayMeetings = (meetings = []) => {
+export const getTodayMeetings = (meetings = [], userId) => {
   const today = getToday();
-
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userId = user?.id;
 
   if (!userId) return [];
 

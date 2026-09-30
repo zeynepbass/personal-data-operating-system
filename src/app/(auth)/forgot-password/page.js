@@ -1,4 +1,7 @@
-import Password from "@/features/auth/pages/PasswordPage";
-export default function Register() {
-  return <Password />;
+import PasswordForm from "@/features/auth/components/Password";
+
+export const metadata = { title: "Şifremi Unuttum" };
+
+export default function ForgotPasswordPage() {
+  return <PasswordForm />;
 }

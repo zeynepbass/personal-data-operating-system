@@ -7,6 +7,12 @@ const envSchema = z.object({
     .string({ error: "is required" })
     .regex(/^mongodb(\+srv)?:\/\//, "must be a mongodb:// or mongodb+srv:// connection string"),
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"]).default("info"),
+  APP_URL: z.url().default("http://localhost:3000"),
+  SMTP_HOST: z.string().default("localhost"),
+  SMTP_PORT: z.coerce.number().int().positive().default(1025),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
+  MAIL_FROM: z.string().default("PDOS <no-reply@pdos.local>"),
 });
 
 /**

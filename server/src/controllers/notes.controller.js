@@ -18,7 +18,6 @@ export const getNotes = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Notlar alınırken hata oluştu.",
-      error: error.message,
     });
   }
 };
@@ -56,7 +55,6 @@ export const createNote = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Not oluşturulurken hata oluştu.",
-      error: error.message,
     });
   }
 };
@@ -88,7 +86,6 @@ export const deleteNote = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Not silinirken hata oluştu.",
-      error: error.message,
     });
   }
 };

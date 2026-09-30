@@ -2,14 +2,14 @@
 
 import { useMemo } from "react";
 
-import { useAuth } from "@/features/auth/hooks/useAuth";
+import { useCurrentUser } from "@/features/auth/context/AuthProvider";
 
 import TaskHome from "../components/TaskPage/TaskHome";
 import { useTasks } from "../hooks/useTask";
 import { transformTasksToRows, getTodayTasks } from "../utils/colums.filter";
 
 export default function TaskPage() {
-  const { user, isInitialized } = useAuth();
+  const user = useCurrentUser();
   const isAdmin = user?.role === "admin";
   const {
     data,
@@ -37,7 +37,7 @@ export default function TaskPage() {
 
   const rows = useMemo(() => transformTasksToRows(data ?? []), [data]);
 
-  const todayTasks = useMemo(() => getTodayTasks(data), [data]);
+  const todayTasks = useMemo(() => getTodayTasks(data, user?.id), [data, user?.id]);
 
   if (isLoading) {
     return <div>Yükleniyor...</div>;
@@ -53,7 +53,6 @@ export default function TaskPage() {
 
       todayTasks={todayTasks ?? []}
       view={view}
-      isInitialized={isInitialized}
       router={router}
       onToggle={onToggle}
       users={users ?? []}

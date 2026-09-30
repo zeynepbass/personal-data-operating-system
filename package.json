@@ -41,10 +41,10 @@
     "react-hot-toast": "^2.6.0",
     "recharts": "^3.9.1",
     "server-only": "^0.0.1",
-    "zod": "^4.6.5",
-    "zustand": "^5.0.15"
+    "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
     "concurrently": "^10.0.5",
     "eslint": "^9",
