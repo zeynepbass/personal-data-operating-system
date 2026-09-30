@@ -19,4 +19,5 @@ dist
 build
 .vscode
 .idea
-*.log
+*.logtest-results
+playwright-report

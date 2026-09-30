@@ -38,16 +38,15 @@ export default function TaskHome({
         router={router}
         description="Bugün seni neler bekliyor."
       />
-      <TaskModal
-        users={users}
-        open={open}
-
-        setOpen={setOpen}
-        data={data}
-        isCreating={isCreating}
-
-        onSubmit={onSubmit}
-      />
+      {isAdmin && open && (
+        <TaskModal
+          users={users}
+          open={open}
+          setOpen={setOpen}
+          isCreating={isCreating}
+          onSubmit={onSubmit}
+        />
+      )}
 
       <TaskNavigation view={view} setView={setView} isAdmin={isAdmin} />
 
@@ -61,7 +60,6 @@ export default function TaskHome({
           todayTasks={todayTasks}
           data={data}
           onMenuClick={handleMenuClick}
-
           openMenuId={openMenuId}
         />
       </section>

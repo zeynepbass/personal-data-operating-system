@@ -1,2 +1,3 @@
 export { Card } from "./Card";
 export { PageHeader } from "./PageHeader";
+export { PageSkeleton } from "./PageSkeleton";

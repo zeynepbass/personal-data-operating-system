@@ -3,11 +3,6 @@ import express from "express";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
-import notesRoutes from "./routes/notes.routes.js";
-import meetingRoutes from "./routes/meeting.routes.js";
-import documentRoutes from "./routes/document.routes.js";
-import goalRoutes from "./routes/goal.routes.js";
-import notificationRoutes from "./routes/notification.routes.js";
 import { protect } from "./middleware/auth.middleware.js";
 import { authorizeUpload } from "./middleware/upload-access.middleware.js";
 
@@ -30,11 +25,6 @@ app.use(
     },
   })
 );
-app.use("/api/notes", notesRoutes);
-app.use("/api/meetings", meetingRoutes);
-app.use("/api/notification", notificationRoutes);
-app.use("/api/documents", documentRoutes);
-app.use("/api/goals", goalRoutes);
 
 app.use((error, req, res, next) => {
   console.error(error);

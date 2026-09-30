@@ -12,7 +12,6 @@ import {
 
 import { Button, Input, Select } from "@/shared/components/atoms";
 import { PageHeader } from "@/shared/components/molecules";
-import { getAssetUrl } from "@/shared/helpers/asset.helper";
 
 import DocumentsModal from "../DocumentsModal";
 
@@ -101,20 +100,22 @@ export default function DocumentsHome({
               }`}
             >
               {" "}
-              <span className="flex justify-end cursor-pointer">
-                <Trash
-                  width={15}
-                  height={15}
-                  color="#7d78ce"
-                  onClick={() => {
-                    handleDelete(doc.id);
-                  }}
-                />
+              <span className="flex h-6 justify-end">
+                {(doc.isOwner || isAdmin) && (
+                  <button
+                    type="button"
+                    aria-label={`${doc.name} belgesini sil`}
+                    onClick={() => handleDelete(doc.id)}
+                    className="rounded p-1 hover:bg-purple-50"
+                  >
+                    <Trash width={15} height={15} color="#7d78ce" aria-hidden="true" />
+                  </button>
+                )}
               </span>
               <div
                 className="mb-6 flex justify-center cursor-pointer transition group-hover:scale-105"
                 onClick={() => {
-                  window.open(getAssetUrl(doc.pdf), "_blank");
+                  window.open(doc.pdf, "_blank", "noopener,noreferrer");
                 }}
               >
                 {iconMap[doc.icon]}

@@ -4,7 +4,7 @@ import { ArrowLeft, Pencil } from "lucide-react";
 
 import { Button } from "@/shared/components/atoms";
 
-export function TaskDetailHeader({ task, router }) {
+export function TaskDetailHeader({ task, router, canEdit }) {
   return (
     <div className="mb-6 flex items-center justify-between">
       <div>
@@ -26,16 +26,18 @@ export function TaskDetailHeader({ task, router }) {
         <p className="mt-1 text-sm text-gray-500">Task bilgilerini görüntüle ve düzenle.</p>
       </div>
 
-      <Button
-        type="button"
-        onClick={() => router.push(`/tasks/edit/${task.id}`)}
-        className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium"
-        text={
-          <>
-            <Pencil width={16} height={16} /> Düzenle
-          </>
-        }
-      />
+      {canEdit && (
+        <Button
+          type="button"
+          onClick={() => router.push(`/tasks/edit/${task.id}`)}
+          className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium"
+          text={
+            <>
+              <Pencil width={16} height={16} /> Düzenle
+            </>
+          }
+        />
+      )}
     </div>
   );
 }

@@ -1,3 +1,12 @@
+function withOccurrenceKeys(items) {
+  const seen = new Map();
+  return items.map((value) => {
+    const count = (seen.get(value) ?? 0) + 1;
+    seen.set(value, count);
+    return { key: `${value}#${count}`, value };
+  });
+}
+
 export default function NotesCard({ note }) {
   return (
     <article className="flex-1 bg-white p-4 rounded-2xl">
@@ -18,8 +27,8 @@ export default function NotesCard({ note }) {
 
             {section.items?.length > 0 && (
               <ul className="mt-5 list-disc space-y-3 pl-6 text-slate-600">
-                {section.items.map((item, index) => (
-                  <li key={index}>{item}</li>
+                {withOccurrenceKeys(section.items).map(({ key, value }) => (
+                  <li key={key}>{value}</li>
                 ))}
               </ul>
             )}

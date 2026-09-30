@@ -21,13 +21,10 @@ const tabs = [
     value: "completed",
   },
 ];
-export default function GoalsHome() {
+export default function GoalsHome({ goals = [] }) {
   const {
-    data = [],
-    error,
-    isLoading,
-    isError,
     router,
+    isPending,
     deletedGoals,
     updateGoals,
     selectedValue,
@@ -40,18 +37,10 @@ export default function GoalsHome() {
 
   const filteredGoals = useMemo(() => {
     if (selectedTab === "all") {
-      return data;
+      return goals;
     }
-    return data.filter((item) => item.status === selectedTab);
-  }, [data, selectedTab]);
-
-  if (isLoading) {
-    return <div>Yükleniyor...</div>;
-  }
-
-  if (isError) {
-    return <div>Bir hata oluştu: {error.message}</div>;
-  }
+    return goals.filter((item) => item.status === selectedTab);
+  }, [goals, selectedTab]);
 
   return (
     <div className="space-y-6">
@@ -75,7 +64,7 @@ export default function GoalsHome() {
           key={goal.id}
           {...goal}
           deletedGoals={deletedGoals}
-          isUpdating={updateGoals.sPending}
+          isUpdating={isPending}
           selectedValue={selectedValue}
           setSelectedValue={setSelectedValue}
           updateGoals={updateGoals}

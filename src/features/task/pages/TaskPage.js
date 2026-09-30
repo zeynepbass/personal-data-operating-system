@@ -8,7 +8,7 @@ import TaskHome from "../components/TaskPage/TaskHome";
 import { useTasks } from "../hooks/useTask";
 import { transformTasksToRows, getTodayTasks } from "../utils/colums.filter";
 
-export default function TaskPage() {
+export default function TaskPage({ initialBoard, users = [] }) {
   const user = useCurrentUser();
   const isAdmin = user?.role === "admin";
   const {
@@ -28,8 +28,7 @@ export default function TaskPage() {
     open,
     setOpen,
     onToggle,
-    users,
-  } = useTasks();
+  } = useTasks({ initialData: initialBoard });
 
   const handleMenuClick = (taskId) => {
     setOpenMenuId((prev) => (prev === taskId ? null : taskId));

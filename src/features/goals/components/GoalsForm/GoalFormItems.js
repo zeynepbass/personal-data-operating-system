@@ -1,84 +1,64 @@
 import { Trash } from "lucide-react";
+import { useFieldArray } from "react-hook-form";
 
 import { Button, Input } from "@/shared/components/atoms";
-export function GoalFormItems({ items, onChange }) {
-  const handleAdd = () => {
-    onChange([
-      ...items,
-      {
-        title: "",
-        value: "",
-      },
-    ]);
-  };
 
-  const handleChange = (index, field, value) => {
-    const updatedItems = [...items];
-
-    updatedItems[index] = {
-      ...updatedItems[index],
-      [field]: value,
-    };
-
-    onChange(updatedItems);
-  };
-
-  const handleRemove = (index) => {
-    const updatedItems = items.filter((_, itemIndex) => itemIndex !== index);
-
-    onChange(updatedItems);
-  };
+export function GoalFormItems({ form }) {
+  const { control, register, formState } = form;
+  const { fields, append, remove } = useFieldArray({ control, name: "items" });
+  const errors = formState.errors.items;
 
   return (
-    <div className=" p-4">
+    <fieldset className="p-4">
       <div className="mb-4 flex items-center justify-between">
-        <div>
-          <p className="text-xs text-gray-500">Hedef Maddeleri</p>
-
-          <h2 className="text-sm font-semibold text-gray-700">Hedef İçerikleri</h2>
-        </div>
-
+        <legend className="text-sm font-semibold text-gray-700">Hedef adımları</legend>
         <Button
           type="button"
           text="+ Ekle"
           variant="secondary"
-          onClick={handleAdd}
+          onClick={() => append({ title: "", value: 0 })}
           className="rounded-lg px-4 py-2 text-sm"
         />
       </div>
 
+      {errors?.root?.message && (
+        <p role="alert" className="mb-3 text-xs text-red-500">
+          {errors.root.message}
+        </p>
+      )}
+
       <div className="space-y-3">
-        {items.map((item, index) => (
-          <div key={index} className="flex  gap-3  rounded-xl border border-gray-200 p-3">
+        {fields.map((field, index) => (
+          <div key={field.id} className="flex gap-3 rounded-xl border border-gray-200 p-3">
             <div className="w-full">
               <Input
-                type="text"
-                value={item.title}
-                onChange={(event) => handleChange(index, "title", event.target.value)}
-                placeholder="Hedef maddesi"
-                required
+                aria-label={`Adım ${index + 1}`}
+                placeholder="Hedef adımı"
+                error={errors?.[index]?.title?.message}
+                {...register(`items.${index}.title`)}
               />
             </div>
             <Input
               type="number"
-              value={item.value}
               min="0"
-              onChange={(event) => handleChange(index, "value", Number(event.target.value))}
+              max="100"
+              aria-label={`Adım ${index + 1} değeri`}
               placeholder="Değer"
               className="w-28"
+              error={errors?.[index]?.value?.message}
+              {...register(`items.${index}.value`, { valueAsNumber: true })}
             />
-            <div className="flex items-center">
-              {" "}
-              <Trash
-                width="20"
-                height="20"
-                className="cursor-pointer"
-                onClick={() => handleRemove(index)}
-              />{" "}
-            </div>
+            <button
+              type="button"
+              aria-label={`Adım ${index + 1} sil`}
+              onClick={() => remove(index)}
+              className="flex items-center rounded-lg px-2 hover:bg-gray-100"
+            >
+              <Trash width="20" height="20" aria-hidden="true" />
+            </button>
           </div>
         ))}
       </div>
-    </div>
+    </fieldset>
   );
 }

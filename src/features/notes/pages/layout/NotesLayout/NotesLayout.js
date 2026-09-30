@@ -1,13 +1,13 @@
 import { Button } from "@/shared/components/atoms";
 import { PageHeader } from "@/shared/components/molecules";
 
-import NotesMenu from "../../../components/NotesMenu";
-import NotesNavbar from "../../../components/NotesNavbar";
+import NotesMenu from "@/features/notes/components/NotesMenu";
+import NotesNavbar from "@/features/notes/components/NotesNavbar";
 
 export default function NotesLayout({
   children,
   note,
-  setOpen,
+  onCreate,
   openMenu,
   setOpenMenu,
   activeNote,
@@ -21,7 +21,7 @@ export default function NotesLayout({
 
         <Button
           text="+ Yeni not yükle"
-          onClick={() => setOpen(true)}
+          onClick={onCreate}
           className="w-full md:w-auto hover:text-white text-gray-50"
         />
       </div>

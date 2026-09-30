@@ -12,7 +12,7 @@ import { Button, Heading, Input } from "@/shared/components/atoms";
 import { handleActionResult } from "@/shared/helpers/form.helper";
 import { deleteAccountSchema } from "@/shared/schemas/auth";
 
-import Modal from "../SettingsModal";
+import { Modal } from "@/shared/components/organisms";
 
 const relativeFormatter = new Intl.RelativeTimeFormat("tr-TR", { numeric: "auto" });
 

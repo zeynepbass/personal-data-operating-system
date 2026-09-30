@@ -1,48 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 import { Button } from "@/shared/components/atoms";
+import { goalSchema } from "@/shared/schemas/goal";
 
 import { GoalFormBasic } from "./GoalFormBasic";
 import { GoalFormItems } from "./GoalFormItems";
 
 export function GoalForm({ onSubmit, isCreating }) {
-  const [goal, setGoal] = useState({
-    title: "",
-    status: "active",
-    category: "",
-    items: [],
+  const form = useForm({
+    resolver: zodResolver(goalSchema),
+    defaultValues: { title: "", category: "", items: [] },
   });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setGoal((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleItemsChange = (items) => {
-    setGoal((prev) => ({
-      ...prev,
-      items,
-    }));
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    onSubmit(goal);
-  };
-
   return (
-    <div className="space-y-4 rounded-xl border border-gray-200 bg-white ">
-      <form onSubmit={handleSubmit} className="space-y-4  p-5">
-        <GoalFormBasic goal={goal} onChange={handleChange} />
-
-        <GoalFormItems items={goal.items} onChange={handleItemsChange} />
+    <div className="space-y-4 rounded-xl border border-gray-200 bg-white">
+      <form
+        onSubmit={form.handleSubmit((values) => onSubmit(values, form))}
+        noValidate
+        className="space-y-4 p-5"
+      >
+        <GoalFormBasic form={form} />
+        <GoalFormItems form={form} />
 
         <div className="flex justify-end gap-3">
           <Button

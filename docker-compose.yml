@@ -9,6 +9,9 @@ services:
       APP_URL: http://localhost:3000
       SMTP_HOST: mailpit
       SMTP_PORT: 1025
+      LEGACY_UPLOADS_DIR: /legacy-uploads
+    volumes:
+      - uploads:/legacy-uploads:ro
     depends_on:
       mongo:
         condition: service_healthy

@@ -33,7 +33,7 @@ export async function createUser(data) {
  */
 export async function updateUser(id, changes) {
   await connectDB();
-  return User.findByIdAndUpdate(id, changes, { new: true, runValidators: true });
+  return User.findByIdAndUpdate(id, changes, { returnDocument: "after", runValidators: true });
 }
 
 /** @param {string} id */
