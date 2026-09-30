@@ -1,0 +1,8 @@
+.next
+out
+build
+coverage
+pnpm-lock.yaml
+server/pnpm-lock.yaml
+public
+server

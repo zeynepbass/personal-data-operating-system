@@ -1,0 +1,55 @@
+"use client";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+
+import DocumentsHome from "../components/DocumentsHome";
+import { useDocuments } from "../hooks/useDocuments";
+import filteredData from "../utils/filtered.search";
+export default function DocumentsPage() {
+  const { user, isInitialized } = useAuth();
+
+  const isAdmin = user?.role === "admin";
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    search,
+    deleteDocument,
+    setSearch,
+    filter,
+    open,
+    setOpen,
+    setFilter,
+    createDocument,
+  } = useDocuments();
+  if (isLoading) {
+    return <div>Yükleniyor...</div>;
+  }
+
+  if (isError) {
+    return <div>Bir hata oluştu: {error.message}</div>;
+  }
+
+  const filteredDocuments = filteredData(data, search, filter);
+  const handleDelete = (id) => {
+    deleteDocument(id);
+  };
+
+  return (
+    <DocumentsHome
+      data={filteredDocuments}
+      isAdmin={isAdmin}
+      isInitialized={isInitialized}
+      createDocument={createDocument}
+      isCreating={createDocument.isPending}
+      open={open}
+      setOpen={setOpen}
+      filteredData={filteredData}
+      search={search}
+      setSearch={setSearch}
+      filter={filter}
+      setFilter={setFilter}
+      handleDelete={handleDelete}
+    />
+  );
+}

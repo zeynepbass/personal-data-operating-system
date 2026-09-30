@@ -1,0 +1,119 @@
+"use client";
+
+import trLocale from "@fullcalendar/core/locales/tr";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import listPlugin from "@fullcalendar/list";
+import FullCalendar from "@fullcalendar/react";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import { useState } from "react";
+
+import "../../styles/calendar.css";
+import { Button, Heading } from "@/shared/components/atoms";
+import { PageHeader } from "@/shared/components/molecules";
+
+export default function Calendar({ data = [] }) {
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  return (
+    <div className="space-y-6">
+      <PageHeader title="Takvim" className="py-6" />
+
+      <div className="rounded-3xl bg-white p-6 shadow-sm">
+        <FullCalendar
+          plugins={[dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin]}
+          locale={trLocale}
+          initialView="dayGridMonth"
+          initialDate="2026-08-15"
+          events={data}
+          height="auto"
+          fixedWeekCount={false}
+          editable={true}
+          selectable={true}
+          dayMaxEvents={3}
+          eventClick={(info) => {
+            setSelectedTask({
+              id: info.event.id,
+              title: info.event.title,
+              start: info.event.start,
+              ...info.event.extendedProps,
+            });
+          }}
+          eventContent={(eventInfo) => (
+            <div className="w-full overflow-hidden px-1">
+              <div className="font-semibold truncate">{eventInfo.event.title}</div>
+
+              {eventInfo.event.extendedProps.description && (
+                <div className="truncate text-xs opacity-70">
+                  {eventInfo.event.extendedProps.description}
+                </div>
+              )}
+            </div>
+          )}
+          headerToolbar={{
+            left: "title",
+            center: "",
+            right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek today prev,next",
+          }}
+          buttonText={{
+            today: "Bugün",
+            dayGridMonth: "Ay",
+            timeGridWeek: "Hafta",
+            timeGridDay: "Gün",
+            listWeek: "Ajanda",
+          }}
+        />
+      </div>
+
+      {selectedTask && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+            <div className="flex items-center justify-between">
+              <Heading title="Task Detayı" />
+              <Button
+                type="button"
+                text="x"
+                variant="ghost"
+                onClick={() => setSelectedTask(null)}
+                className="text-xl text-gray-400 hover:text-gray-700"
+              />
+            </div>
+
+            <div className="mt-5 space-y-4">
+              <div>
+                <p className="text-xs text-gray-400">Başlık</p>
+                <p className="font-medium text-gray-800">{selectedTask.title}</p>
+              </div>
+
+              {selectedTask.description && (
+                <div>
+                  <p className="text-xs text-gray-400">Açıklama</p>
+                  <p className="text-sm text-gray-600">{selectedTask.description}</p>
+                </div>
+              )}
+
+              <div>
+                <p className="text-xs text-gray-400">Başlangıç-Bitiş tarihi</p>
+                <p className="text-sm text-gray-600">
+                  {selectedTask.start}- {selectedTask.end}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-xs text-gray-400">Öncelik</p>
+                <p className="text-sm text-gray-600">{selectedTask.priority || "-"}</p>
+              </div>
+
+              <div>
+                <p className="text-xs text-gray-400">Durum</p>
+                <p className="text-sm text-gray-600">
+                  {selectedTask.completed ? "Tamamlandı" : "Devam ediyor"}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
