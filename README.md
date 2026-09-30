@@ -33,7 +33,6 @@ PDOS Version 1 kapsamında uygulamanın temel kullanıcı, görev, not, hedef, d
 - [x] Dashboard istatistikleri
 - [x] Gün / Ay / Yıl filtreleme
 
-
 ---
 
 # 📌 Özellikler
@@ -127,58 +126,70 @@ Dashboard
 
 ## 🔮 Version 2
 
- Version 2 kapsamında öncelikli olarak authentication ve authorization altyapısının route seviyesinde güçlendirilmesi planlandı.
+Version 2 kapsamında öncelikli olarak authentication ve authorization altyapısının route seviyesinde güçlendirilmesi planlandı.
 
- Protected Route
- Role Based Route Protection
- Yetkisiz kullanıcıların protected sayfalara erişiminin engellenmesi
- Authentication state'in route seviyesinde kontrol edilmesi
- Sayfaların rollere göre ayrılması
+Protected Route
+Role Based Route Protection
+Yetkisiz kullanıcıların protected sayfalara erişiminin engellenmesi
+Authentication state'in route seviyesinde kontrol edilmesi
+Sayfaların rollere göre ayrılması
 
- - [x] Protected Route
-   
+- [x] Protected Route
+
 ---
 
 # PDOS Görselleri
 
 ## Login
-<img src="./client/public/assets/readMe/login.png" width="500"/>
+
+<img src="./public/assets/readMe/login.png" width="500"/>
 
 ## Profile Admin
-<img src="./client/public/assets/readMe/admin_profile.png" width="500"/>
+
+<img src="./public/assets/readMe/admin_profile.png" width="500"/>
 
 ## Document Admin
-<img src="./client/public/assets/readMe/admin_document.png" width="500"/>
+
+<img src="./public/assets/readMe/admin_document.png" width="500"/>
 
 ## Admin Tasks
-<img src="./client/public/assets/readMe/admin_task.png" width="500"/>
-<img src="./client/public/assets/readMe/admin_table.png" width="500"/>
+
+<img src="./public/assets/readMe/admin_task.png" width="500"/>
+<img src="./public/assets/readMe/admin_table.png" width="500"/>
 
 ## Calendar
-<img src="./client/public/assets/readMe/calendar.png" width="500"/>
+
+<img src="./public/assets/readMe/calendar.png" width="500"/>
 
 ## Notes
-<img src="./client/public/assets/readMe/notes.png" width="500"/>
-<img src="./client/public/assets/readMe/notesAdd.png" width="500"/>
+
+<img src="./public/assets/readMe/notes.png" width="500"/>
+<img src="./public/assets/readMe/notesAdd.png" width="500"/>
 
 ## Document
-<img src="./client/public/assets/readMe/document.png" width="500"/>
-<img src="./client/public/assets/readMe/documentAdd.png" width="500"/>
+
+<img src="./public/assets/readMe/document.png" width="500"/>
+<img src="./public/assets/readMe/documentAdd.png" width="500"/>
 
 ## Tasks Kanban
-<img src="./client/public/assets/readMe/task-pdos.png" width="500"/>
-<img src="./client/public/assets/readMe/task.png" width="500"/>
+
+<img src="./public/assets/readMe/task-pdos.png" width="500"/>
+<img src="./public/assets/readMe/task.png" width="500"/>
 
 ## Notifications
-<img src="./client/public/assets/readMe/notification.png" width="500"/>
+
+<img src="./public/assets/readMe/notification.png" width="500"/>
 
 ## Dashboard
-<img src="./client/public/assets/readMe/dashboard.png" width="500"/>
+
+<img src="./public/assets/readMe/dashboard.png" width="500"/>
 
 ## Analytics
-<img src="./client/public/assets/readMe/analist.png" width="500"/>
+
+<img src="./public/assets/readMe/analist.png" width="500"/>
 
 ## Goals
-<img src="./client/public/assets/readMe/goals.png" width="500"/>
-<img src="./client/public/assets/readMe/goalsAdd.png" width="500"/>
-<img src="./client/public/assets/readMe/goalsUpd.png" width="500"/>
+
+<img src="./public/assets/readMe/goals.png" width="500"/>
+<img src="./public/assets/readMe/goalsAdd.png" width="500"/>
+<img src="./public/assets/readMe/goalsUpd.png" width="500"/>
