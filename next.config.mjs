@@ -1,5 +1,4 @@
 const legacyApiUrl = process.env.LEGACY_API_URL ?? "http://localhost:6021";
-const isProd = process.env.NODE_ENV === "production";
 
 const securityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },
@@ -7,9 +6,6 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=()" },
   { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
-  ...(isProd
-    ? [{ key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" }]
-    : []),
 ];
 
 /** @type {import('next').NextConfig} */

@@ -6,6 +6,9 @@ services:
     environment:
       MONGODB_URI: mongodb://mongo:27017/pdos
       LOG_LEVEL: info
+      APP_URL: http://localhost:3000
+      SMTP_HOST: mailpit
+      SMTP_PORT: 1025
     depends_on:
       mongo:
         condition: service_healthy
@@ -17,7 +20,6 @@ services:
     environment:
       PORT: 6021
       MONGO_URI: mongodb://mongo:27017/pdos
-      JWT_SECRET: ${JWT_SECRET:-local-dev-secret}
     volumes:
       - uploads:/app/uploads
     depends_on:

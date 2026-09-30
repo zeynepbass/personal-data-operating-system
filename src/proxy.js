@@ -9,8 +9,16 @@ function isPublic(pathname) {
   return PUBLIC_PATHS.some((path) => pathname === path || pathname.startsWith(`${path}/`));
 }
 
-/** @param {string} nonce */
-export function buildCsp(nonce, isDev = process.env.NODE_ENV !== "production") {
+const isHttps = () => (process.env.APP_URL ?? "").startsWith("https://");
+
+/**
+ * @param {string} nonce
+ * @param {{ isDev?: boolean, https?: boolean }} [options]
+ */
+export function buildCsp(
+  nonce,
+  { isDev = process.env.NODE_ENV !== "production", https = isHttps() } = {},
+) {
   return [
     "default-src 'self'",
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${isDev ? " 'unsafe-eval'" : ""}`,
@@ -22,7 +30,7 @@ export function buildCsp(nonce, isDev = process.env.NODE_ENV !== "production") {
     "base-uri 'self'",
     "form-action 'self'",
     "frame-ancestors 'none'",
-    ...(isDev ? [] : ["upgrade-insecure-requests"]),
+    ...(https ? ["upgrade-insecure-requests"] : []),
   ].join("; ");
 }
 
@@ -45,6 +53,12 @@ export function proxy(request) {
 
   const response = NextResponse.next({ request: { headers: requestHeaders } });
   response.headers.set("Content-Security-Policy", csp);
+  if (isHttps()) {
+    response.headers.set(
+      "Strict-Transport-Security",
+      "max-age=63072000; includeSubDomains; preload",
+    );
+  }
   return response;
 }
 

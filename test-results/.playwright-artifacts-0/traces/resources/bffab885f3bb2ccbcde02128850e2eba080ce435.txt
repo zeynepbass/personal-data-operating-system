@@ -1,0 +1,1 @@
+[{"fullName":"E2E Kullanıcı","email":"e2e-1790778737693@example.com","password":"e2e-initial-pass","passwordAgain":"e2e-initial-pass"}]
