@@ -23,7 +23,6 @@ export const getDocuments = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Documents alınırken hata oluştu.",
-      error: error.message,
     });
   }
 };
@@ -68,7 +67,6 @@ export const createDocument = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Document oluşturulurken hata oluştu.",
-      error: error.message,
     });
   }
 };
@@ -102,7 +100,6 @@ export const deletedDocument = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Document silinirken hata oluştu.",
-      error: error.message,
     });
   }
 };

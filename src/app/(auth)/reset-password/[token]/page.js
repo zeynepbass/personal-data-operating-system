@@ -8,9 +8,5 @@ export const metadata = {
 export default async function ResetPasswordPage({ params }) {
   const { token } = await params;
 
-  return (
-    <main className="min-h-screen">
-      <ResetPasswordForm token={token} />
-    </main>
-  );
+  return <ResetPasswordForm token={token} />;
 }

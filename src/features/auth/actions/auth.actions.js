@@ -5,7 +5,12 @@ import { redirect } from "next/navigation";
 import { after } from "next/server";
 
 import { runAction } from "@/server/action";
-import { deleteSessionCookie, getRequestMeta, readSessionToken, setSessionCookie } from "@/server/auth/cookies";
+import {
+  deleteSessionCookie,
+  getRequestMeta,
+  readSessionToken,
+  setSessionCookie,
+} from "@/server/auth/cookies";
 import { requireUser } from "@/server/auth/dal";
 import { createSession, revokeSession } from "@/server/auth/session";
 import { logger } from "@/server/logger";

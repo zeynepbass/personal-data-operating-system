@@ -2,12 +2,14 @@
 
 import { useMemo, useState } from "react";
 
+import { useCurrentUser } from "@/features/auth/context/AuthProvider";
 import { useTasks } from "@/features/task/hooks/useTask";
 
 import AnalyticsHome from "../components/AnalyticsHome";
 import { getRemainingMonthDates } from "../utils/date";
 
 export default function AnalyticsPage() {
+  const userId = useCurrentUser()?.id;
   const { data: meeting = [], isLoading } = useTasks();
 
   const tasks = useMemo(() => {
@@ -22,9 +24,6 @@ export default function AnalyticsPage() {
 
   const filteredTasks = useMemo(() => {
     if (!selectedRange) return tasks;
-
-    const user = JSON.parse(localStorage.getItem("user"));
-    const userId = user?.id;
 
     if (!userId) return [];
 
@@ -41,7 +40,7 @@ export default function AnalyticsPage() {
 
       return taskDate >= startDate && taskDate <= endDate;
     });
-  }, [tasks, selectedRange]);
+  }, [tasks, selectedRange, userId]);
 
   const totalTasks = filteredTasks.length;
 

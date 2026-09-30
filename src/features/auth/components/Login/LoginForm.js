@@ -38,10 +38,7 @@ export default function LoginForm({ next, resetDone = false }) {
       description="Hesabınıza giriş yaparak hedeflerinizi takip etmeye devam edin."
     >
       {resetDone && (
-        <p
-          role="status"
-          className="mt-6 rounded-2xl bg-green-50 px-4 py-3 text-sm text-green-700"
-        >
+        <p role="status" className="mt-6 rounded-2xl bg-green-50 px-4 py-3 text-sm text-green-700">
           Şifreniz güncellendi. Yeni şifrenizle giriş yapabilirsiniz.
         </p>
       )}

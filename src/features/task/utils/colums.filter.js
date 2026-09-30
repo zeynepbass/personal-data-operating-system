@@ -10,11 +10,8 @@ export function transformTasksToRows(data = []) {
   );
 }
 
-export function getTodayTasks(data = []) {
+export function getTodayTasks(data = [], userId) {
   const today = new Date().toISOString().split("T")[0];
-
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userId = user?.id;
 
   if (!userId) return [];
 

@@ -64,7 +64,10 @@ export default function ResetPasswordForm({ token }) {
         />
 
         <p className="pt-2 text-center text-sm text-gray-500">
-          <Link href="/forgot-password" className="font-semibold text-[#555A8A] hover:text-[#7d78ce]">
+          <Link
+            href="/forgot-password"
+            className="font-semibold text-[#555A8A] hover:text-[#7d78ce]"
+          >
             Yeni bağlantı iste
           </Link>
         </p>

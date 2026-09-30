@@ -1,4 +1,7 @@
-import SettingsSecurity from "@/features/settings/pages/SettingsSecurityPage";
-export default function Security() {
+import SettingsSecurity from "@/features/settings/components/Settings/SettingsSecurity";
+
+export const metadata = { title: "Güvenlik" };
+
+export default function SecurityPage() {
   return <SettingsSecurity />;
 }

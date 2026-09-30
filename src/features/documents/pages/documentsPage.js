@@ -1,11 +1,11 @@
 "use client";
-import { useAuth } from "@/features/auth/hooks/useAuth";
+import { useCurrentUser } from "@/features/auth/context/AuthProvider";
 
 import DocumentsHome from "../components/DocumentsHome";
 import { useDocuments } from "../hooks/useDocuments";
 import filteredData from "../utils/filtered.search";
 export default function DocumentsPage() {
-  const { user } = useAuth();
+  const user = useCurrentUser();
 
   const isAdmin = user?.role === "admin";
   const {

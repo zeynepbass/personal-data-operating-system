@@ -15,7 +15,6 @@ export const getNotifications = async (req, res) => {
       return res.status(500).json({
         success: false,
         message: "Bildirimler alınırken hata oluştu.",
-        error: error.message,
       });
     }
   };

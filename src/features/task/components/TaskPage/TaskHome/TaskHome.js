@@ -49,11 +49,7 @@ export default function TaskHome({
         onSubmit={onSubmit}
       />
 
-      <TaskNavigation
-        view={view}
-        setView={setView}
-        isAdmin={isAdmin}
-      />
+      <TaskNavigation view={view} setView={setView} isAdmin={isAdmin} />
 
       <section className="min-h-[60vh]">
         <ViewComponent

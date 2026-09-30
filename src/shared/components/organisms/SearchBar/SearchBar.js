@@ -4,14 +4,15 @@ import { Bell, Settings, Search, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
-import { useAuth } from "@/features/auth/hooks/useAuth";
+import { logoutAction } from "@/features/auth/actions/auth.actions";
+import { useCurrentUser } from "@/features/auth/context/AuthProvider";
 import { useTasks } from "@/features/task/hooks/useTask";
 import { Button, Input } from "@/shared/components/atoms";
 import { getAssetUrl } from "@/shared/helpers/asset.helper";
 import { navigation } from "@/shared/mock/navigation";
 
 export function SearchBar() {
-  const { user, logout } = useAuth();
+  const user = useCurrentUser();
   const {
     notifications,
     isOpen,
@@ -140,13 +141,14 @@ export function SearchBar() {
                 <p className="mt-1 text-xs text-gray-500">{email}</p>
               </div>
 
-              <button
-                type="button"
-                onClick={logout}
-                className="w-full px-4 py-3 text-left text-xs font-semibold text-gray-700 transition hover:bg-slate-50 hover:text-purple-400"
-              >
-                Çıkış Yap
-              </button>
+              <form action={logoutAction}>
+                <button
+                  type="submit"
+                  className="w-full px-4 py-3 text-left text-xs font-semibold text-gray-700 transition hover:bg-slate-50 hover:text-purple-400"
+                >
+                  Çıkış Yap
+                </button>
+              </form>
             </div>
           )}
         </div>

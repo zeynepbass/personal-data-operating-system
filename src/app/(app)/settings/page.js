@@ -1,4 +1,7 @@
-import Profiles from "@/features/settings/pages/SettingsProfilePage";
-export default function Profile() {
-  return <Profiles />;
+import SettingsProfile from "@/features/settings/components/Settings/SettingsProfile";
+
+export const metadata = { title: "Profil" };
+
+export default function ProfilePage() {
+  return <SettingsProfile />;
 }

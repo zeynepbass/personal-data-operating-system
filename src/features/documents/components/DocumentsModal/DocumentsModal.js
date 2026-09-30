@@ -12,13 +12,7 @@ const initialForm = {
   pdf: null,
 };
 
-export default function DocumentsModal({
-  open,
-  setOpen,
-  isCreating,
-  isAdmin,
-  onSubmit,
-}) {
+export default function DocumentsModal({ open, setOpen, isCreating, isAdmin, onSubmit }) {
   const [form, setForm] = useState(initialForm);
 
   if (!open) return null;

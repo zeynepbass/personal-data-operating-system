@@ -8,7 +8,9 @@ import { toast } from "react-hot-toast";
 export function handleActionResult(form, result) {
   if (!result || result.ok) return true;
 
-  const entries = Object.entries(result.fieldErrors ?? {}).filter(([, messages]) => messages?.length);
+  const entries = Object.entries(result.fieldErrors ?? {}).filter(
+    ([, messages]) => messages?.length,
+  );
   entries.forEach(([field, messages], index) => {
     form.setError(field, { type: "server", message: messages[0] }, { shouldFocus: index === 0 });
   });

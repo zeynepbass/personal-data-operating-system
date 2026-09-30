@@ -18,6 +18,7 @@ export const LIMITS = Object.freeze({
  */
 export async function consume(key, { limit, windowMs }, now = new Date()) {
   await connectDB();
+  await RateLimit.init();
 
   const active = { $gt: ["$expiresAt", now] };
   const doc = await RateLimit.findOneAndUpdate(

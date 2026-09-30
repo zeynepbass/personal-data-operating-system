@@ -1,10 +1,29 @@
-import { Eye, PencilIcon, TrashIcon } from "lucide-react";
+"use client";
 
-import { Button, Heading } from "@/shared/components/atoms";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { PencilIcon, TrashIcon } from "lucide-react";
+import Link from "next/link";
+import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
+
+import { deleteAccountAction } from "@/features/auth/actions/auth.actions";
+import { useCurrentUser } from "@/features/auth/context/AuthProvider";
+import { Button, Heading, Input } from "@/shared/components/atoms";
+import { handleActionResult } from "@/shared/helpers/form.helper";
+import { deleteAccountSchema } from "@/shared/schemas/auth";
 
 import Modal from "../SettingsModal";
 
-function SecurityItem({ title, description, action, danger = false, border = true, text }) {
+const relativeFormatter = new Intl.RelativeTimeFormat("tr-TR", { numeric: "auto" });
+
+/** @param {string | null | undefined} iso */
+function describePasswordAge(iso) {
+  if (!iso) return "Henüz değiştirilmedi.";
+  const days = Math.round((new Date(iso).getTime() - Date.now()) / 86_400_000);
+  return `Son değiştirilme: ${relativeFormatter.format(days, "day")}.`;
+}
+
+function SecurityItem({ title, description, action, border = true }) {
   return (
     <div
       className={`flex items-center justify-between px-8 py-6 ${
@@ -19,75 +38,103 @@ function SecurityItem({ title, description, action, danger = false, border = tru
           descriptionClassName="mt-1 text-sm text-muted-foreground"
         />
       </div>
-
-      {action || <Button text={text} className="p-2" variant={danger ? "destructive" : "ghost"} />}
+      {action}
     </div>
   );
 }
 
-export default function SettingsSecurity({ open, setOpen, data, router, deleteAccount }) {
+function DeleteAccountDialog({ open, onClose }) {
+  const [isPending, startTransition] = useTransition();
+  const form = useForm({
+    resolver: zodResolver(deleteAccountSchema),
+    defaultValues: { password: "" },
+  });
+
+  const onSubmit = form.handleSubmit((values) =>
+    startTransition(async () => {
+      const result = await deleteAccountAction(values);
+      handleActionResult(form, result);
+    }),
+  );
+
+  return (
+    <Modal open={open} onClose={onClose} title="Hesabı Sil">
+      <form onSubmit={onSubmit} noValidate className="space-y-4">
+        <p className="text-sm text-gray-600">
+          Hesabınız, notlarınız, hedefleriniz, dokümanlarınız ve yüklediğiniz dosyalar kalıcı olarak
+          silinecek. Onaylamak için şifrenizi girin.
+        </p>
+        <Input
+          label="Şifre"
+          type="password"
+          autoComplete="current-password"
+          required
+          disabled={isPending}
+          error={form.formState.errors.password?.message}
+          {...form.register("password")}
+        />
+        <div className="flex justify-end gap-2">
+          <Button type="button" variant="secondary" text="Vazgeç" onClick={onClose} />
+          <Button
+            type="submit"
+            variant="destructive"
+            disabled={isPending}
+            text={isPending ? "Siliniyor..." : "Hesabı kalıcı olarak sil"}
+          />
+        </div>
+      </form>
+    </Modal>
+  );
+}
+
+export default function SettingsSecurity() {
+  const user = useCurrentUser();
+  const [deleteOpen, setDeleteOpen] = useState(false);
+
   return (
     <section className="space-y-8">
       <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
         <div className="border-b border-gray-200 px-8 py-6">
           <Heading
             title="Hesap Güvenliği"
-            description="Şifre ve doğrulama ayarlarınızı yönetin."
+            description="Şifre ve hesap ayarlarınızı yönetin."
             className="text-xl font-semibold"
           />
         </div>
 
         <SecurityItem
           title="Şifre"
-          description="Son değiştirilme: 18 gün önce."
-          text={
-            <PencilIcon
-              className="text-[#555A8A]"
-              width={20}
-              height={20}
-              onClick={() => router.push("/forgot-password")}
-            />
+          description={describePasswordAge(user?.passwordChangedAt)}
+          action={
+            <Link
+              href="/forgot-password"
+              aria-label="Şifre sıfırlama bağlantısı iste"
+              className="rounded-xl p-2 text-[#555A8A] transition hover:bg-gray-50"
+            >
+              <PencilIcon width={20} height={20} aria-hidden="true" />
+            </Link>
           }
         />
       </div>
 
       <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-        <div className="border-b border-gray-200 px-8 py-6">
-          <Heading
-            title="Güvenlik Bildirimleri"
-            description="Hesabınızla ilgili önemli olaylar."
-            className="text-xl font-semibold"
-          />
-        </div>
-
-        <SecurityItem
-          title="Son Şifre Değişikliği"
-          description="18 gün önce"
-          text={
-            <Eye className="text-[#555A8A]" width={20} height={20} onClick={() => setOpen(!open)} />
-          }
-        />
-        {open && (
-          <Modal open={open} onClose={() => setOpen(false)} title="Parola Bilgileri">
-            <div className="space-y-4">
-              <div className="rounded-xl border border-gray-200 p-4">
-                <p className="font-medium text-gray-900">
-                  {data?.passwordChangedAt
-                    ? new Date(data.passwordChangedAt).toLocaleDateString("tr-TR")
-                    : "Henüz değiştirilmedi"}
-                </p>
-              </div>
-            </div>
-          </Modal>
-        )}
         <SecurityItem
           title="Hesabı Sil"
           description="Bu işlem geri alınamaz."
           border={false}
-          danger
-          text={<TrashIcon width={20} height={20} onClick={() => deleteAccount()} />}
+          action={
+            <Button
+              variant="destructive"
+              className="p-2"
+              aria-label="Hesabı sil"
+              onClick={() => setDeleteOpen(true)}
+              text={<TrashIcon width={20} height={20} aria-hidden="true" />}
+            />
+          }
         />
       </div>
+
+      <DeleteAccountDialog open={deleteOpen} onClose={() => setDeleteOpen(false)} />
     </section>
   );
 }
