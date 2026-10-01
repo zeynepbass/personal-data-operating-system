@@ -4,7 +4,7 @@ const DAY = 24 * 60 * 60 * 1000;
 
 const startOfToday = () => {
   const now = new Date();
-  return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
 };
 
 /**

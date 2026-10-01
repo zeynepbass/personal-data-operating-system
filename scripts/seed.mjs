@@ -14,13 +14,13 @@ async function main() {
   try {
     await runMigrations(mongoose.connection.db);
     await seedDemo(mongoose.connection.db, { adminPassword, demoPassword });
-    console.log(
+    process.stdout.write(
       JSON.stringify({
         level: "info",
         service: "pdos-seed",
         message: "demo data ready",
         accounts: ["admin@pdos.dev", "demo@pdos.dev"],
-      }),
+      }).concat("\n"),
     );
   } finally {
     await mongoose.disconnect();
@@ -28,6 +28,8 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error(JSON.stringify({ level: "error", service: "pdos-seed", message: error.message }));
+  process.stderr.write(
+    `${JSON.stringify({ level: "error", service: "pdos-seed", message: error.message })}\n`,
+  );
   process.exit(1);
 });

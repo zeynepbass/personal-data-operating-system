@@ -9,10 +9,9 @@ import { useForm } from "react-hook-form";
 import { deleteAccountAction } from "@/features/auth/actions/auth.actions";
 import { useCurrentUser } from "@/features/auth/context/AuthProvider";
 import { Button, Heading, Input } from "@/shared/components/atoms";
+import { Modal } from "@/shared/components/organisms/Modal";
 import { handleActionResult } from "@/shared/helpers/form.helper";
 import { deleteAccountSchema } from "@/shared/schemas/auth";
-
-import { Modal } from "@/shared/components/organisms/Modal";
 
 const relativeFormatter = new Intl.RelativeTimeFormat("tr-TR", { numeric: "auto" });
 

@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Pencil } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
 import { updateProfileAction } from "@/features/auth/actions/auth.actions";
@@ -36,7 +36,8 @@ export default function SettingsProfile() {
     },
   });
   const { errors } = form.formState;
-  const emailChanged = form.watch("email").trim().toLowerCase() !== user?.email;
+  const watchedEmail = useWatch({ control: form.control, name: "email" }) ?? "";
+  const emailChanged = watchedEmail.trim().toLowerCase() !== user?.email;
 
   const onSubmit = form.handleSubmit((values) =>
     startTransition(async () => {

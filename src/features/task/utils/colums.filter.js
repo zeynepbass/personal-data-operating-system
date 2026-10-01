@@ -1,4 +1,4 @@
-const today = () => new Date().toISOString().slice(0, 10);
+import { getToday as today } from "@/shared/helpers/format.helper";
 
 export function transformTasksToRows(data = []) {
   return data.flatMap((meeting) =>

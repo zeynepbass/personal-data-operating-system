@@ -39,7 +39,7 @@ describe("proxy", () => {
     const csp = response.headers.get("content-security-policy");
 
     expect(response.headers.get("location")).toBeNull();
-    expect(csp).toMatch(/script-src 'self' 'nonce-[A-Za-z0-9+/=]+' 'strict-dynamic'/);
+    expect(csp).toMatch(/script-src 'self' 'nonce-[A-Za-z0-9+/=]+'/);
     expect(csp).toContain("frame-ancestors 'none'");
     expect(csp).toContain("object-src 'none'");
   });
@@ -53,6 +53,8 @@ describe("proxy", () => {
   it("only allows eval and upgrades requests in the right environments", () => {
     expect(buildCsp("n", { isDev: true, https: false })).toContain("'unsafe-eval'");
     expect(buildCsp("n", { isDev: false, https: false })).not.toContain("'unsafe-eval'");
+    expect(buildCsp("n", { isDev: false, https: false })).toContain("'nonce-n' 'strict-dynamic'");
+    expect(buildCsp("n", { isDev: true, https: false })).not.toContain("'strict-dynamic'");
     expect(buildCsp("n", { isDev: false, https: true })).toContain("upgrade-insecure-requests");
   });
 

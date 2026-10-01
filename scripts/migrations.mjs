@@ -11,7 +11,9 @@ const STATUS_COLORS = { todo: "green", "in-progress": "purple", done: "orange" }
 
 const log = (message, extra = {}) =>
   process.env.NODE_ENV !== "test" &&
-  console.log(JSON.stringify({ level: "info", service: "pdos-migrate", message, ...extra }));
+  process.stdout.write(
+    `${JSON.stringify({ level: "info", service: "pdos-migrate", message, ...extra })}\n`,
+  );
 
 /** @param {import("mongodb").Db} db @param {string} collection @param {string} index */
 async function dropIndexIfExists(db, collection, index) {

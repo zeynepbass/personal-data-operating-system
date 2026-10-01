@@ -1,3 +1,5 @@
+import { toLocalDay } from "@/shared/helpers/format.helper";
+
 /**
  * @typedef {"day" | "month" | "year"} Duration
  * @typedef {{ date: string | null, status: string }} FocusTask
@@ -60,11 +62,7 @@ export function buildActivity(tasks, duration, now = new Date()) {
 
   return Array.from({ length: 7 }, (_, offset) => {
     const date = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (6 - offset));
-    const key = [
-      date.getFullYear(),
-      String(date.getMonth() + 1).padStart(2, "0"),
-      String(date.getDate()).padStart(2, "0"),
-    ].join("-");
+    const key = toLocalDay(date);
     return {
       label: date.toLocaleDateString("tr-TR", { weekday: "short" }),
       count: tasks.filter((task) => task.date === key).length,

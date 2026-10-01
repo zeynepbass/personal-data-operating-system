@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { Button } from "@/shared/components/atoms";
 
+import { GOAL_CATEGORIES } from "../GoalsForm/GoalFormBasic";
 import GoalItem from "../GoalsItem";
 
 export default function GoalsCard({
@@ -42,7 +43,9 @@ export default function GoalsCard({
       className="relative rounded-3xl border border-gray-100 bg-white p-6 shadow-sm"
     >
       <div className="flex items-center justify-between">
-        <p className="text-sm font-semibold">{category}</p>
+        <p className="text-sm font-semibold">
+          {GOAL_CATEGORIES.find((item) => item.value === category)?.label ?? category}
+        </p>
         <button
           type="button"
           aria-label={`${title} menüsü`}

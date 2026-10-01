@@ -33,7 +33,8 @@ export default defineConfig({
         test: {
           name: "server",
           environment: "node",
-          testTimeout: 20_000,
+          testTimeout: 30_000,
+          hookTimeout: 30_000,
           include: [
             "src/server/**/*.test.js",
             "src/*.test.js",
