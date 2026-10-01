@@ -12,16 +12,7 @@ import { createNoteAction } from "@/features/notes/actions/note.actions";
 import { getCurrentUser } from "@/server/auth/dal";
 import { sendMail } from "@/server/mail/mailer";
 import { clearDatabase, createTestUser } from "@tests/helpers/db";
-import {
-  catchRedirect,
-  flushAfter,
-  nextCacheMock,
-  nextHeadersMock,
-  nextNavigationMock,
-  nextServerMock,
-  requestState,
-  resetRequestState,
-} from "@tests/helpers/next";
+import { catchRedirect, flushAfter, requestState, resetRequestState } from "@tests/helpers/next";
 
 vi.mock("next/headers", async () => (await import("@tests/helpers/next")).nextHeadersMock());
 vi.mock("next/navigation", async () => (await import("@tests/helpers/next")).nextNavigationMock());

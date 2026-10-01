@@ -1,14 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
-
 import { Button } from "@/shared/components/atoms";
 
 export default function AppError({ error, reset }) {
-  useEffect(() => {
-    if (process.env.NODE_ENV !== "production") console.error(error);
-  }, [error]);
-
   return (
     <div
       role="alert"

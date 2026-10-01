@@ -112,14 +112,15 @@ export default function DocumentsHome({
                   </button>
                 )}
               </span>
-              <div
-                className="mb-6 flex justify-center cursor-pointer transition group-hover:scale-105"
-                onClick={() => {
-                  window.open(doc.pdf, "_blank", "noopener,noreferrer");
-                }}
+              <a
+                href={doc.pdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${doc.name} belgesini indir`}
+                className="mb-6 flex justify-center transition group-hover:scale-105"
               >
                 {iconMap[doc.icon]}
-              </div>
+              </a>
               <h3 className="truncate text-sm font-semibold text-gray-800">{doc.name}</h3>
               <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
                 <span>{doc.size}</span>

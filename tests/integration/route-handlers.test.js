@@ -7,13 +7,7 @@ import { GET as getTasks } from "@/app/api/tasks/route";
 import { createSession } from "@/server/auth/session";
 import { createNote } from "@/server/services/note.service";
 import { clearDatabase, createTestUser } from "@tests/helpers/db";
-import {
-  nextCacheMock,
-  nextHeadersMock,
-  nextNavigationMock,
-  requestState,
-  resetRequestState,
-} from "@tests/helpers/next";
+import { requestState, resetRequestState } from "@tests/helpers/next";
 
 vi.mock("next/headers", async () => (await import("@tests/helpers/next")).nextHeadersMock());
 vi.mock("next/navigation", async () => (await import("@tests/helpers/next")).nextNavigationMock());

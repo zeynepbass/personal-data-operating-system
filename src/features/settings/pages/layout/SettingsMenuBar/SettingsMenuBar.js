@@ -1,6 +1,6 @@
 "use client";
 
-import { User, Bell, Globe, Shield } from "lucide-react";
+import { User, Shield } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import SettingHeading from "../../../components/Settings/SettingsHeading";

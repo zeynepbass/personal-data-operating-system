@@ -1,5 +1,5 @@
-import { connectDB, disconnectDB } from "@/server/db/connect";
 import { hashPassword } from "@/server/auth/password";
+import { connectDB, disconnectDB } from "@/server/db/connect";
 import { User } from "@/server/models/user.model";
 
 export async function clearDatabase() {

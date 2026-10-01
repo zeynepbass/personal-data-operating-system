@@ -9,7 +9,7 @@ export const getTodayMeetings = (meetings = [], userId) => {
     .map((meeting) => {
       if (!meeting.meetingCalendar) return null;
 
-      const meetingDate = new Date(meeting.meetingCalendar).toISOString().split("T")[0];
+      const meetingDate = meeting.meetingCalendar.slice(0, 10);
 
       if (meetingDate !== today) return null;
 

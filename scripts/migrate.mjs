@@ -15,13 +15,13 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error(
+  process.stderr.write(
     JSON.stringify({
       level: "error",
       service: "pdos-migrate",
       message: error.message,
       stack: error.stack,
-    }),
+    }).concat("\n"),
   );
   process.exit(1);
 });

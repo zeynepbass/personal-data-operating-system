@@ -1,8 +1,7 @@
 import Link from "next/link";
 
-import { listNotes } from "@/server/services/note.service";
-
 import DashboardList from "@/features/dashboard/components/DashboardList";
+import { listNotes } from "@/server/services/note.service";
 
 export default async function RecentNotes({ user }) {
   const { items } = await listNotes(user, { limit: 3 });
