@@ -6,6 +6,7 @@ services:
     environment:
       MONGODB_URI: mongodb://mongo:27017/pdos
       LOG_LEVEL: info
+      TZ: ${TZ:-Europe/Istanbul}
       APP_URL: ${APP_URL:-http://localhost:3000}
       SMTP_HOST: mailpit
       SMTP_PORT: 1025

@@ -1,8 +1,7 @@
-import { Button } from "@/shared/components/atoms";
-import { PageHeader } from "@/shared/components/molecules";
-
 import NotesMenu from "@/features/notes/components/NotesMenu";
 import NotesNavbar from "@/features/notes/components/NotesNavbar";
+import { Button } from "@/shared/components/atoms";
+import { PageHeader } from "@/shared/components/molecules";
 
 export default function NotesLayout({
   children,

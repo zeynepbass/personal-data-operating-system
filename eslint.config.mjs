@@ -5,9 +5,6 @@ import importPlugin from "eslint-plugin-import";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import globals from "globals";
 
-const asWarnings = (rules) =>
-  Object.fromEntries(Object.entries(rules).map(([name]) => [name, "warn"]));
-
 const eslintConfig = defineConfig([
   ...nextVitals,
   {
@@ -19,13 +16,14 @@ const eslintConfig = defineConfig([
       },
     },
     rules: {
-      ...asWarnings(jsxA11y.flatConfigs.recommended.rules),
-      ...asWarnings(importPlugin.flatConfigs.recommended.rules),
+      ...jsxA11y.flatConfigs.recommended.rules,
+      ...importPlugin.flatConfigs.recommended.rules,
+      "jsx-a11y/label-has-for": "off",
       "import/no-unresolved": "error",
-      "import/no-cycle": "warn",
+      "import/no-cycle": "error",
       "import/no-duplicates": "error",
       "import/order": [
-        "warn",
+        "error",
         {
           groups: ["builtin", "external", "internal", "parent", "sibling", "index"],
           pathGroups: [{ pattern: "@/**", group: "internal" }],
@@ -33,7 +31,7 @@ const eslintConfig = defineConfig([
           alphabetize: { order: "asc", caseInsensitive: true },
         },
       ],
-      "no-unused-vars": ["warn", { argsIgnorePattern: "^_", ignoreRestSiblings: true }],
+      "no-unused-vars": ["error", { argsIgnorePattern: "^_", ignoreRestSiblings: true }],
       eqeqeq: ["error", "smart"],
     },
   },

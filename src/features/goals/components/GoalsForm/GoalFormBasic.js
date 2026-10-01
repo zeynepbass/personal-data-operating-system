@@ -1,6 +1,6 @@
 import { Input, Select } from "@/shared/components/atoms";
 
-const CATEGORIES = [
+export const GOAL_CATEGORIES = [
   { value: "2026-goals", label: "2026 Hedefleri" },
   { value: "personal-goals", label: "Kişisel Hedefler" },
   { value: "2027-goals", label: "2027 Hedefleri" },
@@ -26,7 +26,7 @@ export function GoalFormBasic({ form }) {
           label="Kategori"
           placeholder="Kategori seç"
           required
-          options={CATEGORIES}
+          options={GOAL_CATEGORIES}
           error={formState.errors.category?.message}
           {...register("category")}
         />

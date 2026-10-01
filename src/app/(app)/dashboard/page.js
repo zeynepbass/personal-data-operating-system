@@ -1,9 +1,10 @@
 import { Suspense } from "react";
 
-import RecentNotes from "./_components/RecentNotes";
 import DashboardPage from "@/features/dashboard/pages/dashboardPage";
 import { requirePageUser } from "@/server/auth/dal";
 import { listBoard } from "@/server/services/task.service";
+
+import RecentNotes from "./_components/RecentNotes";
 
 export const metadata = { title: "Dashboard" };
 

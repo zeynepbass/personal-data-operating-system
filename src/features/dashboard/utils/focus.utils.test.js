@@ -5,6 +5,7 @@ import {
   getTodayTasks,
   transformTasksToRows,
 } from "@/features/task/utils/colums.filter";
+import { toLocalDay } from "@/shared/helpers/format.helper";
 
 import { buildActivity, filterTasksByDuration, summarizeStatuses } from "./focus.utils";
 
@@ -65,7 +66,7 @@ describe("board utils", () => {
         {
           id: "a",
           status: "todo",
-          date: new Date().toISOString().slice(0, 10),
+          date: toLocalDay(),
           assignee: { id: "u1" },
         },
         { id: "b", status: "done", date: null, assignee: { id: "u2" } },

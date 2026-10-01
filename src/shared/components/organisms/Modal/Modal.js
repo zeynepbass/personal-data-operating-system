@@ -1,7 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useEffect, useId, useRef } from "react";
+import { useCallback, useEffect, useId, useRef } from "react";
 
 const SIZES = {
   md: "max-w-lg",
@@ -14,6 +14,10 @@ export function Modal({ open, onClose, title, description, size = "md", busy = f
   const titleId = useId();
   const descriptionId = useId();
 
+  const requestClose = useCallback(() => {
+    if (!busy) onClose();
+  }, [busy, onClose]);
+
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
@@ -22,9 +26,16 @@ export function Modal({ open, onClose, title, description, size = "md", busy = f
     if (!open && dialog.open) dialog.close();
   }, [open]);
 
-  const requestClose = () => {
-    if (!busy) onClose();
-  };
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return undefined;
+
+    const closeOnBackdrop = (event) => {
+      if (event.target === dialog) requestClose();
+    };
+    dialog.addEventListener("click", closeOnBackdrop);
+    return () => dialog.removeEventListener("click", closeOnBackdrop);
+  }, [requestClose]);
 
   return (
     <dialog
@@ -35,9 +46,6 @@ export function Modal({ open, onClose, title, description, size = "md", busy = f
       onCancel={(event) => {
         event.preventDefault();
         requestClose();
-      }}
-      onClick={(event) => {
-        if (event.target === dialogRef.current) requestClose();
       }}
       className={`m-auto w-[calc(100%-2rem)] ${SIZES[size]} overflow-hidden rounded-2xl bg-white p-0 shadow-2xl backdrop:bg-black/50 backdrop:backdrop-blur-sm`}
     >

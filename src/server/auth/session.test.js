@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
 import { clearDatabase, createTestUser } from "@tests/helpers/db";
+
 import { Session } from "../models/session.model";
 import { User } from "../models/user.model";
 
