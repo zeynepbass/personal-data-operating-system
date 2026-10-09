@@ -191,6 +191,4 @@ docs/adr/              mimari karar kayıtları
 | ![Notlar](docs/screenshots/notes.png)     | ![Hedefler](docs/screenshots/goals.png)      |
 | ![Analiz](docs/screenshots/analytics.png) | ![Takvim](docs/screenshots/calendar.png)     |
 
-## Lisans
 
-MIT — bkz. [LICENCE](LICENCE).
