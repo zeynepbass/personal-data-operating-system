@@ -139,8 +139,6 @@ pnpm test:e2e             # Playwright; önce docker compose up
 
 Service katmanı satır kapsamı %96, auth katmanı %90'ın üzerindedir.
 
-CI (`.github/workflows/ci.yml`) her PR'da lint → format → test (+kapsam) → build, ardından Docker üzerinde Playwright ve Lighthouse CI çalıştırır.
-
 ## Performans ve erişilebilirlik
 
 Lighthouse (masaüstü, 3 çalıştırmanın medyanı), eski sürüm (`9e393c4`) ile karşılaştırma:
